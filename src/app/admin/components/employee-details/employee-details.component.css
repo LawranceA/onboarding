@@ -1,75 +1,45 @@
-.details-conatiner {
-  width: 95%;
-  height: 85%;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  margin-top: 0.5rem;
-  position: fixed;
-  overflow: auto;
-  
+.expansion-container{
+  margin:1rem 2rem;
 }
-.clm-1 {
-  
-  height: auto;
-  padding: 0.5rem 0;
-  font-size: 0.8rem;
-  flex: 1;
+.mat-expansion-panel{
+  margin-bottom: 1rem;
+}
+.mat-expansion-panel-header{
+  padding-top: 1rem;
+}
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
 
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
 }
-.basic-info {
-  color: #014868;
-  padding-left: 2rem;
-}
-.basic-info > div,
-.basic-info > div:not(:nth-child(1)) {
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-  border-bottom: 1px solid #0147687e;
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
 }
 .profile {
   color: #014868;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #0147683e;
 }
 
 .profile p {
   font-weight: normal;
+  color: #014868;
 }
 .profile h4 {
   font-weight: 500;
 }
-.data {
-  margin-top: -1.7rem;
-  padding-left: 2rem;
-}
-.data-icon {
-  color: #014768bb;
-}
-.other-details-heading {
-  color: #014768bb;
-}
-.files-uploaded{
-  width: 15%;
-  float: right;
-}
-.clm-2 {
 
-  flex: 3;
-  padding: 0.5rem 0;  
-  height: 100%;
-}
-.all-details{
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-evenly; */
-  
-}
-.all-details .heading{
-  position: relative;
-}
-.all-details .heading h5{
+h5{
+  margin-top: 15%;
   color: #014868;
   font-weight: 500;
   font-size: 1.5rem;
+  padding-bottom: .8rem;
 }
 h5:after{
  content: "";
@@ -79,21 +49,51 @@ h5:after{
  border-radius: 2px;
  margin-top:1rem;
 }
-.personal-info{
-  margin-top: 1rem;
+.info{
+  /* margin-top: 1rem; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  color: #014868;
+}
+.heading {
   color: #014868;
 }
 .datas{
   font-weight: 500;
 }
-.emp-details{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.btn-orange{
+  color:#FF934f
+}
+.edu-heading{
+  padding-top: 1rem;
+  font-weight: bold;
+
+}
+.files-button{
+  width:8rem
+}.emp-info{
+  padding-top: 2rem;
+}
+.address-heading{
+  padding-top: 1rem;
+  font-weight: bold;
+}
+.created-container{
+  color: #014868;
+  padding: 2rem 0;
+  margin-left: 80%;
+}
+.created-heading{
+  font-weight: 500;
+}
+.created-container p,.created-container h4{
+  display: inline;
+  padding-left: .5rem;
+}
+mat-icon{
+  color: #014868;
 }
 
 /* modal */
@@ -149,21 +149,78 @@ h5:after{
   from {transform:scale(0)} 
   to {transform:scale(1)}
 }
-/* ---------------------------- */
+/* ------------------------ */
+@media(max-width:75em){
+  h5{
+    padding-bottom: .6rem;
+  }
+}
+@media(max-width:68.75em){
+  h5{
+    font-size: 1.25rem;
+    padding-bottom: .3rem;
+  }
+  .created-container{
+    margin-left: 75%;
+  }
+}
 @media(max-width:62.5em){
-  .details-conatiner {
-    
-    
+  h5{
+    font-size: 1rem;
+    padding: bottom 0;
+  }
+  h5:after{
+    margin-top:0;
+   }
+  .created-container{
+    margin-left: 65%;
+  }
+  .personal-info{
     flex-direction: column;
-    margin-top: 0.5rem;
-    position: fixed;
-    overflow: auto;
-    
+   margin-left: 2%;
+   margin-right: 2%;
   }
-  .clm-1{
-    padding: 5rem;
+  .disp-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
   }
-  .basic-info{
-    padding:0 5rem;
+  .files-button{
+    width: 6.5rem;
+    font-size: .8rem;
+  }
+  .mat-expansion-panel-header{
+    padding-bottom: 1rem;
+  }
+}
+@media(max-width:31.25em){
+  .created-heading{
+    font-size: .8rem;
+  }
+  .created-container{
+    margin-left: 0;
+  }
+  .created-container p{
+    font-size: .8rem;
+  }h5{
+    font-size: .9rem;
+  }
+}
+@media(max-width:25em){
+ h5{
+    font-size: .7rem;
+  }
+  .profile p {
+    font-size: .8rem;
+  }
+  .profile h4 {
+    font-size: .9rem;
+  }p{
+    font-size: .6rem;
+  }.expansion-container{
+    margin:.5rem .5rem;
+  }.mat-expansion-panel-body {
+    padding: 0.2px;
   }
 }

@@ -15,12 +15,12 @@ export class EmployeeDetailsComponent implements OnInit {
   img = '../../../../assets/images/account_registered.svg';
   display = '';
   personalInfo={
-    fname:'mike',
-    lname:'jeorge',
+    fname:'mike louies',
+    lname:'xyz',
     dob:'1998-02-01',
     mobNo:'78090909',
     alternateNo:'7687687687',
-    personalEmail:'mike@gmaul.com'
+    personalEmail:'mikefhfhgfhgfhgf@gmaul.com'
   }
     address={
       currentAdd:'#123 nandhi nagar bangaladesh'
@@ -37,10 +37,22 @@ export class EmployeeDetailsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(FilesUploadedComponent, {
      
-      data:{file:this.files,image:this.images}
+      data:{file:this.files}
     });
   }
+  step = 0;
 
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
   openImg() {
     this.display = 'block';
   }

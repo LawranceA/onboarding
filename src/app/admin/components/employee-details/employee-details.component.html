@@ -1,6 +1,28 @@
-<div class="details-conatiner">
-  <div class="clm-1">
-    <mat-card class="basic-info">
+
+<div class="expansion-container">
+  <div class="created-container">
+    <div>
+      <h4 class="created-heading">Created by :</h4>
+      <p class="datas">Admin </p>
+    </div>
+    <div>
+      <h4 class="created-heading">Created At :</h4>
+      <p class="datas">2020-09-08</p>
+    </div>
+  </div>
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel
+      [expanded]="step === 0"
+      (opened)="setStep(0)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> <h5>Personal Information</h5> </mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
       <div class="profile">
         <div class="profile-img">
           <img [src]="'../../../../assets/images/pro.webp'" alt="" srcset="" />
@@ -8,140 +30,235 @@
         <h4 class="profile-name">Alex</h4>
         <p class="profile-data">Jr.Software Developer, DB0065</p>
       </div>
+
+      <div class="info personal-info">
+        <div class="disp-row">
+          <p class="heading">First name</p>
+          <p class="datas">{{ personalInfo.fname }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Last name</p>
+          <p class="datas">{{ personalInfo.lname }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">DOB</p>
+          <p class="datas">{{ personalInfo.dob }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Mobile Number</p>
+          <p class="datas">{{ personalInfo.mobNo }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Alternate Number</p>
+          <p class="datas">{{ personalInfo.alternateNo }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Email</p>
+          <p class="datas">{{ personalInfo.personalEmail }}</p>
+        </div>
+      </div>
       <div>
-        <mat-icon class="data-icon">mail_outline</mat-icon>
-        <p class="data">Email</p>
-        <mat-icon class="data-icon">device_hub</mat-icon>
-        <p class="data">designation</p>
-        <mat-icon class="data-icon">perm_identity</mat-icon>
-        <p class="data">gender</p>
-        <mat-icon class="data-icon">calendar_today</mat-icon>
-        <p class="data">DOJ</p>
-        <mat-icon class="data-icon">place</mat-icon>
-        <p class="data">location</p>
+        <p class="heading address-heading">Addresses</p>
+        <div class="info personal-info">
+          <div>
+            <p class="heading">Permanent Address</p>
+            <p class="datas">#123 gandhi nagar mumbai</p>
+          </div>
+          <div>
+            <p class="heading">Current Address</p>
+            <p class="datas">#123 gandhi nagar mumbai</p>
+          </div>
+        </div>
       </div>
+      <mat-action-row>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="step === 1"
+      (opened)="setStep(1)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> <h5>Educational Details</h5> </mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+
+          <mat-icon>school</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
       <div>
-        <h4 style="text-align: center">OTHER DETAILS</h4>
-        <div class="emp-details">
-          <p class="other-details-heading">Aadhar Card Details </p>
-          <mat-icon (click)="openImg()">image</mat-icon>
-        </div>
-        <div class="emp-details">
-          <p class="other-details-heading">Pan Card Number</p>
-          <mat-icon (click)="openImg()">image</mat-icon>
-        </div>
-        <div class="emp-details">
-          <p class="other-details-heading">Passport details</p>
-          <mat-icon (click)="openImg()">image</mat-icon>
-        </div>
-      </div>
-      <div>
-        <div class="emp-details">
-          <p class="other-details-heading">Created by    </p>
-          <p class="datas">Admin name</p>
-        </div>
-        <div class="emp-details">
-          <p class="other-details-heading">Created At   </p>
-          <p class="datas">DATE TIME</p>
-        </div>
-      </div>
-    </mat-card>
-  </div>
-
-
-
-  <div class="clm-2">
-    <mat-card class="all-details">
-      <div class="heading">
-        <h5>Personal Information</h5>
-        <div class="personal-info">
-          <div>
-            <p class="other-details-heading">First name</p>
-            <p class="datas">{{ personalInfo.fname }}</p>
+        <p class="heading edu-heading">10Th</p>
+        <div class="info personal-info">
+          <div class="disp-row">
+            <p class="heading">University/School name</p>
+            <p class="datas">ABDC</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">Board</p>
+            <p class="datas">KSSLC</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">End Date</p>
+            <p class="datas">2020-01-03</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">Marks</p>
+            <p class="datas">70%</p>
           </div>
           <div>
-            <p class="other-details-heading">Last name</p>
-            <p class="datas">{{ personalInfo.lname }}</p>
-          </div>
-          <div>
-            <p class="other-details-heading">DOB</p>
-            <p class="datas">{{ personalInfo.dob }}</p>
-          </div>
-          <div>
-            <p class="other-details-heading">Mobile Number</p>
-            <p class="datas">{{ personalInfo.mobNo }}</p>
-          </div>
-          <div>
-            <p class="other-details-heading">Alternate Number</p>
-            <p class="datas">{{ personalInfo.alternateNo }}</p>
-          </div>
-          <div>
-            <p class="other-details-heading">Email</p>
-            <p class="datas">{{ personalInfo.personalEmail }}</p>
+            <button
+              mat-button
+              class="button-gradient files-button"
+              (click)="openDialog()"
+            >
+              Files Uploaded
+            </button>
           </div>
         </div>
       </div>
-      <div class="heading">
-        <h5>Address</h5>
-        <div class="personal-info">
-          <div>
-            <p class="other-details-heading">Current Address</p>
-            <p class="datas">{{ address.currentAdd }}</p>
-          </div>
-          <div>
-            <p class="other-details-heading">Permanent Address</p>
-            <p class="datas">{{ address.currentAdd }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="heading">
-        <h5>Educational details</h5>
-        <div class="personal-info">
-          <div>
-            <p class="other-details-heading">10th</p>
-            <div class="emp-details">
-              <p class="other-details-heading">Board:</p>
-              <p class="datas">KSSLC</p>
-            </div>
 
-            <div class="emp-details">
-              <p class="other-details-heading">End Date:</p>
-              <p class="datas">2020-09-01</p>
-            </div>
-            <div class="emp-details">
-              <p class="other-details-heading">Marks:</p>
-              <p class="datas">65%</p>
-            </div>
-          </div>
-        </div>
-        <button mat-button class="button-gradient files-uploaded" (click)="openDialog()">
-          files uploaded
+      <mat-action-row>
+        <button mat-button  color="warn" (click)="prevStep()">
+          Previous
         </button>
-      </div>
-      <div class="heading">
-        <h5>Employment details</h5>
-        <div class="personal-info" *ngFor="let data of emp; index as i">
-          <div class="emp-details">
-            <p class="other-details-heading">Organization Name:</p>
-            <p class="datas">{{ emp[i].name }}</p>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="step === 2"
+      (opened)="setStep(2)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Employment Details</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>work</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div class="emp-info">
+        <div class="info personal-info">
+          <div class="disp-row">
+            <p class="heading">Organization Name</p>
+            <p class="datas">ABDC</p>
           </div>
-          <div class="emp-details">
-            <p class="other-details-heading">Joining date:</p>
-            <p class="datas">{{ emp[i].join }}</p>
+          <div class="disp-row">
+            <p class="heading">Joining Date</p>
+            <p class="datas">2020-09-09</p>
           </div>
-          <div class="emp-details">
-            <p class="other-details-heading">Notice Date:</p>
-            <p class="datas">{{ emp[i].notice }}</p>
+          <div class="disp-row">
+            <p class="heading">Relieving Date</p>
+            <p class="datas">2020-01-03</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">Notice Date</p>
+            <p class="datas">2020-09-08</p>
+          </div>
+          <div>
+            <button
+              mat-button
+              class="button-gradient files-button"
+              (click)="openDialog()"
+            >
+              Files Uploaded
+            </button>
           </div>
         </div>
-        <button mat-button class="button-gradient files-uploaded">
-          files uploaded
-        </button>
       </div>
-    </mat-card>
-  </div>
-  <div class="modal" [ngStyle]="{ display: display }">
-    <mat-icon class="close" (click)="closeImg()">close</mat-icon>
-    <img class="modal-img" [src]="img" />
-  </div>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 3"
+      (opened)="setStep(3)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Other Details</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>library_books</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div class="emp-info">
+        <div class="info">
+          <div>
+            <p class="heading">Aadhar Card</p>
+            <mat-icon (click)="openImg()">image</mat-icon>
+          </div>
+          <div>
+            <p class="heading">Pan Card</p>
+            <mat-icon (click)="openImg()">image</mat-icon>
+          </div>
+          <div>
+            <p class="heading">Passport</p>
+            <mat-icon (click)="openImg()">image</mat-icon>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 4"
+      (opened)="setStep(4)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Declaration</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>style</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div class="emp-info">
+        <div class="info">
+          <div>
+            <p class="heading">Joining Date</p>
+            <p class="datas">2020-09-05</p>
+          </div>
+          <div>
+            <p class="heading">Place</p>
+            <p class="datas">Bengalore</p>
+          </div>
+          <div>
+            <p class="heading">Date</p>
+            <p class="datas">2020-09-05</p>
+          </div>
+          <div>
+            <button
+              mat-button
+              class="button-gradient files-button"
+              (click)="openDialog()"
+            >
+              Files Uploaded
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">End</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div class="modal" [ngStyle]="{ display: display }">
+  <mat-icon class="close" (click)="closeImg()">close</mat-icon>
+  <img class="modal-img" [src]="img" />
 </div>

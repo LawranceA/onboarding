@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const materialComponents = [
   MatButtonModule,
@@ -31,6 +32,7 @@ const materialComponents = [
   MatDividerModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatExpansionModule
 ];
 
 @NgModule({
