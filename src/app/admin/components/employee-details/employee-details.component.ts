@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { FilesUploadedComponent } from '../files-uploaded/files-uploaded.component';
+//dialouge box  data format
 export interface DialogData {
   file:any,
-  images:any
 }
 @Component({
   selector: 'app-employee-details',
@@ -11,9 +11,11 @@ export interface DialogData {
   styleUrls: ['./employee-details.component.css'],
 })
 export class EmployeeDetailsComponent implements OnInit {
- 
+ //img src for opening image in this page
   img = '../../../../assets/images/account_registered.svg';
+  // for modal
   display = '';
+  // dummy data to display in personal part
   personalInfo={
     fname:'mike louies',
     lname:'xyz',
@@ -27,32 +29,32 @@ export class EmployeeDetailsComponent implements OnInit {
     }
 
     emp=[{name:'ytrytryt',join:'6576576',notice:'76876'},{name:'iuou',join:'',notice:''},{name:'ytrytryt',join:'6576576',notice:'76876'}]
+    //sending this to dialogue box
     files=[{name:'Profile',src:'../../../../assets/images/account_registered.svg',fileType:'img'},{name:'Marks',src:'../assets/docs/sample.pdf',fileType:'pdf'}]
-    images:any
+  
     constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { 
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(FilesUploadedComponent, {
-     
-      data:{file:this.files}
+     data:{file:this.files}
     });
   }
-  step = 0;
 
+  // for expansion pannel
+  step = 0;
   setStep(index: number) {
     this.step = index;
   }
-
   nextStep() {
     this.step++;
   }
-
   prevStep() {
     this.step--;
   }
+  // for modal display
   openImg() {
     this.display = 'block';
   }

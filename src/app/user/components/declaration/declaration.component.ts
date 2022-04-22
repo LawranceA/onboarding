@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./declaration.component.css']
 })
 export class DeclarationComponent implements OnInit {
-
+  
+  checked = false;
   declaration = new FormGroup({
     joiningDate : new FormControl(''),
     photo : new FormControl(''),

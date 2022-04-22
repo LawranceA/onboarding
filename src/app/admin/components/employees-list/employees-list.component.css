@@ -21,31 +21,12 @@ table {
   color: #014868;
   line-height: 2.5;
 }
-.mat-column-name {
+.mat-column-name,.mat-column-email,.mat-column-phoneno,.mat-column-doj,.mat-column-updated,.mat-column-status  {
   
   color: #014868;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
 }
-.mat-column-email {
-  
-  color: #014868;
-  padding: 0rem 2rem;
-}
-.mat-column-phoneno {
-  
-  color: #014868;
-  padding: 0rem 2rem;
-}
-.mat-column-doj {
- 
-  color: #014868;
-  padding: 0rem 2rem;
-}
-.mat-column-status {
-  
-  color: #014868;
-  padding: 0rem 2rem;
-}
+
 .mat-header-cell {
   color: #014868;
 }
@@ -99,6 +80,11 @@ table {
     top: 13%;
     left: 2%;
   }
+  table{
+    width: 150%;
+    margin-right: 2rem;
+    overflow: scroll;
+  }
 }
 @media (max-width:53.75em) {
   
@@ -122,7 +108,7 @@ table {
     font-size: 1rem;
   }
   table{
-    width: 150%;
+    width: 200%;
     margin-right: 2rem;
     overflow: scroll;
   }

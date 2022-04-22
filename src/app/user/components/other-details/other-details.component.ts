@@ -5,29 +5,28 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-other-details',
   templateUrl: './other-details.component.html',
-  styleUrls: ['./other-details.component.css']
+  styleUrls: ['./other-details.component.css'],
 })
 export class OtherDetailsComponent implements OnInit {
-
   otherDetail = new FormGroup({
-    aadharCard : new FormControl(''),
-    panCard : new FormControl(''),
-    passportDetails : new FormControl(''),
-    covidCertificate : new FormControl(''),
-  })
+    aadharNumber: new FormControl(''),
+    aadharCard: new FormControl(''),
+    panNumber: new FormControl(''),
+    panCard: new FormControl(''),
+    passportDetails: new FormControl(''),
+    covidCertificate: new FormControl(''),
+  });
 
-  constructor(private router : Router) { }
+  constructor(private router: Router) {}
 
-  next(){
+  next() {
     this.router.navigateByUrl('/user/details/declaration');
   }
-  back(){
+  back() {
     this.router.navigateByUrl('/user/details/employment-details');
   }
-  onSubmit(){
-    console.log(this.otherDetail.value)
+  onSubmit() {
+    console.log(this.otherDetail.value);
   }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

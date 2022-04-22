@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 const ELEMENT_DATA = [
-  { name: 'xyz', phoneno: '9845639021',doj:'2020-02-02',status:'' },
-  { name: 'abc', phoneno: '9845639021',doj:'2020-02-02',status:'' }
+  { name: 'xyz',email:'askhorchaour@gmail.com', phoneno: '9845639021',doj:'2020-02-02',updated:'20220-09-09',status:'' },
+  { name: 'abc',email:'askhorChaour@gmail.com', phoneno: '9845639021',doj:'2020-02-02',updated:'20220-09-09',status:'' }
  ];
 @Component({
   selector: 'app-employees-list',
@@ -17,7 +17,7 @@ export class EmployeesListComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  displayedColumns: string[] = ['name', 'phoneno', 'doj','status','action'];
+  displayedColumns: string[] = ['name','email', 'phoneno', 'doj','updated','status','action'];
   dataSource = ELEMENT_DATA;
   display=''
   

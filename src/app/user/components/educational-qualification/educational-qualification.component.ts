@@ -28,7 +28,7 @@ export class EducationalQualificationComponent implements OnInit {
   openDialog(index: number) {
     const dialogStyle = {
       height: '90%',
-      width: '30%',
+      width: '40%',
       
     };
     switch (index) {
