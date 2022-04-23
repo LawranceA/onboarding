@@ -6,6 +6,8 @@ import { DialogPGComponent } from '../dialog-pg/dialog-pg.component';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-educational-qualification',
   templateUrl: './educational-qualification.component.html',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 export class EducationalQualificationComponent implements OnInit {
   educations = ['10th', '12th', 'Graduation/Diploma', 'Masters/Post-Graduation'];
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(private dialog: MatDialog, private router: Router,) {}
   
   next(){
     this.router.navigateByUrl('/user/details/employment-details');
@@ -23,7 +25,12 @@ export class EducationalQualificationComponent implements OnInit {
   back(){
     this.router.navigateByUrl('/user/details/personal-information');
   }
-  ngOnInit(): void {}
+
+ 
+
+  ngOnInit(): void {
+  
+  }
 
   openDialog(index: number) {
     const dialogStyle = {
@@ -46,6 +53,6 @@ export class EducationalQualificationComponent implements OnInit {
         break;
     }
   }
-
  
+
 }

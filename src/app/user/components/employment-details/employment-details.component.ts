@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogOrgComponent } from '../dialog-org/dialog-org.component';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogConfig,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
+import { SharedService } from '../../services/shared.service';
+
 
 @Component({
   selector: 'app-employment-details',
@@ -9,7 +16,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./employment-details.component.css'],
 })
 export class EmploymentDetailsComponent implements OnInit {
-  constructor(private dialog: MatDialog, private router: Router) {}
+ 
+   
+
+  formData : any[] = [{firstname : "subrath", age : 26}]
+  constructor(private dialog: MatDialog, private router: Router,private share : SharedService) {}
 
   next() {
     this.router.navigateByUrl('/user/details/other-details');
@@ -18,16 +29,27 @@ export class EmploymentDetailsComponent implements OnInit {
     this.router.navigateByUrl('/user/details/educational-qualification');
   }
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+   this.formData = this.share.getFormData()
+   console.log(this.formData)
+  }
 
   openDialog() {
     const dialogStyle = {
       height: '90%',
       width: '30%',
+      disableClose : true,
     };
 
-    this.dialog.open(DialogOrgComponent, dialogStyle);
+ this.dialog.open(DialogOrgComponent, dialogStyle);
   }
 
+
+
+
+
+  
  
+
 }

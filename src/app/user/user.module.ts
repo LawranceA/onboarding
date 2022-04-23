@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule,Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { UserRoutingModule } from './user-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
@@ -20,6 +21,7 @@ import { DialogOrgComponent } from './components/dialog-org/dialog-org.component
 import { HeaderComponent } from '../layout-components/header/header.component';
 import { DetailsComponent } from './components/details/details.component';
 
+import { SharedService } from './services/shared.service';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { DetailsComponent } from './components/details/details.component';
     FontAwesomeModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [SharedService]
 })
 export class UserModule { }

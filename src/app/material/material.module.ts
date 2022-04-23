@@ -10,10 +10,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule} from '@angular/material/dialog';
+
 
 const materialComponents = [
   MatButtonModule,
@@ -31,6 +32,7 @@ const materialComponents = [
   MatDividerModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatTableModule
 ];
 
 @NgModule({

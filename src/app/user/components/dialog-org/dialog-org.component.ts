@@ -1,6 +1,9 @@
 
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Output,EventEmitter, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+
+import { SharedService } from '../../services/shared.service';
 
 
 @Component({
@@ -10,30 +13,34 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class DialogOrgComponent implements OnInit {
 
-@Output() oragizationData  = new EventEmitter()
+@Output() oragizationEvent  = new EventEmitter()
 
-  organization = new FormGroup({
-    organizationName : new FormControl(''),
-    joiningDate : new FormControl(''),
-    relievingDate : new FormControl(''),
-    relievingLetter : new FormControl(''),
-    offerLetter : new FormControl(''),
-    payslip : new FormControl(''),
-    noticePeriodEndDate : new FormControl('')
 
-  })
+organization !: FormGroup;
 
-  constructor() { }
+
+  constructor(private fs : FormBuilder,private share : SharedService) { }
 
   ngOnInit(): void {
-  }
+  this.organization = this.fs.group({
+    organizationName : ['',Validators.required],
+  joiningDate : ['',Validators.required],
+  relievingDate : ['',Validators.required],
+  relievingLetter : ['',Validators.required],
+  offerLetter : ['',Validators.required],
+  payslip : ['',Validators.required],
+  noticePeriodEndDate : ['',Validators.required]
+  })
+   
+  this.share.setFormData({firstname : "subrath", age : 26})
+  
+ 
+}
 
-  onSubmit(){
-    console.log(this.organization.value)
-  }
+onSubmit(){
+console.log(this.organization.value)
 
-  addOrganization(){
-    
-  }
+}
+  
 
 }
