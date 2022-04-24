@@ -3,8 +3,7 @@
       
       <div class="sidebar-wraper">
           <mat-icon  (click)="sidenav.toggle()"
-        (click)="isSidenavShown()"
-          class="white-icon close"
+            class="white-icon close"
          >close</mat-icon>
           <div class="profile">
             <div class="profile-img">
@@ -48,11 +47,11 @@
    
     <div class="header">
       <button
-      *ngIf="!sideNavShow"
+      
         mat-icon-button
         color="primary"
         (click)="sidenav.toggle()"
-        (click)="setSideNav()"
+        
         style="margin-left:2rem;"
       >
         <mat-icon class="menu">menu</mat-icon>

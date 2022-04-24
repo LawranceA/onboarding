@@ -27,6 +27,7 @@ export class DialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
   onSubmit(){
     console.log(this.dialog10Form.value)

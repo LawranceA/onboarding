@@ -8,8 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
-  sideNavShow:any;
-  showToggle: string = '';
+ 
 
   mode:any='side';
   openSidenav: boolean = true;
@@ -20,14 +19,12 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     // for SideNAv responsive
     this.getScreenWidth().subscribe((width) => {
-      if (width <700) {
-        this.sideNavShow=false;
-        this.showToggle = 'show';
+      if (width <750) {
         this.mode = 'over';
         this.openSidenav = false;
         
       } else if (width > 640) {
-        this.sideNavShow=true;
+        
         this.mode = 'side';
         this.openSidenav = true;
       }
@@ -40,10 +37,5 @@ export class AdminDashboardComponent implements OnInit {
   getScreenWidth(): Observable<number> {
     return this.screenWidth$.asObservable();
   }
-  isSidenavShown(){
-    // this.showToggle = 'show';
-    this.sideNavShow=false
-  }setSideNav(){
-    this.sideNavShow=true
-  }
+  
 }

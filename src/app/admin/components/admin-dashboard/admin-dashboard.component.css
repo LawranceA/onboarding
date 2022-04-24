@@ -232,8 +232,7 @@ mat-sidenav-content {
   }
 }
 @media (max-width: 45em) {
- 
-  .side-nav {
+   .side-nav {
     width: 40%;
   }
   .nav {
@@ -247,10 +246,10 @@ mat-sidenav-content {
     margin-left: 3.5rem;
   }
 }
-@media (max-width: 41em) {
+@media (max-width: 43.75em) {
   
   .side-nav {
-    width: 95%;
+    width: 60%;
   }
   .lists {
     margin-left: 2rem;
@@ -263,8 +262,16 @@ mat-sidenav-content {
     margin-left: 2rem;
   }
 }
+@media (max-width: 31.25em) {
+  
+  .side-nav {
+    width: 80%;
+  }
+}
 @media (max-width: 19em) {
-
+  .side-nav {
+    width: 90%;
+  }
   .lists {
     margin-left: 1rem;
   }
