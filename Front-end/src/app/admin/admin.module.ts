@@ -16,6 +16,8 @@ import { PdfViewComponent } from './components/employee-details/pdf-view/pdf-vie
 import { FilesUploadedComponent } from './components/files-uploaded/files-uploaded.component';
 import { ImgViewComponent } from './components/files-uploaded/img-view/img-view.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { AdminServiceService } from './admin-service.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
 
@@ -38,9 +40,12 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
     ReactiveFormsModule,
     MaterialModule,
     FormsModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    HttpClientModule
   ],
-  
+  providers: [
+    AdminServiceService
+  ]
   
 })
 export class AdminModule { }

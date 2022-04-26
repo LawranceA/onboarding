@@ -2,7 +2,12 @@
   <span class="register-heading">Register Admin </span>
   <form [formGroup]="regForm">
     <div class="form-background">
-      
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Employee ID</mat-label>
+          <input matInput placeholder="Employee ID" formControlName="id"/>
+        </mat-form-field>
+      </p>
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Full Name</mat-label>
@@ -18,7 +23,7 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Phone Number</mat-label>
-            <input matInput placeholder="Enter Phone Number" formControlName="phoneNumber" />
+            <input matInput placeholder="Enter Phone Number" formControlName="phone_number" />
           </mat-form-field>
         </p>
         <p>
