@@ -9,7 +9,9 @@
     margin: 5px;
   }
 
-
+  .example-section{
+    padding-bottom: 10px;
+  }
 
   .content{
    display: grid;
@@ -19,6 +21,7 @@
 
    h3{
     font-weight: bold;
+    padding-top:16px;
   }
 
   .genderContainer{
@@ -57,4 +60,24 @@
   
   ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #FF934f !important;
+  }
+
+  @media only screen and (max-width: 600px) {
+
+    .content{
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: 10px;
+     }
+    
+  }
+
+  @media only screen and (min-width: 600px) {
+    .content{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      column-gap: 10px;
+     }
+
+     
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog12',
@@ -7,27 +7,28 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./dialog12.component.css']
 })
 export class Dialog12Component implements OnInit {
-
-  dialog12Form = new FormGroup(
-    {
-      education : new FormControl('12th',[Validators.required]),
-      board : new FormControl('',[Validators.required]),
-      schoolMedium : new FormControl('',[Validators.required]),
-      percentage: new FormControl('',[Validators.required]),
-      startDate: new FormControl('',[Validators.required]),
-      endDate: new FormControl('',[Validators.required]),
-      marksheet : new FormControl('',[Validators.required]),
-      transferCertificate : new FormControl('')
-    }
-  )
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
  
 
-  onSubmit(){
-    console.log(this.dialog12Form.value)
+  dialog12Form !: FormGroup;
+
+  constructor(private fs : FormBuilder) { }
+
+  ngOnInit(): void {
+
+    this.dialog12Form = this.fs.group({
+      education : ['12th',Validators.required],
+      board : ['',Validators.required],
+      schoolMedium : ['',Validators.required],
+      percentage: ['',Validators.required],
+      startDate: ['',Validators.required],
+      endDate: ['',Validators.required],
+      marksheet : ['',Validators.required],
+      transferCertificate : ['']
+    })
   }
+ 
+add12Form(){
+  console.log(this.dialog12Form.value)
+}
+ 
 }

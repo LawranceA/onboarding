@@ -14,3 +14,21 @@
     color: rgba(0, 0, 0, 0.433);
 }
 
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .content{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+   .content{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+   }
+}

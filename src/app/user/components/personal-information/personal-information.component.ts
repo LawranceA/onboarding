@@ -30,7 +30,7 @@ export class PersonalInformationComponent implements OnInit {
     phone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     alternatePhone: new FormControl(''),
     gender: new FormControl('', [Validators.required]),
-    photo: new FormControl(''),
+    photo: new FormControl('',[Validators.required]),
     houseNo: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
     locality: new FormControl('', [Validators.required]),
@@ -86,14 +86,17 @@ export class PersonalInformationComponent implements OnInit {
 
 
   onSubmit() {
-   
+   console.log(this.personalInformation.value)
+   this.personalInformation.setValue({
+  
+   })
+
   }
 
  
 
   ngOnInit(): void {
-
-
+  
   }
 
   
