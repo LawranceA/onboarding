@@ -1,100 +1,98 @@
 
 * {
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-  mat-sidenav-container {
-    height: 100%;
-  }
-  
-  mat-sidenav,
-  mat-sidenav-content {
-    padding: 0px;
-    box-sizing: border-box;
-  }
-  
-  mat-sidenav {
-    background-color: #014868;
-    width: 270px;
-  }
-  mat-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
-  .leftContent{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .example-icon {
-    color: #3d4143;
-  }
-  .sidenav-section {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .sidenav-section .close {
-    padding: 16px 16px 0 0;
-    align-self: end;
-    color: #fdfcfc;
-  }
-  
-  .footer {
-    font-weight: 500;
-    color: #ff9350;
-    letter-spacing: 1px;
-    text-decoration: underline;
-  }
-  
-  .sidenav-menu {
-    align-self: stretch;
-  }
-  .sidenav-menu ul {
-    list-style: none;
-  }
-  
-  .sidenav-menu ul li {
-    padding: 10px 0;
-  }
-  
-  .sidenav-menu ul li a {
-    text-transform: capitalize;
-    text-decoration: none;
-    color: #fdfcfc;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 20px 0px;
-  }
-  
-  .sidenav-menu ul li a:hover {
-    color: #ff9350;
-    border-right: 4px solid #ff9350;
-  }
-  
-  .userProfile{
-    width: 100%;
-    font-size: 6rem;
-    color: #ff9350;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    row-gap: 20px;
-    border-bottom: 2px solid #ff9350;
-  }
+mat-sidenav-container {
+  height: 100%;
+}
 
-  .userProfile h3{
-    color: #fdfcfc;
-    font-weight: 700;
-    font-size: 2rem;
-  }
+mat-sidenav,
+mat-sidenav-content {
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+mat-sidenav {
+  background-color: #014868;
+  width: 270px;
+}
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-icon {
+  color: #3d4143;
+}
+.sidenav-section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sidenav-section .close {
+  padding: 16px 16px 0 0;
+  align-self: end;
+  color: #fdfcfc;
+}
+
+.footer {
+  font-weight: 500;
+  color: #ff9350;
+  letter-spacing: 1px;
+  text-decoration: underline;
+}
+
+.sidenav-menu {
+  align-self: stretch;
+}
+.sidenav-menu ul {
+  list-style: none;
+}
+
+.sidenav-menu ul li {
+  padding: 10px 0;
+}
+
+.sidenav-menu ul li a {
+  text-transform: capitalize;
+  text-decoration: none;
+  color: #fdfcfc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0px;
+}
+
+.sidenav-menu ul li a:hover {
+  color: #ff9350;
+  border-right: 4px solid #ff9350;
+}
+
+.userProfile{
+  width: 100%;
+  font-size: 6rem;
+  color: #ff9350;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 20px;
+  border-bottom: 2px solid #ff9350;
+}
+
+.userProfile h3{
+  color: #fdfcfc;
+  font-weight: 700;
+  font-size: 2rem;
+}

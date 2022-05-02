@@ -6,6 +6,11 @@
   <!-- Receive the formdata from parent -->
 
  <div>{{formData |json}}</div>
+ <div *ngFor="let data of formData; index as i">
+   <div>
+     <p>{{data.organizationName}}</p>
+   </div>
+ </div>
 
   <div class="btn">
     <div class="btn-back">

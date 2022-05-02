@@ -19,7 +19,7 @@ export class EmploymentDetailsComponent implements OnInit {
  
    
 
-  formData : any[] = [{firstname : "subrath", age : 26}]
+  formData :any
   constructor(private dialog: MatDialog, private router: Router,private share : SharedService) {}
 
   next() {
@@ -31,21 +31,32 @@ export class EmploymentDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-   this.formData = this.share.getFormData()
-   console.log(this.formData)
+    let data= this.share.getData()
+    if(data.length!=0){
+      this.formData=data
+    }
   }
 
   openDialog() {
     const dialogStyle = {
       height: '90%',
-      width: '30%',
+      width: '40%',
       disableClose : true,
     };
 
- this.dialog.open(DialogOrgComponent, dialogStyle);
+  const diagRef=this.dialog.open(DialogOrgComponent, dialogStyle);
+    diagRef.afterClosed().subscribe(data=>{
+    this.closing()
+  })
   }
 
-
+  closing(){
+    let data= this.share.getData()
+    if(data.length!=0){
+      this.formData=data
+    }
+    
+  }
 
 
 

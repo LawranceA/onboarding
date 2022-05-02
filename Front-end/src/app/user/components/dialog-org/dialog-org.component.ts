@@ -22,23 +22,22 @@ organization !: FormGroup;
   constructor(private fs : FormBuilder,private share : SharedService) { }
 
   ngOnInit(): void {
-  this.organization = this.fs.group({
-    organizationName : ['',Validators.required],
-  joiningDate : ['',Validators.required],
-  relievingDate : ['',Validators.required],
-  relievingLetter : ['',Validators.required],
-  offerLetter : ['',Validators.required],
-  payslip : ['',Validators.required],
-  noticePeriodEndDate : ['',Validators.required]
-  })
-   
-  this.share.setFormData({firstname : "subrath", age : 26})
-  
- 
-}
+
+    this.organization = this.fs.group({
+      organizationName : ['',Validators.required],
+      hr_name : ['',Validators.required],
+    joiningDate : ['',Validators.required],
+    relievingDate : ['',Validators.required],
+    relievingLetter : ['',Validators.required],
+    offerLetter : ['',Validators.required],
+    payslip : ['',Validators.required],
+    noticePeriodEndDate : ['',Validators.required]
+    })
+  }
 
 onSubmit(){
-console.log(this.organization.value)
+  this.share.setFormData(this.organization)
+ 
 
 }
   
