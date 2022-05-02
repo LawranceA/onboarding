@@ -1,46 +1,333 @@
-<div class="container">
-    <span class="edit-employee-heading">Edit Employee Details </span>
-  <form>
-    <div class="form-background">
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Employee ID</mat-label>
-          <input matInput formControlName="emp_id" [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="emp_name" [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Email ID</mat-label>
-          <input matInput formControlName="emp_id" [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="emp_phoneno" [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>DOJ</mat-label>
-          <input matInput formControlName="emp_doj"  [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Designation</mat-label>
-          <input matInput formControlName="emp_desig"  [value]=""/>
-        </mat-form-field>
-      </p>
-      <p>
-        <button mat-button class="button-gradient" (click)="edit($event)">Edit Employee</button>
-      </p>
+<div class="expansion-container">
+  <div class="created-container">
+    <div>
+      <h4 class="created-heading">Created by :</h4>
+      <p class="datas">Admin</p>
     </div>
-  </form>
+    <div>
+      <h4 class="created-heading">Created At :</h4>
+      <p class="datas">2020-09-08</p>
+    </div>
+  </div>
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel
+      [expanded]="step === 0"
+      (opened)="setStep(0)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> <h5>Personal Information</h5> </mat-panel-title>
+
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="personal-info">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="dob">D.O.B</mat-label>
+          <input matInput [matDatepicker]="dob_picker" name="dob" id="dob" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="dob_picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dob_picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <input matInput placeholder="Gender" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile Number</mat-label>
+          <input matInput placeholder="Mobile Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternate Mobile Number</mat-label>
+          <input matInput placeholder="Alternate Mobile Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Personal Email</mat-label>
+          <input matInput placeholder="Personal Email" />
+        </mat-form-field>
+        </div>
+        <h4 class="address-heading">ADDRESSES</h4>
+        <!-- forr loopp this address div -->
+        <div>
+          <p class="type">current Address</p>
+          <mat-form-field appearance="outline">
+            <mat-label>House NO</mat-label>
+            <input matInput placeholder="House NO" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Street</mat-label>
+            <input matInput placeholder="Street" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Locality</mat-label>
+            <input matInput placeholder="Locality" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="city" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <input matInput placeholder="State" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>PinCode</mat-label>
+            <input matInput placeholder="PinCode" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="Country" />
+          </mat-form-field>
+        </div>
+        <!-- <button mat-button class="button-gradient submit">Submit</button> -->
+     
+      <mat-action-row>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="step === 1"
+      (opened)="setStep(1)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> <h5>Educational Details</h5> </mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+
+          <mat-icon>school</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div>
+        <p class="type">TYPE</p>
+        <mat-form-field appearance="outline">
+          <mat-label>University/School Name</mat-label>
+          <input matInput placeholder="University/School Name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Board</mat-label>
+          <input matInput placeholder="Board" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Course</mat-label>
+          <input matInput placeholder="Course" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="start_date">Start Date</mat-label>
+          <input matInput [matDatepicker]="start_date" name="start_date" id="start_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="start_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #start_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="end_date">End Date</mat-label>
+          <input matInput [matDatepicker]="end_date" name="end_date" id="end_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="end_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #end_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Marks</mat-label>
+          <input matInput placeholder="Marks" />
+        </mat-form-field>
+        <p class="folder-icon">
+          <mat-icon (click)="openDiag()">folder</mat-icon>
+
+        </p>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      [expanded]="step === 2"
+      (opened)="setStep(2)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Employment Details</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>work</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Organization Name</mat-label>
+          <input matInput placeholder="Organization name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Hr Name</mat-label>
+          <input matInput placeholder="Hr name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="org_joining_date">Joining Date</mat-label>
+          <input matInput [matDatepicker]="org_joining_date" name="org_joining_date" id="org_joining_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="org_joining_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #org_joining_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="relieving_date">Relieving Date</mat-label>
+          <input matInput [matDatepicker]="relieving_date" name="relieving_date" id="relieving_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="relieving_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #relieving_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="notice_date">Notice Date</mat-label>
+          <input matInput [matDatepicker]="notice_date" name="notice_date" id="notice_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="notice_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #notice_date></mat-datepicker>
+        </mat-form-field>
+        <p class="folder-icon">
+          <mat-icon (click)="openDiag()">folder</mat-icon>
+
+        </p>
+      </div>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 3"
+      (opened)="setStep(3)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Other Details</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>library_books</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Aadhar card Number</mat-label>
+          <input matInput placeholder="Aadhar card Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Pan card Number</mat-label>
+          <input matInput placeholder="Pan card Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Passport Number</mat-label>
+          <input matInput placeholder="Passport Number" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="passport_expire_date">Passport Expire Date</mat-label>
+          <input matInput [matDatepicker]="passport_expire_date" name="passport_expire_date" id="passport_expire_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="passport_expire_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #passport_expire_date></mat-datepicker>
+        </mat-form-field>
+        <p class="folder-icon">
+          <mat-icon (click)="openDiag()">folder</mat-icon>
+
+        </p>
+      </div>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      [expanded]="step === 4"
+      (opened)="setStep(4)"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title><h5>Declaration</h5></mat-panel-title>
+        <mat-panel-description>
+          <div></div>
+          <mat-icon>style</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--  -->
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label for="joining_date">Joining Date</mat-label>
+          <input matInput [matDatepicker]="joining_date" name="joining_date" id="joining_date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="joining_date"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #joining_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Place</mat-label>
+          <input matInput placeholder="Place" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="date">Date</mat-label>
+          <input matInput [matDatepicker]="picker" name="date" id="date" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <p class="folder-icon">
+          <mat-icon (click)="openDiag()">folder</mat-icon>
+
+        </p>
+      </div>
+      <button mat-button class="button-gradient submit">Submit</button>
+      <!--  -->
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button class="btn-orange" (click)="nextStep()">End</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div id="diag-modal" class="modal" [ngStyle]="{ display: display }">
+   
+  <mat-card class="dialogue">
+    <div class="diag-content">
+     <ul><li></li></ul>
+    </div>
+
+    <div class="diag-actions">
+      <button mat-button class="button-gradient diag-btn" (click)="close()">
+        close
+      </button>
+    </div>
+  </mat-card>
 </div>

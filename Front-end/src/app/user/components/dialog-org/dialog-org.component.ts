@@ -17,15 +17,14 @@ export class DialogOrgComponent implements OnInit {
 
 
 organization !: FormGroup;
-
-
+file:any;
   constructor(private fs : FormBuilder,private share : SharedService) { }
 
   ngOnInit(): void {
 
     this.organization = this.fs.group({
-      organizationName : ['',Validators.required],
-      hr_name : ['',Validators.required],
+    organizationName : ['',Validators.required],
+    hr_name : ['',Validators.required],
     joiningDate : ['',Validators.required],
     relievingDate : ['',Validators.required],
     relievingLetter : ['',Validators.required],
@@ -37,8 +36,6 @@ organization !: FormGroup;
 
 onSubmit(){
   this.share.setFormData(this.organization)
- 
-
 }
   
 
