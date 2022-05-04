@@ -5,6 +5,7 @@
   </button>
   <!-- Receive the formdata from parent -->
 
+<<<<<<< HEAD
   <!-- Display the organization record -->
   <div class="container">
     <div style="margin: 20px 0">
@@ -87,6 +88,14 @@
       </div>
     </div>
   </div>
+=======
+ <div>{{formData |json}}</div>
+ <div *ngFor="let data of formData; index as i">
+   <div>
+     <p>{{data.organizationName}}</p>
+   </div>
+ </div>
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 
   <div class="btn">
     <div class="btn-back">

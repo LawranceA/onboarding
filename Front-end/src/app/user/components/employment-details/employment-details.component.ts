@@ -26,6 +26,7 @@ export class EmploymentDetailsComponent implements OnInit {
   ];
   dataSource!: MatTableDataSource<any>;
 
+<<<<<<< HEAD
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -34,6 +35,10 @@ export class EmploymentDetailsComponent implements OnInit {
     private router: Router,
     private api: SharedService
   ) {}
+=======
+  formData :any
+  constructor(private dialog: MatDialog, private router: Router,private share : SharedService) {}
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 
   next() {
     this.router.navigateByUrl('/user/details/other-details');
@@ -43,12 +48,20 @@ export class EmploymentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.getAllOrganization();
+=======
+    let data= this.share.getData()
+    if(data.length!=0){
+      this.formData=data
+    }
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
   }
 
   openDialog() {
     const dialogStyle = {
       height: '90%',
+<<<<<<< HEAD
       width: '100%',
       disableClose: true,
     };
@@ -70,6 +83,24 @@ export class EmploymentDetailsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+=======
+      width: '40%',
+      disableClose : true,
+    };
+
+  const diagRef=this.dialog.open(DialogOrgComponent, dialogStyle);
+    diagRef.afterClosed().subscribe(data=>{
+    this.closing()
+  })
+  }
+
+  closing(){
+    let data= this.share.getData()
+    if(data.length!=0){
+      this.formData=data
+    }
+    
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
   }
 
   getAllOrganization() {

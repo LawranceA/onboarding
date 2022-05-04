@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 })
 export class OtherDetailsComponent implements OnInit {
   otherDetail = new FormGroup({
-    aadharNumber: new FormControl(''),
+    aadhar_card_number: new FormControl(''),
     aadharCard: new FormControl(''),
-    panNumber: new FormControl(''),
+    pan_card_number: new FormControl(''),
+    passport_number: new FormControl(''),
+    passport_expire: new FormControl(''),
     panCard: new FormControl(''),
     passportDetails: new FormControl(''),
     covidCertificate: new FormControl(''),
