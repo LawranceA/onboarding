@@ -4,6 +4,26 @@
     gap: 10px;
    } */
 
+<<<<<<< HEAD
+
+   /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .content{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+       }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .content{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+       }
+}
+=======
    .uploadContainer{
     display: inline-block;
     width: 40%;
@@ -28,3 +48,4 @@ mat-form-field{
   ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #FF934f !important;
   }
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7

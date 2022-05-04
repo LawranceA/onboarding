@@ -1,5 +1,31 @@
 <h1 mat-dialog-title>Organization Details</h1>
 <div>
+<<<<<<< HEAD
+  <form [formGroup]="organization">
+    <mat-form-field appearance="outline">
+      <mat-label for="organizationName">Organization</mat-label>
+      <input
+        matInput
+        type="text"
+        id="organizationName"
+        name="organizationName"
+        formControlName="organizationName"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="joiningDate">Joining Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        id="joiningDate"
+        name="joiningDate"
+        formControlName="joiningDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+=======
        <form [formGroup]="organization" (ngSubmit)="onSubmit()">
          <mat-form-field appearance="outline">
             <mat-label for="organizationName">Organization</mat-label>
@@ -33,24 +59,81 @@
             <label for="offerLetter">Offer Letter</label>
             <input type="file" name="offerLetter" id="offerLetter" formControlName="offerLetter" value="">
          </div >
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 
-         <div class="uploadContainer">
-            <label for="payslip">3 Months payslips</label>
-            <input type="file" name="payslip" id="payslip" formControlName="payslip" multiple>
-         </div>
-        
-         <mat-form-field appearance="outline">
-            <mat-label for="noticePeriodEndDate">Notice period End Date</mat-label>
-            <input matInput [matDatepicker]="picker3" id="noticePeriodEndDate" name="noticePeriodEndDate" formControlName="noticePeriodEndDate"/>
-            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-            <mat-datepicker #picker3></mat-datepicker>
-          </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label for="relievingDate">Relieving Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        id="relievingDate"
+        name="relievingDate"
+        formControlName="relievingDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
 
-          <button type="submit" [disabled]="!organization.valid">Submit</button>
-       </form>
-  </div>
+    <div class="uploadContainer">
+      <label for="relievingLetter">Relieving Letter</label>
+      <input
+        type="file"
+        name="relievingLetter"
+        id="relievingLetter"
+        formControlName="relievingLetter"
+      />
+    </div>
+
+    <div class="uploadContainer">
+      <label for="offerLetter">Offer Letter</label>
+      <input
+        type="file"
+        name="offerLetter"
+        id="offerLetter"
+        formControlName="offerLetter"
+      />
+    </div>
+
+    <div class="uploadContainer">
+      <label for="payslip">3 Months payslips</label>
+      <input
+        type="file"
+        name="payslip1"
+        id="payslip1"
+        formControlName="payslip1"
+      />
+      <input
+        type="file"
+        name="payslip2"
+        id="payslip2"
+        formControlName="payslip2"
+      />
+      <input
+        type="file"
+        name="payslip3"
+        id="payslip3"
+        formControlName="payslip3"
+      />
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="noticePeriodEndDate">Notice period End Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker3"
+        id="noticePeriodEndDate"
+        name="noticePeriodEndDate"
+        formControlName="noticePeriodEndDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
-   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-   <button mat-button class="btn-primary">Save</button>
+  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
+  <button mat-button class="btn-primary" (click)="addOrganization()">
+    {{actionBtn}}
+  </button>
 </div>

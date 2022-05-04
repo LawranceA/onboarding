@@ -1,4 +1,44 @@
 <div class="diggibyte_logo">
+<<<<<<< HEAD
+  <img src="../../assets/images/diggibyte_full_logo.png" alt="" srcset="" />
+</div>
+
+<div class="login-container">
+  <div class="container">
+    <form>
+      <div class="loginpage-background">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setUser('employee')"
+            >Employee</mat-button-toggle
+          >
+          <mat-button-toggle (click)="setUser('admin')"
+            >Admin</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" />
+        </mat-form-field>
+
+        <p class="change_password_p">
+          <a routerLink="changePassword" class="change_password">
+            Change Password?
+          </a>
+        </p>
+        <p>
+          <button mat-button class="button-gradient" (click)="onLogin($event)">
+            Login
+          </button>
+        </p>
+=======
     <img src="../../assets/images/full_logo.png" alt="" srcset="">
   </div>
   <div class="login-container">
@@ -33,6 +73,11 @@
       </div>
       <div class="login-img">
         <img src="../../assets/images/login_img.svg" alt="" srcset="" />
+>>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
       </div>
+    </form>
   </div>
-    
+  <div class="login-img">
+    <img src="../../assets/images/login_img.svg" alt="" srcset="" />
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Add Education</h1>
 <div>
-  <form [formGroup]="dialog12Form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="dialog12Form">
     <mat-form-field appearance="outline">
       <mat-label for="education">Education</mat-label>
       <input matInput type="text"  id="education" name="education" formControlName="education" readonly="true" />
@@ -42,11 +42,10 @@
       <input type="file" id="transferCertificate" name="transferCertificate" formControlName="transferCertificate"/>
     </div>
 
-    <button type="submit" [disabled]="!dialog12Form.valid">Submit</button>
   </form>
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <button mat-button class="btn-primary">Save</button>
+  <button mat-button class="btn-primary" (click)="add12Form()">Save</button>
 </div>

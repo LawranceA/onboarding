@@ -22,6 +22,7 @@ import { HeaderComponent } from '../layout-components/header/header.component';
 import { DetailsComponent } from './components/details/details.component';
 
 import { SharedService } from './services/shared.service';
+import { Dialog10serviceService } from './services/dialog10service.service';
 
 
 @NgModule({
@@ -51,6 +52,6 @@ import { SharedService } from './services/shared.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [SharedService]
+  providers: [SharedService, Dialog10serviceService]
 })
 export class UserModule { }
