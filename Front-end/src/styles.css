@@ -95,11 +95,16 @@ backgrd colr #f6f7f9
 }
 
 .uploadContainer {
+  box-sizing: border-box;
   display: flex;
-  column-gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
   border: 1px solid #dcdddd;
-  padding: 15px;
+  padding: 0  0  0 10px;
   border-radius: 5px;
+  margin-bottom: 16px;
+  height: 53px;
 }
 
 .uploadContainer label {

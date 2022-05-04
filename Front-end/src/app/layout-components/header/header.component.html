@@ -1,41 +1,62 @@
-
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="over" >
-  <div class="sidenav-section">
-    <div class="close">
-      <button  mat-icon-button arial-label="Close" (click)="sidenav.close()" ><mat-icon>menu</mat-icon></button>
-    </div>
+  <mat-sidenav #sidenav mode="over">
+    <div class="sidenav-section">
+      <div class="close">
+        <button mat-icon-button arial-label="Close" (click)="sidenav.close()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
 
-    <div class="sidenav-menu">
-      <ul>
-        <li><a routerLink="personal-information"><mat-icon>info</mat-icon>personal-information</a></li>
-        <li>
-          <a routerLink="educational-qualification"><mat-icon>school</mat-icon>educational-qualification</a>
-        </li>
-        <li><a routerLink="employment-details"><mat-icon>menu</mat-icon>employment-details</a></li>
-        <li><a routerLink="other-details"><mat-icon>folder</mat-icon>other-details</a></li>
-        <li><a routerLink="declaration"><mat-icon>class</mat-icon>decalartion</a></li>
-      </ul>
-    </div>
+      <div class="sidenav-menu">
+        <ul>
+          <li>
+            <a routerLink="personal-information"
+              ><mat-icon>info</mat-icon>personal-information</a
+            >
+          </li>
+          <li>
+            <a routerLink="educational-qualification"
+              ><mat-icon>school</mat-icon>educational-qualification</a
+            >
+          </li>
+          <li>
+            <a routerLink="employment-details"
+              ><mat-icon>menu</mat-icon>employment-details</a
+            >
+          </li>
+          <li>
+            <a routerLink="other-details"
+              ><mat-icon>folder</mat-icon>other-details</a
+            >
+          </li>
+          <li>
+            <a routerLink="declaration"
+              ><mat-icon>class</mat-icon>decalartion</a
+            >
+          </li>
+        </ul>
+      </div>
 
-    <p class="footer">&copy;Diggibyte2022</p>
-  </div>
-    </mat-sidenav>
+      <p class="footer">&copy;Diggibyte2022</p>
+    </div>
+  </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar >
+    <mat-toolbar>
       <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-      (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <img src="../../../assets//images/diggtibyte_logo.png" width="70px" height="70px" alt="diggtibyte_logo">
-    <mat-icon>account_circle</mat-icon>
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <img
+        src="../../../assets//images/diggtibyte_logo.png"
+        width="70px"
+        height="70px"
+        alt="diggtibyte_logo"
+      />
     </mat-toolbar>
-    
-    </mat-sidenav-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>
-
-

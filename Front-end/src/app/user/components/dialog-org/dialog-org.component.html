@@ -1,6 +1,5 @@
 <h1 mat-dialog-title>Organization Details</h1>
 <div>
-<<<<<<< HEAD
   <form [formGroup]="organization">
     <mat-form-field appearance="outline">
       <mat-label for="organizationName">Organization</mat-label>
@@ -25,41 +24,6 @@
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
-=======
-       <form [formGroup]="organization" (ngSubmit)="onSubmit()">
-         <mat-form-field appearance="outline">
-            <mat-label for="organizationName">Organization</mat-label>
-            <input matInput type="text"  id="organizationName" name="organizationName" formControlName="organizationName"/>
-          </mat-form-field>
-         <mat-form-field appearance="outline">
-            <mat-label for="hrName">Hr Name</mat-label>
-            <input matInput type="text"  id="hrName" name="hrName" formControlName="hr_name"/>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline">
-            <mat-label for="joiningDate">Joining Date</mat-label>
-            <input matInput [matDatepicker]="picker1" id="joiningDate" name="joiningDate" formControlName="joiningDate" />
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-        
-          <mat-form-field appearance="outline">
-            <mat-label for="relievingDate">Relieving Date</mat-label>
-            <input matInput [matDatepicker]="picker2" id="relievingDate" name="relievingDate" formControlName="relievingDate"/>
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-        
-         <div class="uploadContainer">
-            <label for="relievingLetter">Relieving Letter</label>
-            <input type="file" name="relievingLetter" id="relievingLetter" formControlName="relievingLetter" [value]="file">
-         </div>
-
-         <div class="uploadContainer">
-            <label for="offerLetter">Offer Letter</label>
-            <input type="file" name="offerLetter" id="offerLetter" formControlName="offerLetter" value="">
-         </div >
->>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 
     <mat-form-field appearance="outline">
       <mat-label for="relievingDate">Relieving Date</mat-label>

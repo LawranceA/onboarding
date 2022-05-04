@@ -1,31 +1,6 @@
 {
-  "organizations": [
-    {
-      "organizationName": "infosys",
-      "joiningDate": "2022-04-05T18:30:00.000Z",
-      "relievingDate": "2022-04-20T18:30:00.000Z",
-      "relievingLetter": "C:\\fakepath\\adam-borkowski-TQcaYRKij1Y-unsplash.jpg",
-      "offerLetter": "C:\\fakepath\\Class_Diagram.jpeg",
-      "payslip1": "C:\\fakepath\\Class_Diagram.jpeg",
-      "payslip2": "C:\\fakepath\\boxed-water-is-better-5Lw1U5BIumE-unsplash.jpg",
-      "payslip3": "C:\\fakepath\\Cuelebre-Blog-300x139.jpg",
-      "noticePeriodEndDate": "2022-04-27T18:30:00.000Z",
-      "id": 2
-    }
-  ],
-  "educationList": [
-    {
-      "education": "10th",
-      "board": "Karnataka State Board",
-      "schoolMedium": "English",
-      "percentage": "43",
-      "startDate": "2022-04-27T18:30:00.000Z",
-      "endDate": "2022-04-15T18:30:00.000Z",
-      "marksheet": "C:\\fakepath\\Cuelebre-Blog-300x139.jpg",
-      "transferCertificate": "C:\\fakepath\\Cuelebre-Blog-300x139.jpg",
-      "id": 1
-    }
-  ],
+  "organizations": [],
+  "educationList": [],
   "profile": {
     "name": "typicode"
   }

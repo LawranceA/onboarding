@@ -16,21 +16,15 @@ export class DialogOrgComponent implements OnInit {
 
 
 organization !: FormGroup;
-<<<<<<< HEAD
 actionBtn : String = "Save"
 
 
   constructor(private fs : FormBuilder,private api : SharedService, private dialogRef : MatDialogRef<DialogOrgComponent>, @Inject(MAT_DIALOG_DATA) public editData : any) { }
-=======
-file:any;
-  constructor(private fs : FormBuilder,private share : SharedService) { }
->>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 
   ngOnInit(): void {
 
     this.organization = this.fs.group({
     organizationName : ['',Validators.required],
-<<<<<<< HEAD
   joiningDate : ['',Validators.required],
   relievingDate : ['',Validators.required],
   relievingLetter : ['',Validators.required],
@@ -89,20 +83,6 @@ updateOrganization(){
     }
 
   })
-=======
-    hr_name : ['',Validators.required],
-    joiningDate : ['',Validators.required],
-    relievingDate : ['',Validators.required],
-    relievingLetter : ['',Validators.required],
-    offerLetter : ['',Validators.required],
-    payslip : ['',Validators.required],
-    noticePeriodEndDate : ['',Validators.required]
-    })
-  }
-
-onSubmit(){
-  this.share.setFormData(this.organization)
->>>>>>> fefd1d0b77306d0dbec0a0499dc91ae5230a92e7
 }
   
 

@@ -1,8 +1,8 @@
 @import "../../../assets/external-style.css";
 
-*{
-    box-sizing: border-box;
-    overflow: hidden;
+* {
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 mat-sidenav-container {

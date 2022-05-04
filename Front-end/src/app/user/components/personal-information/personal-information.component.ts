@@ -87,9 +87,7 @@ export class PersonalInformationComponent implements OnInit {
 
   onSubmit() {
    console.log(this.personalInformation.value)
-   this.personalInformation.setValue({
   
-   })
 
   }
 

@@ -1,66 +1,100 @@
-
 <div class="container">
   <h1>Other Details</h1>
-<form [formGroup]="otherDetail" (ngSubmit)="onSubmit()">
-<!-- <div class="content"> -->
-  <mat-form-field appearance="outline">
-    <mat-label>Aadhar Card Number</mat-label>
-    <input matInput placeholder="Aadhar Card Number" formControlName="aadhar_card_number"/>
-  </mat-form-field>
-  <div class="uploadContainer">
-    <label for="aadharcard">Aadhar Card</label>
-    <input type="file" id="aadharcard" name="aadharcard" formControlName="aadharCard">
- </div>
- <mat-form-field appearance="outline">
-  <mat-label>Pan Card Number</mat-label>
-  <input matInput placeholder="Pan Card Number" formControlName="pan_card_number"/>
-</mat-form-field>
- <div class="uploadContainer">
-    <label for="panCard">PAN Card</label>
-    <input type="file" id="panCard" name="panCard" formControlName="panCard">
- </div>
- <mat-form-field appearance="outline">
-  <mat-label>Passport Number</mat-label>
-  <input matInput placeholder="Passport Number" formControlName="passport_number"/>
-</mat-form-field>
-<mat-form-field appearance="outline">
-  <mat-label for="date">Passport Expire Date</mat-label>
-  <input
-    matInput
-    [matDatepicker]="picker2"
-    id="date"
-    name="date"
-    formControlName="passport_expire"
-  />
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="picker2"
-  ></mat-datepicker-toggle>
-  <mat-datepicker #picker2></mat-datepicker>
-</mat-form-field>
- <div class="uploadContainer">
-    <label for="passportDetails">Passport Details</label>
-    <input type="file" name="passportDetails" id="passportDetails" formControlName="passportDetails">
- </div>
-
- <div class="uploadContainer">
-    <label for="covidCertificate">Covid Certificate</label>
-    <input type="file" name="covidCertificate" id="covidCertificate" multiple formControlName="covidCertificate">
- </div>
-<!-- </div> -->
-
-   <button type="submit">Submit</button>
-</form>
-
-<div class="btn">
-  <div class="btn-back">
-    <button mat-button class="btn-primary" (click)="back()">
-      Back
-    </button>
+  <form [formGroup]="otherDetail" (ngSubmit)="onSubmit()">
+   <div class="card">
+    <mat-form-field appearance="outline">
+      <mat-label>Aadhar Card Number</mat-label>
+      <input
+        matInput
+        placeholder="Aadhar Card Number"
+        formControlName="aadhar_card_number"
+      />
+    </mat-form-field>
+    <div class="uploadContainer">
+      <label for="aadharcard">Aadhar Card</label>
+      <input
+        type="file"
+        id="aadharcard"
+        name="aadharcard"
+        formControlName="aadharCard"
+      />
+    </div>
+   </div>
+  
+  <div class="card">
+    <mat-form-field appearance="outline">
+      <mat-label>Pan Card Number</mat-label>
+      <input
+        matInput
+        placeholder="Pan Card Number"
+        formControlName="pan_card_number"
+      />
+    </mat-form-field>
+    
+    <div class="uploadContainer">
+      <label for="panCard">PAN Card</label>
+      <input
+        type="file"
+        id="panCard"
+        name="panCard"
+        formControlName="panCard"
+      />
+    </div>
   </div>
-  <div class="btn-grp">
-    <button mat-button class="btn-primary">Save</button>
-    <button mat-button class="btn-primary" (click)="next()">Next</button>
+
+  <div class="cards">
+    <mat-form-field appearance="outline">
+      <mat-label>Passport Number</mat-label>
+      <input
+        matInput
+        placeholder="Passport Number"
+        formControlName="passport_number"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label for="date">Passport Expire Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        id="date"
+        name="date"
+        formControlName="passport_expire"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <div class="uploadContainer">
+      <label for="passportDetails">Passport Details</label>
+      <input
+        type="file"
+        name="passportDetails"
+        id="passportDetails"
+        formControlName="passportDetails"
+      />
+    </div>
   </div>
-</div>
+   
+
+    <div class="uploadContainer">
+      <label for="covidCertificate">Covid Certificate</label>
+      <input
+        type="file"
+        name="covidCertificate"
+        id="covidCertificate"
+        multiple
+        formControlName="covidCertificate"
+      />
+    </div>
+   
+  </form>
+
+  <div class="btn">
+    <div class="btn-back">
+      <button mat-button class="btn-primary" (click)="back()">Back</button>
+    </div>
+    <div class="btn-grp">
+      <button mat-button class="btn-primary">Save</button>
+      <button mat-button class="btn-primary" (click)="next()">Next</button>
+    </div>
+  </div>
 </div>
