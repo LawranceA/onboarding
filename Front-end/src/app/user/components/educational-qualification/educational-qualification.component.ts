@@ -94,7 +94,7 @@ export class EducationalQualificationComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: () => {
-        alert('Error in getting the data');
+        // alert('Error in getting the data');
       },
     });
   }
@@ -121,11 +121,11 @@ export class EducationalQualificationComponent implements OnInit {
   deleteData(id: number) {
     this.api.deleteEducation(id).subscribe({
       next: (res) => {
-        alert('Details deleted successfully');
+        // alert('Details deleted successfully');
         this.get10Form();
       },
       error: () => {
-        alert('Error in deleting the data');
+        // alert('Error in deleting the data');
       },
     });
   }

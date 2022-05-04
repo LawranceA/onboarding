@@ -81,7 +81,7 @@ export class EmploymentDetailsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: (err) => {
-        alert('Error while fetching the records');
+        // alert('Error while fetching the records');
       },
     });
   }
@@ -107,11 +107,11 @@ export class EmploymentDetailsComponent implements OnInit {
   deleteOrganization(id : number){
     this.api.deleteOrganization(id).subscribe({
       next: (res) => {
-        alert(' organization deleted Successfully');
+        // alert(' organization deleted Successfully');
         this.getAllOrganization();
       },
       error: () => {
-        alert('Error in deleting the organization');
+        // alert('Error in deleting the organization');
       },
     });
   }
