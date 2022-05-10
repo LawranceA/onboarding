@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles : any = '';
+  role: any = '';
 
   data: any;
   logForm = new FormGroup({
@@ -31,13 +31,17 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthServiceService,
-    private tokenStorage : TokenStorageService
+    private tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.role = this.tokenStorage.getUser().role;
+    }
+    // this.tokenStorage.signOut();
+    if (this.isLoggedIn) {
+      this.router.navigate([`../${this.tokenStorage.getUser()}`]);
     }
   }
 
@@ -45,21 +49,27 @@ export class LoginPageComponent implements OnInit {
     e.preventDefault();
 
     this.data = this.logForm.value;
-    // if (this.user == 'employee') {
-    //   this.router.navigate(['/user']);
-    // } else if (this.user == 'admin') {
-    //   this.router.navigate(['/admin']);
-    // }
-    this.authService.login(this.data.email, this.data.password, this.user).subscribe( data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data.role);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      });
+
+    this.authService
+      .login(this.data.email, this.data.password, this.user)
+      .subscribe(
+        (data) => {
+          this.tokenStorage.saveToken(data.accessToken);
+          console.log(data)
+          this.tokenStorage.saveUser(data.role);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          console.log(this.tokenStorage.getUser())
+          // this.role = this.tokenStorage.getUser();
+          this.router.navigate([`/${this.tokenStorage.getUser()}`], {
+            relativeTo: this.route,
+          });
+          
+        },
+        (err) => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
+      );
   }
 }
