@@ -8,6 +8,9 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthServiceService } from './services/auth-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { TokenStorageService } from './services/token-storage.service';
 
 
 
@@ -20,9 +23,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ AuthServiceService,TokenStorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
