@@ -1,29 +1,29 @@
 <div class="container">
   <h1>Personal Information</h1>
 
-  <form [formGroup]="personalInformation" (ngSubmit)="onSubmit()">
+  <form [formGroup]="personalInformation" >
     <div class="content">
       <mat-form-field appearance="outline">
-        <mat-label for="firstName">FirstName</mat-label>
+        <mat-label for="first_name">FirstName</mat-label>
         <input
           matInput
-          placeholder="firstName"
+          placeholder="first_name"
           type="text"
-          name="firstName"
-          id="firstName"
-          formControlName="firstName"
+          name="first_name"
+          id="first_name"
+          formControlName="first_name"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label for="lastName">LastName</mat-label>
+        <mat-label for="last_name">LastName</mat-label>
         <input
           matInput
-          placeholder="lastName"
+          placeholder="last_name"
           type="text"
-          name="lastName"
-          id="lastName"
-          formControlName="lastName"
+          name="last_name"
+          id="last_name"
+          formControlName="last_name"
         />
       </mat-form-field>
 
@@ -41,38 +41,38 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label for="email">Email</mat-label>
+        <mat-label for="personal_email">Email</mat-label>
         <input
           matInput
           type="email"
-          id="email"
-          name="email"
-          placeholder="Email"
-          formControlName="email"
+          id="personal_email"
+          name="personal_email"
+          placeholder="personal_email"
+          formControlName="personal_email"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label for="phone">Mobile No</mat-label>
+        <mat-label for="mobile_numer">Mobile No</mat-label>
         <input
           matInput
           type="text"
-          name="phone"
-          id="phone"
+          name="mobile_numer"
+          id="mobile_numer"
           placeholder="Mobile No"
-          formControlName="phone"
+          formControlName="mobile_number"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label for="alternatePhone">Alternate Mobile No</mat-label>
+        <mat-label for="alternate_number">Alternate Mobile No</mat-label>
         <input
           matInput
           type="text"
-          name="phone"
-          id="phone"
+          name="alternate_number"
+          id="alternate_number"
           placeholder="Alternate Mobile No"
-          formControlName="alternatePhone"
+          formControlName="alternate_number"
         />
       </mat-form-field>
 
@@ -84,7 +84,6 @@
           formControlName="gender"
           id="gender"
           name="gender"
-          
         >
           <mat-radio-button
             class="example-radio-button"
@@ -95,184 +94,186 @@
           </mat-radio-button>
         </mat-radio-group>
       </div>
-      
+
       <div class="uploadContainer">
         <label for="photo">Photo</label>
-        <input type="file" name="photo" id="photo" formControlName="photo">
-     </div>
+        <input type="file" name="photo" id="photo" formControlName="photo" />
+      </div>
     </div>
 
+    <!-- Current Address -->
+    <div formGroupName="current">
+      <h3>Current Adress</h3>
+      <div class="content">
+        <mat-form-field appearance="outline">
+          <mat-label for="house_no">House No.</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="house_no"
+            id="houseNo"
+            name="house_no"
+          />
+        </mat-form-field>
 
-    <h3>Current Adress</h3>
-    <div class="content">
-      <mat-form-field appearance="outline">
-        <mat-label for="houseNo">House No.</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="houseNo"
-          id="houseNo"
-          name="houseNo"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="street">Street/Area Name</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="street"
+            id="street"
+            name="street"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="street">Street/Area Name</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="street"
-          id="street"
-          name="street"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="locality">Locality</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="locality"
+            id="locality"
+            name="locality"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="locality">Locality</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="locality"
-          id="locality"
-          name="locality"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="city">City</mat-label>
+          <mat-select formControlName="city" id="city" name="city">
+            <mat-option *ngFor="let city of cities" [value]="city">
+              {{ city }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="city">City</mat-label>
-        <mat-select formControlName="city" id="city" name="city">
-          <mat-option *ngFor="let city of cities" [value]="city">
-            {{ city }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="pincode">Pincode</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Pincode"
+            formControlName="pincode"
+            id="pincode"
+            name="pincode"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="pincode">Pincode</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Pincode"
-          formControlName="pincode"
-          id="pincode"
-          name="pincode"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="state">State</mat-label>
+          <mat-select formControlName="state" id="state" name="state">
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{ state }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="state">State</mat-label>
-        <mat-select formControlName="state" id="state" name="state">
-          <mat-option *ngFor="let state of states" [value]="state">
-            {{ state }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label for="country">Country</mat-label>
-        <mat-select formControlName="country" id="country" name="country">
-          <mat-option *ngFor="let country of countries" [value]="country">
-            {{ country }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="country">Country</mat-label>
+          <mat-select formControlName="country" id="country" name="country">
+            <mat-option *ngFor="let country of countries" [value]="country">
+              {{ country }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
-    <h3>Permanent Adress</h3>
-    <section class="example-section">
-      <mat-checkbox class="example-margin"
-         (click)="copy($event)">Same as Current Address</mat-checkbox
-      >
-    </section>
-    <div class="content">
-      <mat-form-field appearance="outline">
-        <mat-label for="houseNo">House No.</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="houseNo2"
-          id="houseNo"
-          name="houseNo"
-        />
-      </mat-form-field>
+    <!-- Permanent Address -->
+    <div formGroupName="permanent">
+      <h3>Permanent Adress</h3>
+      <section class="example-section">
+        <mat-checkbox class="example-margin" (click)="copy($event)"
+          >Same as Current Address</mat-checkbox
+        >
+      </section>
+      <div class="content">
+        <mat-form-field appearance="outline">
+          <mat-label for="houseNo">House No.</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="house_no"
+            id="houseNo"
+            name="houseNo"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="street">Street/Area Name</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="street2"
-          id="street"
-          name="street"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="street">Street/Area Name</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="street"
+            id="street"
+            name="street"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="locality">Locality</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="House No."
-          formControlName="locality2"
-          id="locality"
-          name="locality"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="locality">Locality</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="House No."
+            formControlName="locality"
+            id="locality"
+            name="locality"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="city">City</mat-label>
-        <mat-select formControlName="city2" id="city" name="city">
-          <mat-option *ngFor="let city of cities" [value]="city">
-            {{ city }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="city">City</mat-label>
+          <mat-select formControlName="city" id="city" name="city">
+            <mat-option *ngFor="let city of cities" [value]="city">
+              {{ city }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="pincode">Pincode</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Pincode"
-          formControlName="pincode2"
-          id="pincode"
-          name="pincode"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="pincode">Pincode</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Pincode"
+            formControlName="pincode"
+            id="pincode"
+            name="pincode"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="state">State</mat-label>
-        <mat-select formControlName="state2" id="state" name="state">
-          <mat-option *ngFor="let state of states" [value]="state">
-            {{ state }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="state">State</mat-label>
+          <mat-select formControlName="state" id="state" name="state">
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{ state }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="counrty">Country</mat-label>
-        <mat-select formControlName="country2" id="country" name="country">
-          <mat-option *ngFor="let country of countries" [value]="country">
-            {{ country }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="counrty">Country</mat-label>
+          <mat-select formControlName="country" id="country" name="country">
+            <mat-option *ngFor="let country of countries" [value]="country">
+              {{ country }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <div class="btn-grp">
-      <button mat-button class="btn-primary">Save</button>
+      <button mat-button class="btn-primary" type="submit" [disabled]="!personalInformation.valid" (click)="onSubmit() ">Save</button>
       <button type="button" mat-button class="btn-primary" (click)="next()">
         Next
       </button>
     </div>
 
-    <button type="submit" [disabled]="!personalInformation.valid">
-      Submit
-    </button>
   </form>
 </div>

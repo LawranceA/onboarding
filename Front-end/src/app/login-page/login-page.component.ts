@@ -55,16 +55,17 @@ export class LoginPageComponent implements OnInit {
       .subscribe(
         (data) => {
           this.tokenStorage.saveToken(data.accessToken);
-          console.log(data)
+          console.log(data);
           this.tokenStorage.saveUser(data.role);
+          this.tokenStorage.saveName(data.name);
+          this.tokenStorage.userID(data.id);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          console.log(this.tokenStorage.getUser())
+          console.log(this.tokenStorage.getUser());
           // this.role = this.tokenStorage.getUser();
           this.router.navigate([`/${this.tokenStorage.getUser()}`], {
             relativeTo: this.route,
           });
-          
         },
         (err) => {
           this.errorMessage = err.error.message;
