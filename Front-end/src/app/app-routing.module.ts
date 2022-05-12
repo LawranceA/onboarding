@@ -10,10 +10,10 @@ const routes: Routes = [
     component: LoginPageComponent,
   },
   {
-    path:'ChangePassword',
-    component:ChangePasswordComponent,
+    path: 'ChangePassword',
+    component: ChangePasswordComponent,
   },
-  
+
   {
     path: 'admin',
     loadChildren: () =>

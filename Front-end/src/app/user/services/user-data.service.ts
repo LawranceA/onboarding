@@ -22,4 +22,10 @@ export class UserDataService {
     console.log(JSON.stringify(this.tokenStorage.getToken()))
     return this.http.post(`${this.api}/addPersonalInfo`,data,{headers:this.header});
   }
+  
+  addAddress(data: Object): Observable<Object> {
+    console.log(JSON.stringify(this.tokenStorage.getToken()))
+    return this.http.post(`${this.api}/addAddress`,data,{headers:this.header});
+  }
+
 }

@@ -17,7 +17,6 @@ import { UserDataService } from '../../services/user-data.service';
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css'],
- 
 })
 export class PersonalInformationComponent implements OnInit {
   genders = ['Male', 'Female', 'Others'];
@@ -445,7 +444,7 @@ export class PersonalInformationComponent implements OnInit {
     this.personalInformation.value.current.updated_at = new Date();
     this.personalInformation.value.current.updated_by =
       this.tokenStorage.getName();
-    this.personalInformation.value.current.fk_person_users_id =
+    this.personalInformation.value.current.fk_address_users_id =
       this.tokenStorage.getID();
     this.currentAddress = this.personalInformation.value.current;
     // console.log(this.currentAddress);
@@ -456,7 +455,7 @@ export class PersonalInformationComponent implements OnInit {
     this.personalInformation.value.permanent.updated_at = new Date();
     this.personalInformation.value.permanent.updated_by =
       this.tokenStorage.getName();
-    this.personalInformation.value.permanent.fk_person_users_id =
+    this.personalInformation.value.permanent.fk_address_users_id =
       this.tokenStorage.getID();
     this.permanentAddres = this.personalInformation.value.permanent;
     // console.log(this.permanentAddres);
@@ -466,6 +465,12 @@ export class PersonalInformationComponent implements OnInit {
     this.addCurrentAddress();
     this.addPermanentAddress();
     this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.currentAddress).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
       console.log(data);
     });
   }
