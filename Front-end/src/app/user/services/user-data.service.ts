@@ -13,14 +13,13 @@ export class UserDataService {
   ) {}
 
   private header = new HttpHeaders({
-    'x-access-token': JSON.stringify(this.tokenStorage.getToken),
+    'x-access-token': JSON.stringify(this.tokenStorage.getToken()),
     'Access-Control-Allow-Origin': '*',
   });
   private api =
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
-  addPersonalInfo(data: any): Observable<any> {
-    return this.http.post(`${this.api}/addPersonalInfo`, data, {
-      headers: this.header,
-    });
+  addPersonalInfo(data: Object): Observable<Object> {
+    console.log(JSON.stringify(this.tokenStorage.getToken()))
+    return this.http.post(`${this.api}/addPersonalInfo`,data,{headers:this.header});
   }
 }

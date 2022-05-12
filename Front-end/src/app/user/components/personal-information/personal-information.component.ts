@@ -374,7 +374,8 @@ export class PersonalInformationComponent implements OnInit {
   });
 
   personal_info: personalInfo = new personalInfo();
-  address = [{}];
+  currentAddress: any;
+  permanentAddres: any;
 
   constructor(
     private router: Router,
@@ -415,8 +416,7 @@ export class PersonalInformationComponent implements OnInit {
       });
     }
   }
-
-  onSubmit() {
+  addPersonalInfoData() {
     this.personal_info.first_name = this.personalInformation.value.first_name;
     this.personal_info.last_name = this.personalInformation.value.last_name;
     this.personal_info.personal_email =
@@ -432,7 +432,9 @@ export class PersonalInformationComponent implements OnInit {
     this.personal_info.updated_at = new Date();
     this.personal_info.updated_by = this.tokenStorage.getName();
     this.personal_info.fk_person_users_id = this.tokenStorage.getID();
-
+    // console.log(this.personal_info.created_at);
+  }
+  addCurrentAddress() {
     this.personalInformation.value.current.type = 'current';
     this.personalInformation.value.current.created_at = new Date();
     this.personalInformation.value.current.updated_at = new Date();
@@ -440,8 +442,10 @@ export class PersonalInformationComponent implements OnInit {
       this.tokenStorage.getName();
     this.personalInformation.value.current.fk_person_users_id =
       this.tokenStorage.getID();
-    this.address.push(this.personalInformation.value.current);
-
+    this.currentAddress = this.personalInformation.value.current;
+    // console.log(this.currentAddress);
+  }
+  addPermanentAddress() {
     this.personalInformation.value.permanent.type = 'permanent';
     this.personalInformation.value.permanent.created_at = new Date();
     this.personalInformation.value.permanent.updated_at = new Date();
@@ -449,8 +453,13 @@ export class PersonalInformationComponent implements OnInit {
       this.tokenStorage.getName();
     this.personalInformation.value.permanent.fk_person_users_id =
       this.tokenStorage.getID();
-    this.address.push(this.personalInformation.value.permanent);
-
+    this.permanentAddres = this.personalInformation.value.permanent;
+    // console.log(this.permanentAddres);
+  }
+  onSubmit() {
+    this.addPersonalInfoData();
+    this.addCurrentAddress();
+    this.addPermanentAddress();
     this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
       console.log(data);
     });
