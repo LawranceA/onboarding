@@ -79,4 +79,8 @@ export class LoginPageComponent implements OnInit {
         }
       );
   }
+  ChangePasswordPage()
+  {
+    this.router.navigate(["/ChangePassword"])
+  }
 }

@@ -15,6 +15,17 @@
     grid-template-columns: repeat(3,1fr);
     column-gap: 10px;
    }
+   ::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #014868 !important;
+}
+
+/*  mat-label focused style */
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
+  color: #014868 !important;
+}
 
 
    /* Extra small devices (phones, 600px and down) */

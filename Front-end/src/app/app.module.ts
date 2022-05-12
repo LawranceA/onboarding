@@ -12,11 +12,11 @@ import { AuthServiceService } from './services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TokenStorageService } from './services/token-storage.service';
 import { DatePipe } from '@angular/common';
-
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent],
+  declarations: [AppComponent, LoginPageComponent,ChangePasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

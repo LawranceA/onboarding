@@ -61,6 +61,21 @@
   ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #FF934f !important;
   }
+ 
+
+/* mat-input focused color */
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #014868 !important;
+}
+
+/*  mat-label focused style */
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
+  color: #014868 !important;
+}
 
   @media only screen and (max-width: 600px) {
 

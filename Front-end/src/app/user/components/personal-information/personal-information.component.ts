@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormsModule,
@@ -17,6 +17,7 @@ import { UserDataService } from '../../services/user-data.service';
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css'],
+ 
 })
 export class PersonalInformationComponent implements OnInit {
   genders = ['Male', 'Female', 'Others'];
