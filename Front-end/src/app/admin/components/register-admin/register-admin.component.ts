@@ -26,9 +26,9 @@ export class RegisterAdminComponent implements OnInit {
    
   }
   addAdmin(){
-    this.service.createAdmin(this.admin).subscribe(data=>{
-      console.log(data)
-    })
+    // this.service.createAdmin(this.admin).subscribe(data=>{
+    //   console.log(data)
+    // })
   }
   register(e:Event){
     e.preventDefault()

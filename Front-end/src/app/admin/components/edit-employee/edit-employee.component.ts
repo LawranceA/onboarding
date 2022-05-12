@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AdminServiceService } from '../../admin-service.service';
 
 export interface EditEmployee {
   id: string;
@@ -26,11 +27,20 @@ const data: EditEmployee[] = [
   styleUrls: ['./edit-employee.component.css'],
 })
 export class EditEmployeeComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  data: any;
+  clicked = '';
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: AdminServiceService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.data = this.service.getData();
+  }
+
   display = 'none';
-  files=[{}]
+  files = [];
   // for expansion pannel
   step = 0;
   setStep(index: number) {
@@ -42,14 +52,33 @@ export class EditEmployeeComponent implements OnInit {
   prevStep() {
     this.step--;
   }
+  //files
 
   //open and close dialog box
-  openDiag() {
-    this.display = 'block';
+  openDiag(val: any, data: any) {
+    // this.display = 'block';
+    this.clicked = val;
+    // this.files=data
   }
   close() {
     this.display = 'none';
   }
-
+  submit() {
+    this.service.setData(this.data);
+    console.log(this.data);
+  }
+  fileChange(index: any, type: any, filed: any, e: any) {
+    // console.log(JSON.parse(ob))
+    console.log(this.data[0].educational[index].type);
+    if (filed == 'marksheet') {
+      this.data[0].educational[index].marksheet = e.target.files[0].name;
+    }
+    // this.data.ob[index].type.filed=e.target.files
+  }
+  deleteFile(i:any,type:any,field:any){
+    if(field=="marksheet"){
+      this.data[0].educational[i].marksheet = null;
+    }
+  }
   onSubmit() {}
 }

@@ -50,6 +50,10 @@ h5:after {
 .type {
   font-weight: bold;
   color: #014868;
+  margin-top: 1rem;
+}
+.type:not(:first-child){
+  margin-top:2rem;
 }
 .created-container {
   color: #014868;
@@ -73,7 +77,9 @@ mat-icon {
 .personal-info {
   padding-top: 1rem;
 }
-
+.file-upload{
+  text-align: center;
+}
 /* modal */
 .modal {
   display: none;
@@ -109,16 +115,39 @@ mat-icon {
   width: 10rem;
   margin: 0 2rem;
   margin-left: 30%;
-} 
-.folder-icon{
- 
+}
+.folder-icon {
   padding-left: 1rem;
   display: inline;
   font-size: 2.5rem;
 }
-.folder-icon mat-icon{
+.folder-icon mat-icon {
   font-size: 2rem;
 }
+.uploadContainer {
+  width: 10rem;
+  display: inline;
+  padding: 1rem 0;
+ height: 2rem;
+ border: none;
+}.uploadContainer label{
+  color: black;
+}
+.file-uplaod-conatiner{
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly ;
+}
+.uploads{
+  margin:0 2rem 1rem 0;
+  border: 1px solid #014868;
+  width: 30rem;
+  padding: .5rem;
+  border-radius:5px;
+  
+}
+
 /* ------------------------ */
 @media (max-width: 75em) {
   h5 {
