@@ -5,7 +5,7 @@ export class personalInfo {
   personal_email: string = '';
   mobile_number: string = '';
   alternate_number: string = '';
-  dob = new Date();
+  dob : any = new Date();
   gender: string = '';
   photo: string = '';
   created_at = new Date();

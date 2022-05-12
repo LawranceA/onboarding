@@ -6,7 +6,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, formatDate, JsonPipe } from '@angular/common';
 import { filter } from 'rxjs';
 import { personalInfo } from '../../structure/personal-info';
 import { Address } from '../../structure/address';
@@ -380,7 +380,8 @@ export class PersonalInformationComponent implements OnInit {
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
-    private userService: UserDataService
+    private userService: UserDataService,
+    private pipe: DatePipe
   ) {}
 
   next() {
@@ -426,7 +427,10 @@ export class PersonalInformationComponent implements OnInit {
     this.personal_info.alternate_number =
       this.personalInformation.value.alternate_number;
     this.personal_info.gender = this.personalInformation.value.gender;
-    this.personal_info.dob = this.personalInformation.value.dob;
+    this.personal_info.dob = this.pipe.transform(
+      this.personalInformation.value.dob,
+      'YYYY-MM-dd'
+    );
     this.personal_info.photo = this.personalInformation.value.photo;
     this.personal_info.created_at = new Date();
     this.personal_info.updated_at = new Date();

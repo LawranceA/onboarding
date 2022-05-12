@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthServiceService } from './services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TokenStorageService } from './services/token-storage.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -26,7 +27,7 @@ import { TokenStorageService } from './services/token-storage.service';
     FontAwesomeModule,
     HttpClientModule
   ],
-  providers: [ AuthServiceService,TokenStorageService],
+  providers: [ AuthServiceService,TokenStorageService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
