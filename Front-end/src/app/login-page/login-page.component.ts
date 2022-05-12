@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../services/auth-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -8,8 +8,10 @@ import { TokenStorageService } from '../services/token-storage.service';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginPageComponent implements OnInit {
+  public selectedVal!: string;
   status = 'success';
   user = '';
   setUser(data: any) {
@@ -35,6 +37,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.selectedVal ='user';
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser().role;
@@ -44,14 +47,17 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate([`../${this.tokenStorage.getUser()}`]);
     }
   }
-
+  public onValChange(val: string) {
+    this.selectedVal = val;
+  }
   onLogin(e: Event) {
+    console.log(this.selectedVal);
     e.preventDefault();
 
     this.data = this.logForm.value;
 
     this.authService
-      .login(this.data.email, this.data.password, this.user)
+      .login(this.data.email, this.data.password, this.selectedVal)
       .subscribe(
         (data) => {
           this.tokenStorage.saveToken(data.accessToken);

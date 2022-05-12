@@ -1,16 +1,16 @@
 <div class="diggibyte_logo">
-  <img src="../../assets/images/diggibyte_full_logo.png" alt="" srcset="" />
+  <img src="../../assets/images/full_logo.png" alt="" srcset="" />
 </div>
 
 <div class="login-container">
   <div class="container">
     <form [formGroup]="logForm">
       <div class="loginpage-background">
-        <mat-button-toggle-group>
-          <mat-button-toggle (click)="setUser('user')"
+        <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
+          <mat-button-toggle (click)="setUser('user')" value="user" class="toggle"
             >Employee</mat-button-toggle
           >
-          <mat-button-toggle (click)="setUser('admin')"
+          <mat-button-toggle (click)="setUser('admin')" value="admin" class="toggle"
             >Admin</mat-button-toggle
           >
         </mat-button-toggle-group>
@@ -38,7 +38,7 @@
           </a>
         </p>
         <p>
-          <button mat-button class="button-gradient" (click)="onLogin($event)">
+          <button mat-button class="button-gradient login" (click)="onLogin($event)">
             Login
           </button>
         </p>

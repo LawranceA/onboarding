@@ -45,7 +45,7 @@
 {
     position: absolute;
     background-color: rgba(196, 196, 196, 0.13);
-    
+    /* background-color: gold; */
     padding:1.563rem 2.13rem;
     border-radius:1%;
     width:62%;
@@ -55,8 +55,9 @@ mat-form-field
 {
     width: 21.875rem;
     font-weight:500;
+   
 }
-mat-button-toggle
+.toggle
 {
     width: 10.8rem;
     font-weight:500;
@@ -65,15 +66,17 @@ mat-button-toggle
 .mat-button-toggle-checked
 {
     background-image: linear-gradient(to right, #ff934f, #fb7d2e);
-    color: white;
+    color: white!important;
 }
 mat-button-toggle-group 
 {
     margin-bottom: 2rem;
+  
 }
+
 .change_password
 {
-    color:red;
+    color:#014868;
 }
 .change_password_p
 {
@@ -88,11 +91,29 @@ mat-button-toggle-group
 }
 .login-img
 {
-    
     position: absolute;
     margin-left:40rem;
 }
 
+/* input outline color */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color:  #014868!important;
+   
+}
+
+/* mat-input focused color */
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color:  #014868!important;
+}
+/* mat-label normal state style */
+.mat-form-field-label {
+    color:  #014868!important;
+   
+}
+/*  mat-label focused style */
+.mat-form-field.mat-focused .mat-form-field-label {
+    color:  #014868!important;
+}
 @media(max-width:106.25em)
 {
     .container
