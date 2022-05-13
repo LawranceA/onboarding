@@ -148,6 +148,9 @@ mat-icon {
   border-radius:5px;
   
 }
+.boxin{
+  margin-top: 1rem;
+}
 
 /* ------------------------ */
 @media (max-width: 75em) {
