@@ -111,7 +111,6 @@
             matInput
             placeholder="Locality"
             [(ngModel)]="d.locality == null ? 'NA' : d.locality"
-            [disabled]="d.locaity == null ? true : false"
           />
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -220,44 +219,7 @@
         </p>
         <div *ngIf="clicked == d.type">
           <h4 class="type" style="margin-top: 0">FILES UPLOADED</h4>
-          <div class="uploadContainer" *ngIf="d.marksheet != null">
-            <label for="marksheet">{{ d.marksheet }}</label>
-            <label for="marksheet"
-              ><mat-icon class="file-upload">file_upload</mat-icon></label
-            >
-            <input
-              style="display: none"
-              type="file"
-              name="marksheet"
-              id="marksheet"
-              (change)="fileChange(i, d.type, 'marksheet', $event)"
-            />
-            <mat-icon (click)="deleteFile(i, d.type, 'marksheet')"
-              >delete</mat-icon
-            >
-          </div>
-          <div class="uploadContainer" *ngIf="d.transfer_certificate != null">
-            <label for="transfer_certificate">{{
-              d.transfer_certificate
-            }}</label>
-            <input
-              type="file"
-              name="transfer_certificate"
-              id="transfer_certificate"
-            />
-          </div>
-          <div class="uploadContainer" *ngIf="d.provisonal_marks_card != null">
-            <label for="provisonal_marks_card">{{
-              d.provisonal_marks_card
-            }}</label>
-            <input
-              type="file"
-              name="provisonal_marks_card"
-              id="provisonal_marks_card"
-            />
-          </div>
-        </div>
-        <div
+          <div
           *ngIf="
             d.provisonal_marks_card == null &&
             d.transfer_certificate == null &&
@@ -265,43 +227,61 @@
           "
         >
           <p class="type" style="text-align: center">No files uplaoded</p>
-          <div class="file-uplaod-conatiner">
-            <div class="uploads">
-              <label for="marksheet">Upload Marksheet</label>
-              <input type="file" id="marksheet" name="marksheet" />
-            </div>
-            <div class="uploads"  *ngIf="d.type=='10th' || d.type=='12th'">
-              <label for="transfer_certificate"
-                >Upload Transfer certificate</label
-              >
-              <input
-                type="file"
-                id="transfer_certificate"
-                name="transfer_certificate"
-              />
-            </div>
-            </div>
-            <div class="file-uplaod-conatiner" *ngIf="d.type=='UG' || d.type=='PG'">
-            <div class="uploads">
-              <label for="provisonal_marks_card"
-                >Upload provisional Marks Card</label
-              >
-              <input
-                type="file"
-                id="provisonal_marks_card"
-                name="provisonal_marks_card"
-              />
-            </div>
-            <div class="uploads">
-              <label for="convocation_certificate">Upload Convocation</label>
-              <input
-                type="file"
-                id="convocation_certificate"
-                name="convocation_certificate"
-              />
-            </div>
+         
+        </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">Marks sheet:</span>
+            <label for="marksheet">{{ d.marksheet==null?"no file uploaded":d.marksheet }}</label>
+            <label for="marksheet"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="marksheet"
+              id="marksheet"
+              (change)="fileChange('marksheet', $event,i, d.type)"
+            />
+            <mat-icon (click)="deleteFile('marksheet',i, d.type)"
+              >delete</mat-icon
+            >
+          </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">Transfer Certificate </span>
+            <label for="transfer_certificate">{{ d.transfer_certificate==null?'no file uplaoded':d.transfer_certificate }}</label>
+            <label for="transfer_certificate"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="transfer_certificate"
+              id="transfer_certificate"
+              (change)="fileChange('transfer_certificate', $event,i, d.type)"
+            />
+            <mat-icon (click)="deleteFile('transfer_certificate',i, d.type)"
+              >delete</mat-icon
+            >
+          </div>
+          <div class="uploadContainer" *ngIf="d.type=='UG' || d.type=='PG'">
+            <span class="type"style="padding-right: .5rem;">Provisional marksCard</span>
+            <label for="provisonal_marks_card">{{ d.provisonal_marks_card==null?'no file uplaoded':d.provisonal_marks_card }}</label>
+            <label for="provisonal_marks_card"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="provisonal_marks_card"
+              id="provisonal_marks_card"
+              (change)="fileChange('provisonal_marks_card', $event,i, d.type)"
+            />
+            <mat-icon (click)="deleteFile('provisonal_marks_card',i, d.type)"
+              >delete</mat-icon
+            >
           </div>
         </div>
+        
       </div>
 
       <button mat-button class="button-gradient submit" (click)="submit()">
@@ -385,7 +365,7 @@
         </div>
       </div>
       <ng-template #fresher>
-        <h2>FRESHER</h2>
+        <p class="type" style="color:#FF934f;text-align: center;">"Looks like the employee is fresher"</p>
       </ng-template>
 
       <!--  -->
@@ -407,7 +387,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <!--  -->
-      <div>
+      <div class="proof">
         <mat-form-field appearance="outline">
           <mat-label>Aadhar card Number</mat-label>
           <input
@@ -448,8 +428,95 @@
           <mat-datepicker #passport_expire_date></mat-datepicker>
         </mat-form-field>
         <p class="folder-icon">
-          <mat-icon (click)="openDiag('proof', 'fg')">folder</mat-icon>
+          <mat-icon
+            (click)="
+              openDiag('proof',null)"
+            >folder</mat-icon
+          >
         </p>
+        <div *ngIf="clicked =='proof'">
+          <h4 class="type" style="margin-top: 0">FILES UPLOADED</h4>
+          <div
+          *ngIf="
+          data[0].other_details.aadhar == null &&
+          data[0].other_details.pan == null &&
+          data[0].other_details.passport == null &&
+          data[0].other_details.covid_certificate==null
+          "
+        >
+          <p class="type" style="text-align: center">No files uplaoded</p>
+         
+        </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">Aadhar:</span>
+            <label for="aadhar">{{ data[0].other_details.aadhar==null?"no file uploaded":data[0].other_details.aadhar }}</label>
+            <label for="aadhar"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="aadhar"
+              id="aadhar"
+              (change)="fileChange('aadhar', $event)"
+            />
+            <mat-icon (click)="deleteFile('aadhar')"
+              >delete</mat-icon
+            >
+          </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">PAN:</span>
+            <label for="pan">{{ data[0].other_details.pan==null?"no file uploaded":data[0].other_details.pan }}</label>
+            <label for="pan"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="pan"
+              id="pan"
+              (change)="fileChange('pan', $event)"
+            />
+            <mat-icon (click)="deleteFile('pan')"
+              >delete</mat-icon
+            >
+          </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">Passport: </span>
+            <label for="passport">{{ data[0].other_details.passport==null?"no file uploaded":data[0].other_details.passport }}</label>
+            <label for="passport"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="passport"
+              id="passport"
+              (change)="fileChange('passport', $event)"
+            />
+            <mat-icon (click)="deleteFile('passport')"
+              >delete</mat-icon
+            >
+          </div>
+          <div class="uploadContainer">
+            <span class="type"style="padding-right: .5rem;">Covid certificate: </span>
+            <label for="covid_certificate">{{ data[0].other_details.covid_certificate==null?"no file uploaded":data[0].other_details.covid_certificate }}</label>
+            <label for="covid_certificate"
+              ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+            >
+            <input
+              style="display: none"
+              type="file"
+              name="covid_certificate"
+              id="covid_certificate"
+              (change)="fileChange('covid_certificate', $event)"
+            />
+            <mat-icon (click)="deleteFile('covid_certificate')"
+              >delete</mat-icon
+            >
+          </div>
+         
+        </div>
       </div>
       <!--  -->
       <mat-action-row>

@@ -75,11 +75,12 @@ export class AdminServiceService {
   }
 ],employment:[],other_details:{
   aadhar_number:"2542 8524 2654",
-  aadhar:null,
+  aadhar:"mahi aadhar.pdf",
   pan_number:"CZSPR5226",
   pan:null,
   passport_number:"2589",
   passport_expire:"2020-09-03",
+  passport:null,
   covid_certificate:null
 },declaration:{
   joining_date:"2022-09-02",

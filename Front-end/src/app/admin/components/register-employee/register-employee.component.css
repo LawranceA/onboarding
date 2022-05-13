@@ -1,5 +1,5 @@
 @import url('../register-admin/register-admin.component.css');
-@import url('../../../../styles.css');
+
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {

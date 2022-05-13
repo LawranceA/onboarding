@@ -17,13 +17,20 @@ export class RegisterAdminComponent implements OnInit {
   constructor(private router:Router,private route:ActivatedRoute, private service:AdminServiceService) { }
   regForm=new FormGroup({
     id:new FormControl('',Validators.required),
-    name:new FormControl('',[Validators.required,Validators.minLength(3)]),
+    name:new FormControl('',[Validators.minLength(3),Validators.required,]),
     email:new FormControl('',[Validators.required,Validators.email]),
     phone_number:new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[6-9]{1}[0-9]{9}$")]),
     designation:new FormControl('',Validators.required),
   })
   ngOnInit(): void {
    
+  }
+  getErrorMessage() {
+    console.log("entering")
+    if (this.regForm.get('email')?.getError('required')||this.regForm.get('id')?.getError('required')) {
+      return 'You must enter a value';
+    }
+    return '';
   }
   addAdmin(){
     // this.service.createAdmin(this.admin).subscribe(data=>{

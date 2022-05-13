@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminServiceService } from '../../admin-service.service';
@@ -28,7 +28,9 @@ const data: EditEmployee[] = [
 })
 export class EditEmployeeComponent implements OnInit {
   data: any;
+  //to display files section for education
   clicked = '';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -56,9 +58,7 @@ export class EditEmployeeComponent implements OnInit {
 
   //open and close dialog box
   openDiag(val: any, data: any) {
-    // this.display = 'block';
     this.clicked = val;
-    // this.files=data
   }
   close() {
     this.display = 'none';
@@ -67,17 +67,42 @@ export class EditEmployeeComponent implements OnInit {
     this.service.setData(this.data);
     console.log(this.data);
   }
-  fileChange(index: any, type: any, filed: any, e: any) {
+  fileChange(filed: any, e: any, index?: any, type?: any) {
     // console.log(JSON.parse(ob))
     console.log(this.data[0].educational[index].type);
     if (filed == 'marksheet') {
       this.data[0].educational[index].marksheet = e.target.files[0].name;
+    } else if (filed == 'transfer_certificate') {
+      this.data[0].educational[index].transfer_certificate =
+        e.target.files[0].name;
+    } else if (filed == 'provisonal_marks_card') {
+      this.data[0].educational[index].provisonal_marks_card =
+        e.target.files[0].name;
+    } else if (filed == 'aadhar') {
+      this.data[0].other_details.aadhar = e.target.files[0].name;
+    } else if (filed == 'pan') {
+      this.data[0].other_details.pan = e.target.files[0].name;
+    } else if (filed == 'passport') {
+      this.data[0].other_details.passport = e.target.files[0].name;
+    }else if (filed == 'covid_certificate') {
+      this.data[0].other_details.covid_certificate = e.target.files[0].name;
     }
-    // this.data.ob[index].type.filed=e.target.files
   }
-  deleteFile(i:any,type:any,field:any){
-    if(field=="marksheet"){
+  deleteFile(field: any, i?: any, type?: any) {
+    if (field == 'marksheet') {
       this.data[0].educational[i].marksheet = null;
+    } else if (field == 'transfer_certificate') {
+      this.data[0].educational[i].transfer_certificate = null;
+    } else if (field == 'provisonal_marks_card') {
+      this.data[0].educational[i].provisonal_marks_card = null;
+    } else if (field == 'aadhar') {
+      this.data[0].other_details.aadhar = null;
+    } else if (field == 'pan') {
+      this.data[0].other_details.pan = null;
+    } else if (field == 'passport') {
+      this.data[0].other_details.passport = null;
+    } else if (field == 'covid_certificate') {
+      this.data[0].other_details.covid_certificate = null;
     }
   }
   onSubmit() {}
