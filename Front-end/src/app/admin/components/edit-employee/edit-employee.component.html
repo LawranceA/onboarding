@@ -208,12 +208,7 @@
         <p class="folder-icon">
           <mat-icon
             (click)="
-              openDiag(d.type, [
-                d.marksheet,
-                d.transfer_certificate,
-                d.provisonal_marks_card
-              ])
-            "
+              openDiag(d.type)"
             >folder</mat-icon
           >
         </p>
@@ -360,7 +355,7 @@
             <mat-datepicker #notice_date></mat-datepicker>
           </mat-form-field>
           <p class="folder-icon">
-            <mat-icon (click)="openDiag('employment', 'ghf')">folder</mat-icon>
+            <mat-icon (click)="openDiag('employment')">folder</mat-icon>
           </p>
         </div>
       </div>
@@ -430,7 +425,7 @@
         <p class="folder-icon">
           <mat-icon
             (click)="
-              openDiag('proof',null)"
+              openDiag('proof')"
             >folder</mat-icon
           >
         </p>

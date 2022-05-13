@@ -54,10 +54,8 @@ export class EditEmployeeComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-  //files
-
   //open and close dialog box
-  openDiag(val: any, data: any) {
+  openDiag(val: any) {
     this.clicked = val;
   }
   close() {
