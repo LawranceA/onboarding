@@ -13,7 +13,7 @@ export class UserDataService {
   ) {}
 
   private header = new HttpHeaders({
-    'x-access-token': JSON.stringify(this.tokenStorage.getToken()),
+    'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
   });
   private api =
@@ -26,6 +26,12 @@ export class UserDataService {
   addAddress(data: Object): Observable<Object> {
     console.log(JSON.stringify(this.tokenStorage.getToken()))
     return this.http.post(`${this.api}/addAddress`,data,{headers:this.header});
+  }
+  
+  //api for change password
+  changePassword(data: Object): Observable<any> {
+    console.log("inside changepassword")
+    return this.http.post(`${this.api}/changePassword`,data,{headers:this.header});
   }
 
 }

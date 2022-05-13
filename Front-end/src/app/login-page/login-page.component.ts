@@ -8,7 +8,7 @@ import { TokenStorageService } from '../services/token-storage.service';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginPageComponent implements OnInit {
   public selectedVal!: string;
@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectedVal ='user';
+    this.selectedVal = 'user';
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser().role;
@@ -69,9 +69,40 @@ export class LoginPageComponent implements OnInit {
           this.isLoggedIn = true;
           console.log(this.tokenStorage.getUser());
           // this.role = this.tokenStorage.getUser();
-          this.router.navigate([`/${this.tokenStorage.getUser()}`], {
-            relativeTo: this.route,
-          });
+          if (this.tokenStorage.getUser() == 'admin') {
+            this.router.navigate([`../${this.tokenStorage.getUser()}`], {
+              relativeTo: this.route,
+            });
+          } else if (
+            data.message == 'invalid password' ||
+            data.message == 'user not found'
+          ) {
+          } else if (
+            this.tokenStorage.getUser() == 'user' &&
+            data.pass == 'yes'
+          ) {
+            this.router.navigate([`../${this.tokenStorage.getUser()}`], {
+              relativeTo: this.route,
+            });
+          } else if (
+            this.tokenStorage.getUser() == 'user' &&
+            data.pass == null
+          ) {
+            console.log(data.pass);
+            this.router.navigate(['../ChangePassword'], {
+              relativeTo: this.route,
+            });
+          }
+          // else if (data.password_status == null) {
+          //   console.log(data);
+          //   this.router.navigate(['../ChangePassword'], {
+          //     relativeTo: this.route,
+          //   });
+          // } else {
+          //   this.router.navigate([`../${this.tokenStorage.getUser()}`], {
+          //     relativeTo: this.route,
+          //   });
+          // }
         },
         (err) => {
           this.errorMessage = err.error.message;
@@ -79,8 +110,7 @@ export class LoginPageComponent implements OnInit {
         }
       );
   }
-  ChangePasswordPage()
-  {
-    this.router.navigate(["/ChangePassword"])
+  ChangePasswordPage() {
+    this.router.navigate(['../ChangePassword']);
   }
 }

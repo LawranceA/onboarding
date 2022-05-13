@@ -1,34 +1,58 @@
 <div class="container">
-    <span class="register-heading">Register Employee </span>
-    <div class="form-background">
-      <form>
+  <span class="register-heading">Register Employee </span>
+  <div class="form-background">
+    <form [formGroup]="regForm">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Employee ID</mat-label>
+          <input
+            matInput
+            placeholder="Enter Employee ID"
+            formControlName="id"
+          />
+        </mat-form-field>
+      </p>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Full Name</mat-label>
-          <input matInput placeholder="Enter Full Name" />
+          <input
+            matInput
+            placeholder="Enter Full Name"
+            formControlName="name"
+          />
         </mat-form-field>
       </p>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email ID</mat-label>
-          <input matInput placeholder="Enter Email"/>
+          <input matInput placeholder="Enter Email" formControlName="email" />
         </mat-form-field>
       </p>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Phone Number</mat-label>
-          <input matInput placeholder="Enter Phone Number" />
+          <input
+            matInput
+            placeholder="Enter Phone Number"
+            formControlName="phone_number"
+          />
         </mat-form-field>
       </p>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Designation</mat-label>
-          <input matInput placeholder="Enter Designation" />
+          <input
+            matInput
+            placeholder="Enter Designation"
+            formControlName="designation"
+          />
         </mat-form-field>
       </p>
       <p>
-        <button mat-button class="button-gradient">Register Employee</button>
+        <button mat-button class="button-gradient" (click)="register($event)">
+          Register Employee
+        </button>
       </p>
     </form>
-    </div>
+  </div>
 </div>

@@ -1,13 +1,13 @@
-<div *ngIf="status=='register success'" class="status-conatiner">
+<div *ngIf="userStatus.status=='Registered Successfully'" class="status-conatiner">
     <div class="content success">
         <mat-icon>check_circle</mat-icon>
-        <p>{{user}} is Successfully Registered </p>
+        <p>{{userStatus.user}} is Successfully Registered </p>
     </div>
     <div>
         <img src="../../../../assets/images/account_registered.svg" alt="" srcset="" class="reg-image successed-img">
     </div>
 </div>
-<div *ngIf="status=='register failure'">
+<div *ngIf="userStatus.status=='Cannot Register'">
     <div class="content failure">
         <mat-icon>cancel</mat-icon>
         <p>Registration Failured</p>
@@ -16,16 +16,16 @@
         <img src="../../../../assets/images/account_rejected.svg" alt="" srcset="" class="reg-image failed-img">
     </div>
 </div>
-<div *ngIf="status=='deletion success'" class="status-conatiner">
+<div *ngIf="userStatus.status=='deletion success'" class="status-conatiner">
     <div class="content success">
         <mat-icon>check_circle</mat-icon>
-        <p>{{user}} is Successfully Deleted </p>
+        <p>{{userStatus.user}} is Successfully Deleted </p>
     </div>
     <div>
         <img src="../../../../assets/images/delete success.svg" alt="" srcset="" class="reg-image delete-successed-img">
     </div>
 </div>
-<div *ngIf="status=='deletion failure'">
+<div *ngIf="userStatus.status=='deletion failure'">
     <div class="content failure">
         <mat-icon>cancel</mat-icon>
         <p>Employee Deletion failure</p>
