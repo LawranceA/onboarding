@@ -43,7 +43,14 @@ export class LoginPageComponent implements OnInit {
       this.role = this.tokenStorage.getUser().role;
     }
     // this.tokenStorage.signOut();
-    if (this.isLoggedIn) {
+    if (this.isLoggedIn && this.tokenStorage.getUser() == 'admin') {
+      this.router.navigate([`../${this.tokenStorage.getUser()}`]);
+    } else if (
+      this.tokenStorage.getUser() == 'user' &&
+      localStorage.getItem('passChange') == 'yes'
+    ) {
+      localStorage.setItem('passChange', 'no');
+    } else if (this.tokenStorage.getUser() == 'user') {
       this.router.navigate([`../${this.tokenStorage.getUser()}`]);
     }
   }

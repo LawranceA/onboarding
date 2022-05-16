@@ -41,6 +41,7 @@ export class ChangePasswordComponent implements OnInit {
       
       if (data.message == 'Password Updated successfully') {
         console.log('Inside subscribe');
+        localStorage.setItem('passChange','yes')
         this.router.navigate(['/login'], { relativeTo: this.route });
       } else {
         this.router.navigate(['../ChangePassword'], { relativeTo: this.route });

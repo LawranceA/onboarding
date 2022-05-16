@@ -43,7 +43,7 @@ export class RegisterEmployeeComponent implements OnInit {
     return '';
   }
 
-  addAdmin() {
+  addUser() {
     this.service.addEmployee(this.user).subscribe((data) => {
       console.log(data.message);
       this.service.setStatus({ status: data.message, user: 'Employee' });
@@ -57,6 +57,6 @@ export class RegisterEmployeeComponent implements OnInit {
     this.user.created_by = this.tokenStorage.getName();
     this.user.updated_at = new Date();
     this.user.updated_by = this.tokenStorage.getName();
-    this.addAdmin();
+    this.addUser();
   }
 }

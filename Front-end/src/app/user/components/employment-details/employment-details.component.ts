@@ -10,6 +10,7 @@ import { SharedService } from '../../services/shared.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-employment-details',
@@ -22,6 +23,7 @@ export class EmploymentDetailsComponent implements OnInit {
     'joiningDate',
     'relievingDate',
     'noticePeriodEndDate',
+    'hr_name',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -32,7 +34,8 @@ export class EmploymentDetailsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private api: SharedService
+    private api: SharedService,
+    private tokenStorage: TokenStorageService
   ) {}
 
   next() {
@@ -73,9 +76,9 @@ export class EmploymentDetailsComponent implements OnInit {
   }
 
   getAllOrganization() {
-    this.api.getOrganization().subscribe({
+    this.api.getOrganization(this.tokenStorage.getID()).subscribe({
       next: (res) => {
-        // console.log(res);
+        console.log(res);
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -104,15 +107,25 @@ export class EmploymentDetailsComponent implements OnInit {
       });
   }
 
-  deleteOrganization(id : number){
-    this.api.deleteOrganization(id).subscribe({
-      next: (res) => {
-        // alert(' organization deleted Successfully');
+  deleteOrganization(id: number) {
+    // this.api.deleteOrganization(id).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     alert(' organization deleted Successfully');
+    //     this.getAllOrganization();
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //     alert('Error in deleting the organization');
+    //   },
+    // });
+    this.api.deleteOrganization(id).subscribe((data) => {
+      if (data) {
+        alert(' organization deleted Successfully');
         this.getAllOrganization();
-      },
-      error: () => {
-        // alert('Error in deleting the organization');
-      },
+      } else {
+        alert('Error in deleting the organization');
+      }
     });
   }
 }

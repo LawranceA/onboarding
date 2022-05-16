@@ -7,8 +7,8 @@
 
   <!-- Display the organization record -->
   <div class="container">
-    <div style="margin: 20px 0">
-      <mat-form-field appearance="standard">
+    <div style="margin: 20px 0;">
+      <!-- <mat-form-field appearance="standard">
         <mat-label>Filter</mat-label>
         <input
           matInput
@@ -16,16 +16,16 @@
           placeholder="organization"
           #input
         />
-      </mat-form-field>
+      </mat-form-field> -->
 
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
           <!-- ID Column -->
           <ng-container matColumnDef="organizationName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               organizationName
             </th>
-            <td mat-cell *matCellDef="let row">{{ row.organizationName }}</td>
+            <td mat-cell *matCellDef="let row">{{ row.org_name }}</td>
           </ng-container>
 
           <!-- Progress Column -->
@@ -34,7 +34,7 @@
               joiningDate
             </th>
             <td mat-cell *matCellDef="let row">
-              {{ row.joiningDate | date: "dd/MM/yyyy" }}
+              {{ row.joining_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
@@ -44,45 +44,56 @@
               relievingDate
             </th>
             <td mat-cell *matCellDef="let row">
-              {{ row.relievingDate | date: "dd/MM/yyyy" }}
+              {{ row.relieving_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
-       
+         
+          <ng-container matColumnDef="hr_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>HR Name</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.hr_name }}
+            </td>
+          </ng-container>
 
-          <!-- Fruit Column -->
           <ng-container matColumnDef="noticePeriodEndDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               noticePeriodEndDate
             </th>
             <td mat-cell *matCellDef="let row">
-              {{ row.noticePeriodEndDate | date: "dd/MM/yyyy" }}
+              {{ row.notice_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>action</th>
             <td mat-cell *matCellDef="let row">
-          
-              <button  mat-icon-button color="primary" (click)="editOrganization(row)">
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="editOrganization(row)"
+              >
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteOrganization(row.id)">
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteOrganization(row.id)"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
-       
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-          <!-- Row shown when there is no matching data. -->
+          <!-- Row shown when there is no matching data.
           <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">
               No data matching the filter "{{ input.value }}"
             </td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>
@@ -100,7 +111,7 @@
       </button>
     </div>
     <div class="btn-grp">
-      <button mat-button class="btn-primary">Save</button>
+      <!-- <button mat-button class="btn-primary">Save</button> -->
       <button mat-button class="btn-primary" (click)="next()">Next</button>
     </div>
   </div>

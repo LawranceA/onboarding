@@ -35,6 +35,13 @@ export class AdminService {
     console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addUser`, data, {
       headers: this.header,
-    });
+    }); 
   }
+  
+  addAdmin(data: Object): Observable<any> {
+    console.log(JSON.stringify(this.tokenStorage.getToken()));
+    return this.http.post(`${this.api}/addAdmin`, data, {
+      headers: this.header,
+    });
+}
 }
