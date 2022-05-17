@@ -18,20 +18,20 @@ export class UserDataService {
   });
   private api =
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
+  //api for add personal Info
   addPersonalInfo(data: Object): Observable<Object> {
     console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addPersonalInfo`, data, {
       headers: this.header,
     });
   }
-
+  //api for add address
   addAddress(data: Object): Observable<Object> {
     console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addAddress`, data, {
       headers: this.header,
     });
   }
-
   //api for change password
   changePassword(data: Object): Observable<any> {
     console.log('inside changepassword');
@@ -39,11 +39,22 @@ export class UserDataService {
       headers: this.header,
     });
   }
-
+  //api for getting personal_info 
   getPersonalInfoData(id: any) {
     return this.http.get<any>(`${this.api}/getPersonalInfoData/${id}`, {
       headers: this.header,
     });
   }
-
+  // api for adding other-details
+  addOtherDetails(data:Object){
+    return this.http.post(`${this.api}/addDetails`, data, {
+      headers: this.header,
+    });
+  }
+  //api for adding declaration
+  addDeclaration(data:Object): Observable<any>{
+    return this.http.post(`${this.api}/addDeclaration`, data, {
+      headers: this.header,
+    });
+  }
 }

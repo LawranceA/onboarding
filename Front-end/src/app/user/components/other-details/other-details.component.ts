@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-other-details',
@@ -19,7 +21,7 @@ export class OtherDetailsComponent implements OnInit {
     covidCertificate: new FormControl(''),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private tokenStorage:TokenStorageService,private service:UserDataService) {}
 
   next() {
     this.router.navigateByUrl('/user/details/declaration');
@@ -29,6 +31,13 @@ export class OtherDetailsComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.otherDetail.value);
+    this.otherDetail.value.created_at = new Date();
+    this.otherDetail.value.updated_at = new Date();
+    this.otherDetail.value.updated_by = this.tokenStorage.getName();
+    this.otherDetail.value.fk_proof_users_id = this.tokenStorage.getID();
+    this.service.addOtherDetails(this.otherDetail).subscribe(data=>{
+      console.log(data)
+    })
   }
   ngOnInit(): void {}
 }
