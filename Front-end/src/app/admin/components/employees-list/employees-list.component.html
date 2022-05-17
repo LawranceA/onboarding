@@ -34,7 +34,7 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon class="actions" (click)="openDiag()">delete</mat-icon>
-        <mat-icon class="actions" (click)="editPage()">edit</mat-icon>
+        <mat-icon class="actions" (click)="editPage(element.name)">edit</mat-icon>
         <mat-icon class="actions" (click)="openDetails(element.name)"
           >preview</mat-icon
         >

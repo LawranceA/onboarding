@@ -44,7 +44,7 @@ export class EmployeesListComponent implements OnInit {
     console.log(id)
     this.router.navigate(["../viewEmployee"],{relativeTo:this.route})
   }
-  editPage(){
-    this.router.navigate(["../editEmployee"],{relativeTo:this.route})
+  editPage(id:any){
+    this.router.navigate([`../editEmployee`,id],{relativeTo:this.route})
   }
 }

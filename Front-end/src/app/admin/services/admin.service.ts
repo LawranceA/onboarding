@@ -32,16 +32,17 @@ export class AdminService {
   private api =
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
   addEmployee(data: Object): Observable<any> {
-    console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addUser`, data, {
       headers: this.header,
-    }); 
+    });
   }
-  
+
   addAdmin(data: Object): Observable<any> {
-    console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addAdmin`, data, {
       headers: this.header,
     });
-}
+  }
+
+  //add the remaining codes
+  
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AdminServiceService } from '../../admin-service.service';
 
 export interface EditEmployee {
@@ -36,13 +36,17 @@ export class EditEmployeeComponent implements OnInit {
     private route: ActivatedRoute,
     private service: AdminServiceService
   ) {}
-
+    id:any
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params:ParamMap)=>{
+     this.id=params.get('id') 
+    })
+
     this.data = this.service.getData();
   }
 
   display = 'none';
-  files = [];
+  
   // for expansion pannel
   step = 0;
   setStep(index: number) {

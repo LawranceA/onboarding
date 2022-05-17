@@ -10,6 +10,9 @@ import { Admin } from './admin';
 export class AdminServiceService {
 
   data=[{
+    id:"DB0045",
+    name:"Mahi S",
+    email:"mahi25@gmail.com",
     personal_info:{
     first_name:'mahi',
     last_name:'s',

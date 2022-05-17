@@ -23,7 +23,7 @@ const routes: Routes = [
   {path:'viewEmployee',component:EmployeeDetailsComponent},
   {path:'viewPdf/:src',component:PdfViewComponent},
   {path:'viewImg/:src',component:ImgViewComponent},
-  {path:'editEmployee',component:EditEmployeeComponent}
+  {path:'editEmployee/:id',component:EditEmployeeComponent}
  ]}
 ];
 
