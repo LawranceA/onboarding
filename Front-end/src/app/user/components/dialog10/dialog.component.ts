@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Dialog10serviceService } from '../../services/dialog10service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,11 +16,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogComponent implements OnInit {
   dialog10Form!: FormGroup;
-  actionBtn : String = "Save"
+  actionBtn: String = 'Save';
 
   constructor(
     private fs: FormBuilder,
     private api: Dialog10serviceService,
+    private tokenStorage: TokenStorageService,
     private dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any
   ) {}
@@ -28,7 +30,7 @@ export class DialogComponent implements OnInit {
     this.dialog10Form = this.fs.group({
       education: ['10th', Validators.required],
       board: ['', Validators.required],
-      schoolMedium: ['', Validators.required],
+      School: ['', Validators.required],
       percentage: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -36,50 +38,58 @@ export class DialogComponent implements OnInit {
       transferCertificate: [''],
     });
 
-    if(this.editData){
-      this.actionBtn = "Update"
-      this.dialog10Form.controls['education'].setValue(this.editData.education)
-      this.dialog10Form.controls['board'].setValue(this.editData.board)
-      this.dialog10Form.controls['schoolMedium'].setValue(this.editData.schoolMedium)
-      this.dialog10Form.controls['percentage'].setValue(this.editData.percentage)
-      this.dialog10Form.controls['startDate'].setValue(this.editData.startDate)
-      this.dialog10Form.controls['endDate'].setValue(this.editData.endDate)
-      this.dialog10Form.controls['marksheet'].setValue(this.editData.marksheet)
-      this.dialog10Form.controls['transferCertificate'].setValue(this.editData.transferCertificate)
+    if (this.editData) {
+      this.actionBtn = 'Update';
+      this.dialog10Form.controls['education'].setValue(this.editData.type);
+      this.dialog10Form.controls['board'].setValue(this.editData.board);
+      this.dialog10Form.controls['School'].setValue(this.editData.name);
+      this.dialog10Form.controls['percentage'].setValue(
+        this.editData.marks
+      );
+      this.dialog10Form.controls['startDate'].setValue(this.editData.start_date);
+      this.dialog10Form.controls['endDate'].setValue(this.editData.end_date);
+      this.dialog10Form.controls['marksheet'].setValue(this.editData.marks_card);
+      this.dialog10Form.controls['transferCertificate'].setValue(
+        this.editData.transfer_certificate
+      );
     }
   }
 
   // Adding the 10 education data
   add10Form() {
-    // console.log(this.dialog10Form.value)
-   if(!this.editData){
-    if (this.dialog10Form.valid) {
-      this.api.postEducation(this.dialog10Form.value).subscribe({
-        next: (res) => {
-          alert('Form Data successfully added');
-          this.dialog10Form.reset();
-          this.dialogRef.close('save');
-        },
-        error: () => {
-          alert('Error in adding the form data');
-        },
-      });
+    console.log(this.dialog10Form.value)
+    this.dialog10Form.value.created_at = new Date();
+    this.dialog10Form.value.updated_at = new Date();
+    this.dialog10Form.value.updated_by = this.tokenStorage.getName();
+    this.dialog10Form.value.fk_education_users_id = this.tokenStorage.getID();
+    if (!this.editData) {
+      if (this.dialog10Form.valid) {
+        this.api.postEducation(this.dialog10Form.value).subscribe({
+          next: (res) => {
+            alert('Form Data successfully added');
+            this.dialog10Form.reset();
+            this.dialogRef.close('save');
+          },
+          error: () => {
+            alert('Error in adding the form data');
+          },
+        });
+      }
+    } else {
+      this.updateData();
     }
-   }else{
-     this.updateData()
-   }
   }
 
-  updateData(){
+  updateData() {
     this.api.putEduaction(this.dialog10Form.value, this.editData.id).subscribe({
-      next:(res)=>{
-        alert("Details updated successfully");
+      next: (res) => {
+        alert('Details updated successfully');
         this.dialog10Form.reset();
-        this.dialogRef.close('updated')
+        this.dialogRef.close('updated');
       },
-      error:()=>{
-        alert("Details cannot be modified")
-      }
-    })
+      error: () => {
+        alert('Details cannot be modified');
+      },
+    });
   }
 }

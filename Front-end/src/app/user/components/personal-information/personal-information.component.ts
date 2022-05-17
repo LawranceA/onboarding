@@ -19,6 +19,8 @@ import { UserDataService } from '../../services/user-data.service';
   styleUrls: ['./personal-information.component.css'],
 })
 export class PersonalInformationComponent implements OnInit {
+  data: any;
+
   genders = ['Male', 'Female', 'Others'];
   cities = [
     'Port Blair',
@@ -475,5 +477,51 @@ export class PersonalInformationComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService
+      .getPersonalInfoData(this.tokenStorage.getID())
+      .subscribe((res) => {
+        this.data = res;
+        console.log(this.data);
+        if (res != null) {
+          this.personalInformation.controls['first_name'].setValue(
+            this.data[0].personal_info.first_name
+          );
+          this.personalInformation.controls['last_name'].setValue(
+            this.data[0].personal_info.last_name
+          );
+          this.personalInformation.controls['dob'].setValue(
+            this.data[0].personal_info.dob
+          );
+          this.personalInformation.controls['personal_email'].setValue(
+            this.data[0].personal_info.personal_email
+          );
+          this.personalInformation.controls['mobile_number'].setValue(
+            this.data[0].personal_info.mobile_number
+          );
+          this.personalInformation.controls['alternate_number'].setValue(
+            this.data[0].personal_info.alternate_number
+          );
+          this.personalInformation.controls['gender'].setValue(
+            this.data[0].personal_info.gender
+          );
+          // this.personalInformation.controls['photo'].setValue(
+          //   this.data[0].personal_info.photo
+          // );
+          if( this.data[0].address[1].type == 'current'){
+            this.personalInformation.patchValue({
+              current: {
+                house_no: this.data[0].address[1].house_no,
+                street: this.personalInformation.value.current.street,
+                locality: this.personalInformation.value.current.locality,
+                city: this.personalInformation.value.current.city,
+                state: this.personalInformation.value.current.state,
+                country: this.personalInformation.value.current.country,
+                pincode: this.personalInformation.value.current.pincode,
+              },
+            });
+          }
+        }
+      });
+  }
 }

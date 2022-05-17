@@ -9,6 +9,7 @@ import { Dialog10serviceService } from '../../services/dialog10service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-educational-qualification',
@@ -39,7 +40,8 @@ export class EducationalQualificationComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private api: Dialog10serviceService
+    private api: Dialog10serviceService,
+    private tokenStorage: TokenStorageService
   ) {}
 
   next() {
@@ -73,20 +75,41 @@ export class EducationalQualificationComponent implements OnInit {
           });
         break;
       case 1:
-        this.dialog.open(Dialog12Component, dialogStyle);
+        this.dialog
+          .open(Dialog12Component, dialogStyle)
+          .afterClosed()
+          .subscribe((val) => {
+            if (val === 'save') {
+              this.get10Form();
+            }
+          });
         break;
       case 2:
-        this.dialog.open(DialogUGComponent, dialogStyle);
+        this.dialog
+          .open(DialogUGComponent, dialogStyle)
+          .afterClosed()
+          .subscribe((val) => {
+            if (val === 'save') {
+              this.get10Form();
+            }
+          });
         break;
       case 3:
-        this.dialog.open(DialogPGComponent, dialogStyle);
+        this.dialog
+          .open(DialogPGComponent, dialogStyle)
+          .afterClosed()
+          .subscribe((val) => {
+            if (val === 'save') {
+              this.get10Form();
+            }
+          });
         break;
     }
   }
 
   // Get the education Data
   get10Form() {
-    this.api.getEducation().subscribe({
+    this.api.getEducation(this.tokenStorage.getID()).subscribe({
       next: (res) => {
         // console.log(res)
         this.dataSource = new MatTableDataSource(res);
@@ -107,25 +130,46 @@ export class EducationalQualificationComponent implements OnInit {
       data: row,
       disableClose: true,
     };
-    this.dialog
-      .open(DialogComponent, dialogStyle)
-      .afterClosed()
-      .subscribe((val) => {
-        if (val === 'updated') {
-          this.get10Form();
-        }
-      });
+
+    if (row.type == 'Graduation/Diploma') {
+      this.dialog
+        .open(DialogUGComponent, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.get10Form();
+          }
+        });
+    } else if (row.type == 'Masters/Post-Graduation') {
+      this.dialog
+        .open(DialogPGComponent, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.get10Form();
+          }
+        });
+    } else {
+      this.dialog
+        .open(DialogComponent, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.get10Form();
+          }
+        });
+    }
   }
 
   // delete data
   deleteData(id: number) {
     this.api.deleteEducation(id).subscribe({
       next: (res) => {
-        // alert('Details deleted successfully');
+        alert('Details deleted successfully');
         this.get10Form();
       },
       error: () => {
-        // alert('Error in deleting the data');
+        alert('Error in deleting the data');
       },
     });
   }

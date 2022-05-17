@@ -10,8 +10,8 @@
       <input matInput type="text"  id="board" name="board" formControlName="board" />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label for="schoolMeidum">School Medium</mat-label>
-      <input matInput type="text"  id="schoolMedium" name="schoolMedium" formControlName="schoolMedium"/>
+      <mat-label for="School">School Medium</mat-label>
+      <input matInput type="text"  id="School" name="School" formControlName="School"/>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="percentage">Percentage</mat-label>
@@ -47,5 +47,5 @@
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <button mat-button class="btn-primary" (click)="add12Form()">Save</button>
+  <button mat-button class="btn-primary" (click)="add12Form()">{{actionBtn}}</button>
 </div>

@@ -16,11 +16,11 @@
   <div class="container">
     <div style="margin: 20px 0px">
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
           <!-- ID Column -->
           <ng-container matColumnDef="education">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>education</th>
-            <td mat-cell *matCellDef="let row">{{ row.education }}</td>
+            <td mat-cell *matCellDef="let row">{{ row.type }}</td>
           </ng-container>
 
           <!-- Progress Column -->
@@ -29,26 +29,28 @@
             <td mat-cell *matCellDef="let row">{{ row.board }}</td>
           </ng-container>
 
+
           <!-- Name Column -->
           <ng-container matColumnDef="percentage">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              percentage
+              percentage/CGPA
             </th>
-            <td mat-cell *matCellDef="let row">{{ row.percentage }}</td>
+            <td mat-cell *matCellDef="let row">
+              {{ row.marks }}<span>{{ row.marks > 10 ? "%" : "CGPA" }}</span>
+            </td>
           </ng-container>
 
-          <!-- Fruit Column -->
           <ng-container matColumnDef="startDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>startDate</th>
             <td mat-cell *matCellDef="let row">
-              {{ row.startDate | date: "dd/MM/yyyy" }}
+              {{ row.start_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
-          <!-- Fruit Column -->
+
           <ng-container matColumnDef="endDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
             <td mat-cell *matCellDef="let row">
-              {{ row.endDate | date: "dd/MM/yyyy" }}
+              {{ row.end_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
@@ -66,191 +68,6 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-       
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- 12 Form -->
-  <div class="container">
-    <div style="margin: 20px 0px">
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <!-- ID Column -->
-          <ng-container matColumnDef="education">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>education</th>
-            <td mat-cell *matCellDef="let row">{{ row.education }}</td>
-          </ng-container>
-
-          <!-- Progress Column -->
-          <ng-container matColumnDef="board">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>board</th>
-            <td mat-cell *matCellDef="let row">{{ row.board }}</td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="percentage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              percentage
-            </th>
-            <td mat-cell *matCellDef="let row">{{ row.percentage }}</td>
-          </ng-container>
-
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>startDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.startDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.endDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>action</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editData(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteData(row.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-       
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- UG Form -->
-  <div class="container">
-    <div style="margin: 20px 0px">
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <!-- ID Column -->
-          <ng-container matColumnDef="education">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>education</th>
-            <td mat-cell *matCellDef="let row">{{ row.education }}</td>
-          </ng-container>
-
-          <!-- Progress Column -->
-          <ng-container matColumnDef="board">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>board</th>
-            <td mat-cell *matCellDef="let row">{{ row.board }}</td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="percentage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              percentage
-            </th>
-            <td mat-cell *matCellDef="let row">{{ row.percentage }}</td>
-          </ng-container>
-
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>startDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.startDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.endDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>action</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editData(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteData(row.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-       
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- PG Form -->
-  <div class="container">
-    <div style="margin: 20px 0px">
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <!-- ID Column -->
-          <ng-container matColumnDef="education">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>education</th>
-            <td mat-cell *matCellDef="let row">{{ row.education }}</td>
-          </ng-container>
-
-          <!-- Progress Column -->
-          <ng-container matColumnDef="board">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>board</th>
-            <td mat-cell *matCellDef="let row">{{ row.board }}</td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="percentage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              percentage
-            </th>
-            <td mat-cell *matCellDef="let row">{{ row.percentage }}</td>
-          </ng-container>
-
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>startDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.startDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-          <!-- Fruit Column -->
-          <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.endDate | date: "dd/MM/yyyy" }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>action</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-icon-button color="primary" (click)="editData(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteData(row.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-       
         </table>
       </div>
     </div>
@@ -269,9 +86,7 @@
       </button>
     </div>
     <div class="btn-grp">
-      <button mat-button class="btn-primary">Save</button>
       <button mat-button class="btn-primary" (click)="next()">Next</button>
     </div>
   </div>
 </div>
-
