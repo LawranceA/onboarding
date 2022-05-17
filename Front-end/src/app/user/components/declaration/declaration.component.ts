@@ -15,7 +15,6 @@ export class DeclarationComponent implements OnInit {
   checked = false;
   declaration = new FormGroup({
     joiningDate : new FormControl(''),
-    photo : new FormControl(''),
     place : new FormControl(''),
     date : new FormControl(''),
   })
