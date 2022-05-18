@@ -41,11 +41,14 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Designation</mat-label>
-          <input
-            matInput
-            placeholder="Enter Designation"
-            formControlName="designation"
-          />
+          <mat-select formControlName="designation">
+            <mat-option
+              *ngFor="let designation of designations; index as i"
+              [value]="designation"
+            >
+              {{ designation }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </p>
       <p>

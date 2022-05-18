@@ -45,6 +45,7 @@ mat-toolbar {
   padding: 16px 16px 0 0;
   align-self: end;
   color: #fdfcfc;
+  font-size: 1.2rem;
 }
 
 .footer {

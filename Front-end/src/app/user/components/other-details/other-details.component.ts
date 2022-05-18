@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,6 +11,10 @@ import { UserDataService } from '../../services/user-data.service';
   styleUrls: ['./other-details.component.css'],
 })
 export class OtherDetailsComponent implements OnInit {
+  display1: any = 'block';
+  display2: any = 'none';
+  created_at: any;
+
   otherDetail = new FormGroup({
     aadhar_card_number: new FormControl(''),
     aadharCard: new FormControl(''),
@@ -21,7 +26,12 @@ export class OtherDetailsComponent implements OnInit {
     covidCertificate: new FormControl(''),
   });
 
-  constructor(private router: Router,private tokenStorage:TokenStorageService,private service:UserDataService) {}
+  constructor(
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private service: UserDataService,
+    private pipe: DatePipe
+  ) {}
 
   next() {
     this.router.navigateByUrl('/user/details/declaration');
@@ -35,22 +45,66 @@ export class OtherDetailsComponent implements OnInit {
     this.otherDetail.value.updated_at = new Date();
     this.otherDetail.value.updated_by = this.tokenStorage.getName();
     this.otherDetail.value.fk_proof_users_id = this.tokenStorage.getID();
-    this.service.addOtherDetails(this.otherDetail).subscribe(data=>{
-      console.log(data)
-    })
+    // console.log('other deuaisls');
+    this.otherDetail.value.passport_expire = this.pipe.transform(
+      this.otherDetail.value.passport_expire,
+      'YYYY-MM-dd'
+    );
+    this.service.addOtherDetails(this.otherDetail.value).subscribe((data) => {
+      console.log(data);
+    });
+    this.display1 = 'none';
+    this.display2 = 'block';
   }
+
+  onUpdate() {
+    this.otherDetail.value.created_at = this.created_at;
+    this.otherDetail.value.updated_at = new Date();
+    this.otherDetail.value.updated_by = this.tokenStorage.getName();
+    this.otherDetail.value.fk_proof_users_id = this.tokenStorage.getID();
+    // console.log('other deuaisls');
+    this.otherDetail.value.passport_expire = this.pipe.transform(
+      this.otherDetail.value.passport_expire,
+      'YYYY-MM-dd'
+    );
+    this.service
+      .putOtherDetails(this.otherDetail.value, this.tokenStorage.getID())
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
   ngOnInit(): void {
-    this.service.getOtherDetails(this.tokenStorage.getID()).subscribe(data=>{
-      if(data!=null){
-        this.otherDetail.value.aadhar_card_number=data.aadhar_card_number
-        this.otherDetail.value.aadharCard=data.aadhar
-        this.otherDetail.value.pan_card_number=data.pan_card_number
-        this.otherDetail.value.panCard=data.pan_card
-        this.otherDetail.value.passport_number=data.passport_number
-        this.otherDetail.value.passport_expire=data.passport_expire_date
-        this.otherDetail.value.passportDetails=data.passport
-        this.otherDetail.value.covidCertificate=data.covid_certificate
-      }
-    })
+    this.service
+      .getOtherDetails(this.tokenStorage.getID())
+      .subscribe((data) => {
+        console.log(data);
+        if (data != undefined) {
+          this.display1 = 'none';
+          this.display2 = 'block';
+        }
+        if (data != null) {
+          this.created_at = data.created_at;
+          this.otherDetail.controls['passport_number'].setValue(
+            data.passport_number
+            // console.log(data.passport_number)
+          );
+          this.otherDetail.controls['passport_expire'].setValue(
+            data.passport_expire_date
+          );
+          this.otherDetail.controls['aadhar_card_number'].setValue(
+            data.aadhar_card_number
+          );
+          this.otherDetail.controls['aadharCard'].setValue(data.aadharCard);
+          this.otherDetail.controls['pan_card_number'].setValue(
+            data.pan_card_number
+          );
+          this.otherDetail.controls['panCard'].setValue(data.pan_card);
+          this.otherDetail.controls['passportDetails'].setValue(data.passport);
+          this.otherDetail.controls['covidCertificate'].setValue(
+            data.covid_certificate
+          );
+        }
+      });
   }
 }

@@ -10,6 +10,15 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./register-employee.component.css'],
 })
 export class RegisterEmployeeComponent implements OnInit {
+  designations = [
+    'Human Resource',
+    'Sales Engineer',
+    'Data Engineer',
+    'BI & Analytics',
+    'Data Science',
+    'Advanced Analytics',
+    'Full Stack',
+  ];
   constructor(
     private tokenStorage: TokenStorageService,
     private service: AdminService,

@@ -6,6 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthServiceService {
+  avatar = { name: '', designation: '' };
+
+  setAvatar(data: any) {
+    this.avatar.name = data.name;
+    this.avatar.designation = data.designation;
+  }
+
+  getAvatar() {
+    return this.avatar;
+  }
   private header = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
   });

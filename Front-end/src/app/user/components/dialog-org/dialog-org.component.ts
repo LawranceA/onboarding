@@ -17,6 +17,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class DialogOrgComponent implements OnInit {
   organization!: FormGroup;
   actionBtn: String = 'Save';
+  created_at: any;
 
   constructor(
     private fs: FormBuilder,
@@ -93,6 +94,7 @@ export class DialogOrgComponent implements OnInit {
   }
 
   updateOrganization() {
+    this.organization.value.created_at = this.editData.created_at;
     this.api
       .putOrganization(this.organization.value, this.editData.id)
       .subscribe({
@@ -102,7 +104,7 @@ export class DialogOrgComponent implements OnInit {
           this.dialogRef.close('updated');
         },
         error: (err) => {
-          alert('Error while updating the record??'+err);
+          alert('Error while updating the record??' + err);
         },
       });
   }

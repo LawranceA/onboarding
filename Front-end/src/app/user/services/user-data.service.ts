@@ -39,34 +39,34 @@ export class UserDataService {
       headers: this.header,
     });
   }
-  //api for getting personal_info 
+  //api for getting personal_info
   getPersonalInfoData(id: any) {
     return this.http.get<any>(`${this.api}/getPersonalInfoData/${id}`, {
       headers: this.header,
     });
   }
- 
+
   // api for adding other-details
-  addOtherDetails(data:Object){
+  addOtherDetails(data: any) {
     return this.http.post(`${this.api}/addDetails`, data, {
       headers: this.header,
     });
   }
- //api for getting other details
+  //api for getting other details
   getOtherDetails(id: any) {
     return this.http.get<any>(`${this.api}/getDetails/${id}`, {
       headers: this.header,
     });
   }
-   //api for updating other details
-   putOtherDetails(data: any, id: number) {
+  //api for updating other details
+  putOtherDetails(data: any, id: number) {
     console.log('update route');
     return this.http.put<any>(`${this.api}/updateDetails/${id}`, data, {
       headers: this.header,
     });
   }
   //api for adding declaration
-  addDeclaration(data:Object): Observable<any>{
+  addDeclaration(data: any): Observable<any> {
     return this.http.post(`${this.api}/addDeclaration`, data, {
       headers: this.header,
     });
@@ -77,8 +77,8 @@ export class UserDataService {
       headers: this.header,
     });
   }
-   //api for updating declaration
-   putDeclaration(data: any, id: number) {
+  //api for updating declaration
+  putDeclaration(data: any, id: number) {
     console.log('update route');
     return this.http.put<any>(`${this.api}/updateDeclaration/${id}`, data, {
       headers: this.header,

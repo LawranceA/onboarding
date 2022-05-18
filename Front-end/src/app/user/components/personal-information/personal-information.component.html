@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Personal Information</h1>
 
-  <form [formGroup]="personalInformation" >
+  <form [formGroup]="personalInformation">
     <div class="content">
       <mat-form-field appearance="outline">
         <mat-label for="first_name">FirstName</mat-label>
@@ -13,6 +13,10 @@
           id="first_name"
           formControlName="first_name"
         />
+        <mat-error
+          *ngIf="this.personalInformation.get('first_name')?.invalid"
+          >{{ getErrorMessage() }}</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -25,6 +29,9 @@
           id="last_name"
           formControlName="last_name"
         />
+        <mat-error *ngIf="this.personalInformation.get('last_name')?.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -38,6 +45,9 @@
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="this.personalInformation.get('dob')?.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -50,6 +60,10 @@
           placeholder="personal_email"
           formControlName="personal_email"
         />
+        <mat-error
+          *ngIf="this.personalInformation.get('personal_email')?.invalid"
+          >{{ getErrorMessage() }}</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -62,6 +76,9 @@
           placeholder="Mobile No"
           formControlName="mobile_number"
         />
+        <!-- <span *ngIf="this.personalInformation.get('mobile_number').i"
+          >Enter a valid mobile number</span
+        > -->
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -74,6 +91,10 @@
           placeholder="Alternate Mobile No"
           formControlName="alternate_number"
         />
+        <mat-error
+          *ngIf="this.personalInformation.get('alternate_number')?.invalid"
+          >{{ getErrorMessage() }}</mat-error
+        >
       </mat-form-field>
 
       <div class="genderContainer">
@@ -92,12 +113,26 @@
           >
             {{ gender }}
           </mat-radio-button>
+          <mat-error
+            *ngIf="
+              this.personalInformation.get('gender')?.invalid &&
+              this.personalInformation.get('gender')?.touched
+            "
+            >{{ getErrorMessage() }}</mat-error
+          >
         </mat-radio-group>
       </div>
 
       <div class="uploadContainer">
         <label for="photo">Photo</label>
         <input type="file" name="photo" id="photo" formControlName="photo" />
+        <mat-error
+          *ngIf="
+            this.personalInformation.get('photo')?.invalid &&
+            this.personalInformation.get('photo')?.touched
+          "
+          >{{ getErrorMessage() }}</mat-error
+        >
       </div>
     </div>
 
@@ -115,6 +150,10 @@
             id="houseNo"
             name="house_no"
           />
+          <mat-error
+            *ngIf="this.personalInformation.get('house_no')?.invalid"
+            >{{ getErrorMessage() }}</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -127,6 +166,9 @@
             id="street"
             name="street"
           />
+          <mat-error *ngIf="this.personalInformation.get('street')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -139,6 +181,10 @@
             id="locality"
             name="locality"
           />
+          <mat-error
+            *ngIf="this.personalInformation.get('locality')?.invalid"
+            >{{ getErrorMessage() }}</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -148,6 +194,9 @@
               {{ city }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('city')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -160,6 +209,9 @@
             id="pincode"
             name="pincode"
           />
+          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -169,6 +221,9 @@
               {{ state }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('state')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -178,6 +233,9 @@
               {{ country }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('country')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -201,6 +259,10 @@
             id="houseNo"
             name="houseNo"
           />
+          <mat-error
+            *ngIf="this.personalInformation.get('house_no')?.invalid"
+            >{{ getErrorMessage() }}</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -213,6 +275,9 @@
             id="street"
             name="street"
           />
+          <mat-error *ngIf="this.personalInformation.get('street')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -225,6 +290,10 @@
             id="locality"
             name="locality"
           />
+          <mat-error
+            *ngIf="this.personalInformation.get('locality')?.invalid"
+            >{{ getErrorMessage() }}</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -234,6 +303,9 @@
               {{ city }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('city')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -246,6 +318,9 @@
             id="pincode"
             name="pincode"
           />
+          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -255,6 +330,9 @@
               {{ state }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('state')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -264,16 +342,37 @@
               {{ country }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="this.personalInformation.get('country')?.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
         </mat-form-field>
       </div>
     </div>
 
     <div class="btn-grp">
-      <button mat-button class="btn-primary" type="submit" [disabled]="!personalInformation.valid" (click)="onSubmit()">Save</button>
+      <button
+        mat-button
+        class="btn-primary"
+        type="submit"
+        [disabled]="!personalInformation.valid"
+        [ngStyle]="{ display: display1 }"
+        (click)="onSubmit()"
+      >
+        Save
+      </button>
+      <button
+        mat-button
+        class="btn-primary"
+        type="submit"
+        [disabled]="!personalInformation.valid"
+        [ngStyle]="{ display: display2 }"
+        (click)="onUpdate()"
+      >
+        Update
+      </button>
       <button type="button" mat-button class="btn-primary" (click)="next()">
         Next
       </button>
     </div>
-
   </form>
 </div>

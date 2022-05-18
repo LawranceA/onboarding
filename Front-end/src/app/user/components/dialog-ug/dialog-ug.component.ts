@@ -98,6 +98,7 @@ export class DialogUGComponent implements OnInit {
   }
 
   updateData() {
+    this.dialogUGForm.value.created_at = this.editData.created_at;
     this.api.putEduaction(this.dialogUGForm.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

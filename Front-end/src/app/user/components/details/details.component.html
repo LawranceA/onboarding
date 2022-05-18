@@ -1,20 +1,20 @@
 <mat-sidenav-container>
   <!-- SideBar Content -->
-  <mat-sidenav #sidenav mode="over">
+  <mat-sidenav #sidenav mode="side" opened="true">
     <div class="sidenav-section">
       <div class="close">
         <button mat-icon-button arial-label="Close" (click)="sidenav.close()">
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>
       </div>
-     
+
       <div class="userProfile">
         <fa-icon [icon]="faUserCircle" class="icon"></fa-icon>
-        
-        <h3>UserName</h3>
-        <p>Designation</p>
+
+        <h3>{{data.name}}</h3>
+        <p>{{data.designation}}</p>
       </div>
-      
+
       <div class="sidenav-menu">
         <ul>
           <li>
@@ -45,9 +45,9 @@
           </li>
         </ul>
       </div>
-      
+
       <button class="btn" (click)="logout()">Log Out</button>
-      
+
       <p class="footer">&copy;Diggibyte2022</p>
     </div>
   </mat-sidenav>
@@ -56,24 +56,21 @@
   <mat-sidenav-content>
     <mat-toolbar>
       <div class="leftContent">
-
-      
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
-        (click)="sidenav.toggle()"
-      >
-        <fa-icon [icon]="faBars"></fa-icon>
-      </button>
-      <img
-        src="../../../assets//images/full_logo.png"
-       width="200px"
-       height="50px"
-        alt="diggtibyte_logo"
-      />
-    </div>
-
+        <button
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with menu icon"
+          (click)="sidenav.toggle()"
+        >
+          <fa-icon [icon]="faBars"></fa-icon>
+        </button>
+        <img
+          src="../../../assets//images/full_logo.png"
+          width="200px"
+          height="50px"
+          alt="diggtibyte_logo"
+        />
+      </div>
     </mat-toolbar>
     <!-- All the user components get rendered -->
 

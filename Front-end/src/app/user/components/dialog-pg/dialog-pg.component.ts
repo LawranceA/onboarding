@@ -50,7 +50,9 @@ export class DialogPGComponent implements OnInit {
       this.dialogPGForm.controls['School'].setValue(this.editData.name);
       this.dialogPGForm.controls['percentage'].setValue(this.editData.marks);
       this.dialogPGForm.controls['course'].setValue(this.editData.course);
-      this.dialogPGForm.controls['specialization'].setValue(this.editData.specialization);
+      this.dialogPGForm.controls['specialization'].setValue(
+        this.editData.specialization
+      );
       this.dialogPGForm.controls['startDate'].setValue(
         this.editData.start_date
       );
@@ -96,6 +98,7 @@ export class DialogPGComponent implements OnInit {
   }
 
   updateData() {
+    this.dialogPGForm.value.created_at = this.editData.created_at;
     this.api.putEduaction(this.dialogPGForm.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

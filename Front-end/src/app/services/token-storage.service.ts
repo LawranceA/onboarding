@@ -4,6 +4,7 @@ const USER_KEY = 'auth-user';
 
 const USER_NAME = 'auth-name';
 const USER_ID = 'auth-id';
+const USER_DESIGNATION = 'auth-designation';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,18 @@ export class TokenStorageService {
     const user_id = window.sessionStorage.getItem(USER_ID);
     if (user_id) {
       return user_id;
+    }
+    return {};
+  }
+  
+  setDesignation(user_des: any): void {
+    window.sessionStorage.setItem(USER_DESIGNATION, user_des);
+  }
+
+  public getDesignation(): any {
+    const user_des = window.sessionStorage.getItem(USER_DESIGNATION);
+    if (user_des) {
+      return user_des;
     }
     return {};
   }

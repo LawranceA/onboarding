@@ -15,6 +15,15 @@ import { AdminService } from '../../services/admin.service';
 export class RegisterAdminComponent implements OnInit {
   admin: Admin = new Admin();
 
+  designations = [
+    'Human Resource',
+    'Sales Engineer',
+    'Data Engineer',
+    'BI & Analytics',
+    'Data Science',
+    'Advanced Analytics',
+    'Full Stack',
+  ];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -34,7 +43,7 @@ export class RegisterAdminComponent implements OnInit {
   });
   ngOnInit(): void {}
   getErrorMessage() {
-    console.log('entering');
+    // console.log('entering');
     if (
       this.regForm.get('email')?.getError('required') ||
       this.regForm.get('id')?.getError('required')
@@ -54,10 +63,11 @@ export class RegisterAdminComponent implements OnInit {
 
   register(e: Event) {
     e.preventDefault();
+    
     this.admin = this.regForm.value;
     this.admin.created_at = new Date();
     this.admin.created_by_admin = this.tokenStorage.getName();
-    console.log(this.regForm.status);
+    console.log(this.regForm.value);
     this.addAdmin();
   }
 }

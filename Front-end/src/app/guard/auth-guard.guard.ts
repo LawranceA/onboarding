@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, CanDeactivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../services/token-storage.service';
+import { EducationalQualificationComponent } from '../user/components/educational-qualification/educational-qualification.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardGuard implements CanActivate {
+export class AuthGuardGuard implements CanActivate,CanDeactivate<EducationalQualificationComponent> {
   constructor(private tokenStorage:TokenStorageService,private router:Router,private route:ActivatedRoute){}
+  canDeactivate(component: EducationalQualificationComponent) {
+    return false;
+  }
   //setting the route gaurd based on user role
   canActivate(
     route: ActivatedRouteSnapshot,

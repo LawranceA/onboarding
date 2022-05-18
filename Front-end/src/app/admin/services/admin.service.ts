@@ -24,6 +24,8 @@ export class AdminService {
     return this.userStatus;
   }
 
+ 
+
   private header = new HttpHeaders({
     'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
@@ -42,6 +44,8 @@ export class AdminService {
       headers: this.header,
     });
   }
+
+
 
   //add the remaining codes
   

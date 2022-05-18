@@ -78,6 +78,7 @@ export class Dialog12Component implements OnInit {
   }
 
   updateData() {
+    this.dialog12Form.value.created_at = this.editData.created_at;
     this.api.putEduaction(this.dialog12Form.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

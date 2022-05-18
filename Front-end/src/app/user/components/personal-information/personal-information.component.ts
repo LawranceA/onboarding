@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
   FormControl,
+  ValidatorFn,
 } from '@angular/forms';
 import { DatePipe, formatDate, JsonPipe } from '@angular/common';
 import { filter } from 'rxjs';
@@ -20,6 +21,9 @@ import { UserDataService } from '../../services/user-data.service';
 })
 export class PersonalInformationComponent implements OnInit {
   data: any;
+  display1: any = 'block';
+  display2: any = 'none';
+  created_at: any;
 
   genders = ['Male', 'Female', 'Others'];
   cities = [
@@ -349,16 +353,22 @@ export class PersonalInformationComponent implements OnInit {
       Validators.email,
     ]),
     mobile_number: new FormControl('', [
-      Validators.required,
-      Validators.minLength(10),
+      // // Validators.required,
+      // // Validators.maxLength(10),
+      // // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
+      // this.numberValidation
     ]),
-    alternate_number: new FormControl(''),
+    alternate_number: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(10),
+      Validators.pattern('^[6-9]{1}[0-9]{9}$'),
+    ]),
     gender: new FormControl('', [Validators.required]),
     photo: new FormControl('', [Validators.required]),
     current: new FormGroup({
       house_no: new FormControl('', [Validators.required]),
-      street: new FormControl('', [Validators.required]),
-      locality: new FormControl('', [Validators.required]),
+      street: new FormControl(''),
+      locality: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
@@ -366,8 +376,8 @@ export class PersonalInformationComponent implements OnInit {
     }),
     permanent: new FormGroup({
       house_no: new FormControl('', [Validators.required]),
-      street: new FormControl('', [Validators.required]),
-      locality: new FormControl('', [Validators.required]),
+      street: new FormControl(''),
+      locality: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
@@ -463,9 +473,29 @@ export class PersonalInformationComponent implements OnInit {
     // console.log(this.permanentAddres);
   }
   onSubmit() {
+    console.log(this.personalInformation);
+    this.display1 = 'none';
+    this.display2 = 'block';
     this.addPersonalInfoData();
     this.addCurrentAddress();
     this.addPermanentAddress();
+    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.currentAddress).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
+      console.log(data);
+    });
+  }
+  //  update personal DATA
+  onUpdate() {
+    this.addPersonalInfoData();
+    this.addCurrentAddress();
+    this.addPermanentAddress();
+    this.personal_info.created_at = this.created_at;
+
     this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
       console.log(data);
     });
@@ -483,7 +513,12 @@ export class PersonalInformationComponent implements OnInit {
       .subscribe((res) => {
         this.data = res;
         console.log(this.data);
-        if (res != null) {
+        if (res[0].address.length != 0) {
+          this.display1 = 'none';
+          this.display2 = 'block';
+        }
+        if (res[0].address.length != 0) {
+          this.created_at = res[0].personal_info.created_at;
           this.personalInformation.controls['first_name'].setValue(
             this.data[0].personal_info.first_name
           );
@@ -508,20 +543,58 @@ export class PersonalInformationComponent implements OnInit {
           // this.personalInformation.controls['photo'].setValue(
           //   this.data[0].personal_info.photo
           // );
-          if( this.data[0].address[1].type == 'current'){
-            this.personalInformation.patchValue({
-              current: {
-                house_no: this.data[0].address[1].house_no,
-                street: this.personalInformation.value.current.street,
-                locality: this.personalInformation.value.current.locality,
-                city: this.personalInformation.value.current.city,
-                state: this.personalInformation.value.current.state,
-                country: this.personalInformation.value.current.country,
-                pincode: this.personalInformation.value.current.pincode,
-              },
-            });
+          for (let i = 0; i <= this.data[0].address.length; i++) {
+            if (this.data[0].address[i].type == 'current') {
+              this.personalInformation.patchValue({
+                current: {
+                  house_no: this.data[0].address[i].house_no,
+                  street: this.data[0].address[i].street,
+                  locality: this.data[0].address[i].locality,
+                  city: this.data[0].address[i].city,
+                  state: this.data[0].address[i].state,
+                  country: this.data[0].address[i].country,
+                  pincode: this.data[0].address[i].pincode,
+                },
+              });
+            } else {
+              this.personalInformation.patchValue({
+                permanent: {
+                  house_no: this.data[0].address[i].house_no,
+                  street: this.data[0].address[i].street,
+                  locality: this.data[0].address[i].locality,
+                  city: this.data[0].address[i].city,
+                  state: this.data[0].address[i].state,
+                  country: this.data[0].address[i].country,
+                  pincode: this.data[0].address[i].pincode,
+                },
+              });
+            }
           }
         }
       });
+  }
+
+  // numberValidation(control: FormControl):ValidatorFn {
+  //   let no = control.value;
+  //   let regex = new RegExp('^[6-9]{1}[0-9]{9}$');
+  //   if (no.length > 10 || regex.test(no)) {
+  //     return { numberValidation: true };
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.personalInformation.get('email')?.getError('required') ||
+      this.personalInformation.get('first_name')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+    if (this.personalInformation.get('mobile_number')?.getError('pattern')) {
+      return 'Enter a valid mobile number';
+    }
+    return '';
   }
 }

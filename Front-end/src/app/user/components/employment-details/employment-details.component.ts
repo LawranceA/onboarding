@@ -119,13 +119,15 @@ export class EmploymentDetailsComponent implements OnInit {
     //     alert('Error in deleting the organization');
     //   },
     // });
-    this.api.deleteOrganization(id).subscribe((data) => {
-      if (data) {
-        alert(' organization deleted Successfully');
-        this.getAllOrganization();
-      } else {
-        alert('Error in deleting the organization');
-      }
-    });
+    if (confirm('Confirm to delete')) {
+      this.api.deleteOrganization(id).subscribe((data) => {
+        if (data) {
+          alert(' organization deleted Successfully');
+          this.getAllOrganization();
+        } else {
+          alert('Error in deleting the organization');
+        }
+      });
+    }
   }
 }

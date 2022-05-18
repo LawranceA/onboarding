@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardGuard } from '../guard/auth-guard.guard';
 import { DeclarationComponent } from './components/declaration/declaration.component';
 import { DetailsComponent } from './components/details/details.component';
 import { EducationalQualificationComponent } from './components/educational-qualification/educational-qualification.component';

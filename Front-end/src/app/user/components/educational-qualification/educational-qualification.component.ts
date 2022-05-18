@@ -32,8 +32,8 @@ export class EducationalQualificationComponent implements OnInit {
 
   educations = [
     '10th',
-    '12th',
-    'Graduation/Diploma',
+    '12th/Diploma',
+    'Graduation',
     'Masters/Post-Graduation',
   ];
 
@@ -163,15 +163,17 @@ export class EducationalQualificationComponent implements OnInit {
 
   // delete data
   deleteData(id: number) {
-    this.api.deleteEducation(id).subscribe({
-      next: (res) => {
-        alert('Details deleted successfully');
-        this.get10Form();
-      },
-      error: () => {
-        alert('Error in deleting the data');
-      },
-    });
+    if (confirm('Confirm to delete')) {
+      this.api.deleteEducation(id).subscribe({
+        next: (res) => {
+          alert('Details deleted successfully');
+          this.get10Form();
+        },
+        error: () => {
+          alert('Error in deleting the data');
+        },
+      });
+    }
   }
 
   applyFilter(event: Event) {
