@@ -45,15 +45,42 @@ export class UserDataService {
       headers: this.header,
     });
   }
+ 
   // api for adding other-details
   addOtherDetails(data:Object){
     return this.http.post(`${this.api}/addDetails`, data, {
       headers: this.header,
     });
   }
+ //api for getting other details
+  getOtherDetails(id: any) {
+    return this.http.get<any>(`${this.api}/getDetails/${id}`, {
+      headers: this.header,
+    });
+  }
+   //api for updating other details
+   putOtherDetails(data: any, id: number) {
+    console.log('update route');
+    return this.http.put<any>(`${this.api}/updateDetails/${id}`, data, {
+      headers: this.header,
+    });
+  }
   //api for adding declaration
   addDeclaration(data:Object): Observable<any>{
     return this.http.post(`${this.api}/addDeclaration`, data, {
+      headers: this.header,
+    });
+  }
+  //api for getting other details
+  getDeclaration(id: any) {
+    return this.http.get<any>(`${this.api}/getDeclaration/${id}`, {
+      headers: this.header,
+    });
+  }
+   //api for updating other details
+   putDeclaration(data: any, id: number) {
+    console.log('update route');
+    return this.http.put<any>(`${this.api}/updateDeclaration/${id}`, data, {
       headers: this.header,
     });
   }
