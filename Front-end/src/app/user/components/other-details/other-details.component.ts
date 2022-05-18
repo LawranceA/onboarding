@@ -14,9 +14,9 @@ export class OtherDetailsComponent implements OnInit {
     aadhar_card_number: new FormControl(''),
     aadharCard: new FormControl(''),
     pan_card_number: new FormControl(''),
+    panCard: new FormControl(''),
     passport_number: new FormControl(''),
     passport_expire: new FormControl(''),
-    panCard: new FormControl(''),
     passportDetails: new FormControl(''),
     covidCertificate: new FormControl(''),
   });
@@ -39,5 +39,18 @@ export class OtherDetailsComponent implements OnInit {
       console.log(data)
     })
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.service.getOtherDetails(this.tokenStorage.getID()).subscribe(data=>{
+      if(data!=null){
+        this.otherDetail.value.aadhar_card_number=data.aadhar_card_number
+        this.otherDetail.value.aadharCard=data.aadhar
+        this.otherDetail.value.pan_card_number=data.pan_card_number
+        this.otherDetail.value.panCard=data.pan_card
+        this.otherDetail.value.passport_number=data.passport_number
+        this.otherDetail.value.passport_expire=data.passport_expire_date
+        this.otherDetail.value.passportDetails=data.passport
+        this.otherDetail.value.covidCertificate=data.covid_certificate
+      }
+    })
+  }
 }

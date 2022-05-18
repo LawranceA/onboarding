@@ -71,13 +71,13 @@ export class UserDataService {
       headers: this.header,
     });
   }
-  //api for getting other details
+  //api for getting declaration
   getDeclaration(id: any) {
     return this.http.get<any>(`${this.api}/getDeclaration/${id}`, {
       headers: this.header,
     });
   }
-   //api for updating other details
+   //api for updating declaration
    putDeclaration(data: any, id: number) {
     console.log('update route');
     return this.http.put<any>(`${this.api}/updateDeclaration/${id}`, data, {

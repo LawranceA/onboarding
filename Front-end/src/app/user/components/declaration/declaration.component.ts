@@ -37,6 +37,13 @@ export class DeclarationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getDeclaration(this.tokenStorage.getID()).subscribe(data=>{
+      if(data!=null){
+        this.declaration.value.joiningDate=data.joining_date,
+        this.declaration.value.place=data.place
+        this.declaration.value.date=data.date
+      }
+    })
   }
 
 }
