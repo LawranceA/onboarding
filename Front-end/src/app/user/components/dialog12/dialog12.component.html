@@ -3,49 +3,97 @@
   <form [formGroup]="dialog12Form">
     <mat-form-field appearance="outline">
       <mat-label for="education">Education</mat-label>
-      <input matInput type="text"  id="education" name="education" formControlName="education" readonly="true" />
+      <input
+        matInput
+        type="text"
+        id="education"
+        name="education"
+        formControlName="education"
+        readonly="true"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="board">Board</mat-label>
-      <input matInput type="text"  id="board" name="board" formControlName="board" />
+      <input
+        matInput
+        type="text"
+        id="board"
+        name="board"
+        formControlName="board"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="School">School/College</mat-label>
-      <input matInput type="text"  id="School" name="School" formControlName="School"/>
+      <input
+        matInput
+        type="text"
+        id="School"
+        name="School"
+        formControlName="School"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label for="percentage">Percentage</mat-label>
-      <input matInput type="text"  id="percentage" name="percentage" formControlName="percentage"/>
+      <mat-label for="percentage">Percentage/CGPA</mat-label>
+      <input
+        matInput
+        type="text"
+        id="percentage"
+        name="percentage"
+        formControlName="percentage"
+      />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="startDate">Start Date</mat-label>
-      <input matInput [matDatepicker]="picker1"  id="startDate" name="startDate" formControlName="startDate"/>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        id="startDate"
+        name="startDate"
+        formControlName="startDate"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="endDate">End Date</mat-label>
-      <input matInput [matDatepicker]="picker2"  id="endDate" name="endDate" formControlName="endDate" />
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        id="endDate"
+        name="endDate"
+        formControlName="endDate"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
-      <input type="file" id="marksheet" name="marksheet" formControlName="marksheet" />
+      <input
+        type="file"
+        id="marksheet"
+        name="marksheet"
+        formControlName="marksheet"
+      />
     </div>
 
     <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
-      <input type="file" id="transferCertificate" name="transferCertificate" formControlName="transferCertificate"/>
+      <input
+        type="file"
+        id="transferCertificate"
+        name="transferCertificate"
+        formControlName="transferCertificate"
+      />
     </div>
-
   </form>
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <button mat-button class="btn-primary" (click)="add12Form()">{{actionBtn}}</button>
+  <button mat-button class="btn-primary" (click)="add12Form()">
+    {{ actionBtn }}
+  </button>
 </div>

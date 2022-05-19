@@ -19,13 +19,13 @@
         <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
           <!-- ID Column -->
           <ng-container matColumnDef="education">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>education</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Education</th>
             <td mat-cell *matCellDef="let row">{{ row.type }}</td>
           </ng-container>
 
           <!-- Progress Column -->
           <ng-container matColumnDef="board">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>board</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Board</th>
             <td mat-cell *matCellDef="let row">{{ row.board }}</td>
           </ng-container>
 
@@ -33,7 +33,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="percentage">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              percentage/CGPA
+              Percentage/CGPA
             </th>
             <td mat-cell *matCellDef="let row">
               {{ row.marks }}<span>{{ row.marks > 10 ? "%" : "CGPA" }}</span>
@@ -41,21 +41,21 @@
           </ng-container>
 
           <ng-container matColumnDef="startDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>startDate</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>StartDate</th>
             <td mat-cell *matCellDef="let row">
               {{ row.start_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="endDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>endDate</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>EndDate</th>
             <td mat-cell *matCellDef="let row">
               {{ row.end_date | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>action</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
             <td mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary" (click)="editData(row)">
                 <mat-icon>edit</mat-icon>
