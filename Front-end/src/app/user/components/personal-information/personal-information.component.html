@@ -42,7 +42,8 @@
           formControlName="dob"
           name="dob"
           id="dob"
-          onkeydown="return false" onclick="return false"
+          onkeydown="return false"
+          onclick="return false"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -365,7 +366,6 @@
         mat-button
         class="btn-primary"
         type="submit"
-        [disabled]="!personalInformation.valid"
         [ngStyle]="{ display: display2 }"
         (click)="onUpdate()"
       >

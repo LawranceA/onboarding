@@ -6,20 +6,19 @@
         <mat-label for="aadhar_card_number">Aadhar Card Number</mat-label>
         <input
           matInput
-         
           id="aadhar_card_number"
           name="aadhar_card_number"
           placeholder="Aadhar Card Number"
           formControlName="aadhar_card_number"
           maxlength="12"
-         
-          
         />
         <mat-error
-        *ngIf="this.otherDetail.get('aadhar_card_number')?.invalid &&
-        this.otherDetail.get('aadhar_card_number')?.touched"
-        >{{ getaadharErrorMessage() }}</mat-error
-      >
+          *ngIf="
+            this.otherDetail.get('aadhar_card_number')?.invalid &&
+            this.otherDetail.get('aadhar_card_number')?.touched
+          "
+          >{{ getaadharErrorMessage() }}</mat-error
+        >
       </mat-form-field>
       <div class="uploadContainer">
         <label for="aadharcard">Aadhar Card</label>
@@ -30,10 +29,12 @@
           formControlName="aadharCard"
         />
         <mat-error
-        *ngIf="this.otherDetail.get('aadharcard')?.invalid &&
-        this.otherDetail.get('aadharcard')?.touched"
-        >{{ getErrorMessage() }}</mat-error
-      >
+          *ngIf="
+            this.otherDetail.get('aadharCard')?.invalid &&
+            this.otherDetail.get('aadharCard')?.touched
+          "
+          >{{ getErrorMessage() }}</mat-error
+        >
       </div>
     </div>
 
@@ -47,10 +48,12 @@
           maxlength="10"
         />
         <mat-error
-        *ngIf="this.otherDetail.get('pan_card_number')?.invalid &&
-        this.otherDetail.get('pan_card_number')?.touched"
-        >{{ getErrorMessage() }}</mat-error
-      >
+          *ngIf="
+            this.otherDetail.get('pan_card_number')?.invalid &&
+            this.otherDetail.get('pan_card_number')?.touched
+          "
+          >{{ getErrorMessage() }}</mat-error
+        >
       </mat-form-field>
 
       <div class="uploadContainer">
@@ -62,10 +65,12 @@
           formControlName="panCard"
         />
         <mat-error
-        *ngIf="this.otherDetail.get('panCard')?.invalid &&
-        this.otherDetail.get('panCard')?.touched"
-        >{{ getErrorMessage() }}</mat-error
-      >
+          *ngIf="
+            this.otherDetail.get('panCard')?.invalid &&
+            this.otherDetail.get('panCard')?.touched
+          "
+          >{{ getErrorMessage() }}</mat-error
+        >
       </div>
     </div>
     <div class="cards">
@@ -78,9 +83,8 @@
           placeholder="Passport Number"
           formControlName="passport_number"
         />
-        
       </mat-form-field>
-     
+
       <mat-form-field appearance="outline">
         <mat-label for="passport_expire">Passport Expire Date</mat-label>
         <input
@@ -119,10 +123,12 @@
         formControlName="covidCertificate"
       />
       <mat-error
-      *ngIf="this.otherDetail.get('covidCertificate')?.invalid &&
-      this.otherDetail.get('covidCertificate')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="
+          this.otherDetail.get('covidCertificate')?.invalid &&
+          this.otherDetail.get('covidCertificate')?.touched
+        "
+        >{{ getErrorMessage() }}</mat-error
+      >
     </div>
   </form>
 
@@ -135,7 +141,6 @@
         mat-button
         class="btn-primary"
         type="submit"
-        [disabled]="!otherDetail.valid"
         [ngStyle]="{ display: display2 }"
         (click)="onUpdate()"
       >
