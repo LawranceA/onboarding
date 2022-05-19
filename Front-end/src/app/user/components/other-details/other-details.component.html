@@ -6,17 +6,19 @@
         <mat-label for="aadhar_card_number">Aadhar Card Number</mat-label>
         <input
           matInput
-          
+         
           id="aadhar_card_number"
           name="aadhar_card_number"
           placeholder="Aadhar Card Number"
           formControlName="aadhar_card_number"
+          maxlength="12"
+         
           
         />
         <mat-error
         *ngIf="this.otherDetail.get('aadhar_card_number')?.invalid &&
         this.otherDetail.get('aadhar_card_number')?.touched"
-        >{{ getErrorMessage() }}</mat-error
+        >{{ getaadharErrorMessage() }}</mat-error
       >
       </mat-form-field>
       <div class="uploadContainer">
@@ -42,6 +44,7 @@
           matInput
           placeholder="Pan Card Number"
           formControlName="pan_card_number"
+          maxlength="10"
         />
         <mat-error
         *ngIf="this.otherDetail.get('pan_card_number')?.invalid &&
@@ -65,7 +68,6 @@
       >
       </div>
     </div>
-
     <div class="cards">
       <mat-form-field appearance="outline">
         <mat-label for="passport_number">Passport Number</mat-label>

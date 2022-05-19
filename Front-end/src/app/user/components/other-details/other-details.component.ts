@@ -16,7 +16,7 @@ export class OtherDetailsComponent implements OnInit {
   created_at: any;
 
   otherDetail = new FormGroup({
-    aadhar_card_number: new FormControl('',Validators.required),
+    aadhar_card_number: new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$")]),
     aadharCard: new FormControl('',Validators.required),
     pan_card_number: new FormControl('',Validators.required),
     panCard: new FormControl('',Validators.required),
@@ -110,7 +110,7 @@ export class OtherDetailsComponent implements OnInit {
   getErrorMessage() {
     // console.log('entering');
     if (
-      this.otherDetail.get('aadhar_card_number')?.getError('required') ||
+      
       this.otherDetail.get('aadharCard')?.getError('required') ||
       this.otherDetail.get('pan_card_number')?.getError('required') ||
       this.otherDetail.get('panCard')?.getError('required') 
@@ -122,7 +122,23 @@ export class OtherDetailsComponent implements OnInit {
       this.otherDetail.get('covidCertificate')?.getError('required')) {
       return 'Please select a file';
     }
+   
     return '';
     
   }
+  getaadharErrorMessage()
+  {
+    
+    if(this.otherDetail.get('aadhar_card_number')?.getError('required'))
+    {
+      return 'You must enter a value';
+    }
+    if( this.otherDetail.get('aadhar_card_number')?.getError('pattern') )
+    {
+      return 'Enter only numbers';
+    }
+      return '';
+
+  }
+ 
 }
