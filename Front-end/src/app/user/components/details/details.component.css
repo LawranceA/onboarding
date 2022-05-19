@@ -1,20 +1,19 @@
-
 * {
   box-sizing: border-box;
   overflow: hidden;
 }
 
-mat-sidenav-container {
+mat-drawer-container {
   height: 100%;
 }
 
-mat-sidenav,
-mat-sidenav-content {
+mat-drawer,
+mat-drawer-content {
   padding: 0px;
   box-sizing: border-box;
 }
 
-mat-sidenav {
+mat-drawer {
   background-color: #014868;
   width: 270px;
 }
@@ -24,7 +23,7 @@ mat-toolbar {
   align-items: center;
 }
 
-.leftContent{
+.leftContent {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,12 +75,12 @@ mat-toolbar {
   padding: 12px 0px;
 }
 
-.sidenav-menu ul li a:hover {
+.sidenav-menu ul li a.active {
   color: #ff9350;
   border-right: 4px solid #ff9350;
 }
 
-.userProfile{
+.userProfile {
   width: 100%;
   color: #ff9350;
   text-align: center;
@@ -90,21 +89,19 @@ mat-toolbar {
   border-bottom: 2px solid #ff9350;
 }
 
-.userProfile .icon{
+.userProfile .icon {
   font-size: 6rem;
 }
 
-
-.userProfile h3{
+.userProfile h3 {
   color: #fdfcfc;
   font-weight: 700;
   font-size: 2rem;
   margin-bottom: 12px;
 }
 
-.userProfile p{
+.userProfile p {
   font-size: 1rem;
-  
 }
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
@@ -133,5 +130,3 @@ mat-toolbar {
   justify-content: center;
   cursor: pointer;
 }
-
-

@@ -1,45 +1,48 @@
-<mat-sidenav-container>
+<mat-drawer-container>
   <!-- SideBar Content -->
-  <mat-sidenav #sidenav mode="side" opened="true">
+  <mat-drawer mode="side" opened="true">
     <div class="sidenav-section">
-      <div class="close">
-        <button mat-icon-button arial-label="Close" (click)="sidenav.close()">
+      <!-- <div class="close">
+        <button mat-icon-button arial-label="Close">
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>
-      </div>
+      </div> -->
 
       <div class="userProfile">
         <fa-icon [icon]="faUserCircle" class="icon"></fa-icon>
 
-        <h3>{{data.name}}</h3>
-        <p>{{data.designation}}</p>
+        <h3>{{ data.name }}</h3>
+        <p>{{ data.designation }}</p>
       </div>
 
       <div class="sidenav-menu">
         <ul>
           <li>
-            <a routerLink="personal-information" (click)="sidenav.close()"
+            <a
+              routerLink="personal-information"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
               ><fa-icon [icon]="faAddressBook"></fa-icon>personal-information</a
             >
           </li>
           <li>
-            <a routerLink="educational-qualification" (click)="sidenav.close()"
+            <a routerLink="educational-qualification" routerLinkActive="active"
               ><fa-icon [icon]="faGraduationCap"></fa-icon
               >educational-qualification</a
             >
           </li>
           <li>
-            <a routerLink="employment-details" (click)="sidenav.close()"
+            <a routerLink="employment-details" routerLinkActive="active"
               ><fa-icon [icon]="faLandmark"></fa-icon>employment-details</a
             >
           </li>
           <li>
-            <a routerLink="other-details" (click)="sidenav.close()"
+            <a routerLink="other-details" routerLinkActive="active"
               ><fa-icon [icon]="faFileAlt"></fa-icon>other-details</a
             >
           </li>
           <li>
-            <a routerLink="declaration" (click)="sidenav.close()"
+            <a routerLink="declaration" routerLinkActive="active"
               ><fa-icon [icon]="faPenNib"></fa-icon>declaration</a
             >
           </li>
@@ -50,20 +53,20 @@
 
       <p class="footer">&copy;Diggibyte2022</p>
     </div>
-  </mat-sidenav>
+  </mat-drawer>
 
   <!-- Main-Content -->
-  <mat-sidenav-content>
+  <mat-drawer-content>
     <mat-toolbar>
       <div class="leftContent">
-        <button
+        <!-- <button
           mat-icon-button
           class="example-icon"
           aria-label="Example icon-button with menu icon"
           (click)="sidenav.toggle()"
         >
           <fa-icon [icon]="faBars"></fa-icon>
-        </button>
+        </button> -->
         <img
           src="../../../assets//images/full_logo.png"
           width="200px"
@@ -77,5 +80,5 @@
     <router-outlet></router-outlet>
 
     <!-- landing page component -->
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-drawer-content>
+</mat-drawer-container>

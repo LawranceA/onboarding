@@ -359,9 +359,9 @@ export class PersonalInformationComponent implements OnInit {
       // this.numberValidation
     ]),
     alternate_number: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(10),
-      Validators.pattern('^[6-9]{1}[0-9]{9}$'),
+      // Validators.required,
+      // Validators.maxLength(10),
+      // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
     ]),
     gender: new FormControl('', [Validators.required]),
     photo: new FormControl('', [Validators.required]),
