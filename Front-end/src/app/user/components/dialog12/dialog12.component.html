@@ -8,26 +8,61 @@
     <mat-form-field appearance="outline">
       <mat-label for="board">Board</mat-label>
       <input matInput type="text"  id="board" name="board" formControlName="board" />
+      <mat-error
+      *ngIf="
+        this.dialog12Form.get('board')?.invalid &&
+        this.dialog12Form.get('board')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="School">School/College</mat-label>
       <input matInput type="text"  id="School" name="School" formControlName="School"/>
+      <mat-error
+      *ngIf="
+        this.dialog12Form.get('School')?.invalid &&
+        this.dialog12Form.get('School')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="percentage">Percentage</mat-label>
       <input matInput type="text"  id="percentage" name="percentage" formControlName="percentage"/>
+      <mat-error
+      *ngIf="
+        this.dialog12Form.get('percentage')?.invalid &&
+        this.dialog12Form.get('percentage')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="startDate">Start Date</mat-label>
-      <input matInput [matDatepicker]="picker1"  id="startDate" name="startDate" formControlName="startDate"/>
+      <input matInput [matDatepicker]="picker1"  id="startDate" name="startDate" formControlName="startDate" onkeydown="return false" onclick="return false"/>
+      <mat-error
+      *ngIf="
+        this.dialog12Form.get('startDate')?.invalid &&
+        this.dialog12Form.get('startDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="endDate">End Date</mat-label>
-      <input matInput [matDatepicker]="picker2"  id="endDate" name="endDate" formControlName="endDate" />
+      <input matInput [matDatepicker]="picker2"  id="endDate" name="endDate" formControlName="endDate" onkeydown="return false" onclick="return false" />
+      <mat-error
+      *ngIf="
+        this.dialog12Form.get('endDate')?.invalid &&
+        this.dialog12Form.get('endDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -35,12 +70,19 @@
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
       <input type="file" id="marksheet" name="marksheet" formControlName="marksheet" />
+      <mat-error
+          *ngIf="
+            this.dialog12Form.get('marksheet')?.invalid &&
+            this.dialog12Form.get('marksheet')?.touched
+          "
+          >{{ getErrorMessage() }}</mat-error
+        >
     </div>
 
-    <div class="uploadContainer">
+    <!-- <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
       <input type="file" id="transferCertificate" name="transferCertificate" formControlName="transferCertificate"/>
-    </div>
+    </div> -->
 
   </form>
 </div>

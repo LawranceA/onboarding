@@ -22,6 +22,13 @@
         name="School"
         formControlName="School"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('School')?.invalid &&
+        this.dialogUGForm.get('School')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -33,6 +40,13 @@
         name="course"
         formControlName="course"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('course')?.invalid &&
+        this.dialogUGForm.get('course')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="specialization">Specialization</mat-label>
@@ -43,6 +57,13 @@
         name="specialization"
         formControlName="specialization"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('specialization')?.invalid &&
+        this.dialogUGForm.get('specialization')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="university">University</mat-label>
@@ -53,6 +74,13 @@
         name="board"
         formControlName="board"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('board')?.invalid &&
+        this.dialogUGForm.get('board')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -64,6 +92,13 @@
         name="percentage"
         formControlName="percentage"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('percentage')?.invalid &&
+        this.dialogUGForm.get('percentage')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -74,7 +109,15 @@
         id="startDate"
         name="startDate"
         formControlName="startDate"
+        onkeydown="return false" onclick="return false"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('startDate')?.invalid &&
+        this.dialogUGForm.get('startDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
@@ -87,7 +130,15 @@
         id="endDate"
         name="endDate"
         formControlName="endDate"
+        onkeydown="return false" onclick="return false"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('endDate')?.invalid &&
+        this.dialogUGForm.get('endDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -100,10 +151,18 @@
         name="marksheet"
         formControlName="marksheet"
         multiple
+        required
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('marksheet')?.invalid &&
+        this.dialogUGForm.get('marksheet')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
 
-    <div class="uploadContainer">
+    <!-- <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
       <input
         type="file"
@@ -111,7 +170,7 @@
         name="transferCertificate"
         formControlName="transferCertificate"
       />
-    </div>
+    </div> -->
     <div class="uploadContainer">
       <label for="provisionalCertificate">Provisional Certificate</label>
       <input
@@ -120,6 +179,7 @@
         name="provisionalCertificate"
         formControlName="provisionalCertificate"
       />
+      
     </div>
     <div class="uploadContainer">
       <label for="convocationCertificate">Convocation Certificate</label>
@@ -129,6 +189,12 @@
         name="convocationCertificate"
         formControlName="convocationCertificate"
       />
+      <mat-error
+      *ngIf="
+        this.dialogUGForm.get('convocationCertificate')?.invalid &&
+        this.dialogUGForm.get('convocationCertificate')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
   </form>
 </div>

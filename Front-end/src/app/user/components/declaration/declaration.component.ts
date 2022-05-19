@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
@@ -18,9 +18,12 @@ export class DeclarationComponent implements OnInit {
 
   checked = false;
   declaration = new FormGroup({
-    joiningDate: new FormControl(''),
-    place: new FormControl(''),
+    joiningDate: new FormControl('',Validators.required),
+    place: new FormControl('',Validators.required),
   });
+
+  today=new Date();
+  maxDate = new Date();
 
   constructor(
     private router: Router,
@@ -73,5 +76,17 @@ export class DeclarationComponent implements OnInit {
         this.declaration.controls['place'].setValue(data.place);
       }
     });
+  }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.declaration.get('joininDate')?.getError('required') ||
+      this.declaration.get('place')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+  
+    return '';
+    
   }
 }

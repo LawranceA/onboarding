@@ -93,4 +93,22 @@ export class DialogComponent implements OnInit {
       },
     });
   }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.dialog10Form.get('board')?.getError('required') ||
+      this.dialog10Form.get('School')?.getError('required') ||
+      this.dialog10Form.get('Percentage')?.getError('required')||
+      this.dialog10Form.get('startDate')?.getError('required') ||
+      this.dialog10Form.get('endDate')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+    if (
+      this.dialog10Form.get('marksheet')?.getError('required') ) {
+      return 'Please select a file';
+    }
+    
+    return '';
+  }
 }

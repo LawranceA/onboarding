@@ -22,6 +22,13 @@
         name="School"
         formControlName="School"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('School')?.invalid &&
+        this.dialogPGForm.get('School')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -33,6 +40,13 @@
         name="course"
         formControlName="course"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('course')?.invalid &&
+        this.dialogPGForm.get('course')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="specialization">Specialization</mat-label>
@@ -43,6 +57,13 @@
         name="specialization"
         formControlName="specialization"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('specialization')?.invalid &&
+        this.dialogPGForm.get('specialization')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="university">University</mat-label>
@@ -53,6 +74,13 @@
         name="board"
         formControlName="board"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('board')?.invalid &&
+        this.dialogPGForm.get('board')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -64,6 +92,13 @@
         name="percentage"
         formControlName="percentage"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('percentage')?.invalid &&
+        this.dialogPGForm.get('percentage')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -74,7 +109,15 @@
         id="startDate"
         name="startDate"
         formControlName="startDate"
+        onkeydown="return false" onclick="return false"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('startDate')?.invalid &&
+        this.dialogPGForm.get('startDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
@@ -87,7 +130,15 @@
         id="endDate"
         name="endDate"
         formControlName="endDate"
+        onkeydown="return false" onclick="return false"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('endDate')?.invalid &&
+        this.dialogPGForm.get('endDate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -101,9 +152,16 @@
         formControlName="marksheet"
         multiple
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('marksheet')?.invalid &&
+        this.dialogPGForm.get('marksheet')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
 
-    <div class="uploadContainer">
+    <!-- <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
       <input
         type="file"
@@ -111,7 +169,7 @@
         name="transferCertificate"
         formControlName="transferCertificate"
       />
-    </div>
+    </div> -->
     <div class="uploadContainer">
       <label for="provisionalCertificate">Provisional Certificate</label>
       <input
@@ -129,6 +187,13 @@
         name="convocationCertificate"
         formControlName="convocationCertificate"
       />
+      <mat-error
+      *ngIf="
+        this.dialogPGForm.get('convocationCertificate')?.invalid &&
+        this.dialogPGForm.get('convocationCertificate')?.touched
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
   </form>
 </div>

@@ -40,7 +40,7 @@ export class DialogPGComponent implements OnInit {
       marksheet: new FormControl('', [Validators.required]),
       transferCertificate: new FormControl(''),
       provisionalCertificate: new FormControl(''),
-      convocationCertificate: new FormControl(''),
+      convocationCertificate: new FormControl('',[Validators.required]),
     });
 
     if (this.editData) {
@@ -109,5 +109,24 @@ export class DialogPGComponent implements OnInit {
         alert('Details cannot be modified');
       },
     });
+  }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.dialogPGForm.get('board')?.getError('required') ||
+      this.dialogPGForm.get('School')?.getError('required') ||
+      this.dialogPGForm.get('Percentage')?.getError('required')||
+      this.dialogPGForm.get('startDate')?.getError('required') ||
+      this.dialogPGForm.get('endDate')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+    if (
+      this.dialogPGForm.get('marksheet')?.getError('required') ||
+      this.dialogPGForm.get('convocationCertificate')?.getError('required') ) {
+      return 'Please select a file';
+    }
+    
+    return '';
   }
 }

@@ -108,4 +108,26 @@ export class DialogOrgComponent implements OnInit {
         },
       });
   }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.organization.get('organizationName')?.getError('required') ||
+      this.organization.get('joiningDate')?.getError('required') ||
+      this.organization.get('relievingDate')?.getError('required') ||
+      this.organization.get('hr_name')?.getError('required') ||
+      this.organization.get('noticePeriodEndDate')?.getError('required') 
+      ) {
+      return 'You must enter a value';
+    }
+    if (
+      this.organization.get('relievingLetter')?.getError('required') ||
+      this.organization.get('offerLetter')?.getError('required') ||
+      this.organization.get('payslip1')?.getError('required') ||
+    this.organization.get('payslip2')?.getError('required') ||
+    this.organization.get('payslip3')?.getError('required')) {
+      return 'You must upload a file';
+    }
+    return '';
+    
+  }
 }
