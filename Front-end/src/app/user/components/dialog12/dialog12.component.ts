@@ -90,6 +90,24 @@ export class Dialog12Component implements OnInit {
       },
     });
   }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.dialog12Form.get('board')?.getError('required') ||
+      this.dialog12Form.get('School')?.getError('required') ||
+      this.dialog12Form.get('Percentage')?.getError('required')||
+      this.dialog12Form.get('startDate')?.getError('required') ||
+      this.dialog12Form.get('endDate')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+    if (
+      this.dialog12Form.get('marksheet')?.getError('required') ) {
+      return 'Please select a file';
+    }
+    
+    return '';
+  }
 }
 
 // add12Form(){

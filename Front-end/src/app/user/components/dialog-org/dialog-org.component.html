@@ -10,6 +10,11 @@
         name="organizationName"
         formControlName="organizationName"
       />
+      <mat-error
+      *ngIf="this.organization.get('organizationName')?.invalid   &&
+      this.organization.get('organizationName')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -23,6 +28,11 @@
       />
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
+      <mat-error
+      *ngIf="this.organization.get('joiningDate')?.invalid  &&
+      this.organization.get('joiningDate')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -36,6 +46,11 @@
       />
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
+      <mat-error
+      *ngIf="this.organization.get('relievingDate')?.invalid  &&
+      this.organization.get('relievingDate')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -47,6 +62,11 @@
         name="hr_name"
         formControlName="hr_name"
       />
+      <mat-error
+      *ngIf="this.organization.get('hr_name')?.invalid   &&
+      this.organization.get('hr_name')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
 
     <div class="uploadContainer">
@@ -56,8 +76,12 @@
         name="relievingLetter"
         id="relievingLetter"
         formControlName="relievingLetter"
-  
-      />
+    />
+    <mat-error
+    *ngIf="this.organization.get('relievingLetter')?.invalid  &&
+    this.organization.get('relievingLetter')?.touched"
+    >{{ getErrorMessage() }}</mat-error
+  >
     </div>
 
     <div class="uploadContainer">
@@ -68,6 +92,11 @@
         id="offerLetter"
         formControlName="offerLetter"
       />
+      <mat-error
+      *ngIf="this.organization.get('offerLetter')?.invalid  &&
+      this.organization.get('offerLetter')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
 
     <div class="uploadContainer">
@@ -78,18 +107,33 @@
         id="payslip1"
         formControlName="payslip1"
       />
+      <mat-error
+      *ngIf="this.organization.get('payslip1')?.invalid  &&
+      this.organization.get('payslip1')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
       <input
         type="file"
         name="payslip2"
         id="payslip2"
         formControlName="payslip2"
       />
+      <mat-error
+      *ngIf="this.organization.get('payslip2')?.invalid  &&
+      this.organization.get('payslip2')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
       <input
         type="file"
         name="payslip3"
         id="payslip3"
         formControlName="payslip3"
       />
+      <mat-error
+      *ngIf="this.organization.get('payslip3')?.invalid  &&
+      this.organization.get('payslip3')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
 
     <mat-form-field appearance="outline">
@@ -103,6 +147,11 @@
       />
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
+      <mat-error
+      *ngIf="this.organization.get('noticePeriodEndDate')?.invalid  &&
+      this.organization.get('noticePeriodEndDate')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </mat-form-field>
   </form>
 </div>

@@ -6,11 +6,20 @@
         <mat-label for="aadhar_card_number">Aadhar Card Number</mat-label>
         <input
           matInput
+         
           id="aadhar_card_number"
           name="aadhar_card_number"
           placeholder="Aadhar Card Number"
           formControlName="aadhar_card_number"
+          maxlength="12"
+         
+          
         />
+        <mat-error
+        *ngIf="this.otherDetail.get('aadhar_card_number')?.invalid &&
+        this.otherDetail.get('aadhar_card_number')?.touched"
+        >{{ getaadharErrorMessage() }}</mat-error
+      >
       </mat-form-field>
       <div class="uploadContainer">
         <label for="aadharcard">Aadhar Card</label>
@@ -20,6 +29,11 @@
           name="aadharcard"
           formControlName="aadharCard"
         />
+        <mat-error
+        *ngIf="this.otherDetail.get('aadharcard')?.invalid &&
+        this.otherDetail.get('aadharcard')?.touched"
+        >{{ getErrorMessage() }}</mat-error
+      >
       </div>
     </div>
 
@@ -30,7 +44,13 @@
           matInput
           placeholder="Pan Card Number"
           formControlName="pan_card_number"
+          maxlength="10"
         />
+        <mat-error
+        *ngIf="this.otherDetail.get('pan_card_number')?.invalid &&
+        this.otherDetail.get('pan_card_number')?.touched"
+        >{{ getErrorMessage() }}</mat-error
+      >
       </mat-form-field>
 
       <div class="uploadContainer">
@@ -41,9 +61,13 @@
           name="panCard"
           formControlName="panCard"
         />
+        <mat-error
+        *ngIf="this.otherDetail.get('panCard')?.invalid &&
+        this.otherDetail.get('panCard')?.touched"
+        >{{ getErrorMessage() }}</mat-error
+      >
       </div>
     </div>
-
     <div class="cards">
       <mat-form-field appearance="outline">
         <mat-label for="passport_number">Passport Number</mat-label>
@@ -54,6 +78,7 @@
           placeholder="Passport Number"
           formControlName="passport_number"
         />
+        
       </mat-form-field>
      
       <mat-form-field appearance="outline">
@@ -93,6 +118,11 @@
         multiple
         formControlName="covidCertificate"
       />
+      <mat-error
+      *ngIf="this.otherDetail.get('covidCertificate')?.invalid &&
+      this.otherDetail.get('covidCertificate')?.touched"
+      >{{ getErrorMessage() }}</mat-error
+    >
     </div>
   </form>
 

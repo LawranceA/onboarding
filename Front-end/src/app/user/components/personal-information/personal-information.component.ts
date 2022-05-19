@@ -596,5 +596,6 @@ export class PersonalInformationComponent implements OnInit {
       return 'Enter a valid mobile number';
     }
     return '';
+    
   }
 }

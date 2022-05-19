@@ -40,7 +40,7 @@ export class DialogUGComponent implements OnInit {
       marksheet: new FormControl('', [Validators.required]),
       transferCertificate: new FormControl(''),
       provisionalCertificate: new FormControl(''),
-      convocationCertificate: new FormControl(''),
+      convocationCertificate: new FormControl('',Validators.required),
     });
 
     if (this.editData) {
@@ -109,5 +109,24 @@ export class DialogUGComponent implements OnInit {
         alert('Details cannot be modified');
       },
     });
+  }
+  getErrorMessage() {
+    // console.log('entering');
+    if (
+      this.dialogUGForm.get('board')?.getError('required') ||
+      this.dialogUGForm.get('School')?.getError('required') ||
+      this.dialogUGForm.get('Percentage')?.getError('required')||
+      this.dialogUGForm.get('startDate')?.getError('required') ||
+      this.dialogUGForm.get('endDate')?.getError('required')
+    ) {
+      return 'You must enter a value';
+    }
+    if (
+      this.dialogUGForm.get('marksheet')?.getError('required')  ||
+      this.dialogUGForm.get('convocationCertificate')?.getError('required') )  {
+      return 'Please select a file';
+    }
+    
+    return '';
   }
 }
