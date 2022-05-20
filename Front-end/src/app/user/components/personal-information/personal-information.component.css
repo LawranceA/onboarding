@@ -5,63 +5,63 @@
     align-items: flex-start;
   }
    */
-  .example-radio-button {
-    margin: 5px;
-  }
+.example-radio-button {
+  margin: 5px;
+}
 
-  .example-section{
-    padding-bottom: 10px;
-  }
+.example-section {
+  padding-bottom: 10px;
+}
 
-  .content{
-   display: grid;
-   grid-template-columns: repeat(3,1fr);
-   column-gap: 10px;
-  }
+.content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+}
 
-   h3{
-    font-weight: bold;
-    padding-top:16px;
-  }
+h3 {
+  font-weight: bold;
+  padding-top: 16px;
+}
 
-  .genderContainer{
-    border: 1px solid #dcdddd;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 1em; 
-   }
+.genderContainer {
+  border: 1px solid #dcdddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 1em;
+}
 
-  .genderContainer label{
-    color: #8c8c8c;
-    text-transform: capitalize;
-    margin-right: 10px;
-  }
-  .uploadContainer{
-    height: 1.9rem;
-  }
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: #FF934f !important;
-  }
-  
-  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-    background-color: #FF934f!important;   /*inner circle color change*/
-  }
-  
-  ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-    border-color:#FF934f!important; /*outer ring color change*/
-  }   
-  ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
-    background-color: #FF934f !important;
-  }
-  
-  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #FF934f !important;
-  }
-  
-  ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: #FF934f !important;
-  }
- 
+.genderContainer label {
+  color: #8c8c8c;
+  text-transform: capitalize;
+  margin-right: 10px;
+}
+.uploadContainer {
+  padding: 20px;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #ff934f !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #ff934f !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #ff934f !important; /*outer ring color change*/
+}
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #ff934f !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #ff934f !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #ff934f !important;
+}
 
 /* mat-input focused color */
 
@@ -77,22 +77,18 @@
   color: #014868 !important;
 }
 
-  @media only screen and (max-width: 600px) {
-
-    .content{
-      display: grid;
-      grid-template-columns: 1fr;
-      column-gap: 10px;
-     }
-    
+@media only screen and (max-width: 600px) {
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 10px;
   }
+}
 
-  @media only screen and (min-width: 600px) {
-    .content{
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      column-gap: 10px;
-     }
-
-     
+@media only screen and (min-width: 600px) {
+  .content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
   }
+}

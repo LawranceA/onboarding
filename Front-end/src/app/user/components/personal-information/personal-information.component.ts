@@ -353,13 +353,13 @@ export class PersonalInformationComponent implements OnInit {
       Validators.email,
     ]),
     mobile_number: new FormControl('', [
-      // // Validators.required,
+      Validators.required,
       // // Validators.maxLength(10),
       // // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
       // this.numberValidation
     ]),
     alternate_number: new FormControl('', [
-      // Validators.required,
+      Validators.required,
       // Validators.maxLength(10),
       // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
     ]),

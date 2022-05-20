@@ -137,6 +137,24 @@
         >
       </div>
     </div>
+ 
+    <!-- Father Name -->
+    <mat-form-field appearance="outline" style="width: 50%;">
+      <mat-label for="">Father Name</mat-label>
+      <input
+        matInput
+        placeholder=""
+        type="text"
+        name=""
+        id=""
+        formControlName=""
+        
+      />
+      <mat-error
+        *ngIf="this.personalInformation.get('first_name')?.invalid"
+        >{{ getErrorMessage() }}</mat-error
+      >
+    </mat-form-field>
 
     <!-- Current Address -->
     <div formGroupName="current">

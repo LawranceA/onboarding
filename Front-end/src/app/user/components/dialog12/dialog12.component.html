@@ -41,13 +41,7 @@
         name="percentage"
         formControlName="percentage"
       />
-      <input
-        matInput
-        type="text"
-        id="board"
-        name="board"
-        formControlName="board"
-      />
+    
       <mat-error
         *ngIf="
           this.dialog12Form.get('board')?.invalid &&
@@ -56,40 +50,8 @@
         >{{ getErrorMessage() }}</mat-error
       >
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label for="School">School/College</mat-label>
-      <input
-        matInput
-        type="text"
-        id="School"
-        name="School"
-        formControlName="School"
-      />
-      <mat-error
-        *ngIf="
-          this.dialog12Form.get('School')?.invalid &&
-          this.dialog12Form.get('School')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
-      >
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label for="percentage">Percentage</mat-label>
-      <input
-        matInput
-        type="text"
-        id="percentage"
-        name="percentage"
-        formControlName="percentage"
-      />
-      <mat-error
-        *ngIf="
-          this.dialog12Form.get('percentage')?.invalid &&
-          this.dialog12Form.get('percentage')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
-      >
-    </mat-form-field>
+    
+  
 
     <mat-form-field appearance="outline">
       <mat-label for="startDate">Start Date</mat-label>
@@ -100,15 +62,7 @@
         name="startDate"
         formControlName="startDate"
       />
-      <input
-        matInput
-        [matDatepicker]="picker1"
-        id="startDate"
-        name="startDate"
-        formControlName="startDate"
-        onkeydown="return false"
-        onclick="return false"
-      />
+  
       <mat-error
         *ngIf="
           this.dialog12Form.get('startDate')?.invalid &&
@@ -129,15 +83,7 @@
         name="endDate"
         formControlName="endDate"
       />
-      <input
-        matInput
-        [matDatepicker]="picker2"
-        id="endDate"
-        name="endDate"
-        formControlName="endDate"
-        onkeydown="return false"
-        onclick="return false"
-      />
+   
       <mat-error
         *ngIf="
           this.dialog12Form.get('endDate')?.invalid &&
@@ -157,12 +103,6 @@
         name="marksheet"
         formControlName="marksheet"
       />
-      <input
-        type="file"
-        id="marksheet"
-        name="marksheet"
-        formControlName="marksheet"
-      />
       <mat-error
         *ngIf="
           this.dialog12Form.get('marksheet')?.invalid &&
@@ -172,7 +112,7 @@
       >
     </div>
 
-    <!-- <div class="uploadContainer">
+     <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
       <input
         type="file"
@@ -181,8 +121,7 @@
         formControlName="transferCertificate"
       />
     </div>
-      <input type="file" id="transferCertificate" name="transferCertificate" formControlName="transferCertificate"/>
-    </div> -->
+     
   </form>
 </div>
 
