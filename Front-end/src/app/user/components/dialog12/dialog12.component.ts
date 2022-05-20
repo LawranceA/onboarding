@@ -105,7 +105,6 @@ export class Dialog12Component implements OnInit {
       this.dialog12Form.get('marksheet')?.getError('required') ) {
       return 'Please select a file';
     }
-    
     return '';
   }
 }
