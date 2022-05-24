@@ -354,17 +354,18 @@ export class PersonalInformationComponent implements OnInit {
     ]),
     mobile_number: new FormControl('', [
       Validators.required,
-      // // Validators.maxLength(10),
-      // // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
+      Validators.maxLength(10),
+      Validators.pattern('^[6-9]{1}[0-9]{9}$'),
       // this.numberValidation
     ]),
     alternate_number: new FormControl('', [
       Validators.required,
-      // Validators.maxLength(10),
-      // Validators.pattern('^[6-9]{1}[0-9]{9}$'),
+      Validators.maxLength(10),
+      Validators.pattern('^[6-9]{1}[0-9]{9}$'),
     ]),
     gender: new FormControl('', [Validators.required]),
     photo: new FormControl('', [Validators.required]),
+    father_name: new FormControl('', [Validators.required]),
     current: new FormGroup({
       house_no: new FormControl('', [Validators.required]),
       street: new FormControl(''),
@@ -372,7 +373,7 @@ export class PersonalInformationComponent implements OnInit {
       city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      pincode: new FormControl('', [Validators.required]),
+      pincode: new FormControl('', [Validators.required,Validators.pattern("[0-9]{6}")]),
     }),
     permanent: new FormGroup({
       house_no: new FormControl('', [Validators.required]),
@@ -588,14 +589,33 @@ export class PersonalInformationComponent implements OnInit {
     // console.log('entering');
     if (
       this.personalInformation.get('email')?.getError('required') ||
-      this.personalInformation.get('first_name')?.getError('required')
+      this.personalInformation.get('first_name')?.getError('required') ||
+      this.personalInformation.get('last_name')?.getError('required') ||
+      this.personalInformation.get('dob')?.getError('required') ||
+      this.personalInformation.get('personal_email')?.getError('required') ||
+      this.personalInformation.get('mobile_number')?.getError('required') ||
+      this.personalInformation.get('alternate_number')?.getError('required') ||
+      this.personalInformation.get('gender')?.getError('required') ||
+      this.personalInformation.get('father_name')?.getError('required') ||
+      this.personalInformation.get('house_no')?.getError('required') ||
+      this.personalInformation.get('city')?.getError('required') ||
+      this.personalInformation.get('country')?.getError('required') ||
+      this.personalInformation.get('state')?.getError('required') ||
+      this.personalInformation.get('pincode')?.getError('required') 
+
     ) {
       return 'You must enter a value';
     }
-    if (this.personalInformation.get('mobile_number')?.getError('pattern')) {
+   if(this.personalInformation.get('mobile_number')?.hasError('pattern')||
+    this.personalInformation.get('alternate_number')?.hasError('pattern')) 
+    {
       return 'Enter a valid mobile number';
     }
-    return '';
     
+   if( this.personalInformation.get('photo')?.getError('required'))
+    {
+      return 'Photo must be uploaded';
+    }
+    return '';
   }
 }

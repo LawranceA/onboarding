@@ -12,9 +12,11 @@
           name="first_name"
           id="first_name"
           formControlName="first_name"
+          minlength="3"
         />
         <mat-error
-          *ngIf="this.personalInformation.get('first_name')?.invalid"
+          *ngIf="this.personalInformation.get('first_name')?.invalid &&
+          this.personalInformation.get('first_name')?.touched"
           >{{ getErrorMessage() }}</mat-error
         >
       </mat-form-field>
@@ -29,7 +31,8 @@
           id="last_name"
           formControlName="last_name"
         />
-        <mat-error *ngIf="this.personalInformation.get('last_name')?.invalid">{{
+        <mat-error *ngIf="this.personalInformation.get('last_name')?.invalid &&
+        this.personalInformation.get('last_name')?.touched">{{
           getErrorMessage()
         }}</mat-error>
       </mat-form-field>
@@ -47,7 +50,8 @@
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="this.personalInformation.get('dob')?.invalid">{{
+        <mat-error *ngIf="this.personalInformation.get('dob')?.invalid &&
+        this.personalInformation.get('dob')?.touched">{{
           getErrorMessage()
         }}</mat-error>
       </mat-form-field>
@@ -63,7 +67,8 @@
           formControlName="personal_email"
         />
         <mat-error
-          *ngIf="this.personalInformation.get('personal_email')?.invalid"
+          *ngIf="this.personalInformation.get('personal_email')?.invalid &&
+          this.personalInformation.get('personal_email')?.touched"
           >{{ getErrorMessage() }}</mat-error
         >
       </mat-form-field>
@@ -78,6 +83,11 @@
           placeholder="Mobile No"
           formControlName="mobile_number"
         />
+        <mat-error
+        *ngIf="this.personalInformation.get('mobile_number')?.invalid &&
+        this.personalInformation.get('mobile_number')?.touched"
+        >{{ getErrorMessage() }}</mat-error
+      >
         <!-- <span *ngIf="this.personalInformation.get('mobile_number').i"
           >Enter a valid mobile number</span
         > -->
@@ -94,7 +104,8 @@
           formControlName="alternate_number"
         />
         <mat-error
-          *ngIf="this.personalInformation.get('alternate_number')?.invalid"
+          *ngIf="this.personalInformation.get('alternate_number')?.invalid &&
+          this.personalInformation.get('alternate_number')?.touched"
           >{{ getErrorMessage() }}</mat-error
         >
       </mat-form-field>
@@ -140,18 +151,19 @@
  
     <!-- Father Name -->
     <mat-form-field appearance="outline" style="width: 50%;">
-      <mat-label for="">Father Name</mat-label>
+      <mat-label for="father_name">Father Name</mat-label>
       <input
         matInput
-        placeholder=""
+        placeholder="Father Name"
         type="text"
-        name=""
-        id=""
-        formControlName=""
-        
+        name="father_name"
+        id="father_name"
+        formControlName="father_name"
+        minlength="3"
       />
       <mat-error
-        *ngIf="this.personalInformation.get('first_name')?.invalid"
+        *ngIf="this.personalInformation.get('father_name')?.invalid &&
+        this.personalInformation.get('father_name')?.touched"
         >{{ getErrorMessage() }}</mat-error
       >
     </mat-form-field>
@@ -171,7 +183,8 @@
             name="house_no"
           />
           <mat-error
-            *ngIf="this.personalInformation.get('house_no')?.invalid"
+            *ngIf="this.personalInformation.get('house_no')?.invalid &&
+            this.personalInformation.get('house_no')?.touched"
             >{{ getErrorMessage() }}</mat-error
           >
         </mat-form-field>
@@ -181,12 +194,13 @@
           <input
             matInput
             type="text"
-            placeholder="House No."
+            placeholder="Street/Area Name"
             formControlName="street"
             id="street"
             name="street"
           />
-          <mat-error *ngIf="this.personalInformation.get('street')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('street')?.invalid &&
+          this.personalInformation.get('street')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -196,13 +210,14 @@
           <input
             matInput
             type="text"
-            placeholder="House No."
+            placeholder="Locality"
             formControlName="locality"
             id="locality"
             name="locality"
           />
           <mat-error
-            *ngIf="this.personalInformation.get('locality')?.invalid"
+            *ngIf="this.personalInformation.get('locality')?.invalid &&
+            this.personalInformation.get('locality')?.touched"
             >{{ getErrorMessage() }}</mat-error
           >
         </mat-form-field>
@@ -214,7 +229,8 @@
               {{ city }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('city')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('city')?.invalid &&
+          this.personalInformation.get('city')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -229,7 +245,8 @@
             id="pincode"
             name="pincode"
           />
-          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid &&
+          this.personalInformation.get('pincode')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -241,7 +258,8 @@
               {{ state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('state')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('state')?.invalid &&
+          this.personalInformation.get('state')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -253,7 +271,8 @@
               {{ country }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('country')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('country')?.invalid &&
+          this.personalInformation.get('country')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -280,7 +299,8 @@
             name="houseNo"
           />
           <mat-error
-            *ngIf="this.personalInformation.get('house_no')?.invalid"
+            *ngIf="this.personalInformation.get('house_no')?.invalid &&
+            this.personalInformation.get('house_no')?.touched"
             >{{ getErrorMessage() }}</mat-error
           >
         </mat-form-field>
@@ -290,12 +310,13 @@
           <input
             matInput
             type="text"
-            placeholder="House No."
+            placeholder="Street/Area Name"
             formControlName="street"
             id="street"
             name="street"
           />
-          <mat-error *ngIf="this.personalInformation.get('street')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('street')?.invalid &&
+          this.personalInformation.get('street')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -305,13 +326,14 @@
           <input
             matInput
             type="text"
-            placeholder="House No."
+            placeholder="Locality"
             formControlName="locality"
             id="locality"
             name="locality"
           />
           <mat-error
-            *ngIf="this.personalInformation.get('locality')?.invalid"
+            *ngIf="this.personalInformation.get('locality')?.invalid &&
+            this.personalInformation.get('locality')?.touched"
             >{{ getErrorMessage() }}</mat-error
           >
         </mat-form-field>
@@ -323,7 +345,8 @@
               {{ city }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('city')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('city')?.invalid &&
+          this.personalInformation.get('city')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -338,7 +361,8 @@
             id="pincode"
             name="pincode"
           />
-          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid &&
+          this.personalInformation.get('pincode')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -350,7 +374,8 @@
               {{ state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('state')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('state')?.invalid &&
+          this.personalInformation.get('state')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>
@@ -362,7 +387,8 @@
               {{ country }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('country')?.invalid">{{
+          <mat-error *ngIf="this.personalInformation.get('country')?.invalid &&
+          this.personalInformation.get('country')?.touched">{{
             getErrorMessage()
           }}</mat-error>
         </mat-form-field>

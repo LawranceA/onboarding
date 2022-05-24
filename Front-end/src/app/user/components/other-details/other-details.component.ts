@@ -11,6 +11,14 @@ import { UserDataService } from '../../services/user-data.service';
   styleUrls: ['./other-details.component.css'],
 })
 export class OtherDetailsComponent implements OnInit {
+
+  type_of_account = [
+    'Personal Account',
+    'Current Account',
+    'Savings Account'
+    
+  ];
+
   display1: any = 'block';
   display2: any = 'none';
   created_at: any;
@@ -24,8 +32,16 @@ export class OtherDetailsComponent implements OnInit {
     passport_expire: new FormControl(''),
     passportDetails: new FormControl(''),
     covidCertificate: new FormControl('',Validators.required),
+    acc_holder_name: new FormControl('',Validators.required),
+    bank_name: new FormControl('',Validators.required),
+    acc_number: new FormControl('',Validators.required),
+    ifsc_code: new FormControl('',[Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
+    type_of_acc: new FormControl('',Validators.required),
+    pf_acc: new FormControl(''),
+    uan_acc: new FormControl('')
+   
   });
-
+ 
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
@@ -113,7 +129,13 @@ export class OtherDetailsComponent implements OnInit {
       
       this.otherDetail.get('aadharCard')?.getError('required') ||
       this.otherDetail.get('pan_card_number')?.getError('required') ||
-      this.otherDetail.get('panCard')?.getError('required') 
+      this.otherDetail.get('panCard')?.getError('required') ||
+      this.otherDetail.get('acc_holder_name')?.getError('required') ||
+      this.otherDetail.get('bank_name')?.getError('required') ||
+      this.otherDetail.get('acc_number')?.getError('required') ||
+      this.otherDetail.get('ifsc_code')?.getError('required') ||
+      this.otherDetail.get('type_of_acc')?.getError('required')
+      
      
     ) {
       return 'You must enter a value';
@@ -122,7 +144,10 @@ export class OtherDetailsComponent implements OnInit {
       this.otherDetail.get('covidCertificate')?.getError('required')) {
       return 'Please select a file';
     }
-   
+    if( this.otherDetail.get('ifsc_code')?.getError('pattern'))
+    {
+      return 'Please enter Valid IFSC Code';
+    }
     return '';
     
   }

@@ -93,6 +93,8 @@
           id="passport_expire"
           name="passport_expire"
           formControlName="passport_expire"
+          onkeydown="return false"
+          onclick="return false"
         />
 
         <mat-datepicker-toggle
@@ -113,89 +115,6 @@
       </div>
     </div>
 
-
-    <!-- Need to perform validation and formcontrol data -->
-    <!-- Bank Details -->
-    <div class="bankCards">
-      <mat-form-field appearance="outline">
-        <mat-label for="">Account Holder's Name</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="Account Holder's Name"
-          formControlName=""
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label for="">Bank Name</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="Account Holder's Name"
-          formControlName=""
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label for="">Account Number</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="Account Number"
-          formControlName=""
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label for="">IFSC Code</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="IFSC Code"
-          formControlName=""
-        />
-      </mat-form-field>
-
-      <!-- <mat-form-field appearance="outline">
-        <mat-label for="">Type of Account</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="Type of Account"
-          formControlName=""
-        />
-      </mat-form-field> -->
-    </div>
-
-    <div class="cards">
-      <!-- <mat-form-field appearance="outline">
-        <mat-label for="">PF Account</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="PF Acouunt"
-          formControlName=""
-        />
-      </mat-form-field> -->
-      <!-- <mat-form-field appearance="outline">
-        <mat-label for="">UAN Account</mat-label>
-        <input
-          matInput
-          id=""
-          name=""
-          placeholder="UAN Account"
-          formControlName=""
-        />
-      </mat-form-field> -->
-    </div>
-
     <div class="uploadContainer">
       <label for="covidCertificate">Covid Certificate</label>
       <input
@@ -213,6 +132,119 @@
         >{{ getErrorMessage() }}</mat-error
       >
     </div>
+
+    <!-- Need to perform validation and formcontrol data -->
+    <!-- Bank Details -->
+    <h1>Bank Details</h1>
+    <div class="bankCards">
+      <mat-form-field appearance="outline">
+        <mat-label for="acc_holder_name">Account Holder's Name</mat-label>
+        <input
+          matInput
+          id="acc_holder_name"
+          name="acc_holder_name"
+          placeholder="Account Holder's Name"
+          formControlName="acc_holder_name"
+        />
+        <mat-error *ngIf="this.otherDetail.get('acc_holder_name')?.invalid &&
+        this.otherDetail.get('acc_holder_name')?.touched">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="bank_name">Bank Name</mat-label>
+        <input
+          matInput
+          id="bank_name"
+          name="bank_name"
+          placeholder="Bank Name"
+          formControlName="bank_name"
+        />
+        <mat-error *ngIf="this.otherDetail.get('bank_name')?.invalid &&
+        this.otherDetail.get('bank_name')?.touched">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="acc_number">Account Number</mat-label>
+        <input
+          matInput
+          id="acc_number"
+          name="acc_number"
+          placeholder="Account Number"
+          formControlName="acc_number"
+        />
+        <mat-error *ngIf="this.otherDetail.get('acc_number')?.invalid &&
+        this.otherDetail.get('acc_number')?.touched">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="ifsc_code">IFSC Code</mat-label>
+        <input
+          matInput
+          id="ifsc_code"
+          name="ifsc_code"
+          placeholder="IFSC Code"
+          formControlName="ifsc_code"
+        />
+        <mat-error *ngIf="this.otherDetail.get('ifsc_code')?.invalid &&
+        this.otherDetail.get('ifsc_code')?.touched">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="type_of_acc">Type of Account</mat-label>
+        <!-- <input
+          matInput
+          id="type_of_acc"
+          name="type_of_acc"
+          placeholder="Type of Account"
+          formControlName="type_of_acc"
+        /> -->
+        <mat-select formControlName="type_of_acc">
+          <mat-option
+            *ngFor="let type_of_acc of type_of_account; index as i"
+            [value]="type_of_acc"
+          >
+            {{ type_of_acc }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.otherDetail.get('type_of_acc')?.invalid &&
+        this.otherDetail.get('type_of_acc')?.touched">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="bankCards">
+      <mat-form-field appearance="outline">
+        <mat-label for="pf_acc">PF Account</mat-label>
+        <input
+          matInput
+          id="pf_acc"
+          name="pf_acc"
+          placeholder="PF Acouunt"
+          formControlName="pf_acc"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="uan_acc">UAN Account</mat-label>
+        <input
+          matInput
+          id="uan_acc"
+          name="uan_acc"
+          placeholder="UAN Account"
+          formControlName="uan_acc"
+        />
+      </mat-form-field>
+    </div>
+
+    
   </form>
 
   <div class="btn">
