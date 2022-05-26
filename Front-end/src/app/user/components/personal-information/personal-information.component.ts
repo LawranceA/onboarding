@@ -14,10 +14,37 @@ import { Address } from '../../structure/address';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+
+import 'moment/locale/ja';
+
+import 'moment/locale/fr';
+import { CustomValidationService } from '../../services/custom-validation.service';
+
 @Component({
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class PersonalInformationComponent implements OnInit {
   data: any;
@@ -63,6 +90,7 @@ export class PersonalInformationComponent implements OnInit {
     'Dehradun, Gairsain (Summer)',
     'Kolkata',
   ];
+  
   states = [
     'Andaman & Nicobar',
     'Andhra Pradesh',
@@ -345,44 +373,90 @@ export class PersonalInformationComponent implements OnInit {
   display: boolean = false;
 
   personalInformation = new FormGroup({
-    first_name: new FormControl('', [Validators.required]),
-    last_name: new FormControl('', [Validators.required]),
+    first_name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      this.validation.nameValidator,
+    ]),
+
+    last_name: new FormControl('', [
+      Validators.required,
+      this.validation.nameValidator,
+    ]),
+
     dob: new FormControl('', [Validators.required]),
+
     personal_email: new FormControl('', [
       Validators.required,
+
       Validators.email,
+
+      this.validation.emailValidator,
     ]),
+
     mobile_number: new FormControl('', [
       Validators.required,
+
       Validators.maxLength(10),
+
       Validators.pattern('^[6-9]{1}[0-9]{9}$'),
-      // this.numberValidation
     ]),
+
     alternate_number: new FormControl('', [
       Validators.required,
+
       Validators.maxLength(10),
+
       Validators.pattern('^[6-9]{1}[0-9]{9}$'),
     ]),
+
     gender: new FormControl('', [Validators.required]),
-    photo: new FormControl('', [Validators.required]),
-    father_name: new FormControl('', [Validators.required]),
+
+    photo: new FormControl('', [Validators.required,Validators.pattern("(.*?)\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$")]),
+
+    father_name: new FormControl('', [
+      Validators.required,
+      this.validation.nameValidator,
+    ]),
+
     current: new FormGroup({
-      house_no: new FormControl('', [Validators.required]),
-      street: new FormControl(''),
-      locality: new FormControl(''),
-      city: new FormControl('', [Validators.required]),
+      house_no: new FormControl('', Validators.minLength(1)),
+
+      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+
+      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+
+      city: new FormControl('', Validators.required),
+
       state: new FormControl('', [Validators.required]),
+
       country: new FormControl('', [Validators.required]),
-      pincode: new FormControl('', [Validators.required,Validators.pattern("[0-9]{6}")]),
+
+      pincode: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        this.validation.pinCodeValidator,
+      ]),
     }),
+
     permanent: new FormGroup({
-      house_no: new FormControl('', [Validators.required]),
-      street: new FormControl(''),
-      locality: new FormControl(''),
-      city: new FormControl('', [Validators.required]),
+      house_no: new FormControl('', Validators.minLength(1)),
+
+      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+
+      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+
+      city: new FormControl('', Validators.required),
+
       state: new FormControl('', [Validators.required]),
+
       country: new FormControl('', [Validators.required]),
-      pincode: new FormControl('', [Validators.required]),
+
+      pincode: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        this.validation.pinCodeValidator,
+      ]),
     }),
   });
 
@@ -394,7 +468,8 @@ export class PersonalInformationComponent implements OnInit {
     private router: Router,
     private tokenStorage: TokenStorageService,
     private userService: UserDataService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    public validation: CustomValidationService
   ) {}
 
   next() {
@@ -601,19 +676,18 @@ export class PersonalInformationComponent implements OnInit {
       this.personalInformation.get('city')?.getError('required') ||
       this.personalInformation.get('country')?.getError('required') ||
       this.personalInformation.get('state')?.getError('required') ||
-      this.personalInformation.get('pincode')?.getError('required') 
-
+      this.personalInformation.get('pincode')?.getError('required')
     ) {
       return 'You must enter a value';
     }
-   if(this.personalInformation.get('mobile_number')?.hasError('pattern')||
-    this.personalInformation.get('alternate_number')?.hasError('pattern')) 
-    {
+    if (
+      this.personalInformation.get('mobile_number')?.hasError('pattern') ||
+      this.personalInformation.get('alternate_number')?.hasError('pattern')
+    ) {
       return 'Enter a valid mobile number';
     }
-    
-   if( this.personalInformation.get('photo')?.getError('required'))
-    {
+
+    if (this.personalInformation.get('photo')?.getError('required')) {
       return 'Photo must be uploaded';
     }
     return '';

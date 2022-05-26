@@ -1,19 +1,26 @@
-
 * {
   box-sizing: border-box;
 }
 .list-container {
-  
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  
 }
-table {
+.filter {
+  margin-left: 5%;
+  color: #014868;
+}
+
+table,
+mat-paginator {
   margin-left: 5%;
   width: 90%;
   font-size: 0.9rem;
+}
+
+mat-paginator {
+  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.438);
 }
 .viewEmployeeHeading {
   margin-left: 40%;
@@ -21,8 +28,12 @@ table {
   color: #014868;
   line-height: 2.5;
 }
-.mat-column-name,.mat-column-email,.mat-column-phoneno,.mat-column-doj,.mat-column-updated,.mat-column-status  {
-  
+.mat-column-name,
+.mat-column-email,
+.mat-column-phoneno,
+.mat-column-doj,
+.mat-column-updated,
+.mat-column-status {
   color: #014868;
   padding: 1rem 0;
 }
@@ -37,7 +48,7 @@ table {
 
 /* Dialogue styles */
 
- .modal {
+.modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -70,47 +81,43 @@ table {
 .diag-btn {
   width: 10rem;
   margin: 0 2rem;
-  
-} 
+}
 /* ---------------------------------------- */
-@media (max-width:63em) {
-  .list-container{
+@media (max-width: 63em) {
+  .list-container {
     position: fixed;
     overflow: scroll;
     top: 13%;
     left: 2%;
   }
-  table{
+  table {
     width: 150%;
     margin-right: 2rem;
     overflow: scroll;
   }
 }
-@media (max-width:53.75em) {
-  
-  .mat-cell{
-    height: .1rem;
-    font-size: .7rem;
-    padding: .2rem;
+@media (max-width: 53.75em) {
+  .mat-cell {
+    height: 0.1rem;
+    font-size: 0.7rem;
+    padding: 0.2rem;
   }
-  .mat-header-cell{
+  .mat-header-cell {
     padding: 0 1rem;
   }
-  .actions{
-    font-size: .7rem;
+  .actions {
+    font-size: 0.7rem;
     padding: 0;
     margin: 0;
   }
-  
 }
-@media (max-width:28.1em) {
-  .viewEmployeeHeading{
+@media (max-width: 28.1em) {
+  .viewEmployeeHeading {
     font-size: 1rem;
   }
-  table{
+  table {
     width: 200%;
     margin-right: 2rem;
     overflow: scroll;
   }
-
-} 
+}

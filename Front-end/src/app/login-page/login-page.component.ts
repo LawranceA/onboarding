@@ -3,14 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from '../services/auth-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TokenStorageService } from '../services/token-storage.service';
+import { CustomValidationService } from '../user/services/custom-validation.service';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  
 })
 export class LoginPageComponent implements OnInit {
+
+  hide = true;
+
   public selectedVal!: string;
   status = 'success';
   user = '';
@@ -25,15 +29,16 @@ export class LoginPageComponent implements OnInit {
 
   data: any;
   logForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
+    password: new FormControl('', [Validators.required,Validators.minLength(2)]),
   });
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthServiceService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    public validation: CustomValidationService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +63,7 @@ export class LoginPageComponent implements OnInit {
     this.selectedVal = val;
   }
   onLogin(e: Event) {
+    console.log(this.logForm)
     console.log(this.selectedVal);
     e.preventDefault();
 

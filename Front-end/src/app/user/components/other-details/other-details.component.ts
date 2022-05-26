@@ -5,40 +5,75 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+
+import 'moment/locale/ja';
+
+import 'moment/locale/fr';
+import { CustomValidationService } from '../../services/custom-validation.service';
+
+
 @Component({
   selector: 'app-other-details',
   templateUrl: './other-details.component.html',
   styleUrls: ['./other-details.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class OtherDetailsComponent implements OnInit {
 
   type_of_account = [
-    'Personal Account',
+    
     'Current Account',
-    'Savings Account'
+    'Savings Account',
+    'Salary Account'
     
   ];
+
+  
+  today=new Date();
 
   display1: any = 'block';
   display2: any = 'none';
   created_at: any;
 
+
+
+
   otherDetail = new FormGroup({
-    aadhar_card_number: new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$")]),
-    aadharCard: new FormControl('',Validators.required),
-    pan_card_number: new FormControl('',Validators.required),
-    panCard: new FormControl('',Validators.required),
-    passport_number: new FormControl(''),
+    aadhar_card_number: new FormControl('',[Validators.required,Validators.pattern("^[2-9]{1}[0-9]{3}\\s{1}[0-9]{4}\\s{1}[0-9]{4}$")]),
+    aadharCard: new FormControl('',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
+    pan_card_number: new FormControl('',[Validators.required,Validators.pattern("/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/")]),
+    panCard: new FormControl('',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
+    passport_number: new FormControl('',[Validators.pattern("/^[A-PR-WYa-pr-wy][1-9]\\d\\s?\\d{4}[1-9]$/")]),
     passport_expire: new FormControl(''),
-    passportDetails: new FormControl(''),
-    covidCertificate: new FormControl('',Validators.required),
-    acc_holder_name: new FormControl('',Validators.required),
-    bank_name: new FormControl('',Validators.required),
-    acc_number: new FormControl('',Validators.required),
-    ifsc_code: new FormControl('',[Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
+    passportDetails: new FormControl('',Validators.pattern("(.*?)\.(pdf)$")),
+    covidCertificate: new FormControl('',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
+    acc_holder_name: new FormControl('',[Validators.required,this.validation.characterValidator]),
+    bank_name: new FormControl('',[Validators.required,this.validation.characterValidator]),
+    acc_number: new FormControl('',[Validators.required,Validators.pattern("/^[0-9]{9,18}$/")]),
+    ifsc_code: new FormControl('',[Validators.required,Validators.pattern("/^[A-Z]{4}0[A-Z0-9]{6}$/")]),
     type_of_acc: new FormControl('',Validators.required),
-    pf_acc: new FormControl(''),
-    uan_acc: new FormControl('')
+    pf_acc: new FormControl('',[Validators.pattern('^([A-Z]{2}[/])([A-Z]{3}[/])([0-9]{1,7}[/])([0-9]{3}[/])([0-9]{1,7})$')]),
+    uan_acc: new FormControl('',Validators.minLength(12))
    
   });
  
@@ -46,7 +81,8 @@ export class OtherDetailsComponent implements OnInit {
     private router: Router,
     private tokenStorage: TokenStorageService,
     private service: UserDataService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    public validation: CustomValidationService
   ) {}
 
   next() {
@@ -56,7 +92,7 @@ export class OtherDetailsComponent implements OnInit {
     this.router.navigateByUrl('/user/details/employment-details');
   }
   onSubmit() {
-    console.log(this.otherDetail.value);
+    console.log(this.otherDetail);
     this.otherDetail.value.created_at = new Date();
     this.otherDetail.value.updated_at = new Date();
     this.otherDetail.value.updated_by = this.tokenStorage.getName();
@@ -72,7 +108,9 @@ export class OtherDetailsComponent implements OnInit {
     this.display1 = 'none';
     this.display2 = 'block';
   }
-
+  get m(){
+    return this.otherDetail.controls;
+  }
   onUpdate() {
     this.otherDetail.value.created_at = this.created_at;
     this.otherDetail.value.updated_at = new Date();
@@ -123,47 +161,5 @@ export class OtherDetailsComponent implements OnInit {
         }
       });
   }
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      
-      this.otherDetail.get('aadharCard')?.getError('required') ||
-      this.otherDetail.get('pan_card_number')?.getError('required') ||
-      this.otherDetail.get('panCard')?.getError('required') ||
-      this.otherDetail.get('acc_holder_name')?.getError('required') ||
-      this.otherDetail.get('bank_name')?.getError('required') ||
-      this.otherDetail.get('acc_number')?.getError('required') ||
-      this.otherDetail.get('ifsc_code')?.getError('required') ||
-      this.otherDetail.get('type_of_acc')?.getError('required')
-      
-     
-    ) {
-      return 'You must enter a value';
-    }
-    if (
-      this.otherDetail.get('covidCertificate')?.getError('required')) {
-      return 'Please select a file';
-    }
-    if( this.otherDetail.get('ifsc_code')?.getError('pattern'))
-    {
-      return 'Please enter Valid IFSC Code';
-    }
-    return '';
-    
-  }
-  getaadharErrorMessage()
-  {
-    
-    if(this.otherDetail.get('aadhar_card_number')?.getError('required'))
-    {
-      return 'You must enter a value';
-    }
-    if( this.otherDetail.get('aadhar_card_number')?.getError('pattern') )
-    {
-      return 'Enter only numbers';
-    }
-      return '';
-
-  }
- 
+  
 }

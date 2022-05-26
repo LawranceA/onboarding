@@ -92,3 +92,15 @@ h3 {
     column-gap: 10px;
   }
 }
+.fm {
+  display: flex;
+  flex-direction: column;
+}
+
+small {
+  color: red;
+}
+mat-datepicker-toggle mat-datepicker
+{
+  background-color: #ff934f;
+}

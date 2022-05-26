@@ -10,37 +10,71 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Dialog10serviceService } from '../../services/dialog10service.service';
 import { Dialog12Component } from '../dialog12/dialog12.component';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+
+import 'moment/locale/ja';
+
+import 'moment/locale/fr';
+import { CustomValidationService } from '../../services/custom-validation.service';
+
 @Component({
   selector: 'app-dialog-ug',
   templateUrl: './dialog-ug.component.html',
   styleUrls: ['./dialog-ug.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class DialogUGComponent implements OnInit {
   dialogUGForm!: FormGroup;
   actionBtn: String = 'Save';
+
+  dateValidator = true
 
   constructor(
     private fs: FormBuilder,
     private tokenStorage: TokenStorageService,
     private dialogRef: MatDialogRef<DialogUGComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private api: Dialog10serviceService
+    private api: Dialog10serviceService,
+    public validation: CustomValidationService
   ) {}
 
   ngOnInit(): void {
     this.dialogUGForm = new FormGroup({
       education: new FormControl('Graduation/Diploma'),
-      School: new FormControl('', [Validators.required]),
-      course: new FormControl('', [Validators.required]),
-      specialization: new FormControl('', [Validators.required]),
-      board: new FormControl('', [Validators.required]),
-      percentage: new FormControl('', [Validators.required]),
+      School: new FormControl('',  [Validators.required, this.validation.characterValidator]),
+      course: new FormControl('',  [Validators.required, this.validation.characterValidator]),
+      specialization: new FormControl('',  [Validators.required, this.validation.characterValidator]),
+      board: new FormControl('',  [Validators.required, this.validation.characterValidator]),
+      percentage: new FormControl('',[
+        Validators.required,
+        Validators.maxLength(5),
+        this.validation.percentageValidator,
+      ]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
-      marksheet: new FormControl('', [Validators.required]),
+      marksheet: new FormControl('', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
       transferCertificate: new FormControl(''),
-      provisionalCertificate: new FormControl(''),
-      convocationCertificate: new FormControl('',Validators.required),
+      provisionalCertificate: new FormControl('',[Validators.pattern("(.*?)\.(pdf)$")]),
+      convocationCertificate: new FormControl('',[Validators.pattern("(.*?)\.(pdf)$")]),
     });
 
     if (this.editData) {
@@ -129,4 +163,27 @@ export class DialogUGComponent implements OnInit {
     
     return '';
   }
+  dateValidators(){ 
+
+    console.log("s") 
+
+    let start=this.dialogUGForm.value.startDate 
+
+    let end= this.dialogUGForm.value.endDate 
+
+    if(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)){ 
+
+      console.log(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)) 
+
+        this.dateValidator=false 
+
+        console.log(this.dateValidator) 
+
+    }else{ 
+
+      this.dateValidator=true 
+
+    } 
+
+  } 
 }

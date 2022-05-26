@@ -10,7 +10,7 @@
           name="joiningDate"
           id="joiningDate"
           formControlName="joiningDate"
-          [min]="today" [max]="today" 
+          
           onkeydown="return false" onclick="return false" 
         />
         <mat-datepicker-toggle
@@ -18,9 +18,13 @@
           [for]="picker1"
         ></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
-        <mat-error *ngIf="this.declaration.get('joiningDate')?.invalid">{{
-          getErrorMessage()
-        }}</mat-error>
+        <mat-error
+        *ngIf="
+          this.declaration.get('joiningDate')?.invalid &&
+          this.declaration.get('joiningDate')?.touched
+        "
+        >Please select Joining date</mat-error
+      >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -32,11 +36,20 @@
           id="place"
           name="place"
           formControlName="place"
+         
+          minlength="3"
         />
         <mat-datepicker #picker1></mat-datepicker>
-        <mat-error *ngIf="this.declaration.get('place')?.invalid">{{
-          getErrorMessage()
-        }}</mat-error>
+        
+        <mat-error
+        *ngIf="declaration.get('place')?.errors?.['required'] && declaration.get('place')?.pristine || declaration.get('place')?.value.length==0"
+        > Place is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="declaration.get('place')?.errors?.['characterValidator'] && declaration.get('place')?.dirty && declaration.get('place')?.value.length>0"
+        >Digits are not allowed</mat-error
+      >
       </mat-form-field>
 
       <!-- <mat-form-field appearance="outline">

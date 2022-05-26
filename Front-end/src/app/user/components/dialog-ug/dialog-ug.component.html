@@ -23,11 +23,13 @@
         formControlName="School"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('School')?.invalid &&
-        this.dialogUGForm.get('School')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="dialogUGForm.get('School')?.errors?.['required'] && dialogUGForm.get('School')?.pristine || dialogUGForm.get('School')?.value.length==0"
+      >College name is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="dialogUGForm.get('School')?.errors?.['characterValidator'] && dialogUGForm.get('School')?.dirty && dialogUGForm.get('School')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
 
@@ -41,11 +43,13 @@
         formControlName="course"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('course')?.invalid &&
-        this.dialogUGForm.get('course')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="dialogUGForm.get('course')?.errors?.['required'] && dialogUGForm.get('course')?.pristine || dialogUGForm.get('course')?.value.length==0"
+      >Degree is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="dialogUGForm.get('course')?.errors?.['characterValidator'] && dialogUGForm.get('course')?.dirty && dialogUGForm.get('course')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -58,11 +62,13 @@
         formControlName="specialization"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('specialization')?.invalid &&
-        this.dialogUGForm.get('specialization')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="dialogUGForm.get('specialization')?.errors?.['required'] && dialogUGForm.get('specialization')?.pristine || dialogUGForm.get('specialization')?.value.length==0"
+      >Specialization is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="dialogUGForm.get('specialization')?.errors?.['characterValidator'] && dialogUGForm.get('specialization')?.dirty && dialogUGForm.get('specialization')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -75,11 +81,13 @@
         formControlName="board"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('board')?.invalid &&
-        this.dialogUGForm.get('board')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="dialogUGForm.get('board')?.errors?.['required'] && dialogUGForm.get('board')?.pristine || dialogUGForm.get('board')?.value.length==0"
+      >University is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="dialogUGForm.get('board')?.errors?.['characterValidator'] && dialogUGForm.get('board')?.dirty && dialogUGForm.get('board')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
 
@@ -91,14 +99,17 @@
         id="percentage"
         name="percentage"
         formControlName="percentage"
+        maxlength="5"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('percentage')?.invalid &&
-        this.dialogUGForm.get('percentage')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="dialogUGForm.get('percentage')?.errors?.['required'] && dialogUGForm.get('percentage')?.pristine || dialogUGForm.get('percentage')?.value.length==0"
+        >Percentage is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialogUGForm.get('percentage')?.errors?.['percentageValidator'] && dialogUGForm.get('percentage')?.dirty && dialogUGForm.get('percentage')?.value.length>0"
+        >Enter a valid percentage/CGPA</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -110,13 +121,14 @@
         name="startDate"
         formControlName="startDate"
         onkeydown="return false" onclick="return false"
+        (dateChange)="dateValidators()"
       />
       <mat-error
       *ngIf="
         this.dialogUGForm.get('startDate')?.invalid &&
         this.dialogUGForm.get('startDate')?.touched
       "
-      >{{ getErrorMessage() }}</mat-error
+      >Please select start date</mat-error
     >
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
@@ -131,17 +143,19 @@
         name="endDate"
         formControlName="endDate"
         onkeydown="return false" onclick="return false"
+        (dateChange)="dateValidators()"
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('endDate')?.invalid &&
-        this.dialogUGForm.get('endDate')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="dialogUGForm.get('endDate')?.errors?.['required'] && dialogUGForm.get('endDate')?.pristine || dialogUGForm.get('endDate')?.value.length==0"
+      >Please select end date</mat-error
     >
+
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
+
+    <small *ngIf="!this.dateValidator"
+    >End date must be greater than start date</small>
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
@@ -154,12 +168,12 @@
         required
       />
       <mat-error
-      *ngIf="
-        this.dialogUGForm.get('marksheet')?.invalid &&
-        this.dialogUGForm.get('marksheet')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+          *ngIf="dialogUGForm.get('marksheet')?.errors?.['required'] && dialogUGForm.get('marksheet')?.touched"
+          >Please upload a marksheet</mat-error>
+          <mat-error *ngIf="
+          !dialogUGForm.get('marksheet')?.errors?.required && dialogUGForm.get('marksheet')?.errors?.pattern">
+          marksheet must be in pdf formate
+          </mat-error>
     </div>
 
     <!-- <div class="uploadContainer">
@@ -179,7 +193,11 @@
         name="provisionalCertificate"
         formControlName="provisionalCertificate"
       />
-      
+     
+      <mat-error *ngIf="
+      dialogUGForm.get('provisionalCertificate')?.errors?.pattern">
+      Provisional certificate must be in pdf formate
+      </mat-error>
     </div>
     <div class="uploadContainer">
       <label for="convocationCertificate">Convocation Certificate</label>
@@ -189,12 +207,10 @@
         name="convocationCertificate"
         formControlName="convocationCertificate"
       />
-      <mat-error
-      *ngIf="
-        this.dialogUGForm.get('convocationCertificate')?.invalid &&
-        this.dialogUGForm.get('convocationCertificate')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+      <mat-error *ngIf="
+          dialogUGForm.get('convocationCertificate')?.errors?.pattern">
+          Convocation Certificate must be in pdf formate
+      </mat-error>
     </div>
   </form>
 </div>

@@ -21,6 +21,15 @@
         name="board"
         formControlName="board"
       />
+      <mat-error
+      *ngIf="dialog12Form.get('board')?.errors?.['required'] && dialog12Form.get('board')?.pristine || dialog12Form.get('board')?.value.length==0"
+      >Board is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="dialog12Form.get('board')?.errors?.['characterValidator'] && dialog12Form.get('board')?.dirty && dialog12Form.get('board')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
+    >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="School">School/College</mat-label>
@@ -31,6 +40,15 @@
         name="School"
         formControlName="School"
       />
+      <mat-error
+        *ngIf="dialog12Form.get('School')?.errors?.['required'] && dialog12Form.get('School')?.pristine || dialog12Form.get('School')?.value.length==0"
+        >School name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialog12Form.get('School')?.errors?.['characterValidator'] && dialog12Form.get('School')?.dirty && dialog12Form.get('School')?.value.length>0"
+        >Digits and specialcharacters are not allowed</mat-error
+      >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label for="percentage">Percentage/CGPA</mat-label>
@@ -40,14 +58,17 @@
         id="percentage"
         name="percentage"
         formControlName="percentage"
+        maxlength="5"
       />
     
       <mat-error
-        *ngIf="
-          this.dialog12Form.get('board')?.invalid &&
-          this.dialog12Form.get('board')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
+        *ngIf="dialog12Form.get('percentage')?.errors?.['required'] && dialog12Form.get('percentage')?.pristine || dialog12Form.get('percentage')?.value.length==0"
+        >Percentage is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialog12Form.get('percentage')?.errors?.['percentageValidator'] && dialog12Form.get('percentage')?.dirty && dialog12Form.get('percentage')?.value.length>0"
+        >Enter a valid percentage/CGPA</mat-error
       >
     </mat-form-field>
     
@@ -61,6 +82,8 @@
         id="startDate"
         name="startDate"
         formControlName="startDate"
+        onkeydown="return false"
+        onclick="return false"
       />
   
       <mat-error
@@ -68,7 +91,7 @@
           this.dialog12Form.get('startDate')?.invalid &&
           this.dialog12Form.get('startDate')?.touched
         "
-        >{{ getErrorMessage() }}</mat-error
+        >Please select start date</mat-error
       >
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
@@ -82,18 +105,22 @@
         id="endDate"
         name="endDate"
         formControlName="endDate"
+        onkeydown="return false"
+        onclick="return false"
+        (dateChange)="dateValidators()"
       />
    
       <mat-error
-        *ngIf="
-          this.dialog12Form.get('endDate')?.invalid &&
-          this.dialog12Form.get('endDate')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
+        *ngIf="dialog12Form.get('endDate')?.errors?.['required'] && dialog12Form.get('endDate')?.pristine || dialog12Form.get('endDate')?.value.length==0"
+        >Please select end date</mat-error
       >
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
+
+    <small *ngIf="!this.dateValidator"
+      >End date must be greater than start date</small
+    >
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
@@ -104,15 +131,15 @@
         formControlName="marksheet"
       />
       <mat-error
-        *ngIf="
-          this.dialog12Form.get('marksheet')?.invalid &&
-          this.dialog12Form.get('marksheet')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
-      >
+      *ngIf="dialog12Form.get('marksheet')?.errors?.['required'] && dialog12Form.get('marksheet')?.touched"
+      >Please upload a marksheet</mat-error>
+      <mat-error *ngIf="
+      !dialog12Form.get('marksheet')?.errors?.required && dialog12Form.get('marksheet')?.errors?.pattern">
+      marksheet must be in pdf formate
+      </mat-error>
     </div>
 
-     <div class="uploadContainer">
+     <!-- <div class="uploadContainer">
       <label for="transferCertificate">Transfer Certificate</label>
       <input
         type="file"
@@ -120,7 +147,7 @@
         name="transferCertificate"
         formControlName="transferCertificate"
       />
-    </div>
+    </div> -->
      
   </form>
 </div>
