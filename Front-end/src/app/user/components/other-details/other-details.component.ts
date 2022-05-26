@@ -61,7 +61,7 @@ export class OtherDetailsComponent implements OnInit {
   otherDetail = new FormGroup({
     aadhar_card_number: new FormControl('',[Validators.required,Validators.pattern("^[2-9]{1}[0-9]{3}\\s{1}[0-9]{4}\\s{1}[0-9]{4}$")]),
     aadharCard: new FormControl('',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
-    pan_card_number: new FormControl('',[Validators.required,Validators.pattern("/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/")]),
+    pan_card_number: new FormControl('',[Validators.required,Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]{1}$")]),
     panCard: new FormControl('',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]),
     passport_number: new FormControl('',[Validators.pattern("/^[A-PR-WYa-pr-wy][1-9]\\d\\s?\\d{4}[1-9]$/")]),
     passport_expire: new FormControl(''),

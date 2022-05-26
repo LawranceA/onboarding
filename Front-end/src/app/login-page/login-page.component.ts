@@ -9,6 +9,7 @@ import { CustomValidationService } from '../user/services/custom-validation.serv
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
+ 
   
 })
 export class LoginPageComponent implements OnInit {
@@ -30,7 +31,7 @@ export class LoginPageComponent implements OnInit {
   data: any;
   logForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
-    password: new FormControl('', [Validators.required,Validators.minLength(2)]),
+    password: new FormControl('',[Validators.required,Validators.pattern("^([a-zA-Z0-9@*#^&%!]{8,15})$")]),
   });
 
   constructor(

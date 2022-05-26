@@ -8,7 +8,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { DatePipe, formatDate, JsonPipe } from '@angular/common';
-import { filter } from 'rxjs';
+import { filter, map, Observable, startWith } from 'rxjs';
 import { personalInfo } from '../../structure/personal-info';
 import { Address } from '../../structure/address';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -53,6 +53,10 @@ export class PersonalInformationComponent implements OnInit {
   created_at: any;
 
   genders = ['Male', 'Female', 'Others'];
+  filteredOptions: Observable<string[]> | undefined;
+  filteredStates: Observable<string[]> | undefined;
+
+
   cities = [
     'Port Blair',
     'Amaravati',
@@ -90,7 +94,7 @@ export class PersonalInformationComponent implements OnInit {
     'Dehradun, Gairsain (Summer)',
     'Kolkata',
   ];
-  
+
   states = [
     'Andaman & Nicobar',
     'Andhra Pradesh',
@@ -376,12 +380,12 @@ export class PersonalInformationComponent implements OnInit {
     first_name: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      this.validation.nameValidator,
+      this.validation.characterValidator,
     ]),
 
     last_name: new FormControl('', [
       Validators.required,
-      this.validation.nameValidator,
+      this.validation.characterValidator,
     ]),
 
     dob: new FormControl('', [Validators.required]),
@@ -412,19 +416,29 @@ export class PersonalInformationComponent implements OnInit {
 
     gender: new FormControl('', [Validators.required]),
 
-    photo: new FormControl('', [Validators.required,Validators.pattern("(.*?)\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$")]),
+    photo: new FormControl('', [
+      Validators.required,
+      Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
+    ]),
 
     father_name: new FormControl('', [
       Validators.required,
-      this.validation.nameValidator,
+   
+      this.validation.characterValidator,
     ]),
 
     current: new FormGroup({
       house_no: new FormControl('', Validators.minLength(1)),
 
-      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      street: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
-      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      locality: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
       city: new FormControl('', Validators.required),
 
@@ -442,9 +456,15 @@ export class PersonalInformationComponent implements OnInit {
     permanent: new FormGroup({
       house_no: new FormControl('', Validators.minLength(1)),
 
-      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      street: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
-      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      locality: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
       city: new FormControl('', Validators.required),
 
@@ -471,7 +491,9 @@ export class PersonalInformationComponent implements OnInit {
     private pipe: DatePipe,
     public validation: CustomValidationService
   ) {}
+  
 
+  
   next() {
     this.router.navigateByUrl('/user/details/educational-qualification');
   }
@@ -549,7 +571,7 @@ export class PersonalInformationComponent implements OnInit {
     // console.log(this.permanentAddres);
   }
   onSubmit() {
-    console.log(this.personalInformation);
+    console.log(this.personalInformation.value.current.city.valueChanges);
     this.display1 = 'none';
     this.display2 = 'block';
     this.addPersonalInfoData();
@@ -582,8 +604,17 @@ export class PersonalInformationComponent implements OnInit {
       console.log(data);
     });
   }
-
+  
   ngOnInit(): void {
+  
+    // this.filteredOptions = this.personalInformation
+    //   .get('current')
+    //   ?.valueChanges.pipe(
+    //     startWith(''),
+
+    //     map((value) => this._filter(value))
+    //   );
+      
     this.userService
       .getPersonalInfoData(this.tokenStorage.getID())
       .subscribe((res) => {
@@ -649,47 +680,51 @@ export class PersonalInformationComponent implements OnInit {
         }
       });
   }
+ 
+  selectedStates = this.states;
+  selectedCities = this.cities;
+  selectCountries = this.countries;
+  onKey(value:any,control:any) {
+    if(control =="cities")
+    {
+      this.selectedCities = this.search(value.target.value,'cities')
+    } 
+   
+    }
+    search(value: string,control:any) { 
+      let filter = value.toLowerCase();
+      if(control == 'cities')
+      {
+        return this.cities.filter(option => option.toLowerCase().startsWith(filter));
+         
+      }
+    //  else if(control == 'states')
+    //   {
+    //     return this.states.filter(option => option.toLowerCase().startsWith(filter));
+         
+    //   }
+    //  else if(control == 'countries')
+    //   {
+    //     return this.countries.filter(option => option.toLowerCase().startsWith(filter));
+         
+    //   }
+      return 
+    }
+  // private _filters(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
 
-  // numberValidation(control: FormControl):ValidatorFn {
-  //   let no = control.value;
-  //   let regex = new RegExp('^[6-9]{1}[0-9]{9}$');
-  //   if (no.length > 10 || regex.test(no)) {
-  //     return { numberValidation: true };
-  //   } else {
-  //     return null;
-  //   }
+  //   return this.states.filter((option) =>
+  //     option.toLowerCase().includes(filterValue)
+  //   );
   // }
-
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.personalInformation.get('email')?.getError('required') ||
-      this.personalInformation.get('first_name')?.getError('required') ||
-      this.personalInformation.get('last_name')?.getError('required') ||
-      this.personalInformation.get('dob')?.getError('required') ||
-      this.personalInformation.get('personal_email')?.getError('required') ||
-      this.personalInformation.get('mobile_number')?.getError('required') ||
-      this.personalInformation.get('alternate_number')?.getError('required') ||
-      this.personalInformation.get('gender')?.getError('required') ||
-      this.personalInformation.get('father_name')?.getError('required') ||
-      this.personalInformation.get('house_no')?.getError('required') ||
-      this.personalInformation.get('city')?.getError('required') ||
-      this.personalInformation.get('country')?.getError('required') ||
-      this.personalInformation.get('state')?.getError('required') ||
-      this.personalInformation.get('pincode')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-    if (
-      this.personalInformation.get('mobile_number')?.hasError('pattern') ||
-      this.personalInformation.get('alternate_number')?.hasError('pattern')
-    ) {
-      return 'Enter a valid mobile number';
-    }
-
-    if (this.personalInformation.get('photo')?.getError('required')) {
-      return 'Photo must be uploaded';
-    }
-    return '';
-  }
+  
 }
+// numberValidation(control: FormControl):ValidatorFn {
+//   let no = control.value;
+//   let regex = new RegExp('^[6-9]{1}[0-9]{9}$');
+//   if (no.length > 10 || regex.test(no)) {
+//     return { numberValidation: true };
+//   } else {
+//     return null;
+//   }
+// }

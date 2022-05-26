@@ -21,7 +21,7 @@
   
           <input
           matInput 
-          [type]="hide ? 'password' : 'text'"
+        
             type="email"
             id="email"
             name="email"
@@ -54,10 +54,14 @@
       <mat-error *ngIf="logForm.get('password')?.invalid && (logForm.get('password')?.dirty || logForm.get('password')?.touched) && logForm.get('password')?.errors?.required">
           Password is required
       </mat-error>
+      <mat-error *ngIf="!logForm.get('password')?.errors?.required">
+        Password length must contain min 8 and max 15 char,It should contain atleast 1 digit,1 uppercase letter,1 lowercase letter,1 special characters
+    </mat-error>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
       </mat-form-field>
+      <br>
         <p>
           <button mat-button class="button-gradient login" (click)="onLogin($event)" style="margin-left:24px;">
             Login

@@ -9,7 +9,7 @@ export class CustomValidationService {
   constructor() { }
   nameValidator(control: FormControl) {
     let no = control.value;
-    let regex = new RegExp('^[a-zA-Z]+$');
+    let regex = new RegExp('^[a-zA-Z]\\s+$');
     if (!regex.test(no)) {
       return { nameValidator: true };
     } else {

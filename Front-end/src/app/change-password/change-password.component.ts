@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CustomValidationService } from '../user/services/custom-validation.service';
 import { UserDataService } from '../user/services/user-data.service';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  
 })
 export class ChangePasswordComponent implements OnInit {
 
@@ -17,12 +18,13 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userData: UserDataService
+    private userData: UserDataService,
+    public validation: CustomValidationService
   ) {}
 
   changeForm = new FormGroup({
-    email: new FormControl('',[Validators.required, Validators.email,Validators.pattern("/^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/")]),
-    password: new FormControl('', [Validators.required,Validators.pattern("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$")]),
+    email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
+    password: new FormControl('', [Validators.required,Validators.pattern("^([a-zA-Z0-9@*#^&%!]{8,15})$")]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
