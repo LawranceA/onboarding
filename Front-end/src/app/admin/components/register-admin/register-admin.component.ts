@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { CustomValidationService } from 'src/app/user/services/custom-validation.service';
 import { Admin } from '../../admin';
 import { AdminServiceService } from '../../admin-service.service';
 import { AdminService } from '../../services/admin.service';
@@ -28,7 +29,8 @@ export class RegisterAdminComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: AdminService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    public validation: CustomValidationService
   ) {}
   regForm = new FormGroup({
     id: new FormControl('', Validators.required),

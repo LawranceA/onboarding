@@ -10,15 +10,18 @@
           name="aadhar_card_number"
           placeholder="Aadhar Card Number"
           formControlName="aadhar_card_number"
-          maxlength="12"
+          maxlength="14"
+         
         />
-        <mat-error
-          *ngIf="
-            this.otherDetail.get('aadhar_card_number')?.invalid &&
-            this.otherDetail.get('aadhar_card_number')?.touched
-          "
-          >{{ getaadharErrorMessage() }}</mat-error
-        >
+       
+        <mat-error *ngIf="otherDetail.get('aadhar_card_number')?.invalid && (otherDetail.get('aadhar_card_number')?.dirty || otherDetail.get('aadhar_card_number')?.touched) && otherDetail.get('aadhar_card_number')?.errors?.required">
+          Aadhar number is required
+      </mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('aadhar_card_number')?.errors?.required && otherDetail.get('aadhar_card_number')?.errors?.pattern">
+        Please enter 12 digit valid aadhar card number as XXXX XXXX XXXX
+        </mat-error>
+      
       </mat-form-field>
       <div class="uploadContainer">
         <label for="aadharcard">Aadhar Card</label>
@@ -29,12 +32,12 @@
           formControlName="aadharCard"
         />
         <mat-error
-          *ngIf="
-            this.otherDetail.get('aadharCard')?.invalid &&
-            this.otherDetail.get('aadharCard')?.touched
-          "
-          >{{ getErrorMessage() }}</mat-error
-        >
+      *ngIf="otherDetail.get('aadharCard')?.errors?.['required'] && otherDetail.get('aadharCard')?.touched"
+      >Please upload a Aadhar card photo</mat-error>
+      <mat-error *ngIf="
+      !otherDetail.get('aadharCard')?.errors?.required && otherDetail.get('aadharCard')?.errors?.pattern">
+      Aadhar card photo must be in pdf formate
+      </mat-error>
       </div>
     </div>
 
@@ -46,14 +49,16 @@
           placeholder="Pan Card Number"
           formControlName="pan_card_number"
           maxlength="10"
+         
         />
-        <mat-error
-          *ngIf="
-            this.otherDetail.get('pan_card_number')?.invalid &&
-            this.otherDetail.get('pan_card_number')?.touched
-          "
-          >{{ getErrorMessage() }}</mat-error
-        >
+       
+        <mat-error *ngIf="otherDetail.get('pan_card_number')?.invalid && (otherDetail.get('pan_card_number')?.dirty || otherDetail.get('pan_card_number')?.touched) && otherDetail.get('pan_card_number')?.errors?.required">
+          Pan number is required
+      </mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('pan_card_number')?.errors?.required && otherDetail.get('pan_card_number')?.errors?.pattern">
+        Please enter 10 digit valid Pan number
+        </mat-error>
       </mat-form-field>
 
       <div class="uploadContainer">
@@ -65,12 +70,12 @@
           formControlName="panCard"
         />
         <mat-error
-          *ngIf="
-            this.otherDetail.get('panCard')?.invalid &&
-            this.otherDetail.get('panCard')?.touched
-          "
-          >{{ getErrorMessage() }}</mat-error
-        >
+        *ngIf="otherDetail.get('panCard')?.errors?.['required'] && otherDetail.get('panCard')?.touched"
+        >Please upload a Pan card photo</mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('panCard')?.errors?.required && otherDetail.get('panCard')?.errors?.pattern">
+        Pan card photo must be in pdf formate
+        </mat-error>
       </div>
     </div>
     <div class="cards">
@@ -82,7 +87,17 @@
           name="passport_number"
           placeholder="Passport Number"
           formControlName="passport_number"
+          maxLength="8"
+         
         />
+        <mat-error *ngIf="otherDetail.get('passport_number')?.invalid && (otherDetail.get('passport_number')?.dirty || otherDetail.get('passport_number')?.touched) && otherDetail.get('passport_number')?.errors?.required">
+          Passport number is required
+      </mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('passport_number')?.errors?.required && otherDetail.get('passport_number')?.errors?.pattern">
+        Please enter 8 digit valid Passport number
+        </mat-error>
+ 
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -95,6 +110,7 @@
           formControlName="passport_expire"
           onkeydown="return false"
           onclick="return false"
+          [min]="today"
         />
 
         <mat-datepicker-toggle
@@ -112,6 +128,11 @@
           id="passportDetails"
           formControlName="passportDetails"
         />
+       
+        <mat-error *ngIf="
+        !otherDetail.get('passportDetails')?.errors?.required && otherDetail.get('passportDetails')?.errors?.pattern">
+        Passport details must be in pdf formate
+        </mat-error>
       </div>
     </div>
 
@@ -125,12 +146,12 @@
         formControlName="covidCertificate"
       />
       <mat-error
-        *ngIf="
-          this.otherDetail.get('covidCertificate')?.invalid &&
-          this.otherDetail.get('covidCertificate')?.touched
-        "
-        >{{ getErrorMessage() }}</mat-error
-      >
+      *ngIf="otherDetail.get('covidCertificate')?.errors?.['required'] && otherDetail.get('covidCertificate')?.touched"
+      >Please upload a Covid Certificate</mat-error>
+      <mat-error *ngIf="
+      !otherDetail.get('covidCertificate')?.errors?.required && otherDetail.get('covidCertificate')?.errors?.pattern">
+      Covid Certificate must be in pdf formate
+      </mat-error>
     </div>
 
     <!-- Need to perform validation and formcontrol data -->
@@ -140,16 +161,24 @@
       <mat-form-field appearance="outline">
         <mat-label for="acc_holder_name">Account Holder's Name</mat-label>
         <input
+        type="text"
           matInput
           id="acc_holder_name"
           name="acc_holder_name"
           placeholder="Account Holder's Name"
           formControlName="acc_holder_name"
+          minlength="3"
         />
-        <mat-error *ngIf="this.otherDetail.get('acc_holder_name')?.invalid &&
-        this.otherDetail.get('acc_holder_name')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+       
+        <mat-error
+        *ngIf="otherDetail.get('acc_holder_name')?.errors?.['required'] && otherDetail.get('acc_holder_name')?.pristine || otherDetail.get('acc_holder_name')?.value.length==0"
+        >Account holder name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="otherDetail.get('acc_holder_name')?.errors?.['characterValidator'] && otherDetail.get('acc_holder_name')?.dirty && otherDetail.get('acc_holder_name')?.value.length>0"
+        >Digits are not allowed</mat-error
+      >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -160,11 +189,18 @@
           name="bank_name"
           placeholder="Bank Name"
           formControlName="bank_name"
+          minlength="3"
         />
-        <mat-error *ngIf="this.otherDetail.get('bank_name')?.invalid &&
-        this.otherDetail.get('bank_name')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+        <mat-error
+        *ngIf="otherDetail.get('bank_name')?.errors?.['required'] && otherDetail.get('bank_name')?.pristine || otherDetail.get('bank_name')?.value.length==0"
+        >Bank name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="otherDetail.get('bank_name')?.errors?.['characterValidator'] && otherDetail.get('bank_name')?.dirty && otherDetail.get('bank_name')?.value.length>0"
+        >Digits are not allowed</mat-error
+      >
+     
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -175,11 +211,19 @@
           name="acc_number"
           placeholder="Account Number"
           formControlName="acc_number"
+          minlength="9"
+          maxlength="18"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
         />
-        <mat-error *ngIf="this.otherDetail.get('acc_number')?.invalid &&
-        this.otherDetail.get('acc_number')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+        <mat-error *ngIf="otherDetail.get('acc_number')?.invalid && (otherDetail.get('acc_number')?.dirty || otherDetail.get('acc_number')?.touched) && otherDetail.get('acc_number')?.errors?.required">
+          Account number is required
+      </mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('acc_number')?.errors?.required && otherDetail.get('acc_number')?.errors?.pattern">
+        Please enter valid Account number
+        </mat-error>
+     
+    
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -190,11 +234,17 @@
           name="ifsc_code"
           placeholder="IFSC Code"
           formControlName="ifsc_code"
+          maxlength="11"
+
         />
-        <mat-error *ngIf="this.otherDetail.get('ifsc_code')?.invalid &&
-        this.otherDetail.get('ifsc_code')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+        <mat-error *ngIf="otherDetail.get('ifsc_code')?.invalid && (otherDetail.get('ifsc_code')?.dirty || otherDetail.get('ifsc_code')?.touched) && otherDetail.get('ifsc_code')?.errors?.required">
+          IFSC code is required
+      </mat-error>
+        <mat-error *ngIf="
+        !otherDetail.get('ifsc_code')?.errors?.required && otherDetail.get('ifsc_code')?.errors?.pattern">
+        Please enter 11 digit valid IFSC code
+        </mat-error>
+   
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -214,33 +264,48 @@
             {{ type_of_acc }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="this.otherDetail.get('type_of_acc')?.invalid &&
-        this.otherDetail.get('type_of_acc')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+        <mat-error
+        *ngIf="
+         
+         (otherDetail.get('type_of_acc')?.touched)">
+          Please Select Account type
+      </mat-error>
       </mat-form-field>
     </div>
 
     <div class="bankCards">
       <mat-form-field appearance="outline">
-        <mat-label for="pf_acc">PF Account</mat-label>
+        <mat-label for="pf_acc">PF Account Number</mat-label>
         <input
           matInput
           id="pf_acc"
           name="pf_acc"
-          placeholder="PF Acouunt"
+          placeholder="PF Account"
           formControlName="pf_acc"
-        />
+         
+          />
+       
+        <mat-error *ngIf="
+        otherDetail.get('pf_acc')?.errors?.pattern">
+        Please enter 22 digit in a formate XX/XXX/XXXXXXX/XXX/XXXXXXX
+        
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label for="uan_acc">UAN Account</mat-label>
+        <mat-label for="uan_acc">UAN Number</mat-label>
         <input
           matInput
           id="uan_acc"
           name="uan_acc"
           placeholder="UAN Account"
           formControlName="uan_acc"
+          maxlength="12"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
         />
+        <mat-error
+        *ngIf="otherDetail.get('uan_acc')?.errors?.['minlength']">
+          Please Enter 12 digit valid UAN number
+      </mat-error>
       </mat-form-field>
     </div>
 

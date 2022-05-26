@@ -113,16 +113,16 @@ color: #014868!important;
 
 
 /* mat-input focused color */
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+::ng-deep mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
 color: #014868!important;
 }
 /* mat-label normal state style */
-.mat-form-field-label {
+::ng-deep mat-form-field-label {
 color: #014868!important;
 
 }
 /* mat-label focused style */
-.mat-form-field.mat-focused .mat-form-field-label {
+::ng-deep mat-form-field.mat-focused .mat-form-field-label {
 color: #014868!important;
 }
 .login

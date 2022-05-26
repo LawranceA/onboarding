@@ -1,40 +1,66 @@
 <div class="list-container">
   <div class="viewEmployeeHeading">View Employees</div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <mat-form-field appearance="standard" class="filter">
+    <mat-label>Filter</mat-label>
+
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. Mia"
+      #input
+    />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element" >{{ element.name }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let element" class="name">{{ element.email }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+
+      <td mat-cell *matCellDef="let element" class="name">
+        {{ element.email }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="phoneno">
-      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</th>
+
       <td mat-cell *matCellDef="let element">{{ element.phoneno }}</td>
     </ng-container>
 
     <ng-container matColumnDef="doj">
-      <th mat-header-cell *matHeaderCellDef>DOJ</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>DOJ</th>
+
       <td mat-cell *matCellDef="let element">{{ element.doj }}</td>
     </ng-container>
 
     <ng-container matColumnDef="updated">
-      <th mat-header-cell *matHeaderCellDef>Updated At</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
+
       <td mat-cell *matCellDef="let element">{{ element.updated }}</td>
     </ng-container>
+
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+
       <td mat-cell *matCellDef="let element">{{ element.status }}</td>
     </ng-container>
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
+
       <td mat-cell *matCellDef="let element">
         <mat-icon class="actions" (click)="openDiag()">delete</mat-icon>
-        <mat-icon class="actions" (click)="editPage(element.name)">edit</mat-icon>
+
+        <mat-icon class="actions" (click)="editPage(element.name)"
+          >edit</mat-icon
+        >
+
         <mat-icon class="actions" (click)="openDetails(element.name)"
           >preview</mat-icon
         >
@@ -42,11 +68,27 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
   </table>
 
+  <br />
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+
   <div id="diag-modal" class="modal" [ngStyle]="{ display: display }">
-   
     <mat-card class="dialogue">
       <div class="diag-content">
         <p>Delete Employee DB0045</p>
@@ -60,6 +102,7 @@
         >
           yes
         </button>
+
         <button mat-button class="button-gradient diag-btn" (click)="close()">
           no
         </button>

@@ -9,35 +9,65 @@ import { SharedService } from '../../services/shared.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+
+import 'moment/locale/ja';
+
+import 'moment/locale/fr';
+import { CustomValidationService } from '../../services/custom-validation.service';
+
 @Component({
   selector: 'app-dialog-org',
   templateUrl: './dialog-org.component.html',
   styleUrls: ['./dialog-org.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class DialogOrgComponent implements OnInit {
   organization!: FormGroup;
   actionBtn: String = 'Save';
   created_at: any;
 
+  dateValidator = true
+
   constructor(
     private fs: FormBuilder,
     private api: SharedService,
     private tokenStorage: TokenStorageService,
     private dialogRef: MatDialogRef<DialogOrgComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    public validation: CustomValidationService
   ) {}
 
   ngOnInit(): void {
     this.organization = this.fs.group({
-      organizationName: ['', Validators.required],
+      organizationName: ['',  [Validators.required, this.validation.characterValidator]],
       joiningDate: ['', Validators.required],
       relievingDate: ['', Validators.required],
-      hr_name: ['', Validators.required],
-      relievingLetter: ['', Validators.required],
-      offerLetter: ['', Validators.required],
-      payslip1: ['', Validators.required],
-      payslip2: ['', Validators.required],
-      payslip3: ['', Validators.required],
+      hr_name: ['',  [Validators.required, this.validation.characterValidator]],
+      relievingLetter: ['', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
+      offerLetter: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip1: ['', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip2: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip3: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
       noticePeriodEndDate: ['', Validators.required],
     });
 
@@ -129,5 +159,28 @@ export class DialogOrgComponent implements OnInit {
     }
     return '';
     
+  }
+  dateValidators() {
+    console.log('s');
+
+    let start = this.organization.value.joiningDate;
+
+    let end = this.organization.value.relievingDate;
+
+    if (
+      Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+      Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
+    ) {
+      console.log(
+        Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+          Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
+      );
+
+      this.dateValidator = false;
+
+      console.log(this.dateValidator);
+    } else {
+      this.dateValidator = true;
+    }
   }
 }

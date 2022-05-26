@@ -11,9 +11,13 @@
         formControlName="organizationName"
       />
       <mat-error
-      *ngIf="this.organization.get('organizationName')?.invalid   &&
-      this.organization.get('organizationName')?.touched"
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="organization.get('organizationName')?.errors?.['required'] && organization.get('organizationName')?.pristine || organization.get('organizationName')?.value.length==0"
+      >Organization name is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="organization.get('organizationName')?.errors?.['characterValidator'] && organization.get('organizationName')?.dirty && organization.get('organizationName')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
 
@@ -25,13 +29,15 @@
         id="joiningDate"
         name="joiningDate"
         formControlName="joiningDate"
+        onkeydown="return false" onclick="return false"
+        (dateChange)="dateValidators()"
       />
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
       <mat-error
       *ngIf="this.organization.get('joiningDate')?.invalid  &&
       this.organization.get('joiningDate')?.touched"
-      >{{ getErrorMessage() }}</mat-error
+      >Please select Joining date</mat-error
     >
     </mat-form-field>
 
@@ -43,16 +49,19 @@
         id="relievingDate"
         name="relievingDate"
         formControlName="relievingDate"
+        onkeydown="return false" onclick="return false"
+        (dateChange)="dateValidators()"
       />
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
       <mat-error
       *ngIf="this.organization.get('relievingDate')?.invalid  &&
       this.organization.get('relievingDate')?.touched"
-      >{{ getErrorMessage() }}</mat-error
+      >Please select releiving date</mat-error
     >
     </mat-form-field>
-
+    <small *ngIf="!this.dateValidator"
+    >End date must be greater than start date</small>
     <mat-form-field appearance="outline">
       <mat-label for="hr_name">HR Name</mat-label>
       <input
@@ -63,9 +72,13 @@
         formControlName="hr_name"
       />
       <mat-error
-      *ngIf="this.organization.get('hr_name')?.invalid   &&
-      this.organization.get('hr_name')?.touched"
-      >{{ getErrorMessage() }}</mat-error
+      *ngIf="organization.get('hr_name')?.errors?.['required'] && organization.get('hr_name')?.pristine || organization.get('hr_name')?.value.length==0"
+      >HR name is required</mat-error
+    >
+
+    <mat-error
+      *ngIf="organization.get('hr_name')?.errors?.['characterValidator'] && organization.get('hr_name')?.dirty && organization.get('hr_name')?.value.length>0"
+      >Digits and special characters are not allowed</mat-error
     >
     </mat-form-field>
 
@@ -78,10 +91,12 @@
         formControlName="relievingLetter"
     />
     <mat-error
-    *ngIf="this.organization.get('relievingLetter')?.invalid  &&
-    this.organization.get('relievingLetter')?.touched"
-    >{{ getErrorMessage() }}</mat-error
-  >
+    *ngIf="organization.get('relievingLetter')?.errors?.['required'] && organization.get('relievingLetter')?.touched"
+    >Please upload a relieving letter</mat-error>
+    <mat-error *ngIf="
+    !organization.get('relievingLetter')?.errors?.required && organization.get('relievingLetter')?.errors?.pattern">
+    Relieving letter must be in pdf formate
+    </mat-error>
     </div>
 
     <div class="uploadContainer">
@@ -93,10 +108,12 @@
         formControlName="offerLetter"
       />
       <mat-error
-      *ngIf="this.organization.get('offerLetter')?.invalid  &&
-      this.organization.get('offerLetter')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+      *ngIf="organization.get('offerLetter')?.errors?.['required'] && organization.get('offerLetter')?.touched"
+      >Please upload a offer letter</mat-error>
+      <mat-error *ngIf="
+      !organization.get('offerLetter')?.errors?.required && organization.get('offerLetter')?.errors?.pattern">
+      Offer letter must be in pdf formate
+      </mat-error>
     </div>
 
     <div class="uploadContainer">
@@ -108,10 +125,12 @@
         formControlName="payslip1"
       />
       <mat-error
-      *ngIf="this.organization.get('payslip1')?.invalid  &&
-      this.organization.get('payslip1')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+      *ngIf="organization.get('payslip1')?.errors?.['required'] && organization.get('payslip1')?.touched"
+      >Please upload a Payslip</mat-error>
+      <mat-error *ngIf="
+      !organization.get('payslip1')?.errors?.required && organization.get('payslip1')?.errors?.pattern">
+      Payslip must be in pdf formate
+      </mat-error>
       <input
         type="file"
         name="payslip2"
@@ -119,10 +138,12 @@
         formControlName="payslip2"
       />
       <mat-error
-      *ngIf="this.organization.get('payslip2')?.invalid  &&
-      this.organization.get('payslip2')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+      *ngIf="organization.get('payslip2')?.errors?.['required'] && organization.get('payslip2')?.touched"
+      >Please upload a Payslip</mat-error>
+      <mat-error *ngIf="
+      !organization.get('payslip2')?.errors?.required && organization.get('payslip2')?.errors?.pattern">
+      Payslip must be in pdf formate
+      </mat-error>
       <input
         type="file"
         name="payslip3"
@@ -130,10 +151,12 @@
         formControlName="payslip3"
       />
       <mat-error
-      *ngIf="this.organization.get('payslip3')?.invalid  &&
-      this.organization.get('payslip3')?.touched"
-      >{{ getErrorMessage() }}</mat-error
-    >
+      *ngIf="organization.get('payslip3')?.errors?.['required'] && organization.get('payslip3')?.touched"
+      >Please upload a Payslip</mat-error>
+      <mat-error *ngIf="
+      !organization.get('payslip3')?.errors?.required && organization.get('payslip3')?.errors?.pattern">
+      Payslip must be in pdf formate
+      </mat-error>
     </div>
 
     <mat-form-field appearance="outline">
@@ -144,13 +167,15 @@
         id="noticePeriodEndDate"
         name="noticePeriodEndDate"
         formControlName="noticePeriodEndDate"
+        onkeydown="return false" onclick="return false"
+        (dateChange)="dateValidators()"
       />
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
       <mat-error
       *ngIf="this.organization.get('noticePeriodEndDate')?.invalid  &&
       this.organization.get('noticePeriodEndDate')?.touched"
-      >{{ getErrorMessage() }}</mat-error
+      >Please select notice period end date</mat-error
     >
     </mat-form-field>
   </form>

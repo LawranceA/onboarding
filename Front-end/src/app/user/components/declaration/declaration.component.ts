@@ -5,10 +5,38 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+
+import 'moment/locale/ja';
+
+import 'moment/locale/fr';
+import { CustomValidationService } from '../../services/custom-validation.service';
+
+
 @Component({
   selector: 'app-declaration',
   templateUrl: './declaration.component.html',
   styleUrls: ['./declaration.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
 export class DeclarationComponent implements OnInit {
   data: any;
@@ -19,17 +47,16 @@ export class DeclarationComponent implements OnInit {
   checked = false;
   declaration = new FormGroup({
     joiningDate: new FormControl('',Validators.required),
-    place: new FormControl('',Validators.required),
+    place: new FormControl('',[Validators.required, this.validation.characterValidator]),
   });
 
-  today=new Date();
-  maxDate = new Date();
-
+  
   constructor(
     private router: Router,
     private service: UserDataService,
     private tokenStorage: TokenStorageService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    public validation: CustomValidationService
   ) {}
 
   back() {
@@ -77,16 +104,5 @@ export class DeclarationComponent implements OnInit {
       }
     });
   }
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.declaration.get('joininDate')?.getError('required') ||
-      this.declaration.get('place')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-  
-    return '';
-    
-  }
+ 
 }

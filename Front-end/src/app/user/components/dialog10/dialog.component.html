@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Add Education</h1>
+
 <div class="modal">
   <form [formGroup]="dialog10Form">
     <mat-form-field appearance="outline">
       <mat-label for="education">Education</mat-label>
+
       <input
         matInput
         type="text"
@@ -12,8 +14,10 @@
         readonly="true"
       />
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label for="board">Board</mat-label>
+
       <input
         matInput
         type="text"
@@ -21,16 +25,21 @@
         name="board"
         formControlName="board"
       />
+
       <mat-error
-      *ngIf="
-        this.dialog10Form.get('board')?.invalid &&
-        this.dialog10Form.get('board')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="dialog10Form.get('board')?.errors?.['required'] && dialog10Form.get('board')?.pristine || dialog10Form.get('board')?.value.length==0"
+        >Board is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialog10Form.get('board')?.errors?.['characterValidator'] && dialog10Form.get('board')?.dirty && dialog10Form.get('board')?.value.length>0"
+        >Digits and special characters are not allowed</mat-error
+      >
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label for="School">School</mat-label>
+
       <input
         matInput
         type="text"
@@ -38,107 +47,143 @@
         name="School"
         formControlName="School"
       />
+
       <mat-error
-      *ngIf="
-        this.dialog10Form.get('School')?.invalid &&
-        this.dialog10Form.get('School')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="dialog10Form.get('School')?.errors?.['required'] && dialog10Form.get('School')?.pristine || dialog10Form.get('School')?.value.length==0"
+        >School name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialog10Form.get('School')?.errors?.['characterValidator'] && dialog10Form.get('School')?.dirty && dialog10Form.get('School')?.value.length>0"
+        >Digits and specialcharacters are not allowed</mat-error
+      >
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label for="percentage">Percentage/CGPA</mat-label>
+
       <input
         matInput
         type="text"
         id="percentage"
         name="percentage"
         formControlName="percentage"
+        maxlength="5"
       />
+
       <mat-error
-      *ngIf="
-        this.dialog10Form.get('percentage')?.invalid &&
-        this.dialog10Form.get('percentage')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="dialog10Form.get('percentage')?.errors?.['required'] && dialog10Form.get('percentage')?.pristine || dialog10Form.get('percentage')?.value.length==0"
+        >Percentage is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="dialog10Form.get('percentage')?.errors?.['percentageValidator'] && dialog10Form.get('percentage')?.dirty && dialog10Form.get('percentage')?.value.length>0"
+        >Enter a valid percentage/CGPA</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="startDate">Start Date</mat-label>
+
       <input
         matInput
         [matDatepicker]="picker1"
         id="startDate"
         name="startDate"
         formControlName="startDate"
-        onkeydown="return false" onclick="return false"
+        onkeydown="return false"
+        onclick="return false"
+        (dateChange)="dateValidators()"
       />
+
       <mat-error
-      *ngIf="
-        this.dialog10Form.get('startDate')?.invalid &&
-        this.dialog10Form.get('startDate')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="
+          this.dialog10Form.get('startDate')?.invalid &&
+          this.dialog10Form.get('startDate')?.touched
+        "
+        >Please select start date</mat-error
+      >
+
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label for="endDate">End Date</mat-label>
+
       <input
         matInput
         [matDatepicker]="picker2"
         id="endDate"
         name="endDate"
         formControlName="endDate"
-        onkeydown="return false" onclick="return false"
+        onkeydown="return false"
+        onclick="return false"
+        (dateChange)="dateValidators()"
       />
+
       <mat-error
-      *ngIf="
-        this.dialog10Form.get('endDate')?.invalid &&
-        this.dialog10Form.get('endDate')?.touched
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+        *ngIf="dialog10Form.get('endDate')?.errors?.['required'] && dialog10Form.get('endDate')?.pristine || dialog10Form.get('endDate')?.value.length==0"
+        >Please select end date</mat-error
+      >
+
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
+    <small *ngIf="!this.dateValidator"
+      >End date must be greater than start date</small
+    >
+
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
+
       <input
         type="file"
         id="marksheet"
         name="marksheet"
         formControlName="marksheet"
       />
+
+     
       <mat-error
-          *ngIf="
-            this.dialog10Form.get('marksheet')?.invalid &&
-            this.dialog10Form.get('marksheet')?.touched
-          "
-          >{{ getErrorMessage() }}</mat-error
-        >
+          *ngIf="dialog10Form.get('marksheet')?.errors?.['required'] && dialog10Form.get('marksheet')?.touched"
+          >Please upload a marksheet</mat-error>
+          <mat-error *ngIf="
+          !dialog10Form.get('marksheet')?.errors?.required && dialog10Form.get('marksheet')?.errors?.pattern">
+          marksheet must be in pdf formate
+          </mat-error>
     </div>
 
-    <!-- <div class="uploadContainer">
-      <label for="transferCertificate">Transfer Certificate</label>
-      <input
-        type="file"
-        id="transferCertificate"
-        name="transferCertificate"
-        formControlName="transferCertificate"
-      />
-     
+    <!-- <div class="uploadContainer"> 
+
+      <label for="transferCertificate">Transfer Certificate</label> 
+
+      <input 
+
+        type="file" 
+
+        id="transferCertificate" 
+
+        name="transferCertificate" 
+
+        formControlName="transferCertificate" 
+
+      /> 
+
+      
+
     </div> -->
   </form>
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
+
   <button mat-button class="btn-primary" (click)="add10Form()">
     {{ actionBtn }}
   </button>
 </div>
+<!-- [disabled]="!dialog10Form.valid" -->

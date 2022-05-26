@@ -5,24 +5,38 @@
     <div class="content">
       <mat-form-field appearance="outline">
         <mat-label for="first_name">FirstName</mat-label>
+
         <input
+          type="text"
+         
           matInput
           placeholder="first_name"
           type="text"
           name="first_name"
           id="first_name"
           formControlName="first_name"
-          minlength="3"
+          required
         />
+
         <mat-error
-          *ngIf="this.personalInformation.get('first_name')?.invalid &&
-          this.personalInformation.get('first_name')?.touched"
-          >{{ getErrorMessage() }}</mat-error
+          *ngIf="personalInformation.get('first_name')?.errors?.['required'] && personalInformation.get('first_name')?.pristine || personalInformation.get('first_name')?.value.length==0"
+          >First name is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('first_name')?.errors?.['minlength'] && personalInformation.get('first_name')?.dirty && personalInformation.get('first_name')?.value.length>0"
+          >First name must conatin atleast 3 char</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('first_name')?.errors?.['nameValidator'] && personalInformation.get('first_name')?.dirty && personalInformation.get('first_name')?.value.length>0"
+          >First name must contain only characters</mat-error
         >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label for="last_name">LastName</mat-label>
+
         <input
           matInput
           placeholder="last_name"
@@ -31,14 +45,21 @@
           id="last_name"
           formControlName="last_name"
         />
-        <mat-error *ngIf="this.personalInformation.get('last_name')?.invalid &&
-        this.personalInformation.get('last_name')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+
+        <mat-error
+          *ngIf="personalInformation.get('last_name')?.errors?.['required'] && personalInformation.get('first_name')?.pristine || personalInformation.get('first_name')?.value.length==0"
+          >Last name is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('last_name')?.errors?.['nameValidator'] && personalInformation.get('first_name')?.dirty && personalInformation.get('first_name')?.value.length>0"
+          >Last name must contain only characters</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label for="dob">D.O.B</mat-label>
+
         <input
           matInput
           [matDatepicker]="picker"
@@ -48,16 +69,23 @@
           onkeydown="return false"
           onclick="return false"
         />
+
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="this.personalInformation.get('dob')?.invalid &&
-        this.personalInformation.get('dob')?.touched">{{
-          getErrorMessage()
-        }}</mat-error>
+
+        <mat-error
+          *ngIf="
+            this.personalInformation.get('dob')?.invalid &&
+            this.personalInformation.get('dob')?.touched
+          "
+          >Please select date of birth</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label for="personal_email">Email</mat-label>
+
         <input
           matInput
           type="email"
@@ -66,15 +94,21 @@
           placeholder="personal_email"
           formControlName="personal_email"
         />
+
         <mat-error
-          *ngIf="this.personalInformation.get('personal_email')?.invalid &&
-          this.personalInformation.get('personal_email')?.touched"
-          >{{ getErrorMessage() }}</mat-error
+          *ngIf="personalInformation.get('personal_email')?.errors?.['required'] && personalInformation.get('personal_email')?.pristine || personalInformation.get('personal_email')?.value.length==0"
+          >Email is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('personal_email')?.errors?.['emailValidator'] || personalInformation.get('personal_email')?.errors?.['email']  && personalInformation.get('personal_email')?.dirty && personalInformation.get('personal_email')?.value.length>0"
+          >Enter a valid email id</mat-error
         >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label for="mobile_numer">Mobile No</mat-label>
+
         <input
           matInput
           type="text"
@@ -82,19 +116,23 @@
           id="mobile_numer"
           placeholder="Mobile No"
           formControlName="mobile_number"
+          maxlength="10"
         />
+
         <mat-error
-        *ngIf="this.personalInformation.get('mobile_number')?.invalid &&
-        this.personalInformation.get('mobile_number')?.touched"
-        >{{ getErrorMessage() }}</mat-error
-      >
-        <!-- <span *ngIf="this.personalInformation.get('mobile_number').i"
-          >Enter a valid mobile number</span
-        > -->
+          *ngIf="personalInformation.get('mobile_number')?.errors?.['required'] && personalInformation.get('mobile_number')?.pristine || personalInformation.get('mobile_number')?.value.length==0"
+          >Mobile number is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('mobile_number')?.errors?.['pattern'] && personalInformation.get('mobile_number')?.dirty && personalInformation.get('mobile_number')?.value.length>0"
+          >Enter a valid mobile number</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label for="alternate_number">Alternate Mobile No</mat-label>
+
         <input
           matInput
           type="text"
@@ -103,15 +141,21 @@
           placeholder="Alternate Mobile No"
           formControlName="alternate_number"
         />
+
         <mat-error
-          *ngIf="this.personalInformation.get('alternate_number')?.invalid &&
-          this.personalInformation.get('alternate_number')?.touched"
-          >{{ getErrorMessage() }}</mat-error
+          *ngIf="personalInformation.get('alternate_number')?.errors?.['required'] && personalInformation.get('alternate_number')?.pristine || personalInformation.get('alternate_number')?.value.length==0"
+          >Alternate mobile number is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="personalInformation.get('alternate_number')?.errors?.['pattern'] && personalInformation.get('alternate_number')?.dirty && personalInformation.get('alternate_number')?.value.length>0"
+          >Enter a valid mobile number</mat-error
         >
       </mat-form-field>
 
       <div class="genderContainer">
         <label id="example-radio-group-label" for="gender">Gender</label>
+
         <mat-radio-group
           aria-labelledby="example-radio-group-label"
           class="example-radio-group"
@@ -126,32 +170,37 @@
           >
             {{ gender }}
           </mat-radio-button>
+
           <mat-error
             *ngIf="
               this.personalInformation.get('gender')?.invalid &&
               this.personalInformation.get('gender')?.touched
             "
-            >{{ getErrorMessage() }}</mat-error
+            >Please select gender</mat-error
           >
         </mat-radio-group>
       </div>
 
       <div class="uploadContainer">
         <label for="photo">Photo</label>
+
         <input type="file" name="photo" id="photo" formControlName="photo" />
+
         <mat-error
-          *ngIf="
-            this.personalInformation.get('photo')?.invalid &&
-            this.personalInformation.get('photo')?.touched
-          "
-          >{{ getErrorMessage() }}</mat-error
-        >
+          *ngIf="personalInformation.get('photo')?.errors?.['required'] && personalInformation.get('photo')?.touched"
+          >Please upload a photo</mat-error>
+          <mat-error *ngIf="
+          !personalInformation.get('photo')?.errors?.required && personalInformation.get('photo')?.errors?.pattern">
+          Photo must be in jpg/jpeg/png/gif formate
+          </mat-error>
       </div>
     </div>
- 
+
     <!-- Father Name -->
-    <mat-form-field appearance="outline" style="width: 50%;">
+
+    <mat-form-field appearance="outline" style="width: 50%">
       <mat-label for="father_name">Father Name</mat-label>
+
       <input
         matInput
         placeholder="Father Name"
@@ -161,19 +210,27 @@
         formControlName="father_name"
         minlength="3"
       />
+
       <mat-error
-        *ngIf="this.personalInformation.get('father_name')?.invalid &&
-        this.personalInformation.get('father_name')?.touched"
-        >{{ getErrorMessage() }}</mat-error
+        *ngIf="personalInformation.get('father_name')?.errors?.['required'] && personalInformation.get('father_name')?.pristine || personalInformation.get('father_name')?.value.length==0"
+        >Father name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="personalInformation.get('father_name')?.errors?.['nameValidator'] && personalInformation.get('father_name')?.dirty && personalInformation.get('father_name')?.value.length>0"
+        >Last name must contain only characters</mat-error
       >
     </mat-form-field>
 
     <!-- Current Address -->
+
     <div formGroupName="current">
       <h3>Current Adress</h3>
+
       <div class="content">
         <mat-form-field appearance="outline">
           <mat-label for="house_no">House No.</mat-label>
+
           <input
             matInput
             type="text"
@@ -182,15 +239,17 @@
             id="houseNo"
             name="house_no"
           />
+
           <mat-error
-            *ngIf="this.personalInformation.get('house_no')?.invalid &&
-            this.personalInformation.get('house_no')?.touched"
-            >{{ getErrorMessage() }}</mat-error
-          >
+            *ngIf="
+              personalInformation.get('current.house_no')?.errors?.['minlength']">
+              please enter valid house number
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="street">Street/Area Name</mat-label>
+
           <input
             matInput
             type="text"
@@ -199,14 +258,18 @@
             id="street"
             name="street"
           />
-          <mat-error *ngIf="this.personalInformation.get('street')?.invalid &&
-          this.personalInformation.get('street')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+          <mat-error *ngIf="personalInformation.get('current.street')?.invalid && (personalInformation.get('current.street')?.dirty || personalInformation.get('current.street')?.touched) && personalInformation.get('current.street')?.errors?.required">
+            Street or Area name is required
+        </mat-error>
+          <mat-error *ngIf="
+          !personalInformation.get('current.street')?.errors?.required && personalInformation.get('current.street')?.errors?.['minlength']">
+          Please enter valid street or area name
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="locality">Locality</mat-label>
+
           <input
             matInput
             type="text"
@@ -215,28 +278,35 @@
             id="locality"
             name="locality"
           />
-          <mat-error
-            *ngIf="this.personalInformation.get('locality')?.invalid &&
-            this.personalInformation.get('locality')?.touched"
-            >{{ getErrorMessage() }}</mat-error
-          >
+
+          <mat-error *ngIf="personalInformation.get('current.locality')?.invalid && (personalInformation.get('current.locality')?.dirty || personalInformation.get('current.locality')?.touched) && personalInformation.get('current.locality')?.errors?.required">
+            locality is required
+        </mat-error>
+          <mat-error *ngIf="
+          !personalInformation.get('current.locality')?.errors?.required && personalInformation.get('current.locality')?.errors?.['minlength']">
+          Please enter valid locality
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
+
           <mat-select formControlName="city" id="city" name="city">
+           
             <mat-option *ngFor="let city of cities" [value]="city">
               {{ city }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('city')?.invalid &&
-          this.personalInformation.get('city')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="
+              this.personalInformation.get('current.city')?.invalid &&
+              this.personalInformation.get('current.city')?.touched">Please select a city</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="pincode">Pincode</mat-label>
+
           <input
             matInput
             type="text"
@@ -244,52 +314,73 @@
             formControlName="pincode"
             id="pincode"
             name="pincode"
+            maxlength="6"
           />
-          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid &&
-          this.personalInformation.get('pincode')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="personalInformation.get('current.pincode')?.errors?.['required'] && personalInformation.get('current.pincode')?.pristine || personalInformation.get('current.pincode')?.value.length==0"
+            >Pincode is required</mat-error
+          >
+
+          <mat-error
+            *ngIf="personalInformation.get('current.pincode')?.errors?.['minlength'] || personalInformation.get('current.pincode')?.errors?.['pinCodeValidator'] && personalInformation.get('current.pincode')?.dirty && personalInformation.get('current.pincode')?.value.length>0"
+            >Pin code must conatin only digits</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="state">State</mat-label>
+
           <mat-select formControlName="state" id="state" name="state">
             <mat-option *ngFor="let state of states" [value]="state">
               {{ state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('state')?.invalid &&
-          this.personalInformation.get('state')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="
+              this.personalInformation.get('current.state')?.invalid &&
+              this.personalInformation.get('current.state')?.touched
+            "
+            >Please select a state</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="country">Country</mat-label>
+
           <mat-select formControlName="country" id="country" name="country">
             <mat-option *ngFor="let country of countries" [value]="country">
               {{ country }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('country')?.invalid &&
-          this.personalInformation.get('country')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="
+              this.personalInformation.get('current.country')?.invalid &&
+              this.personalInformation.get('current.country')?.touched
+            "
+            >Please select a country</mat-error
+          >
         </mat-form-field>
       </div>
     </div>
 
     <!-- Permanent Address -->
+
     <div formGroupName="permanent">
       <h3>Permanent Adress</h3>
+
       <section class="example-section">
         <mat-checkbox class="example-margin" (click)="copy($event)"
           >Same as Current Address</mat-checkbox
         >
       </section>
+
       <div class="content">
         <mat-form-field appearance="outline">
           <mat-label for="houseNo">House No.</mat-label>
+
           <input
             matInput
             type="text"
@@ -298,15 +389,17 @@
             id="houseNo"
             name="houseNo"
           />
+
           <mat-error
-            *ngIf="this.personalInformation.get('house_no')?.invalid &&
-            this.personalInformation.get('house_no')?.touched"
-            >{{ getErrorMessage() }}</mat-error
-          >
+          *ngIf="
+            personalInformation.get('permanent.house_no')?.errors?.['minlength']">
+            please enter valid house number
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="street">Street/Area Name</mat-label>
+
           <input
             matInput
             type="text"
@@ -315,14 +408,19 @@
             id="street"
             name="street"
           />
-          <mat-error *ngIf="this.personalInformation.get('street')?.invalid &&
-          this.personalInformation.get('street')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error *ngIf="personalInformation.get('permanent.street')?.invalid && (personalInformation.get('permanent.street')?.dirty || personalInformation.get('permanent.street')?.touched) && personalInformation.get('permanent.street')?.errors?.required">
+            Street or Area name is required
+        </mat-error>
+          <mat-error *ngIf="
+          !personalInformation.get('permanent.street')?.errors?.required && personalInformation.get('permanent.street')?.errors?.['minlength']">
+          Please enter valid street or area name
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="locality">Locality</mat-label>
+
           <input
             matInput
             type="text"
@@ -331,28 +429,34 @@
             id="locality"
             name="locality"
           />
-          <mat-error
-            *ngIf="this.personalInformation.get('locality')?.invalid &&
-            this.personalInformation.get('locality')?.touched"
-            >{{ getErrorMessage() }}</mat-error
-          >
+
+          <mat-error *ngIf="personalInformation.get('permanent.locality')?.invalid && (personalInformation.get('permanent.locality')?.dirty || personalInformation.get('permanent.locality')?.touched) && personalInformation.get('permanent.locality')?.errors?.required">
+            locality is required
+        </mat-error>
+          <mat-error *ngIf="
+          !personalInformation.get('permanent.locality')?.errors?.required && personalInformation.get('permanent.locality')?.errors?.['minlength']">
+          Please enter valid locality
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
+
           <mat-select formControlName="city" id="city" name="city">
             <mat-option *ngFor="let city of cities" [value]="city">
               {{ city }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('city')?.invalid &&
-          this.personalInformation.get('city')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="
+              this.personalInformation.get('permanent.city')?.invalid &&
+              this.personalInformation.get('permanent.city')?.touched">Please select a city</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="pincode">Pincode</mat-label>
+
           <input
             matInput
             type="text"
@@ -360,37 +464,50 @@
             formControlName="pincode"
             id="pincode"
             name="pincode"
+            maxlength="6"
           />
-          <mat-error *ngIf="this.personalInformation.get('pincode')?.invalid &&
-          this.personalInformation.get('pincode')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="personalInformation.get('permanent.pincode')?.errors?.['required'] && personalInformation.get('permanent.pincode')?.pristine || personalInformation.get('permanent.pincode')?.value.length==0"
+            >Pincode is required</mat-error
+          >
+
+          <mat-error
+            *ngIf="personalInformation.get('permanent.pincode')?.errors?.['minlength'] || personalInformation.get('permanent.pincode')?.errors?.['pinCodeValidator'] && personalInformation.get('permanent.pincode')?.dirty && personalInformation.get('permanent.pincode')?.value.length>0"
+            >Pin code must conatin only digits</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="state">State</mat-label>
+
           <mat-select formControlName="state" id="state" name="state">
             <mat-option *ngFor="let state of states" [value]="state">
               {{ state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('state')?.invalid &&
-          this.personalInformation.get('state')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="
+              
+              this.personalInformation.get('permanent.state')?.touched
+            "
+            >Please select a state</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label for="counrty">Country</mat-label>
+
           <mat-select formControlName="country" id="country" name="country">
             <mat-option *ngFor="let country of countries" [value]="country">
               {{ country }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="this.personalInformation.get('country')?.invalid &&
-          this.personalInformation.get('country')?.touched">{{
-            getErrorMessage()
-          }}</mat-error>
+
+          <mat-error
+            *ngIf="(personalInformation.get('permanent.country')?.touched)">
+            Please select a country</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -400,12 +517,14 @@
         mat-button
         class="btn-primary"
         type="submit"
-        [disabled]="!personalInformation.valid"
         [ngStyle]="{ display: display1 }"
+        
         (click)="onSubmit()"
       >
         Save
+        <!-- [disabled]="!personalInformation.valid" -->
       </button>
+
       <button
         mat-button
         class="btn-primary"
@@ -415,6 +534,7 @@
       >
         Update
       </button>
+
       <button type="button" mat-button class="btn-primary" (click)="next()">
         Next
       </button>
