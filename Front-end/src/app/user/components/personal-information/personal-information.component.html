@@ -316,11 +316,11 @@
           <mat-label for="city">City</mat-label>
 
           
-          <mat-select>
+          <mat-select formControlName="city" (selectionChange)="changeClient($event.value,'current','city')">
             <input
             matInput
             type="text"
-            formControlName="city"
+            
             id="city"
             name="city"
             (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"> 
@@ -364,12 +364,12 @@
         <mat-form-field appearance="outline">
           <mat-label for="state">State</mat-label>
           
-          <mat-select>
+          <mat-select formControlName="state" (selectionChange)="changeClient($event.value,'current','state')">
             <input  matInput
             type="text"
-            formControlName="state"
+           
             id="state"
-            name="state" (keyup)="onKey($event)" class="dropdown" placeholder="Search"> 
+            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"> 
            
            <mat-option *ngFor="let state of selectedStates" [value]="state">{{state}}</mat-option>
          </mat-select>
@@ -388,22 +388,16 @@
         <mat-form-field appearance="outline">
           <mat-label for="country">Country</mat-label>
 
-          <!-- <mat-select formControlName="country" id="country" name="country"> -->
-            <input
-            matInput
+          <mat-select formControlName="country" (selectionChange)="changeClient($event.value,'current','country')">
+            <input  matInput
             type="text"
-            formControlName="country"
+           
             id="country"
-            name="country"
-            [matAutocomplete]="auto"
-            
-          />
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let country of filteredStates | async" [value]="country">
-              {{ country }}
-            </mat-option>
-          </mat-autocomplete>
-          <!-- </mat-select> -->
+            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"> 
+           
+           <mat-option *ngFor="let country of selectCountries; let i=index" [value]="country">{{country}}</mat-option>
+         </mat-select>
+         
 
           <mat-error
             *ngIf="
@@ -511,11 +505,17 @@
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
 
-          <mat-select formControlName="city" id="city" name="city">
-            <mat-option *ngFor="let city of cities" [value]="city">
-              {{ city }}
-            </mat-option>
-          </mat-select>
+          <mat-select formControlName="city" (selectionChange)="changeClient($event.value,'permanent','city')">
+            <input
+            matInput
+            type="text"
+            
+            id="city"
+            name="city"
+            (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"> 
+           
+           <mat-option *ngFor="let city of selectedCities" [value]="city">{{city}}</mat-option>
+         </mat-select>
 
           <mat-error
             *ngIf="
@@ -553,11 +553,15 @@
         <mat-form-field appearance="outline">
           <mat-label for="state">State</mat-label>
 
-          <mat-select formControlName="state" id="state" name="state">
-            <mat-option *ngFor="let state of states" [value]="state">
-              {{ state }}
-            </mat-option>
-          </mat-select>
+          <mat-select formControlName="state" (selectionChange)="changeClient($event.value,'permanent','state')">
+            <input  matInput
+            type="text"
+         
+            id="state"
+            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"> 
+           
+           <mat-option *ngFor="let state of selectedStates" [value]="state">{{state}}</mat-option>
+         </mat-select>
 
           <mat-error
             *ngIf="this.personalInformation.get('permanent.state')?.touched"
@@ -568,11 +572,15 @@
         <mat-form-field appearance="outline">
           <mat-label for="counrty">Country</mat-label>
 
-          <mat-select formControlName="country" id="country" name="country">
-            <mat-option *ngFor="let country of countries" [value]="country">
-              {{ country }}
-            </mat-option>
-          </mat-select>
+          <mat-select formControlName="country" (selectionChange)="changeClient($event.value,'permanent','country')">
+            <input  matInput
+            type="text"
+            
+            id="country"
+            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"> 
+           
+           <mat-option *ngFor="let country of selectCountries ;let i =index" [value]="selectCountries[i]">{{country}}</mat-option>
+         </mat-select>
 
           <mat-error
             *ngIf="personalInformation.get('permanent.country')?.touched"
