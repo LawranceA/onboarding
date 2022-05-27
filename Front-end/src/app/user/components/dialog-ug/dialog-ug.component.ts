@@ -148,6 +148,34 @@ export class DialogUGComponent implements OnInit {
 
   updateData() {
     this.dialogUGForm.value.created_at = this.editData.created_at;
+    if(typeof(this.dialogUGForm.value.startDate)!='string'){
+      this.dialogUGForm.value.startDate = `${this.dialogUGForm.value.startDate._i.year}-${
+        this.dialogUGForm.value.startDate._i.month + 1
+      }-${this.dialogUGForm.value.startDate._i.date}`;
+      this.dialogUGForm.value.startDate = this.pipe.transform(
+        this.dialogUGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogUGForm.value.startDate = this.pipe.transform(
+        this.dialogUGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.dialogUGForm.value.endDate)!='string'){
+      this.dialogUGForm.value.endDate = `${this.dialogUGForm.value.endDate._i.year}-${
+        this.dialogUGForm.value.endDate._i.month + 1
+      }-${this.dialogUGForm.value.endDate._i.date}`;
+      this.dialogUGForm.value.endDate = this.pipe.transform(
+        this.dialogUGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogUGForm.value.endDate = this.pipe.transform(
+        this.dialogUGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }
     this.api.putEduaction(this.dialogUGForm.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

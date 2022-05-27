@@ -20,15 +20,13 @@ export class UserDataService {
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
   //api for add personal Info
   addPersonalInfo(data: Object): Observable<Object> {
-    console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addPersonalInfo`, data, {
       headers: this.header,
     });
   }
   //update personal_info
   putPersonalInfo(data: Object): Observable<Object> {
-    console.log(JSON.stringify(this.tokenStorage.getToken()));
-    return this.http.post(`${this.api}/updatePersonalInfo`, data, {
+    return this.http.put(`${this.api}/updatePersonalInfo`, data, {
       headers: this.header,
     });
   }
@@ -36,6 +34,12 @@ export class UserDataService {
   addAddress(data: Object): Observable<Object> {
     console.log(JSON.stringify(this.tokenStorage.getToken()));
     return this.http.post(`${this.api}/addAddress`, data, {
+      headers: this.header,
+    });
+  }
+  //update address
+  putAddress(data: Object): Observable<Object> {
+    return this.http.put(`${this.api}/updateAddress`, data, {
       headers: this.header,
     });
   }

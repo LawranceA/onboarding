@@ -65,6 +65,9 @@ export class DeclarationComponent implements OnInit {
 
   onSubmit() {
     this.declaration.value.date = this.pipe.transform(new Date(), 'YYYY-MM-dd');
+    this.declaration.value.joiningDate = `${this.declaration.value.joiningDate._i.year}-${
+      this.declaration.value.joiningDate._i.month + 1
+    }-${this.declaration.value.joiningDate._i.date+1}`;
     this.declaration.value.created_at = new Date();
     this.declaration.value.updated_at = new Date();
     this.declaration.value.updated_by = this.tokenStorage.getName();
@@ -82,6 +85,12 @@ export class DeclarationComponent implements OnInit {
     this.declaration.value.created_at = this.created_at;
     this.declaration.value.updated_at = new Date();
     this.declaration.value.updated_by = this.tokenStorage.getName();
+    if(typeof( this.declaration.value.joiningDate)!='string'){
+
+      this.declaration.value.joiningDate = `${this.declaration.value.joiningDate._i.year}-${
+        this.declaration.value.joiningDate._i.month + 1
+      }-${this.declaration.value.joiningDate._i.date+1}`;
+    }
     this.declaration.value.fk_declaration_users_id = this.tokenStorage.getID();
     this.service
       .putDeclaration(this.declaration.value, this.tokenStorage.getID())

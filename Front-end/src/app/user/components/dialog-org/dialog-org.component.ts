@@ -25,6 +25,7 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-org',
@@ -54,7 +55,8 @@ export class DialogOrgComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private dialogRef: MatDialogRef<DialogOrgComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    public validation: CustomValidationService
+    public validation: CustomValidationService,
+    private pipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -125,6 +127,48 @@ export class DialogOrgComponent implements OnInit {
 
   updateOrganization() {
     this.organization.value.created_at = this.editData.created_at;
+    if(typeof(this.organization.value.joiningDate)!='string'){
+      this.organization.value.joiningDate = `${this.organization.value.joiningDate._i.year}-${
+        this.organization.value.joiningDate._i.month + 1
+      }-${this.organization.value.joiningDate._i.date}`;
+      this.organization.value.joiningDate = this.pipe.transform(
+        this.organization.value.joiningDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.organization.value.joiningDate = this.pipe.transform(
+        this.organization.value.joiningDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.organization.value.relievingDate)!='string'){
+      this.organization.value.relievingDate = `${this.organization.value.relievingDate._i.year}-${
+        this.organization.value.relievingDate._i.month + 1
+      }-${this.organization.value.relievingDate._i.date}`;
+      this.organization.value.relievingDate = this.pipe.transform(
+        this.organization.value.relievingDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.organization.value.relievingDate = this.pipe.transform(
+        this.organization.value.relievingDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.organization.value.noticePeriodEndDate)!='string'){
+      this.organization.value.noticePeriodEndDate = `${this.organization.value.noticePeriodEndDate._i.year}-${
+        this.organization.value.noticePeriodEndDate._i.month + 1
+      }-${this.organization.value.noticePeriodEndDate._i.date}`;
+      this.organization.value.noticePeriodEndDate = this.pipe.transform(
+        this.organization.value.noticePeriodEndDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.organization.value.noticePeriodEndDate = this.pipe.transform(
+        this.organization.value.noticePeriodEndDate,
+        'YYYY-MM-dd'
+      );
+    }
     this.api
       .putOrganization(this.organization.value, this.editData.id)
       .subscribe({

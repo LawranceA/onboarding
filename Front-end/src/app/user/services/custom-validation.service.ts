@@ -19,7 +19,7 @@ export class CustomValidationService {
 
   emailValidator(control: FormControl) {
     if (
-      /^[a-zA-Z0-9._%+-]+@(?!gmail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)[a-zA-Z0-9_-]+.[a-zA-Z0-9-.]{2,61}$/.test(
+      /^[a-zA-Z0-9._%+-]+@(?!gmail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)(?!diggibyte.com)[a-zA-Z0-9_-]+.[a-zA-Z0-9-.]{2,61}$/.test(
         control.value
       )
     ) {

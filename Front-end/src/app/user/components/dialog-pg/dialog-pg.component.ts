@@ -26,6 +26,7 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-pg',
@@ -54,7 +55,8 @@ export class DialogPGComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogPGComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private api: Dialog10serviceService,
-    public validation: CustomValidationService
+    public validation: CustomValidationService,
+    private pipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -152,6 +154,34 @@ export class DialogPGComponent implements OnInit {
 
   updateData() {
     this.dialogPGForm.value.created_at = this.editData.created_at;
+    if(typeof(this.dialogPGForm.value.startDate)!='string'){
+      this.dialogPGForm.value.startDate = `${this.dialogPGForm.value.startDate._i.year}-${
+        this.dialogPGForm.value.startDate._i.month + 1
+      }-${this.dialogPGForm.value.startDate._i.date}`;
+      this.dialogPGForm.value.startDate = this.pipe.transform(
+        this.dialogPGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogPGForm.value.startDate = this.pipe.transform(
+        this.dialogPGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.dialogPGForm.value.endDate)!='string'){
+      this.dialogPGForm.value.endDate = `${this.dialogPGForm.value.endDate._i.year}-${
+        this.dialogPGForm.value.endDate._i.month + 1
+      }-${this.dialogPGForm.value.endDate._i.date}`;
+      this.dialogPGForm.value.endDate = this.pipe.transform(
+        this.dialogPGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogPGForm.value.endDate = this.pipe.transform(
+        this.dialogPGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }
     this.api.putEduaction(this.dialogPGForm.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

@@ -146,6 +146,34 @@ export class DialogComponent implements OnInit {
 
   updateData() {
     this.dialog10Form.value.created_at = this.editData.created_at;
+    if(typeof(this.dialog10Form.value.startDate)!='string'){
+      this.dialog10Form.value.startDate = `${this.dialog10Form.value.startDate._i.year}-${
+        this.dialog10Form.value.startDate._i.month + 1
+      }-${this.dialog10Form.value.startDate._i.date}`;
+      this.dialog10Form.value.startDate = this.pipe.transform(
+        this.dialog10Form.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialog10Form.value.startDate = this.pipe.transform(
+        this.dialog10Form.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.dialog10Form.value.endDate)!='string'){
+      this.dialog10Form.value.endDate = `${this.dialog10Form.value.endDate._i.year}-${
+        this.dialog10Form.value.endDate._i.month + 1
+      }-${this.dialog10Form.value.endDate._i.date}`;
+      this.dialog10Form.value.endDate = this.pipe.transform(
+        this.dialog10Form.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialog10Form.value.endDate = this.pipe.transform(
+        this.dialog10Form.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }
     this.api.putEduaction(this.dialog10Form.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

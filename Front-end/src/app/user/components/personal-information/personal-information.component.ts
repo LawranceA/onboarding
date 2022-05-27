@@ -618,6 +618,11 @@ export class PersonalInformationComponent implements OnInit {
         this.personalInformation.value.dob,
         'YYYY-MM-dd'
       );
+    }else{
+      this.personal_info.dob = this.pipe.transform(
+        this.personalInformation.value.dob,
+        'YYYY-MM-dd'
+      );
     }
   
     this.personal_info.photo = this.personalInformation.value.photo;
@@ -679,13 +684,13 @@ export class PersonalInformationComponent implements OnInit {
     this.addPermanentAddress();
     this.personal_info.created_at = this.created_at;
 
-    // this.userService.(this.personal_info).subscribe((data) => {
-    //   console.log(data);
-    // });
-    this.userService.addAddress(this.currentAddress).subscribe((data) => {
+    this.userService.putPersonalInfo(this.personal_info).subscribe((data) => {
+      
+    });
+    this.userService.putAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
     });
-    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
+    this.userService.putAddress(this.permanentAddres).subscribe((data) => {
       console.log(data);
     });
   }
