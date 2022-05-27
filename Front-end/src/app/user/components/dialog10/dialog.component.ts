@@ -156,27 +156,28 @@ export class DialogComponent implements OnInit {
 
     return '';
   }
-  dateValidators(){ 
+  
+  dateValidators(){
 
-    console.log("s") 
+    console.log("s")
 
-    let start=this.dialog10Form.value.startDate 
+    let start=this.dialog10Form.value.startDate
 
-    let end= this.dialog10Form.value.endDate 
+    let end= this.dialog10Form.value.endDate
 
-    if(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)){ 
+    if(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)){
 
-      console.log(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)) 
+      console.log(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`))
 
-        this.dateValidator=false 
+        this.dateValidator=false
 
-        console.log(this.dateValidator) 
+        console.log(this.dateValidator)
 
-    }else{ 
+    }else{
 
-      this.dateValidator=true 
+      this.dateValidator=true
 
-    } 
+    }
 
-  } 
+  }
 }

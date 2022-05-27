@@ -51,6 +51,7 @@ export class PersonalInformationComponent implements OnInit {
   display1: any = 'block';
   display2: any = 'none';
   created_at: any;
+  photo_src:any = ''
 
   genders = ['Male', 'Female', 'Others'];
   cities = [
@@ -90,7 +91,7 @@ export class PersonalInformationComponent implements OnInit {
     'Dehradun, Gairsain (Summer)',
     'Kolkata',
   ];
-  
+
   states = [
     'Andaman & Nicobar',
     'Andhra Pradesh',
@@ -412,7 +413,10 @@ export class PersonalInformationComponent implements OnInit {
 
     gender: new FormControl('', [Validators.required]),
 
-    photo: new FormControl('', [Validators.required,Validators.pattern("(.*?)\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$")]),
+    photo: new FormControl('', [
+      Validators.required,
+      Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
+    ]),
 
     father_name: new FormControl('', [
       Validators.required,
@@ -422,9 +426,15 @@ export class PersonalInformationComponent implements OnInit {
     current: new FormGroup({
       house_no: new FormControl('', Validators.minLength(1)),
 
-      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      street: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
-      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      locality: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
       city: new FormControl('', Validators.required),
 
@@ -442,9 +452,15 @@ export class PersonalInformationComponent implements OnInit {
     permanent: new FormGroup({
       house_no: new FormControl('', Validators.minLength(1)),
 
-      street: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      street: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
-      locality: new FormControl('', [Validators.required,Validators.minLength(2)]),
+      locality: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
 
       city: new FormControl('', Validators.required),
 
@@ -515,11 +531,15 @@ export class PersonalInformationComponent implements OnInit {
     this.personal_info.alternate_number =
       this.personalInformation.value.alternate_number;
     this.personal_info.gender = this.personalInformation.value.gender;
+    this.personal_info.dob = `${this.personalInformation.value.dob._i.year}-${
+      this.personalInformation.value.dob._i.month + 1
+    }-${this.personalInformation.value.dob._i.date}`;
     this.personal_info.dob = this.pipe.transform(
       this.personalInformation.value.dob,
       'YYYY-MM-dd'
     );
     this.personal_info.photo = this.personalInformation.value.photo;
+    this.personal_info.father_name = this.personalInformation.value.father_name;
     this.personal_info.created_at = new Date();
     this.personal_info.updated_at = new Date();
     this.personal_info.updated_by = this.tokenStorage.getName();
@@ -616,9 +636,9 @@ export class PersonalInformationComponent implements OnInit {
           this.personalInformation.controls['gender'].setValue(
             this.data[0].personal_info.gender
           );
-          // this.personalInformation.controls['photo'].setValue(
-          //   this.data[0].personal_info.photo
-          // );
+          this.personalInformation.controls['father_name'].setValue(
+            this.data[0].personal_info.father_name
+          );
           for (let i = 0; i <= this.data[0].address.length; i++) {
             if (this.data[0].address[i].type == 'current') {
               this.personalInformation.patchValue({
@@ -691,5 +711,9 @@ export class PersonalInformationComponent implements OnInit {
       return 'Photo must be uploaded';
     }
     return '';
+  }
+
+  fileChange(e:Event){
+   
   }
 }

@@ -8,7 +8,7 @@
 
         <input
           type="text"
-         
+
           matInput
           placeholder="first_name"
           type="text"
@@ -184,7 +184,7 @@
       <div class="uploadContainer">
         <label for="photo">Photo</label>
 
-        <input type="file" name="photo" id="photo" formControlName="photo" />
+        <input type="file" name="photo" id="photo" formControlName="photo"  (change)="fileChange($event)"/>
 
         <mat-error
           *ngIf="personalInformation.get('photo')?.errors?.['required'] && personalInformation.get('photo')?.touched"
@@ -292,7 +292,7 @@
           <mat-label for="city">City</mat-label>
 
           <mat-select formControlName="city" id="city" name="city">
-           
+
             <mat-option *ngFor="let city of cities" [value]="city">
               {{ city }}
             </mat-option>
@@ -489,7 +489,7 @@
 
           <mat-error
             *ngIf="
-              
+
               this.personalInformation.get('permanent.state')?.touched
             "
             >Please select a state</mat-error
@@ -518,7 +518,7 @@
         class="btn-primary"
         type="submit"
         [ngStyle]="{ display: display1 }"
-        
+
         (click)="onSubmit()"
       >
         Save

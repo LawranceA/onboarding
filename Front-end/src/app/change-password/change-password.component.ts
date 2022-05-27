@@ -21,7 +21,7 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   changeForm = new FormGroup({
-    email: new FormControl('',[Validators.required, Validators.email,Validators.pattern("/^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/")]),
+    email: new FormControl('',[Validators.required, Validators.email,Validators.pattern("^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$")]),
     password: new FormControl('', [Validators.required,Validators.pattern("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$")]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
@@ -42,7 +42,7 @@ export class ChangePasswordComponent implements OnInit {
     e.preventDefault();
     this.changeForm.value.status = 'yes';
     this.userData.changePassword(this.changeForm.value).subscribe((data) => {
-      
+
       if (data.message == 'Password Updated successfully') {
         console.log('Inside subscribe');
         localStorage.setItem('passChange','yes')
