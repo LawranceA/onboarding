@@ -8,7 +8,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { DatePipe, formatDate, JsonPipe } from '@angular/common';
-import { filter } from 'rxjs';
+import { filter, map, Observable, startWith } from 'rxjs';
 import { personalInfo } from '../../structure/personal-info';
 import { Address } from '../../structure/address';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -48,12 +48,16 @@ import { CustomValidationService } from '../../services/custom-validation.servic
 })
 export class PersonalInformationComponent implements OnInit {
   data: any;
+  //to make submit and update buttons visible and hidden
   display1: any = 'block';
   display2: any = 'none';
+  //field for personal,CurrentAddress,PermanentAddress
   created_at: any;
   photo_src:any = ''
 
   genders = ['Male', 'Female', 'Others'];
+  
+
   cities = [
     'Port Blair',
     'Amaravati',
@@ -372,17 +376,33 @@ export class PersonalInformationComponent implements OnInit {
   ];
 
   display: boolean = false;
+  //instances and objects
+  personal_info: personalInfo = new personalInfo();
+  currentAddress: any;
+  permanentAddres: any;
+  //for select search
+  selectedStates = this.states;
+  selectedCities = this.cities;
+  selectCountries = this.countries;
 
+  constructor(
+    private router: Router,
+    private tokenStorage: TokenStorageService,
+    private userService: UserDataService,
+    private pipe: DatePipe,
+    public validation: CustomValidationService
+  ) {}
+  //declaring and initializing form group
   personalInformation = new FormGroup({
     first_name: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      this.validation.nameValidator,
+      this.validation.characterValidator,
     ]),
 
     last_name: new FormControl('', [
       Validators.required,
-      this.validation.nameValidator,
+      this.validation.characterValidator,
     ]),
 
     dob: new FormControl('', [Validators.required]),
@@ -420,7 +440,8 @@ export class PersonalInformationComponent implements OnInit {
 
     father_name: new FormControl('', [
       Validators.required,
-      this.validation.nameValidator,
+
+      this.validation.characterValidator,
     ]),
 
     current: new FormGroup({
@@ -475,6 +496,7 @@ export class PersonalInformationComponent implements OnInit {
       ]),
     }),
   });
+<<<<<<< HEAD
 
   personal_info: personalInfo = new personalInfo();
   currentAddress: any;
@@ -603,6 +625,8 @@ export class PersonalInformationComponent implements OnInit {
     });
   }
 
+=======
+>>>>>>> 9a895c2e11a78f46226f59948e9acf49e750ba0e
   ngOnInit(): void {
     this.userService
       .getPersonalInfoData(this.tokenStorage.getID())
@@ -669,48 +693,195 @@ export class PersonalInformationComponent implements OnInit {
         }
       });
   }
+  //on click next navigate to next page
+  next() {
+    this.router.navigateByUrl('/user/details/educational-qualification');
+  }
+  //on checking address check box copy the fields of current to permanent
+  copy(e: Event) {
+    this.display = !this.display;
 
-  // numberValidation(control: FormControl):ValidatorFn {
-  //   let no = control.value;
-  //   let regex = new RegExp('^[6-9]{1}[0-9]{9}$');
-  //   if (no.length > 10 || regex.test(no)) {
-  //     return { numberValidation: true };
-  //   } else {
-  //     return null;
-  //   }
-  // }
+    if (this.display) {
+      this.personalInformation.patchValue({
+        permanent: {
+          house_no: this.personalInformation.value.current.house_no,
+          street: this.personalInformation.value.current.street,
+          locality: this.personalInformation.value.current.locality,
+          city: this.personalInformation.value.current.city,
+          state: this.personalInformation.value.current.state,
+          country: this.personalInformation.value.current.country,
+          pincode: this.personalInformation.value.current.pincode,
+        },
+      });
+    } else {
+      this.personalInformation.patchValue({
+        permanent: {
+          house_no: '',
+          street: '',
+          locality: '',
+          city: '',
+          state: '',
+          country: '',
+          pincode: '',
+        },
+      });
+    }
+  }
 
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.personalInformation.get('email')?.getError('required') ||
-      this.personalInformation.get('first_name')?.getError('required') ||
-      this.personalInformation.get('last_name')?.getError('required') ||
-      this.personalInformation.get('dob')?.getError('required') ||
-      this.personalInformation.get('personal_email')?.getError('required') ||
-      this.personalInformation.get('mobile_number')?.getError('required') ||
-      this.personalInformation.get('alternate_number')?.getError('required') ||
-      this.personalInformation.get('gender')?.getError('required') ||
-      this.personalInformation.get('father_name')?.getError('required') ||
-      this.personalInformation.get('house_no')?.getError('required') ||
-      this.personalInformation.get('city')?.getError('required') ||
-      this.personalInformation.get('country')?.getError('required') ||
-      this.personalInformation.get('state')?.getError('required') ||
-      this.personalInformation.get('pincode')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-    if (
-      this.personalInformation.get('mobile_number')?.hasError('pattern') ||
-      this.personalInformation.get('alternate_number')?.hasError('pattern')
-    ) {
-      return 'Enter a valid mobile number';
-    }
+  //to add personal info to personal info instance
+  addPersonalInfoData() {
+    this.personal_info.first_name = this.personalInformation.value.first_name;
+    this.personal_info.last_name = this.personalInformation.value.last_name;
+    this.personal_info.personal_email =
+      this.personalInformation.value.personal_email;
+    this.personal_info.mobile_number =
+      this.personalInformation.value.mobile_number;
+    this.personal_info.alternate_number =
+      this.personalInformation.value.alternate_number;
+    this.personal_info.gender = this.personalInformation.value.gender;
+    this.personal_info.dob = this.pipe.transform(
+      this.personalInformation.value.dob,
+      'YYYY-MM-dd'
+    );
+    this.personal_info.photo = this.personalInformation.value.photo;
+    this.personal_info.created_at = new Date();
+    this.personal_info.updated_at = new Date();
+    this.personal_info.updated_by = this.tokenStorage.getName();
+    this.personal_info.fk_person_users_id = this.tokenStorage.getID();
+    // console.log(this.personal_info.created_at);
+  }
 
-    if (this.personalInformation.get('photo')?.getError('required')) {
-      return 'Photo must be uploaded';
+   //to add current address info to current address info object
+  addCurrentAddress() {
+    this.personalInformation.value.current.type = 'current';
+    this.personalInformation.value.current.created_at = new Date();
+    this.personalInformation.value.current.updated_at = new Date();
+    this.personalInformation.value.current.updated_by =
+      this.tokenStorage.getName();
+    this.personalInformation.value.current.fk_address_users_id =
+      this.tokenStorage.getID();
+    this.currentAddress = this.personalInformation.value.current;
+    // console.log(this.currentAddress);
+  }
+
+  //to add permanent address info to permanent address info object
+  addPermanentAddress() {
+    this.personalInformation.value.permanent.type = 'permanent';
+    this.personalInformation.value.permanent.created_at = new Date();
+    this.personalInformation.value.permanent.updated_at = new Date();
+    this.personalInformation.value.permanent.updated_by =
+      this.tokenStorage.getName();
+    this.personalInformation.value.permanent.fk_address_users_id =
+      this.tokenStorage.getID();
+    this.permanentAddres = this.personalInformation.value.permanent;
+    // console.log(this.permanentAddres);
+  }
+  //on submitting button
+  onSubmit() {
+    console.log(this.personalInformation.value);
+    this.display1 = 'none';
+    this.display2 = 'block';
+    this.addPersonalInfoData();
+    this.addCurrentAddress();
+    this.addPermanentAddress();
+    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.currentAddress).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
+      console.log(data);
+    });
+  }
+  //  update personal DATA
+  onUpdate() {
+    this.addPersonalInfoData();
+    this.addCurrentAddress();
+    this.addPermanentAddress();
+    this.personal_info.created_at = this.created_at;
+
+    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.currentAddress).subscribe((data) => {
+      console.log(data);
+    });
+    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
+      console.log(data);
+    });
+  }
+ //for search bar in option field
+  onKey(value: any, control: any) {
+    if (control == 'cities') {
+      this.selectedCities = this.search(value.target.value, 'cities');
+    } else if (control == 'state') {
+      this.selectedStates = this.search(value.target.value, 'state');
+    } else if (control == 'country') {
+      console.log(value);
+      this.selectCountries = this.search(value.target.value, 'country');
     }
-    return '';
+  }
+  search(value: string, control: any) {
+    let filter = value.toLowerCase();
+    if (control == 'cities') {
+      return this.cities.filter((option) =>
+        option.toLowerCase().startsWith(filter)
+      );
+    } else if (control == 'state') {
+      return this.states.filter((option) =>
+        option.toLowerCase().startsWith(filter)
+      );
+    } else if (control == 'country') {
+      return this.countries.filter((option) =>
+        option.toLowerCase().startsWith(filter)
+      );
+    }
+    return [''];
+  }
+  // to set value the the select field
+  changeClient(event: any, form: any, control: any) {
+    if (form == 'current') {
+      if (control == 'country') {
+        this.personalInformation.patchValue({
+          current: {
+            country: event,
+          },
+        });
+      } else if (control == 'state') {
+        this.personalInformation.patchValue({
+          current: {
+            state: event,
+          },
+        });
+      } else if (control == 'city') {
+        this.personalInformation.patchValue({
+          current: {
+            city: event,
+          },
+        });
+      }
+    } else if (form == 'permanent') {
+      if (control == 'country') {
+        this.personalInformation.patchValue({
+          permanent: {
+            country: event,
+          },
+        });
+      } else if (control == 'state') {
+        this.personalInformation.patchValue({
+          permanent: {
+            state: event,
+          },
+        });
+      } else if (control == 'city') {
+        this.personalInformation.patchValue({
+          permanent: {
+            city: event,
+          },
+        });
+      }
+    }
   }
 
   fileChange(e:Event){

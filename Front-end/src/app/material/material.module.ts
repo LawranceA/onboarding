@@ -18,7 +18,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatSelectFilterModule } from 'mat-select-filter';
 const materialComponents = [
   MatButtonModule,
   MatToolbarModule,
@@ -39,6 +40,8 @@ const materialComponents = [
   MatPaginatorModule,
   MatSortModule,
   MatButtonToggleModule,
+  MatAutocompleteModule,
+  MatSelectFilterModule
 ];
 
 @NgModule({
