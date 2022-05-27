@@ -496,142 +496,12 @@ export class PersonalInformationComponent implements OnInit {
       ]),
     }),
   });
-<<<<<<< HEAD
-
-  personal_info: personalInfo = new personalInfo();
-  currentAddress: any;
-  permanentAddres: any;
-
-  constructor(
-    private router: Router,
-    private tokenStorage: TokenStorageService,
-    private userService: UserDataService,
-    private pipe: DatePipe,
-    public validation: CustomValidationService
-  ) {}
-
-  next() {
-    this.router.navigateByUrl('/user/details/educational-qualification');
-  }
-
-  copy(e: Event) {
-    this.display = !this.display;
-
-    if (this.display) {
-      this.personalInformation.patchValue({
-        permanent: {
-          house_no: this.personalInformation.value.current.house_no,
-          street: this.personalInformation.value.current.street,
-          locality: this.personalInformation.value.current.locality,
-          city: this.personalInformation.value.current.city,
-          state: this.personalInformation.value.current.state,
-          country: this.personalInformation.value.current.country,
-          pincode: this.personalInformation.value.current.pincode,
-        },
-      });
-    } else {
-      this.personalInformation.patchValue({
-        permanent: {
-          house_no: '',
-          street: '',
-          locality: '',
-          city: '',
-          state: '',
-          country: '',
-          pincode: '',
-        },
-      });
-    }
-  }
-  addPersonalInfoData() {
-    this.personal_info.first_name = this.personalInformation.value.first_name;
-    this.personal_info.last_name = this.personalInformation.value.last_name;
-    this.personal_info.personal_email =
-      this.personalInformation.value.personal_email;
-    this.personal_info.mobile_number =
-      this.personalInformation.value.mobile_number;
-    this.personal_info.alternate_number =
-      this.personalInformation.value.alternate_number;
-    this.personal_info.gender = this.personalInformation.value.gender;
-    this.personal_info.dob = `${this.personalInformation.value.dob._i.year}-${
-      this.personalInformation.value.dob._i.month + 1
-    }-${this.personalInformation.value.dob._i.date}`;
-    this.personal_info.dob = this.pipe.transform(
-      this.personalInformation.value.dob,
-      'YYYY-MM-dd'
-    );
-    this.personal_info.photo = this.personalInformation.value.photo;
-    this.personal_info.father_name = this.personalInformation.value.father_name;
-    this.personal_info.created_at = new Date();
-    this.personal_info.updated_at = new Date();
-    this.personal_info.updated_by = this.tokenStorage.getName();
-    this.personal_info.fk_person_users_id = this.tokenStorage.getID();
-    // console.log(this.personal_info.created_at);
-  }
-  addCurrentAddress() {
-    this.personalInformation.value.current.type = 'current';
-    this.personalInformation.value.current.created_at = new Date();
-    this.personalInformation.value.current.updated_at = new Date();
-    this.personalInformation.value.current.updated_by =
-      this.tokenStorage.getName();
-    this.personalInformation.value.current.fk_address_users_id =
-      this.tokenStorage.getID();
-    this.currentAddress = this.personalInformation.value.current;
-    // console.log(this.currentAddress);
-  }
-  addPermanentAddress() {
-    this.personalInformation.value.permanent.type = 'permanent';
-    this.personalInformation.value.permanent.created_at = new Date();
-    this.personalInformation.value.permanent.updated_at = new Date();
-    this.personalInformation.value.permanent.updated_by =
-      this.tokenStorage.getName();
-    this.personalInformation.value.permanent.fk_address_users_id =
-      this.tokenStorage.getID();
-    this.permanentAddres = this.personalInformation.value.permanent;
-    // console.log(this.permanentAddres);
-  }
-  onSubmit() {
-    console.log(this.personalInformation);
-    this.display1 = 'none';
-    this.display2 = 'block';
-    this.addPersonalInfoData();
-    this.addCurrentAddress();
-    this.addPermanentAddress();
-    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
-      console.log(data);
-    });
-    this.userService.addAddress(this.currentAddress).subscribe((data) => {
-      console.log(data);
-    });
-    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
-      console.log(data);
-    });
-  }
-  //  update personal DATA
-  onUpdate() {
-    this.addPersonalInfoData();
-    this.addCurrentAddress();
-    this.addPermanentAddress();
-    this.personal_info.created_at = this.created_at;
-
-    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
-      console.log(data);
-    });
-    this.userService.addAddress(this.currentAddress).subscribe((data) => {
-      console.log(data);
-    });
-    this.userService.addAddress(this.permanentAddres).subscribe((data) => {
-      console.log(data);
-    });
-  }
-
-=======
->>>>>>> 9a895c2e11a78f46226f59948e9acf49e750ba0e
   ngOnInit(): void {
     this.userService
       .getPersonalInfoData(this.tokenStorage.getID())
       .subscribe((res) => {
         this.data = res;
+        console.log(res)
         console.log(this.data);
         if (res[0].address.length != 0) {
           this.display1 = 'none';
@@ -730,6 +600,7 @@ export class PersonalInformationComponent implements OnInit {
 
   //to add personal info to personal info instance
   addPersonalInfoData() {
+    console.log(this.personalInformation.value.first_name)
     this.personal_info.first_name = this.personalInformation.value.first_name;
     this.personal_info.last_name = this.personalInformation.value.last_name;
     this.personal_info.personal_email =
@@ -739,11 +610,18 @@ export class PersonalInformationComponent implements OnInit {
     this.personal_info.alternate_number =
       this.personalInformation.value.alternate_number;
     this.personal_info.gender = this.personalInformation.value.gender;
-    this.personal_info.dob = this.pipe.transform(
-      this.personalInformation.value.dob,
-      'YYYY-MM-dd'
-    );
+    if(typeof(this.personalInformation.value.dob)!='string'){
+      this.personal_info.dob = `${this.personalInformation.value.dob._i.year}-${
+        this.personalInformation.value.dob._i.month + 1
+      }-${this.personalInformation.value.dob._i.date}`;
+      this.personal_info.dob = this.pipe.transform(
+        this.personalInformation.value.dob,
+        'YYYY-MM-dd'
+      );
+    }
+  
     this.personal_info.photo = this.personalInformation.value.photo;
+    this.personal_info.father_name = this.personalInformation.value.father_name;
     this.personal_info.created_at = new Date();
     this.personal_info.updated_at = new Date();
     this.personal_info.updated_by = this.tokenStorage.getName();
@@ -801,9 +679,9 @@ export class PersonalInformationComponent implements OnInit {
     this.addPermanentAddress();
     this.personal_info.created_at = this.created_at;
 
-    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
-      console.log(data);
-    });
+    // this.userService.(this.personal_info).subscribe((data) => {
+    //   console.log(data);
+    // });
     this.userService.addAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
     });

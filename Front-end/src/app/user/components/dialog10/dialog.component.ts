@@ -25,7 +25,7 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
-
+import { DatePipe, formatDate, JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -46,6 +46,7 @@ export class DialogComponent implements OnInit {
   actionBtn: String = 'Save';
 
   dateValidator = true
+ 
 
   constructor(
     private fs: FormBuilder,
@@ -53,7 +54,8 @@ export class DialogComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    public validation: CustomValidationService
+    public validation: CustomValidationService,
+    private pipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -103,12 +105,27 @@ export class DialogComponent implements OnInit {
 
   // Adding the 10 education data
   add10Form() {
-    console.log(this.dialog10Form);
+    if (!this.editData) {
+
+    this.dialog10Form.value.startDate = `${this.dialog10Form.value.startDate._i.year}-${
+      this.dialog10Form.value.startDate._i.month + 1
+    }-${this.dialog10Form.value.startDate._i.date}`;
+    this.dialog10Form.value.startDate = this.pipe.transform(
+      this.dialog10Form.value.startDate,
+      'YYYY-MM-dd'
+    );
+    this.dialog10Form.value.endDate = `${this.dialog10Form.value.endDate._i.year}-${
+      this.dialog10Form.value.endDate._i.month + 1
+    }-${this.dialog10Form.value.endDate._i.date}`;
+    this.dialog10Form.value.endDate = this.pipe.transform(
+      this.dialog10Form.value.endDate,
+      'YYYY-MM-dd'
+    );
     this.dialog10Form.value.created_at = new Date();
     this.dialog10Form.value.updated_at = new Date();
     this.dialog10Form.value.updated_by = this.tokenStorage.getName();
     this.dialog10Form.value.fk_education_users_id = this.tokenStorage.getID();
-    if (!this.editData) {
+    
       if (this.dialog10Form.valid) {
         this.api.postEducation(this.dialog10Form.value).subscribe({
           next: (res) => {
@@ -122,6 +139,7 @@ export class DialogComponent implements OnInit {
         });
       }
     } else {
+      console.log("entering")
       this.updateData();
     }
   }

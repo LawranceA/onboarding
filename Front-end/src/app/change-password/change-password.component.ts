@@ -23,13 +23,9 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   changeForm = new FormGroup({
-<<<<<<< HEAD
-    email: new FormControl('',[Validators.required, Validators.email,Validators.pattern("^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$")]),
-    password: new FormControl('', [Validators.required,Validators.pattern("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$")]),
-=======
+
     email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
     password: new FormControl('', [Validators.required,Validators.pattern("^([a-zA-Z0-9@*#^&%!]{8,15})$")]),
->>>>>>> 9a895c2e11a78f46226f59948e9acf49e750ba0e
     confirmPassword: new FormControl('', [Validators.required]),
   });
 

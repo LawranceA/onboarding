@@ -25,6 +25,13 @@ export class UserDataService {
       headers: this.header,
     });
   }
+  //update personal_info
+  putPersonalInfo(data: Object): Observable<Object> {
+    console.log(JSON.stringify(this.tokenStorage.getToken()));
+    return this.http.post(`${this.api}/updatePersonalInfo`, data, {
+      headers: this.header,
+    });
+  }
   //api for add address
   addAddress(data: Object): Observable<Object> {
     console.log(JSON.stringify(this.tokenStorage.getToken()));

@@ -320,8 +320,17 @@
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
 
-          <mat-select formControlName="city" id="city" name="city">
-            <mat-option *ngFor="let city of cities" [value]="city">
+          <mat-select formControlName="city" id="city" name="city" (selectionChange)="changeClient($event.value, 'current', 'city')">
+            <input
+            matInput
+            type="text"
+            id="city"
+            name="city"
+            (keyup)="onKey($event, 'cities')"
+            class="dropdown"
+            placeholder="Search"
+          />
+            <mat-option *ngFor="let city of selectedCities" [value]="city">
               {{ city }}
             </mat-option>
           </mat-select>

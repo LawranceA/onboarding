@@ -20,7 +20,7 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
-
+import { DatePipe, formatDate, JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-dialog12',
   templateUrl: './dialog12.component.html',
@@ -48,7 +48,8 @@ export class Dialog12Component implements OnInit {
     private dialogRef: MatDialogRef<Dialog12Component>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private api: Dialog10serviceService,
-    public validation: CustomValidationService
+    public validation: CustomValidationService,
+    private pipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +89,20 @@ export class Dialog12Component implements OnInit {
 
   // Adding the 10 education data
   add12Form() {
-    console.log(this.dialog12Form.value);
+    this.dialog12Form.value.startDate = `${this.dialog12Form.value.startDate._i.year}-${
+      this.dialog12Form.value.startDate._i.month + 1
+    }-${this.dialog12Form.value.startDate._i.date}`;
+    this.dialog12Form.value.startDate = this.pipe.transform(
+      this.dialog12Form.value.startDate,
+      'YYYY-MM-dd'
+    );
+    this.dialog12Form.value.endDate = `${this.dialog12Form.value.endDate._i.year}-${
+      this.dialog12Form.value.endDate._i.month + 1
+    }-${this.dialog12Form.value.endDate._i.date}`;
+    this.dialog12Form.value.endDate = this.pipe.transform(
+      this.dialog12Form.value.endDate,
+      'YYYY-MM-dd'
+    );
     this.dialog12Form.value.created_at = new Date();
     this.dialog12Form.value.updated_at = new Date();
     this.dialog12Form.value.updated_by = this.tokenStorage.getName();
