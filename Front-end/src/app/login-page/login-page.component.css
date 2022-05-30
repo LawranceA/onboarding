@@ -17,7 +17,12 @@ color: white ;
 
 }
 
-
+.fg-pass{
+  align-self: flex-start;
+  margin-left: .5rem;
+  color: #fb7d2e;
+  padding-bottom: 1rem;
+}
 
 .success p{
 

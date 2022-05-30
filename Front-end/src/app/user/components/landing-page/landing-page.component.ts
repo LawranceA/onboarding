@@ -8,6 +8,7 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { UserDataService } from '../../services/user-data.service';
 
 
 
@@ -28,9 +29,10 @@ export class LandingPageComponent implements OnInit {
  faAngleRight = faAngleRight;
   
 
-  constructor() { }
+  constructor(private service:UserDataService) { }
 
   ngOnInit(): void {
+   
   }
 
 }
