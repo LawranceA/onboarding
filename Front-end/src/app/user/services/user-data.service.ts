@@ -16,6 +16,7 @@ export class UserDataService {
     'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
   });
+
   private api =
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
   //api for add personal Info
@@ -95,4 +96,5 @@ export class UserDataService {
       headers: this.header,
     });
   }
+  
 }

@@ -30,5 +30,10 @@ export class AuthServiceService {
       { email: username, password: password, role: role },
       { headers: this.header }
     );
-  }
+  }forgotPasswordMail(data:any):Observable<any>{
+
+    return this.httpClient.post(`${this.api}/forgotPasswordMailed`, data, {
+        headers: this.header,
+      });
+    }
 }
