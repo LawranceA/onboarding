@@ -36,4 +36,10 @@ export class AuthServiceService {
         headers: this.header,
       });
     }
+    checkNupdatePass(data:any):Observable<any>{
+
+      return this.httpClient.post(`${this.api}/checkPass`, data, {
+          headers: this.header,
+        });
+      }
 }

@@ -19,8 +19,10 @@ email=''
   }
   next(){
     console.log(this.email)
+    localStorage.setItem("mail",this.email)
     this.service.forgotPasswordMail({email:this.email}).subscribe(data=>{
-      if (data.message="Email sent"){
+      console.log(data)
+      if (data.message=="Password Updated successfully"){
         this.router.navigate([`../createPassword`]);
       }
     })
