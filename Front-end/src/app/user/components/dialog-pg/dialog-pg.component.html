@@ -21,6 +21,7 @@
         id="School"
         name="School"
         formControlName="School"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogPGForm.get('School')?.errors?.['required'] && dialogPGForm.get('School')?.pristine || dialogPGForm.get('School')?.value.length==0"
@@ -41,6 +42,7 @@
         id="course"
         name="course"
         formControlName="course"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogPGForm.get('course')?.errors?.['required'] && dialogPGForm.get('course')?.pristine || dialogPGForm.get('course')?.value.length==0"
@@ -60,6 +62,7 @@
         id="specialization"
         name="specialization"
         formControlName="specialization"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogPGForm.get('specialization')?.errors?.['required'] && dialogPGForm.get('specialization')?.pristine || dialogPGForm.get('specialization')?.value.length==0"
@@ -79,6 +82,7 @@
         id="board"
         name="board"
         formControlName="board"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogPGForm.get('board')?.errors?.['required'] && dialogPGForm.get('board')?.pristine || dialogPGForm.get('board')?.value.length==0"
@@ -145,6 +149,8 @@
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
         />
+        <mat-hint *ngIf="!this.dateValidator"
+    >End date must be greater than start date</mat-hint>
         <mat-error
         *ngIf="dialogPGForm.get('endDate')?.errors?.['required'] && dialogPGForm.get('endDate')?.pristine || dialogPGForm.get('endDate')?.value.length==0"
         >Please select end date</mat-error
@@ -153,8 +159,7 @@
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
-    <small *ngIf="!this.dateValidator"
-    >End date must be greater than start date</small>
+    
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>

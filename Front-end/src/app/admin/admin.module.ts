@@ -18,6 +18,7 @@ import { ImgViewComponent } from './components/files-uploaded/img-view/img-view.
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { AdminServiceService } from './admin-service.service';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
 

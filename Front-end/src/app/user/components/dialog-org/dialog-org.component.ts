@@ -59,16 +59,16 @@ export class DialogOrgComponent implements OnInit {
 
   ngOnInit(): void {
     this.organization = this.fs.group({
-      organizationName: ['',  [Validators.required, this.validation.characterValidator]],
-      joiningDate: ['', Validators.required],
-      relievingDate: ['', Validators.required],
-      hr_name: ['',  [Validators.required, this.validation.characterValidator]],
-      relievingLetter: ['', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      offerLetter: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip1: ['', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip2: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip3: ['',  [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      noticePeriodEndDate: ['', Validators.required],
+      organizationName: ['',  [this.validation.characterValidator]],
+      joiningDate: [''],
+      relievingDate: [''],
+      hr_name: ['',  [this.validation.characterValidator]],
+      relievingLetter: ['', [Validators.pattern("(.*?)\.(pdf)$")]],
+      offerLetter: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip1: ['', [Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip2: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
+      payslip3: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
+      noticePeriodEndDate: [''],
     });
 
     //  console.log(this.editData)

@@ -28,6 +28,7 @@ mat-paginator {
   color: #014868;
   line-height: 2.5;
 }
+.mat-column-emp_id,
 .mat-column-name,
 .mat-column-email,
 .mat-column-phoneno,

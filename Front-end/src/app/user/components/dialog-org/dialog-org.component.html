@@ -9,15 +9,16 @@
         id="organizationName"
         name="organizationName"
         formControlName="organizationName"
+        style="text-transform:capitalize;"
       />
-      <mat-error
+      <!-- <mat-error
       *ngIf="organization.get('organizationName')?.errors?.['required'] && organization.get('organizationName')?.pristine || organization.get('organizationName')?.value.length==0"
       >Organization name is required</mat-error
-    >
+    > -->
 
     <mat-error
       *ngIf="organization.get('organizationName')?.errors?.['characterValidator'] && organization.get('organizationName')?.dirty && organization.get('organizationName')?.value.length>0"
-      >Digits and special characters are not allowed</mat-error
+      >Organization name is invalid</mat-error
     >
     </mat-form-field>
 
@@ -70,15 +71,16 @@
         id="hr_name"
         name="hr_name"
         formControlName="hr_name"
+        style="text-transform:capitalize;"
       />
-      <mat-error
+      <!-- <mat-error
       *ngIf="organization.get('hr_name')?.errors?.['required'] && organization.get('hr_name')?.pristine || organization.get('hr_name')?.value.length==0"
       >HR name is required</mat-error
-    >
+    > -->
 
     <mat-error
       *ngIf="organization.get('hr_name')?.errors?.['characterValidator'] && organization.get('hr_name')?.dirty && organization.get('hr_name')?.value.length>0"
-      >Digits and special characters are not allowed</mat-error
+      >HR name is invalid</mat-error
     >
     </mat-form-field>
 

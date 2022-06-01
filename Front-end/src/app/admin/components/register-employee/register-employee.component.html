@@ -10,6 +10,13 @@
             placeholder="Enter Employee ID"
             formControlName="id"
           />
+          <mat-error *ngIf="regForm.get('id')?.invalid && (regForm.get('id')?.dirty || regForm.get('id')?.touched) && regForm.get('id')?.errors?.required">
+            Employee ID is required
+         </mat-error>
+           <mat-error *ngIf="
+           !regForm.get('id')?.errors?.required && regForm.get('id')?.errors?.pattern">
+           Please enter valid Employee ID as DB0001
+           </mat-error>
         </mat-form-field>
       </p>
       <p>
@@ -19,23 +26,51 @@
             matInput
             placeholder="Enter Full Name"
             formControlName="name"
+            style="text-transform:capitalize;"
           />
+          <mat-error
+          *ngIf="regForm.get('name')?.errors?.['required'] && regForm.get('name')?.pristine || regForm.get('name')?.value.length==0"
+          >Name is required</mat-error
+        >
+  
+        <mat-error
+          *ngIf="regForm.get('name')?.errors?.['characterValidator'] && regForm.get('name')?.dirty && regForm.get('name')?.value.length>0"
+          >Digits are not allowed</mat-error
+        >
         </mat-form-field>
       </p>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email ID</mat-label>
           <input matInput placeholder="Enter Email" formControlName="email" />
+          <mat-error
+          *ngIf="regForm.get('email')?.errors?.['required'] && regForm.get('email')?.pristine || regForm.get('email')?.value.length==0"
+          >Email is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="regForm.get('email')?.errors?.['emailValidator'] || regForm.get('email')?.errors?.['email']  && regForm.get('email')?.dirty && regForm.get('email')?.value.length>0"
+          >Enter a valid email id</mat-error
+        >
         </mat-form-field>
       </p>
       <p>
         <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
+          <mat-label>Mobile Number</mat-label>
           <input
             matInput
-            placeholder="Enter Phone Number"
+            placeholder="Enter Mobile Number"
             formControlName="phone_number"
           />
+          <mat-error
+          *ngIf="regForm.get('phone_number')?.errors?.['required'] && regForm.get('phone_number')?.pristine || regForm.get('phone_number')?.value.length==0"
+          >Mobile number is required</mat-error
+        >
+
+        <mat-error
+          *ngIf="regForm.get('phone_number')?.errors?.['pattern'] && regForm.get('phone_number')?.dirty && regForm.get('phone_number')?.value.length>0"
+          >Enter a valid mobile number</mat-error
+        >
         </mat-form-field>
       </p>
       <p>
@@ -49,6 +84,13 @@
               {{ designation }}
             </mat-option>
           </mat-select>
+          <mat-error
+          *ngIf="
+            this.regForm.get('designation')?.invalid &&
+            this.regForm.get('designation')?.touched
+          "
+          >Please select a designation</mat-error
+        >
         </mat-form-field>
       </p>
       <p>

@@ -10,20 +10,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 const ELEMENT_DATA = [
   {
+    emp_id:'DB0001',
     name: 'xyz',
     email: 'askhorchaour@gmail.com',
     phoneno: '9845639021',
-    doj: '2020-02-02',
-    updated: '20220-09-09',
+    doj: '2/02/2021',
+    updated: '3/02/2021',
     status: '',
   },
 
   {
+    emp_id:'DB0002',
     name: 'abc',
     email: 'askhorChaour@gmail.com',
     phoneno: '9845639021',
-    doj: '2020-02-02',
-    updated: '20220-09-09',
+    doj: '16/02/2022',
+    updated: '17/02/2022',
     status: '',
   },
 ];
@@ -43,6 +45,7 @@ export class EmployeesListComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   displayedColumns: string[] = [
+    'emp_id',
     'name',
     'email',
     'phoneno',

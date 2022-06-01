@@ -19,7 +19,7 @@ export class CustomValidationService {
 
   emailValidator(control: FormControl) {
     if (
-      /^[a-zA-Z0-9._%+-]+@(?!gmail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)[a-zA-Z0-9_-]+.[a-zA-Z0-9-.]{2,61}$/.test(
+      /^[a-zA-Z0-9._%+-]+@(?!gmail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)(?!diggibyte.com)[a-zA-Z0-9_-]+.[a-zA-Z0-9-.]{2,61}$/.test(
         control.value
       )
     ) {
@@ -41,7 +41,7 @@ export class CustomValidationService {
     }return null;
   }
   percentageValidator(control:FormControl){
-    if(!/(^100(\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\.[0-9]{1,2})?$)/.test(control.value)|| control.value>100 || (control.value>10 && control.value<=45)){
+    if(!/(^100(\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\.[0-9]{1,2})?$)/.test(control.value) || control.value==0 || control.value>100 || (control.value>10 && control.value<=45)){
       return {percentageValidator:true}
     }return null;
   }

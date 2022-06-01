@@ -16,30 +16,31 @@ export class AdminServiceService {
     personal_info:{
     first_name:'mahi',
     last_name:'s',
-    dob:'1991-06-18',
+    dob:'18-06-1991',
     gender:'female',
-    mobile_number:'987665870',
-    alternate_number:null,
+    mobile_number:'9876658700',
+    alternate_number:'9876545678',
     personal_email:'mahi25@gmail.com',
+    father_name:'kumar B S',
     photo:"mahi-photo.png",
   },address:[
     {
       type:'permanent',
       house_no:"45",
       street:"vinayaka nagar",
-      locality:null,
+      locality:'RR road',
       city:"bangalore",
       state:"karnataka",
-      pincode: "5600089",
+      pincode: "560008",
       country:"India"
     },{
       type:'current',
       house_no:"256",
       street:"maha nagar",
-      locality:null,
+      locality:'KRS',
       city:"Dharwad",
       state:"karnataka",
-      pincode: "5600098",
+      pincode: "560009",
       country:"india"
     }
   ],educational:[{
@@ -47,8 +48,8 @@ export class AdminServiceService {
     name:"GPST",
     board:'KSSLC',
     course:null,
-    start_date:"2020-09-09",
-    end_date:"2020-09-12",
+    start_date:"09-09-2020",
+    end_date:"12-09-2020",
     marks:66,
     marksheet:"mahi-10th.pdf",
     transfer_certificate:null,
@@ -58,8 +59,8 @@ export class AdminServiceService {
     name:"KSPU",
     board:'KPUC',
     course:null,
-    start_date:"2020-09-09",
-    end_date:"2020-09-12",
+    start_date:"09-09-2020",
+    end_date:"12-09-2020",
     marks:78,
     marksheet:"mahi-12th.pdf",
     transfer_certificate:null,
@@ -69,26 +70,34 @@ export class AdminServiceService {
     name:"YJHG",
     board:'VTU',
     course:'CS',
-    start_date:"2020-09-09",
-    end_date:"2020-09-12",
+    start_date:"09-09-2020",
+    end_date:"12-09-2020",
     marks:7,
     marksheet:"mahi-ug.pdf",
     transfer_certificate:null,
     provisonal_marks_card:"mahi-provisonal.pdf"
   }
 ],employment:[],other_details:{
-  aadhar_number:"2542 8524 2654",
+  aadhar_number:"4444 3333 2222",
   aadhar:"mahi aadhar.pdf",
-  pan_number:"CZSPR5226",
+  pan_number:"ABCDE1234F",
   pan:null,
-  passport_number:"2589",
-  passport_expire:"2020-09-03",
+  passport_number:"A2096457",
+  passport_expire:"30-12-2022",
   passport:null,
   covid_certificate:null
 },declaration:{
   joining_date:"2022-09-02",
   place:"bangalore",
   date:"2022-08-25"
+},bank_details:{
+  account_holder_name:"Kavitha M S",
+  bank_name:"Canara Bank",
+  account_number:"0230101088057",
+  ifsc_code:"CNRBOOO3424",
+  account_type:"savings account",
+  pf_acc_no:"MH/BAN/0000064/000/0000123",
+  uan_no:"100904319456"
 }}]
   
 

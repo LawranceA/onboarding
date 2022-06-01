@@ -168,6 +168,7 @@
           placeholder="Account Holder's Name"
           formControlName="acc_holder_name"
           minlength="3"
+          style="text-transform:capitalize;"
         />
        
         <mat-error
@@ -190,6 +191,7 @@
           placeholder="Bank Name"
           formControlName="bank_name"
           minlength="3"
+          style="text-transform:capitalize;"
         />
         <mat-error
         *ngIf="otherDetail.get('bank_name')?.errors?.['required'] && otherDetail.get('bank_name')?.pristine || otherDetail.get('bank_name')?.value.length==0"
@@ -287,8 +289,8 @@
        
         <mat-error *ngIf="
         otherDetail.get('pf_acc')?.errors?.pattern">
-        Please enter 22 digit in a formate XX/XXX/XXXXXXX/XXX/XXXXXXX
-        
+        Please enter 22 digit in a formate MH/BAN/0000064/000/0000123
+      
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">

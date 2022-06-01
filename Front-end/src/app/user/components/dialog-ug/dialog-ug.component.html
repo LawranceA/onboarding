@@ -21,6 +21,7 @@
         id="School"
         name="School"
         formControlName="School"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogUGForm.get('School')?.errors?.['required'] && dialogUGForm.get('School')?.pristine || dialogUGForm.get('School')?.value.length==0"
@@ -41,6 +42,7 @@
         id="course"
         name="course"
         formControlName="course"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogUGForm.get('course')?.errors?.['required'] && dialogUGForm.get('course')?.pristine || dialogUGForm.get('course')?.value.length==0"
@@ -60,6 +62,7 @@
         id="specialization"
         name="specialization"
         formControlName="specialization"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogUGForm.get('specialization')?.errors?.['required'] && dialogUGForm.get('specialization')?.pristine || dialogUGForm.get('specialization')?.value.length==0"
@@ -79,6 +82,7 @@
         id="board"
         name="board"
         formControlName="board"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialogUGForm.get('board')?.errors?.['required'] && dialogUGForm.get('board')?.pristine || dialogUGForm.get('board')?.value.length==0"
@@ -145,6 +149,8 @@
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
       />
+      <mat-hint *ngIf="!this.dateValidator"
+    >End date must be greater than start date</mat-hint>
       <mat-error
       *ngIf="dialogUGForm.get('endDate')?.errors?.['required'] && dialogUGForm.get('endDate')?.pristine || dialogUGForm.get('endDate')?.value.length==0"
       >Please select end date</mat-error
@@ -154,8 +160,7 @@
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
-    <small *ngIf="!this.dateValidator"
-    >End date must be greater than start date</small>
+    
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>

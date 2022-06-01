@@ -14,7 +14,7 @@
           name="first_name"
           id="first_name"
           formControlName="first_name"
-          required
+          style="text-transform:capitalize;"
           
         />
 
@@ -44,15 +44,16 @@
           name="last_name"
           id="last_name"
           formControlName="last_name"
+          style="text-transform:capitalize;"
         />
 
         <mat-error
-          *ngIf="personalInformation.get('last_name')?.errors?.['required'] && personalInformation.get('first_name')?.pristine || personalInformation.get('first_name')?.value.length==0"
+          *ngIf="personalInformation.get('last_name')?.errors?.['required'] && personalInformation.get('last_name')?.pristine || personalInformation.get('last_name')?.value.length==0"
           >Last name is required</mat-error
         >
 
         <mat-error
-          *ngIf="personalInformation.get('last_name')?.errors?.['characterValidator'] && personalInformation.get('first_name')?.dirty && personalInformation.get('first_name')?.value.length>0"
+          *ngIf="personalInformation.get('last_name')?.errors?.['characterValidator'] && personalInformation.get('last_name')?.dirty && personalInformation.get('last_name')?.value.length>0"
           >Last name must contain only characters</mat-error
         >
       </mat-form-field>
@@ -214,6 +215,7 @@
         id="father_name"
         formControlName="father_name"
         minlength="3"
+        style="text-transform:capitalize;"
       />
 
       <mat-error
@@ -243,8 +245,16 @@
             formControlName="house_no"
             id="houseNo"
             name="house_no"
+            
           />
-
+          <mat-error
+          *ngIf="
+            personalInformation.get('current.house_no')?.invalid &&
+            (personalInformation.get('current.house_no')?.dirty ||
+              personalInformation.get('current.house_no')?.touched) &&
+            personalInformation.get('current.house_no')?.errors?.required">
+          House Number is required
+        </mat-error>
           <mat-error
             *ngIf="
               personalInformation.get('current.house_no')?.errors?.['minlength']"
@@ -323,7 +333,8 @@
             
             id="city"
             name="city"
-            (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"> 
+            (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let city of selectedCities" [value]="city">{{city}}</mat-option>
          </mat-select>
@@ -369,7 +380,8 @@
             type="text"
            
             id="state"
-            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"> 
+            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let state of selectedStates" [value]="state">{{state}}</mat-option>
          </mat-select>
@@ -393,7 +405,8 @@
             type="text"
            
             id="country"
-            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"> 
+            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let country of selectCountries; let i=index" [value]="country">{{country}}</mat-option>
          </mat-select>
@@ -432,8 +445,18 @@
             formControlName="house_no"
             id="houseNo"
             name="houseNo"
+            minlength="1"
           />
-
+          <mat-error
+          *ngIf="
+            personalInformation.get('permanent.house_no')?.invalid &&
+            (personalInformation.get('permanent.house_no')?.dirty ||
+              personalInformation.get('permanent.house_no')?.touched) &&
+            personalInformation.get('permanent.house_no')?.errors?.required
+          "
+        >
+          House Number is required
+        </mat-error>
           <mat-error
             *ngIf="
             personalInformation.get('permanent.house_no')?.errors?.['minlength']"
@@ -512,7 +535,8 @@
             
             id="city"
             name="city"
-            (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"> 
+            (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let city of selectedCities" [value]="city">{{city}}</mat-option>
          </mat-select>
@@ -558,7 +582,8 @@
             type="text"
          
             id="state"
-            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"> 
+            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let state of selectedStates" [value]="state">{{state}}</mat-option>
          </mat-select>
@@ -577,7 +602,8 @@
             type="text"
             
             id="country"
-            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"> 
+            name="country" (keyup)="onKey($event,'country')" class="dropdown" placeholder="Search"
+            style="text-transform:capitalize;"> 
            
            <mat-option *ngFor="let country of selectCountries ;let i =index" [value]="selectCountries[i]">{{country}}</mat-option>
          </mat-select>

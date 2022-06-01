@@ -444,7 +444,7 @@ export class PersonalInformationComponent implements OnInit {
     ]),
 
     current: new FormGroup({
-      house_no: new FormControl('', Validators.minLength(1)),
+      house_no: new FormControl('',[Validators.required ,Validators.minLength(1)]),
 
       street: new FormControl('', [
         Validators.required,
@@ -470,7 +470,7 @@ export class PersonalInformationComponent implements OnInit {
     }),
 
     permanent: new FormGroup({
-      house_no: new FormControl('', Validators.minLength(1)),
+      house_no: new FormControl('', [Validators.required,Validators.minLength(1)]),
 
       street: new FormControl('', [
         Validators.required,

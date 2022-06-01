@@ -20,6 +20,7 @@
         id="board"
         name="board"
         formControlName="board"
+        style="text-transform:capitalize;"
       />
       <mat-error
       *ngIf="dialog12Form.get('board')?.errors?.['required'] && dialog12Form.get('board')?.pristine || dialog12Form.get('board')?.value.length==0"
@@ -39,6 +40,7 @@
         id="School"
         name="School"
         formControlName="School"
+        style="text-transform:capitalize;"
       />
       <mat-error
         *ngIf="dialog12Form.get('School')?.errors?.['required'] && dialog12Form.get('School')?.pristine || dialog12Form.get('School')?.value.length==0"
@@ -114,13 +116,14 @@
         *ngIf="dialog12Form.get('endDate')?.errors?.['required'] && dialog12Form.get('endDate')?.pristine || dialog12Form.get('endDate')?.value.length==0"
         >Please select end date</mat-error
       >
+      <mat-hint *ngIf="!this.dateValidator"
+      >End date must be greater than start date</mat-hint
+    >
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
-    <small *ngIf="!this.dateValidator"
-      >End date must be greater than start date</small
-    >
+   
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>

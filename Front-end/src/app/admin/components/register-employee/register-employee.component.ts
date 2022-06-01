@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { CustomValidationService } from 'src/app/user/services/custom-validation.service';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -23,13 +24,14 @@ export class RegisterEmployeeComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private service: AdminService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public validation: CustomValidationService
   ) {}
 
   regForm = new FormGroup({
-    id: new FormControl('', Validators.required),
-    name: new FormControl('', [Validators.minLength(3), Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    id: new FormControl('', [Validators.required,Validators.pattern('^[DB]{2}[0-9]{4}$')]),
+    name: new FormControl('', [Validators.minLength(3), Validators.required,this.validation.characterValidator]),
+    email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
     phone_number: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),
@@ -41,16 +43,7 @@ export class RegisterEmployeeComponent implements OnInit {
   user: any;
   ngOnInit(): void {}
 
-  getErrorMessage() {
-    console.log('entering');
-    if (
-      this.regForm.get('email')?.getError('required') ||
-      this.regForm.get('id')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-    return '';
-  }
+ 
 
   addUser() {
     this.service.addEmployee(this.user).subscribe((data) => {

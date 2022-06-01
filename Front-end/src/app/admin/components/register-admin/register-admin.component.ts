@@ -17,14 +17,14 @@ export class RegisterAdminComponent implements OnInit {
   admin: Admin = new Admin();
 
   designations = [
-    'Human Resource',
-    'Sales Engineer',
-    'Data Engineer',
-    'BI & Analytics',
-    'Data Science',
-    'Advanced Analytics',
-    'Full Stack',
-  ];
+    'Human Resource',];
+  //   'Sales Engineer',
+  //   'Data Engineer',
+  //   'BI & Analytics',
+  //   'Data Science',
+  //   'Advanced Analytics',
+  //   'Full Stack',
+  // ];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -33,9 +33,9 @@ export class RegisterAdminComponent implements OnInit {
     public validation: CustomValidationService
   ) {}
   regForm = new FormGroup({
-    id: new FormControl('', Validators.required),
-    name: new FormControl('', [Validators.minLength(3), Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    id: new FormControl('', [Validators.required,Validators.pattern('^[DB]{2}[0-9]{4}$')]),
+    name: new FormControl('', [Validators.minLength(3), Validators.required,this.validation.characterValidator]),
+    email: new FormControl('', [Validators.required, Validators.email, this.validation.emailValidator]),
     phone_number: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),
@@ -44,16 +44,7 @@ export class RegisterAdminComponent implements OnInit {
     designation: new FormControl('', Validators.required),
   });
   ngOnInit(): void {}
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.regForm.get('email')?.getError('required') ||
-      this.regForm.get('id')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-    return '';
-  }
+ 
 
   addAdmin() {
     this.service.addAdmin(this.admin).subscribe((data) => {
