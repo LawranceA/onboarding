@@ -1,13 +1,14 @@
 export class personalInfo {
-  fk_person_users_id : string = '';
+  fk_person_users_id: string = '';
   first_name: string = '';
   last_name: string = '';
   personal_email: string = '';
   mobile_number: string = '';
   alternate_number: string = '';
-  dob : any = new Date();
+  dob: any = new Date();
   gender: string = '';
   photo: string = '';
+  father_name: string = '';
   created_at = new Date();
   updated_at = new Date();
   updated_by: string = '';

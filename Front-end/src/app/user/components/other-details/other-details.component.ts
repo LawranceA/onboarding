@@ -22,7 +22,6 @@ import 'moment/locale/ja';
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
 
-
 @Component({
   selector: 'app-other-details',
   templateUrl: './other-details.component.html',
@@ -39,24 +38,13 @@ import { CustomValidationService } from '../../services/custom-validation.servic
   ],
 })
 export class OtherDetailsComponent implements OnInit {
+  type_of_account = ['Current Account', 'Savings Account', 'Salary Account'];
 
-  type_of_account = [
-    
-    'Current Account',
-    'Savings Account',
-    'Salary Account'
-    
-  ];
-
-  
-  today=new Date();
+  today = new Date();
 
   display1: any = 'block';
   display2: any = 'none';
   created_at: any;
-
-
-
 
   otherDetail = new FormGroup({
     aadhar_card_number: new FormControl('',[Validators.required,Validators.pattern("^[2-9]{1}[0-9]{3}\\s{1}[0-9]{4}\\s{1}[0-9]{4}$")]),
@@ -76,7 +64,7 @@ export class OtherDetailsComponent implements OnInit {
     uan_acc: new FormControl('',Validators.minLength(12))
    
   });
- 
+
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
@@ -98,6 +86,11 @@ export class OtherDetailsComponent implements OnInit {
     this.otherDetail.value.updated_by = this.tokenStorage.getName();
     this.otherDetail.value.fk_proof_users_id = this.tokenStorage.getID();
     // console.log('other deuaisls');
+    this.otherDetail.value.passport_expire = `${
+      this.otherDetail.value.passport_expire._i.year
+    }-${this.otherDetail.value.passport_expire._i.month + 1}-${
+      this.otherDetail.value.passport_expire._i.date
+    }`;
     this.otherDetail.value.passport_expire = this.pipe.transform(
       this.otherDetail.value.passport_expire,
       'YYYY-MM-dd'
@@ -108,7 +101,7 @@ export class OtherDetailsComponent implements OnInit {
     this.display1 = 'none';
     this.display2 = 'block';
   }
-  get m(){
+  get m() {
     return this.otherDetail.controls;
   }
   onUpdate() {
@@ -116,11 +109,17 @@ export class OtherDetailsComponent implements OnInit {
     this.otherDetail.value.updated_at = new Date();
     this.otherDetail.value.updated_by = this.tokenStorage.getName();
     this.otherDetail.value.fk_proof_users_id = this.tokenStorage.getID();
-    // console.log('other deuaisls');
+  if(typeof(this.otherDetail.value.passport_expire)!='string'){
+    this.otherDetail.value.passport_expire = `${
+      this.otherDetail.value.passport_expire._i.year
+    }-${this.otherDetail.value.passport_expire._i.month + 1}-${
+      this.otherDetail.value.passport_expire._i.date
+    }`;
     this.otherDetail.value.passport_expire = this.pipe.transform(
       this.otherDetail.value.passport_expire,
       'YYYY-MM-dd'
     );
+  }
     this.service
       .putOtherDetails(this.otherDetail.value, this.tokenStorage.getID())
       .subscribe((data) => {
@@ -132,34 +131,50 @@ export class OtherDetailsComponent implements OnInit {
     this.service
       .getOtherDetails(this.tokenStorage.getID())
       .subscribe((data) => {
-        console.log(data);
-        if (data != undefined) {
+        if (data.length != 0) {
           this.display1 = 'none';
           this.display2 = 'block';
-        }
-        if (data != null) {
-          this.created_at = data.created_at;
+          this.otherDetail.controls['acc_holder_name'].setValue(
+            data[1].account_holder_name
+          );
+          this.otherDetail.controls['bank_name'].setValue(data[1].bank_name);
+          this.otherDetail.controls['acc_number'].setValue(
+            data[1].account_number
+          );
+          this.otherDetail.controls['ifsc_code'].setValue(data[1].ifsc_code);
+          this.otherDetail.controls['type_of_acc'].setValue(
+            data[1].account_type
+          );
+          this.otherDetail.controls['pf_acc'].setValue(
+            data[1].pf_account_number
+          );
+          this.otherDetail.controls['uan_acc'].setValue(
+            data[1].uan_account_number
+          );
+          this.created_at = data[0].created_at;
           this.otherDetail.controls['passport_number'].setValue(
-            data.passport_number
+            data[0].passport_number
             // console.log(data.passport_number)
           );
           this.otherDetail.controls['passport_expire'].setValue(
-            data.passport_expire_date
+            data[0].passport_expire_date
           );
           this.otherDetail.controls['aadhar_card_number'].setValue(
-            data.aadhar_card_number
+            data[0].aadhar_card_number
           );
-          this.otherDetail.controls['aadharCard'].setValue(data.aadharCard);
+          this.otherDetail.controls['aadharCard'].setValue(data[0].aadharCard);
           this.otherDetail.controls['pan_card_number'].setValue(
-            data.pan_card_number
+            data[0].pan_card_number
           );
-          this.otherDetail.controls['panCard'].setValue(data.pan_card);
-          this.otherDetail.controls['passportDetails'].setValue(data.passport);
+          this.otherDetail.controls['panCard'].setValue(data[0].pan_card);
+
+          this.otherDetail.controls['passportDetails'].setValue(
+            data[0].passport
+          );
           this.otherDetail.controls['covidCertificate'].setValue(
-            data.covid_certificate
+            data[0].covid_certificate
           );
         }
       });
   }
-  
 }

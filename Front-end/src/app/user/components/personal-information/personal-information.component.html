@@ -185,7 +185,13 @@
       <div class="uploadContainer">
         <label for="photo">Photo</label>
 
-        <input type="file" name="photo" id="photo" formControlName="photo" />
+        <input
+          type="file"
+          name="photo"
+          id="photo"
+          formControlName="photo"
+          (change)="fileChange($event)"
+        />
 
         <mat-error
           *ngIf="personalInformation.get('photo')?.errors?.['required'] && personalInformation.get('photo')?.touched"
@@ -325,12 +331,10 @@
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
 
-          
-          <mat-select formControlName="city" (selectionChange)="changeClient($event.value,'current','city')">
+          <mat-select formControlName="city" id="city" name="city" (selectionChange)="changeClient($event.value, 'current', 'city')">
             <input
             matInput
             type="text"
-            
             id="city"
             name="city"
             (keyup)="onKey($event,'cities')" class="dropdown" placeholder="Search"
@@ -387,6 +391,24 @@
          </mat-select>
          
 
+          <mat-select
+            formControlName="state"
+            (selectionChange)="changeClient($event.value, 'current', 'state')"
+          >
+            <input
+              matInput
+              type="text"
+              id="state"
+              name="state"
+              (keyup)="onKey($event, 'state')"
+              class="dropdown"
+              placeholder="Search"
+            />
+
+            <mat-option *ngFor="let state of selectedStates" [value]="state">{{
+              state
+            }}</mat-option>
+          </mat-select>
 
           <mat-error
             *ngIf="
@@ -528,7 +550,10 @@
         <mat-form-field appearance="outline">
           <mat-label for="city">City</mat-label>
 
-          <mat-select formControlName="city" (selectionChange)="changeClient($event.value,'permanent','city')">
+          <mat-select
+            formControlName="city"
+            (selectionChange)="changeClient($event.value, 'permanent', 'city')"
+          >
             <input
             matInput
             type="text"

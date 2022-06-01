@@ -74,6 +74,7 @@ export class LoginPageComponent implements OnInit {
       .login(this.data.email, this.data.password, this.selectedVal)
       .subscribe(
         (data) => {
+          console.log(data)
           this.tokenStorage.setDesignation(data.designation)
           this.tokenStorage.saveToken(data.accessToken);
           console.log(data);

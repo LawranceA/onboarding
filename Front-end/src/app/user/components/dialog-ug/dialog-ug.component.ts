@@ -26,7 +26,7 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
-
+import { DatePipe, formatDate, JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-dialog-ug',
   templateUrl: './dialog-ug.component.html',
@@ -54,7 +54,8 @@ export class DialogUGComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogUGComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private api: Dialog10serviceService,
-    public validation: CustomValidationService
+    public validation: CustomValidationService,
+    private pipe: DatePipe,
   ) {}
 
   ngOnInit(): void {
@@ -108,12 +109,26 @@ export class DialogUGComponent implements OnInit {
 
   // Adding the UG education data
   addUGForm() {
-    console.log(this.dialogUGForm.value);
+    if (!this.editData) {
+    this.dialogUGForm.value.startDate = `${this.dialogUGForm.value.startDate._i.year}-${
+      this.dialogUGForm.value.startDate._i.month + 1
+    }-${this.dialogUGForm.value.startDate._i.date}`;
+    this.dialogUGForm.value.startDate = this.pipe.transform(
+      this.dialogUGForm.value.startDate,
+      'YYYY-MM-dd'
+    );
+    this.dialogUGForm.value.endDate = `${this.dialogUGForm.value.endDate._i.year}-${
+      this.dialogUGForm.value.endDate._i.month + 1
+    }-${this.dialogUGForm.value.endDate._i.date}`;
+    this.dialogUGForm.value.endDate = this.pipe.transform(
+      this.dialogUGForm.value.endDate,
+      'YYYY-MM-dd'
+    );
     this.dialogUGForm.value.created_at = new Date();
     this.dialogUGForm.value.updated_at = new Date();
     this.dialogUGForm.value.updated_by = this.tokenStorage.getName();
     this.dialogUGForm.value.fk_education_users_id = this.tokenStorage.getID();
-    if (!this.editData) {
+   
       if (this.dialogUGForm.valid) {
         this.api.postEducation(this.dialogUGForm.value).subscribe({
           next: (res) => {
@@ -133,6 +148,34 @@ export class DialogUGComponent implements OnInit {
 
   updateData() {
     this.dialogUGForm.value.created_at = this.editData.created_at;
+    if(typeof(this.dialogUGForm.value.startDate)!='string'){
+      this.dialogUGForm.value.startDate = `${this.dialogUGForm.value.startDate._i.year}-${
+        this.dialogUGForm.value.startDate._i.month + 1
+      }-${this.dialogUGForm.value.startDate._i.date}`;
+      this.dialogUGForm.value.startDate = this.pipe.transform(
+        this.dialogUGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogUGForm.value.startDate = this.pipe.transform(
+        this.dialogUGForm.value.startDate,
+        'YYYY-MM-dd'
+      );
+    }
+    if(typeof(this.dialogUGForm.value.endDate)!='string'){
+      this.dialogUGForm.value.endDate = `${this.dialogUGForm.value.endDate._i.year}-${
+        this.dialogUGForm.value.endDate._i.month + 1
+      }-${this.dialogUGForm.value.endDate._i.date}`;
+      this.dialogUGForm.value.endDate = this.pipe.transform(
+        this.dialogUGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }else{
+      this.dialogUGForm.value.endDate = this.pipe.transform(
+        this.dialogUGForm.value.endDate,
+        'YYYY-MM-dd'
+      );
+    }
     this.api.putEduaction(this.dialogUGForm.value, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');

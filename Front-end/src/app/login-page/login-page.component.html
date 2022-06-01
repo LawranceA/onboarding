@@ -6,7 +6,7 @@
   <div class="container">
     <form [formGroup]="logForm">
       <div class="loginpage-background">
-       
+
         <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
           <mat-button-toggle (click)="setUser('user')" value="user" class="toggle"
             >Employee</mat-button-toggle
@@ -15,16 +15,15 @@
             >Admin</mat-button-toggle
           >
         </mat-button-toggle-group>
-      
+
         <mat-form-field appearance="outline">
           <mat-label for="email">Email</mat-label>
-  
+
           <input
-          matInput 
-        
-            type="email"
-            id="email"
-            name="email"
+          matInput
+          type="email"
+          id="email"
+          name="email"
             placeholder="email"
             formControlName="email"
           />
@@ -44,13 +43,13 @@
        <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input
-          
-          matInput 
+
+          matInput
           [type]="hide ? 'password' : 'text'"
           placeholder="Password"
           formControlName="password"
         />
-       
+
       <mat-error *ngIf="logForm.get('password')?.invalid && (logForm.get('password')?.dirty || logForm.get('password')?.touched) && logForm.get('password')?.errors?.required">
           Password is required
       </mat-error>
@@ -61,7 +60,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
       </mat-form-field>
-      <br>
+     <a routerLink="ForgotPassword" class="fg-pass">Forgot password?</a>
         <p>
           <button mat-button class="button-gradient login" (click)="onLogin($event)" style="margin-left:24px;">
             Login
