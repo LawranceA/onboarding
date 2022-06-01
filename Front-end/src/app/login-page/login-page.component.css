@@ -12,14 +12,11 @@ height:50px;
 padding: 30px;
 margin-left: 2rem;
 color: white ;
-
-
-
 }
 
 .fg-pass{
   align-self: flex-start;
-  margin-left: .5rem;
+  margin-left: 1rem;
   color: #fb7d2e;
   padding-bottom: 1rem;
 }

@@ -9,12 +9,12 @@ import { AuthServiceService } from '../services/auth-service.service';
   styleUrls: ['./create-new-password.component.css']
 })
 export class CreateNewPasswordComponent implements OnInit {
-
+  hide = true;
   constructor(private router:Router, private service:AuthServiceService) { }
   changeForm = new FormGroup({
 
-    autoPass: new FormControl('', [Validators.required,Validators.pattern("^([a-zA-Z0-9@*#^&%!]{8,15})$")]),
-    password: new FormControl('', [Validators.required]),
+    autoPass: new FormControl('', [Validators.required,Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,15}')]),
+    password: new FormControl('', [Validators.required,Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,15}')]),
   });
   ngOnInit(): void {
   }
