@@ -19,6 +19,7 @@ export class FilesUploadedComponent implements OnInit {
     this.dialogRef.close();
   }
   check(data:any){
+    console.log(data.fileType)
     if(data.fileType=='img'){
       let scr=data.src
       this.router.navigate(["/admin/viewImg",scr])

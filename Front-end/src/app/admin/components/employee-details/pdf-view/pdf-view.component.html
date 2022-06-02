@@ -1,12 +1,13 @@
-<button mat-button class="button-gradient close">Back</button>
-<ngx-extended-pdf-viewer
+<div class="modal" [ngStyle]="{ display: display }">
+     <mat-icon class="close" (click)="closeImg()">close</mat-icon>
+     <ngx-extended-pdf-viewer
      [src]="src"
-     [height]="'95%'" 
-     [useBrowserLocale]="true" 
-     [textLayer]="true" 
+     [useBrowserLocale]="true"
+     [textLayer]="true"
      [showHandToolButton]="true"
+     [showPresentationModeButton]="true"
+     [showDownloadButton]="false"
      [theme]="'dark'"
-     [backgroundColor]="'orange'"
-     > 
-</ngx-extended-pdf-viewer>
-
+     [height]="'100%'"
+     ></ngx-extended-pdf-viewer>
+   </div>

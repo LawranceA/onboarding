@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient,HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Admin } from './admin';
 
@@ -99,9 +99,12 @@ export class AdminServiceService {
   pf_acc_no:"MH/BAN/0000064/000/0000123",
   uan_no:"100904319456"
 }}]
-  
+private header = new HttpHeaders({
+  'Access-Control-Allow-Origin': '*',
+});
 
-  
+private api =
+'http://localhost:3000/api';
   constructor(private httpClient:HttpClient) { }
   getData(){
     return this.data
@@ -109,5 +112,11 @@ export class AdminServiceService {
   setData(val:any){
     this.data=val
     console.log(this.data)
+  }
+  getDetails(id:any){
+    return this.httpClient.get<any>(
+      `${this.api}/getUser/${id}`,
+      { headers: this.header }
+    );
   }
 }

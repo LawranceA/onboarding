@@ -1,65 +1,57 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav [mode]="mode" [opened]="openSidenav" class="side-nav">
-      
-      <div class="sidebar-wraper">
-          <mat-icon  (click)="sidenav.toggle()"
-            class="white-icon close"
-         >close</mat-icon>
-          <div class="profile">
-            <div class="profile-img">
-              <img
-                src="../../../../assets/images/pro.webp"
-                alt=""
-                srcset=""
-              />
-
-            </div>
-        <h4>{{data.name}}</h4>
-        <p>{{data.designation}}</p>
+  <mat-sidenav #sidenav mode="side" opened="true" class="side-nav">
+    <div class="sidebar-wraper">
+      <div class="profile">
+        <div class="profile-img">
+          <img src="../../../../assets/images/pro.webp" alt="" srcset="" />
+        </div>
+        <h4>{{ data.name }}</h4>
+        <p>{{ data.designation }}</p>
       </div>
       <div class="options">
-       <ul class="nav">
-        <li class="nav-item" routerLink="addAdmin" routerLinkActive="active">
-          <a class="nav-link">
-            <mat-icon class="lists">library_add</mat-icon>
-            Register Admin
-          </a>
-        </li>
-        <li class="nav-item" routerLink="addEmployee" [routerLinkActive]="['active']">
-          <a class="nav-link">
-            <mat-icon class="lists">library_add</mat-icon>
-            Register Employee
-          </a>
-        </li>
-        <li class="nav-item" routerLink="employeeLists" [routerLinkActive]="['active']">
-          <a class="nav-link">
-            <mat-icon class="lists">content_paste</mat-icon>
-            New Employee List
-          </a>
-        </li>
-      </ul> 
+        <ul class="nav">
+          <li class="nav-item" routerLink="addAdmin" routerLinkActive="active">
+            <a class="nav-link">
+              <mat-icon class="lists">library_add</mat-icon>
+              Register Admin
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            routerLink="addEmployee"
+            [routerLinkActive]="['active']"
+          >
+            <a class="nav-link">
+              <mat-icon class="lists">library_add</mat-icon>
+              Register Employee
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            routerLink="employeeLists"
+            [routerLinkActive]="['active']"
+          >
+            <a class="nav-link">
+              <mat-icon class="lists">content_paste</mat-icon>
+              New Employee List
+            </a>
+          </li>
+        </ul>
       </div>
       <button class="btns btns-blue" (click)="logout()">Log out</button>
     </div>
     <p class="footer">&copy;Diggibyte2022</p>
   </mat-sidenav>
   <mat-sidenav-content>
-   
     <div class="header">
-      <button
-      
-        mat-icon-button
-        color="primary"
-        (click)="sidenav.toggle()"
-        
-        style="margin-left:2rem;"
-      >
-        <mat-icon class="menu">menu</mat-icon>
-      </button>
-      
-      <img src="../../../../assets/images/logo.png" alt="" srcset="" class="logo">
+      <img
+        src="../../../../assets/images/logo.png"
+        alt=""
+        srcset=""
+        class="logo"
+      />
     </div>
-    
+
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
