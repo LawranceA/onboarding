@@ -53,10 +53,11 @@ export class PersonalInformationComponent implements OnInit {
   display2: any = 'none';
   //field for personal,CurrentAddress,PermanentAddress
   created_at: any;
-  photo_src:any = ''
+  photo_src: any = '';
+  // FORM DATA
+  formData = new FormData();
 
   genders = ['Male', 'Female', 'Others'];
-  
 
   cities = [
     'Port Blair',
@@ -433,11 +434,11 @@ export class PersonalInformationComponent implements OnInit {
 
     gender: new FormControl('', [Validators.required]),
 
-    photo: new FormControl('', [
+    photo: new FormControl(null, [
       Validators.required,
       Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
     ]),
-
+    photoSorce: new FormControl('', Validators.required),
     father_name: new FormControl('', [
       Validators.required,
 
@@ -445,7 +446,10 @@ export class PersonalInformationComponent implements OnInit {
     ]),
 
     current: new FormGroup({
-      house_no: new FormControl('',[Validators.required ,Validators.minLength(1)]),
+      house_no: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
 
       street: new FormControl('', [
         Validators.required,
@@ -471,7 +475,10 @@ export class PersonalInformationComponent implements OnInit {
     }),
 
     permanent: new FormGroup({
-      house_no: new FormControl('', [Validators.required,Validators.minLength(1)]),
+      house_no: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
 
       street: new FormControl('', [
         Validators.required,
@@ -501,7 +508,7 @@ export class PersonalInformationComponent implements OnInit {
       .getPersonalInfoData(this.tokenStorage.getID())
       .subscribe((res) => {
         this.data = res;
-        console.log(res)
+        console.log(res);
         console.log(this.data);
         if (res[0].address.length != 0) {
           this.display1 = 'none';
@@ -600,41 +607,74 @@ export class PersonalInformationComponent implements OnInit {
 
   //to add personal info to personal info instance
   addPersonalInfoData() {
-    console.log(this.personalInformation.value.first_name)
-    this.personal_info.first_name = this.personalInformation.value.first_name;
-    this.personal_info.last_name = this.personalInformation.value.last_name;
-    this.personal_info.personal_email =
-      this.personalInformation.value.personal_email;
-    this.personal_info.mobile_number =
-      this.personalInformation.value.mobile_number;
-    this.personal_info.alternate_number =
-      this.personalInformation.value.alternate_number;
-    this.personal_info.gender = this.personalInformation.value.gender;
-    if(typeof(this.personalInformation.value.dob)!='string'){
-      this.personal_info.dob = `${this.personalInformation.value.dob._i.year}-${
+    console.log(this.personalInformation.value.first_name);
+    this.formData.append(
+      'first_name',
+      this.personalInformation.value.first_name
+    );
+    // this.personal_info.first_name = this.personalInformation.value.first_name;
+    this.formData.append('last_name', this.personalInformation.value.last_name);
+    // this.personal_info.last_name = this.personalInformation.value.last_name;
+    this.formData.append(
+      'personal_email',
+      this.personalInformation.value.personal_email
+    );
+    // this.personal_info.personal_email =
+    // this.personalInformation.value.personal_email;
+    this.formData.append(
+      'mobile_number',
+      this.personalInformation.value.mobile_number
+    );
+    // this.personal_info.mobile_number =
+    //   this.personalInformation.value.mobile_number;
+    this.formData.append(
+      'alternate_number',
+      this.personalInformation.value.alternate_number
+    );
+    // this.personal_info.alternate_number =
+    //   this.personalInformation.value.alternate_number;
+    this.formData.append('gender', this.personalInformation.value.gender);
+    // this.personal_info.gender = this.personalInformation.value.gender;
+    if (typeof this.personalInformation.value.dob != 'string') {
+      let formatDob = `${this.personalInformation.value.dob._i.year}-${
         this.personalInformation.value.dob._i.month + 1
       }-${this.personalInformation.value.dob._i.date}`;
-      this.personal_info.dob = this.pipe.transform(
-        this.personalInformation.value.dob,
-        'YYYY-MM-dd'
+
+      this.formData.append('dob', formatDob);
+    } else {
+      this.formData.append(
+        'dob',
+        `${this.pipe.transform(
+          this.personalInformation.value.dob,
+          'YYYY-MM-dd'
+        )}`
       );
-    }else{
-      this.personal_info.dob = this.pipe.transform(
-        this.personalInformation.value.dob,
-        'YYYY-MM-dd'
-      );
+      // this.personal_info.dob = this.pipe.transform(
+      //   this.personalInformation.value.dob,
+      //   'YYYY-MM-dd'
+      // );
     }
-  
-    this.personal_info.photo = this.personalInformation.value.photo;
-    this.personal_info.father_name = this.personalInformation.value.father_name;
-    this.personal_info.created_at = new Date();
-    this.personal_info.updated_at = new Date();
-    this.personal_info.updated_by = this.tokenStorage.getName();
+
+    this.formData.append('photo', this.personalInformation.value.photoSorce);
+    // this.personal_info.photo = this.personalInformation.value.photoSorce;
+    this.formData.append(
+      'father_name',
+      this.personalInformation.value.father_name
+    );
+    // this.personal_info.father_name = this.personalInformation.value.father_name;
+
+    this.formData.append('created_at', `${new Date()}`);
+    // this.personal_info.created_at = new Date();
+    this.formData.append('updated_at', `${new Date()}`);
+    // this.personal_info.updated_at = new Date();
+    this.formData.append('updated_by', this.tokenStorage.getName());
+    // this.personal_info.updated_by = this.tokenStorage.getName();
     this.personal_info.fk_person_users_id = this.tokenStorage.getID();
+    this.formData.append('updated_by', this.tokenStorage.getName());
     // console.log(this.personal_info.created_at);
   }
 
-   //to add current address info to current address info object
+  //to add current address info to current address info object
   addCurrentAddress() {
     this.personalInformation.value.current.type = 'current';
     this.personalInformation.value.current.created_at = new Date();
@@ -667,7 +707,7 @@ export class PersonalInformationComponent implements OnInit {
     this.addPersonalInfoData();
     this.addCurrentAddress();
     this.addPermanentAddress();
-    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
+    this.userService.addPersonalInfo(this.formData).subscribe((data) => {
       console.log(data);
     });
     this.userService.addAddress(this.currentAddress).subscribe((data) => {
@@ -682,11 +722,9 @@ export class PersonalInformationComponent implements OnInit {
     this.addPersonalInfoData();
     this.addCurrentAddress();
     this.addPermanentAddress();
-    this.personal_info.created_at = this.created_at;
+    this.formData = this.created_at;
 
-    this.userService.putPersonalInfo(this.personal_info).subscribe((data) => {
-      
-    });
+    this.userService.putPersonalInfo(this.formData).subscribe((data) => {});
     this.userService.putAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
     });
@@ -694,7 +732,7 @@ export class PersonalInformationComponent implements OnInit {
       console.log(data);
     });
   }
- //for search bar in option field
+  //for search bar in option field
   onKey(value: any, control: any) {
     if (control == 'cities') {
       this.selectedCities = this.search(value.target.value, 'cities');
@@ -767,16 +805,20 @@ export class PersonalInformationComponent implements OnInit {
     }
   }
 
-  fileChange(e:any,control:any){
-    let extensionAllowed = {"png":true,"jpeg":true};
-  
+  fileChange(e: any, control: any) {
     console.log(e.target.files);
-    if (e.target.files[0].size / 1024 / 1024 > 20) {
-      alert("File size should be less than 20MB")
-      return;
-    }
-    this.personalInformation.controls["photo"].setValue(e.target.files[0]);
+    let extensionAllowed = { png: true, jpeg: true };
+    const file = e.target.files[0];
 
-  
+    if (e.target.files[0].size / 1024 / 1024 > 20) {
+      alert('File size should be less than 20MB');
+      // return;
+    }
+
+    this.personalInformation.patchValue({
+      photoSorce: file,
+    });
+
+    this.personalInformation.get('photoSorce')?.updateValueAndValidity();
   }
 }

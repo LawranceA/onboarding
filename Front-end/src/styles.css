@@ -51,13 +51,15 @@ backgrd colr #f6f7f9
   border-radius: 50%;
   overflow: hidden;
   padding: 0;
-  max-width: 9.2rem;
-  max-height: 9.2rem;
+  max-width: 10rem;
+  max-height: 10rem;
   margin-bottom: 0.5rem;
 }
 .profile-img img {
   width: 100%;
   height: auto;
+  margin-bottom: -0.5rem;
+  height: 10rem;
 }
 
 .btn {
@@ -121,3 +123,21 @@ backgrd colr #f6f7f9
   border: 1px solid transparent;
 }
 
+.header-style{
+  background-color: #014868;
+  height:3rem;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.header-icon{
+  color: white;
+  align-self: center;
+  padding-left: 1rem;
+}
+.header-headings{
+  color: white;
+  padding-top: .5rem;
+  padding-left: 1rem;
+}

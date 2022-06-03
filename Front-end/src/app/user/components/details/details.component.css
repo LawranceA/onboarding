@@ -23,6 +23,10 @@ mat-toolbar {
   align-items: center;
 }
 
+.profile-img{
+  margin-left: 3rem;
+  margin-top: .5rem;
+}
 .leftContent {
   display: flex;
   justify-content: center;

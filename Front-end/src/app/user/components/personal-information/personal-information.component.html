@@ -1,5 +1,9 @@
+<div class="header-style">
+  <mat-icon class="header-icon">recent_actors</mat-icon>
+  <h2 class="header-headings">EMPLOYEE PERSONAL INFORMATION</h2>
+</div>
 <div class="container">
-  <h1>Personal Information</h1>
+  <h3>Personal Details</h3>
 
   <form [formGroup]="personalInformation">
     <div class="content">
@@ -207,6 +211,7 @@
           id="photo"
           formControlName="photo"
           (change)="fileChange($event,'photo')"
+          value="null"
         />
 
         <mat-error
@@ -665,10 +670,10 @@
         type="submit"
         [ngStyle]="{ display: display1 }"
         (click)="onSubmit()"
-        [disabled]="!personalInformation.valid"
         >
         Save
       </button>
+      <!-- [disabled]="!personalInformation.valid" -->
 
       <button
         mat-button

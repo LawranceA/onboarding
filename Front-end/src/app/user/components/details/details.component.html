@@ -2,14 +2,10 @@
   <!-- SideBar Content -->
   <mat-drawer mode="side" opened="true">
     <div class="sidenav-section">
-      <!-- <div class="close">
-        <button mat-icon-button arial-label="Close">
-          <fa-icon [icon]="faTimes"></fa-icon>
-        </button>
-      </div> -->
-
       <div class="userProfile">
-        <fa-icon [icon]="faUserCircle" class="icon"></fa-icon>
+        <div class="profile-img">
+          <img [src]="src==''?'../../../../assets/images/pro.webp':src" alt="" srcset="" />
+        </div>
 
         <h3>{{ data.name }}</h3>
         <p>{{ data.designation }}</p>

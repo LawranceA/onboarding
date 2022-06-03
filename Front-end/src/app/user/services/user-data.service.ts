@@ -13,12 +13,12 @@ export class UserDataService {
   ) {}
 
   private header = new HttpHeaders({
-    'x-access-token': `${this.tokenStorage.getToken()}`,
+    // 'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
   });
-
-  private api =
-    'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
+private api="http://localhost:3000/api"
+  // private api =
+  //   'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
   //api for add personal Info
   addPersonalInfo(data: Object): Observable<Object> {
     return this.http.post(`${this.api}/addPersonalInfo`, data, {
@@ -96,5 +96,15 @@ export class UserDataService {
       headers: this.header,
     });
   }
-  
+  checking(data:any){
+    return this.http.post(`${this.api}/addUser`, data, {
+      headers: this.header,
+    });
+  }
+  gettingChecked(id:any){
+    return this.http.get<any>(
+      `${this.api}/getUser/${id}`,
+      { headers: this.header }
+    )
+  }
 }

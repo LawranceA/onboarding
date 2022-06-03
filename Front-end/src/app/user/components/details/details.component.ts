@@ -11,6 +11,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-details',
@@ -29,17 +30,22 @@ export class DetailsComponent implements OnInit {
   faAngleRight = faAngleRight;
 
   data = { name: '', designation: '' };
-
+  src=''
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private service:UserDataService
   ) {}
 
   ngOnInit(): void {
     this.data.designation = this.tokenStorage.getDesignation();
     this.data.name = this.tokenStorage.getName();
+    this.service.gettingChecked('DB0006').subscribe(data=>{
+      this.src="http://localhost:3000/uploads/DB0006/"+data.photo
+    })
+
   }
 
   logout() {
