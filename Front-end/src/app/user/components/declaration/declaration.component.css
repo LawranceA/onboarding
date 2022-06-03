@@ -1,4 +1,6 @@
-
+.btn{
+    margin-top: 27%;
+  }
 .content{
     display: grid;
     grid-template-columns: repeat(2,1fr);

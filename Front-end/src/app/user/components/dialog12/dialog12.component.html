@@ -140,24 +140,13 @@
       !dialog12Form.get('marksheet')?.errors?.required && dialog12Form.get('marksheet')?.errors?.pattern">
       marksheet must be in pdf formate
       </mat-error>
-    </div>
-
-     <!-- <div class="uploadContainer">
-      <label for="transferCertificate">Transfer Certificate</label>
-      <input
-        type="file"
-        id="transferCertificate"
-        name="transferCertificate"
-        formControlName="transferCertificate"
-      />
-    </div> -->
-     
+    </div>     
   </form>
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
-  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <button mat-button class="btn-primary" (click)="add12Form()">
+  <button mat-button class="btn-primary" (click)="add12Form()" [disabled]="!dialog12Form.valid">
     {{ actionBtn }}
   </button>
+  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
 </div>

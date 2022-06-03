@@ -96,6 +96,7 @@
         type="submit"
         [ngStyle]="{ display: display2 }"
         (click)="onUpdate()"
+        [disabled]="!declaration.valid"
       >
         Update
       </button>

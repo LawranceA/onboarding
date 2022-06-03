@@ -154,7 +154,7 @@
         >
       </mat-form-field>
 
-      <div class="genderContainer">
+      <!-- <div class="genderContainer">
         <label id="example-radio-group-label" for="gender">Gender</label>
 
         <mat-radio-group
@@ -180,7 +180,23 @@
             >Please select gender</mat-error
           >
         </mat-radio-group>
-      </div>
+      </div> -->
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Gender" formControlName="gender">
+          <mat-option
+            *ngFor="let gender of genders;"
+            [value]="gender"
+           
+          >
+            {{ gender }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+        *ngIf="personalInformation.get('gender')?.touched"
+      >
+        Please select gender</mat-error
+      >
+      </mat-form-field>
 
       <div class="uploadContainer">
         <label for="photo">Photo</label>
@@ -190,7 +206,7 @@
           name="photo"
           id="photo"
           formControlName="photo"
-          (change)="fileChange($event)"
+          (change)="fileChange($event,'photo')"
         />
 
         <mat-error
@@ -649,9 +665,9 @@
         type="submit"
         [ngStyle]="{ display: display1 }"
         (click)="onSubmit()"
-      >
+        [disabled]="!personalInformation.valid"
+        >
         Save
-        <!-- [disabled]="!personalInformation.valid" -->
       </button>
 
       <button
@@ -660,6 +676,7 @@
         type="submit"
         [ngStyle]="{ display: display2 }"
         (click)="onUpdate()"
+        [disabled]="!personalInformation.valid"
       >
         Update
       </button>

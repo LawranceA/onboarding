@@ -3,7 +3,9 @@
     grid-template-columns: repeat(2,1fr);
     gap: 10px;
    } */
-
+   .container{
+    padding-bottom: 1rem;
+  }
    .card{
     display: grid;
     grid-template-columns: repeat(2,1fr);

@@ -221,8 +221,8 @@
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
-  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <button mat-button class="btn-primary" (click)="addUGForm()">
+  <button mat-button class="btn-primary" (click)="addUGForm()" [disabled]="!dialogUGForm.valid">
     {{ actionBtn }}
   </button>
+  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
 </div>

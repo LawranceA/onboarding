@@ -325,14 +325,16 @@
         type="submit"
         [ngStyle]="{ display: display2 }"
         (click)="onUpdate()"
-      >
+        [disabled]="!otherDetail.valid"
+        >
         Update
       </button>
       <button
-        mat-button
-        class="btn-primary"
-        (click)="onSubmit()"
-        [ngStyle]="{ display: display1 }"
+      mat-button
+      class="btn-primary"
+      (click)="onSubmit()"
+      [ngStyle]="{ display: display1 }"
+      [disabled]="!otherDetail.valid"
       >
         Save
       </button>

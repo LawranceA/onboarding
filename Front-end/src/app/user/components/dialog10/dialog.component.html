@@ -24,7 +24,7 @@
         id="board"
         name="board"
         formControlName="board"
-        style="text-transform:capitalize;"
+        style="text-transform: capitalize"
       />
 
       <mat-error
@@ -47,7 +47,7 @@
         id="School"
         name="School"
         formControlName="School"
-        style="text-transform:capitalize;"
+        style="text-transform: capitalize"
       />
 
       <mat-error
@@ -125,7 +125,8 @@
         (dateChange)="dateValidators()"
       />
       <mat-hint *ngIf="!this.dateValidator"
-      >End date must be greater than start date</mat-hint>
+        >End date must be greater than start date</mat-hint
+      >
       <mat-error
         *ngIf="dialog10Form.get('endDate')?.errors?.['required'] && dialog10Form.get('endDate')?.pristine || dialog10Form.get('endDate')?.value.length==0"
         >Please select end date</mat-error
@@ -135,8 +136,6 @@
 
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-
-   
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
@@ -148,43 +147,32 @@
         formControlName="marksheet"
       />
 
-     
       <mat-error
-          *ngIf="dialog10Form.get('marksheet')?.errors?.['required'] && dialog10Form.get('marksheet')?.touched"
-          >Please upload a marksheet</mat-error>
-          <mat-error *ngIf="
-          !dialog10Form.get('marksheet')?.errors?.required && dialog10Form.get('marksheet')?.errors?.pattern">
-          marksheet must be in pdf formate
-          </mat-error>
+        *ngIf="dialog10Form.get('marksheet')?.errors?.['required'] && dialog10Form.get('marksheet')?.touched"
+        >Please upload a marksheet</mat-error
+      >
+      <mat-error
+        *ngIf="
+          !dialog10Form.get('marksheet')?.errors?.required &&
+          dialog10Form.get('marksheet')?.errors?.pattern
+        "
+      >
+        marksheet must be in pdf formate
+      </mat-error>
     </div>
-
-    <!-- <div class="uploadContainer"> 
-
-      <label for="transferCertificate">Transfer Certificate</label> 
-
-      <input 
-
-        type="file" 
-
-        id="transferCertificate" 
-
-        name="transferCertificate" 
-
-        formControlName="transferCertificate" 
-
-      /> 
-
-      
-
-    </div> -->
   </form>
 </div>
 
 <div mat-dialog-action [align]="'end'" class="btn-grp">
-  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-
-  <button mat-button class="btn-primary" (click)="add10Form()">
+  <button
+    mat-button
+    class="btn-primary"
+    (click)="add10Form()"
+    [disabled]="!dialog10Form.valid"
+  >
     {{ actionBtn }}
   </button>
+  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
+
 </div>
-<!-- [disabled]="!dialog10Form.valid" -->
+

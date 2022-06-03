@@ -767,7 +767,16 @@ export class PersonalInformationComponent implements OnInit {
     }
   }
 
-  fileChange(e:Event){
-   
+  fileChange(e:any,control:any){
+    let extensionAllowed = {"png":true,"jpeg":true};
+  
+    console.log(e.target.files);
+    if (e.target.files[0].size / 1024 / 1024 > 20) {
+      alert("File size should be less than 20MB")
+      return;
+    }
+    this.personalInformation.controls["photo"].setValue(e.target.files[0]);
+
+  
   }
 }
