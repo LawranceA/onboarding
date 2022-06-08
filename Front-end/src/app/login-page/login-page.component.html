@@ -54,7 +54,7 @@
           Password is required
       </mat-error>
       <mat-error *ngIf="!logForm.get('password')?.errors?.required">
-        Password length must contain min 8 and max 15 char,It should contain atleast 1 digit,1 uppercase letter,1 lowercase letter,1 special characters
+Must have min 8 Chars, an UpperCase, a Symbol and a Digit.
     </mat-error>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
