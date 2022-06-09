@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -45,8 +44,10 @@ export class DialogComponent implements OnInit {
   dialog10Form!: FormGroup;
   actionBtn: String = 'Save';
 
-  dateValidator = true
- 
+  dateValidator = true;
+  //formData
+  formPost = new FormData();
+  
 
   constructor(
     private fs: FormBuilder,
@@ -55,7 +56,7 @@ export class DialogComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     public validation: CustomValidationService,
-    private pipe: DatePipe,
+    private pipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -79,9 +80,12 @@ export class DialogComponent implements OnInit {
 
       endDate: ['', [Validators.required]],
 
-      marksheet: ['', [Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
+      marksheet: [
+        '',
+        [Validators.required, Validators.pattern('(.*?).(pdf)$')],
+      ],
 
-      transferCertificate: [''],
+      marksheetSrc: [''],
     });
 
     if (this.editData) {
@@ -94,40 +98,17 @@ export class DialogComponent implements OnInit {
         this.editData.start_date
       );
       this.dialog10Form.controls['endDate'].setValue(this.editData.end_date);
-      this.dialog10Form.controls['marksheet'].setValue(
-        this.editData.marks_card
-      );
-      this.dialog10Form.controls['transferCertificate'].setValue(
-        this.editData.transfer_certificate
-      );
+     
     }
   }
 
   // Adding the 10 education data
   add10Form() {
     if (!this.editData) {
-
-    this.dialog10Form.value.startDate = `${this.dialog10Form.value.startDate._i.year}-${
-      this.dialog10Form.value.startDate._i.month + 1
-    }-${this.dialog10Form.value.startDate._i.date}`;
-    this.dialog10Form.value.startDate = this.pipe.transform(
-      this.dialog10Form.value.startDate,
-      'YYYY-MM-dd'
-    );
-    this.dialog10Form.value.endDate = `${this.dialog10Form.value.endDate._i.year}-${
-      this.dialog10Form.value.endDate._i.month + 1
-    }-${this.dialog10Form.value.endDate._i.date}`;
-    this.dialog10Form.value.endDate = this.pipe.transform(
-      this.dialog10Form.value.endDate,
-      'YYYY-MM-dd'
-    );
-    this.dialog10Form.value.created_at = new Date();
-    this.dialog10Form.value.updated_at = new Date();
-    this.dialog10Form.value.updated_by = this.tokenStorage.getName();
-    this.dialog10Form.value.fk_education_users_id = this.tokenStorage.getID();
-    
       if (this.dialog10Form.valid) {
-        this.api.postEducation(this.dialog10Form.value).subscribe({
+        this.appendForms();
+      
+        this.api.postEducation(this.formPost).subscribe({
           next: (res) => {
             alert('Form Data successfully added');
             this.dialog10Form.reset();
@@ -139,42 +120,102 @@ export class DialogComponent implements OnInit {
         });
       }
     } else {
-      console.log("entering")
+      console.log('entering');
       this.updateData();
     }
   }
-
+  appendForms() {
+    this.formPost.append(
+      'education',
+      this.dialog10Form.get('education')?.value
+    );
+    this.formPost.append('board', this.dialog10Form.get('board')?.value);
+    this.formPost.append('School', this.dialog10Form.get('School')?.value);
+    this.formPost.append(
+      'percentage',
+      this.dialog10Form.get('percentage')?.value
+    );
+    let sDate = `${this.dialog10Form.value.startDate._i.year}-${
+      this.dialog10Form.value.startDate._i.month + 1
+    }-${this.dialog10Form.value.startDate._i.date}`;
+    this.formPost.append(
+      'startDate',
+      `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
+    );
+    let eDate = `${this.dialog10Form.value.endDate._i.year}-${
+      this.dialog10Form.value.endDate._i.month + 1
+    }-${this.dialog10Form.value.endDate._i.date}`;
+    this.formPost.append(
+      'endDate',
+      `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`
+    );
+    this.formPost.append(
+      'marksheet',
+      this.dialog10Form.get('marksheetSrc')?.value
+    );
+    this.formPost.append('updated_at', `${new Date()}`);
+    console.log(`date---------${(new Date().toISOString())}`)
+    this.formPost.append('updated_by', this.tokenStorage.getName());
+    this.formPost.append('created_at', `${new Date()}`);
+    this.formPost.append('fk_education_users_id', this.tokenStorage.getID());
+  }
+  setForms(){
+    this.formPost.set(
+      'education',
+      this.dialog10Form.get('education')?.value
+    );
+    this.formPost.set('board', this.dialog10Form.get('board')?.value);
+    this.formPost.set('School', this.dialog10Form.get('School')?.value);
+    this.formPost.set('course', this.dialog10Form.get('course')?.value);
+    this.formPost.set('specialization', this.dialog10Form.get('specialization')?.value);
+    this.formPost.set(
+      'percentage',
+      this.dialog10Form.get('percentage')?.value
+    );
+    this.formPost.set(
+      'marksheet',
+      this.dialog10Form.get('marksheetSrc')?.value
+    );
+    this.formPost.set('updated_at', `${new Date()}`);
+    this.formPost.set('updated_by', this.tokenStorage.getName());
+    this.formPost.set('fk_education_users_id', this.tokenStorage.getID());
+  }
   updateData() {
-    this.dialog10Form.value.created_at = this.editData.created_at;
-    if(typeof(this.dialog10Form.value.startDate)!='string'){
-      this.dialog10Form.value.startDate = `${this.dialog10Form.value.startDate._i.year}-${
-        this.dialog10Form.value.startDate._i.month + 1
-      }-${this.dialog10Form.value.startDate._i.date}`;
-      this.dialog10Form.value.startDate = this.pipe.transform(
+    this.setForms()
+    this.formPost.set('created_at', this.editData.created_at);
+    if (typeof this.dialog10Form.value.startDate != 'string') {
+      let startDate = `${
+        this.dialog10Form.value.startDate._i.year
+      }-${this.dialog10Form.value.startDate._i.month + 1}-${
+        this.dialog10Form.value.startDate._i.date
+      }`;
+      this.formPost.set("startDate",`${this.pipe.transform(
+        startDate,
+        'YYYY-MM-dd'
+      )}`)
+    } else {
+      this.formPost.set("startDate",`${this.pipe.transform(
         this.dialog10Form.value.startDate,
         'YYYY-MM-dd'
-      );
-    }else{
-      this.dialog10Form.value.startDate = this.pipe.transform(
-        this.dialog10Form.value.startDate,
-        'YYYY-MM-dd'
-      );
+      )}`)
     }
-    if(typeof(this.dialog10Form.value.endDate)!='string'){
-      this.dialog10Form.value.endDate = `${this.dialog10Form.value.endDate._i.year}-${
-        this.dialog10Form.value.endDate._i.month + 1
-      }-${this.dialog10Form.value.endDate._i.date}`;
-      this.dialog10Form.value.endDate = this.pipe.transform(
+    if (typeof this.dialog10Form.value.endDate != 'string') {
+      let endDate = `${
+        this.dialog10Form.value.endDate._i.year
+      }-${this.dialog10Form.value.endDate._i.month + 1}-${
+        this.dialog10Form.value.endDate._i.date
+      }`;
+      this.formPost.set("endDate",`${this.pipe.transform(
+        endDate,
+        'YYYY-MM-dd'
+      )}`)
+    } else {
+      this.formPost.set("endDate",`${this.pipe.transform(
         this.dialog10Form.value.endDate,
         'YYYY-MM-dd'
-      );
-    }else{
-      this.dialog10Form.value.endDate = this.pipe.transform(
-        this.dialog10Form.value.endDate,
-        'YYYY-MM-dd'
-      );
+      )}`)
     }
-    this.api.putEduaction(this.dialog10Form.value, this.editData.id).subscribe({
+    this.api.putEduaction(this.formPost, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');
         this.dialog10Form.reset();
@@ -185,45 +226,62 @@ export class DialogComponent implements OnInit {
       },
     });
   }
-  getErrorMessage() {
-    // console.log('entering');
+  // getErrorMessage() {
+  //   if (
+  //     this.dialog10Form.get('board')?.getError('required') ||
+  //     this.dialog10Form.get('School')?.getError('required') ||
+  //     this.dialog10Form.get('Percentage')?.getError('required') ||
+  //     this.dialog10Form.get('startDate')?.getError('required') ||
+  //     this.dialog10Form.get('endDate')?.getError('required')
+  //   ) {
+  //     return 'You must enter a value';
+  //   }
+  //   if (this.dialog10Form.get('marksheet')?.getError('required')) {
+  //     return 'Please select a file';
+  //   }
+
+  //   return '';
+  // }
+
+  dateValidators() {
+    console.log('s');
+
+    let start = this.dialog10Form.value.startDate;
+
+    let end = this.dialog10Form.value.endDate;
+
     if (
-      this.dialog10Form.get('board')?.getError('required') ||
-      this.dialog10Form.get('School')?.getError('required') ||
-      this.dialog10Form.get('Percentage')?.getError('required') ||
-      this.dialog10Form.get('startDate')?.getError('required') ||
-      this.dialog10Form.get('endDate')?.getError('required')
+      Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+      Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
     ) {
-      return 'You must enter a value';
-    }
-    if (this.dialog10Form.get('marksheet')?.getError('required')) {
-      return 'Please select a file';
-    }
+      console.log(
+        Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+          Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
+      );
 
-    return '';
+      this.dateValidator = false;
+
+      console.log(this.dateValidator);
+    } else {
+      this.dateValidator = true;
+    }
   }
-  
-  dateValidators(){
 
-    console.log("s")
+  //file change Handler
+  fileChange(e: any) {
+    console.log(e.target.files);
+    let extensionAllowed = { png: true, jpeg: true };
+    const file = e.target.files[0];
 
-    let start=this.dialog10Form.value.startDate
-
-    let end= this.dialog10Form.value.endDate
-
-    if(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)){
-
-      console.log(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`))
-
-        this.dateValidator=false
-
-        console.log(this.dateValidator)
-
-    }else{
-
-      this.dateValidator=true
-
+    if (e.target.files[0].size / 1024 / 1024 > 1) {
+      alert('File size should be less than 1MB');
+      return;
     }
 
+    this.dialog10Form.patchValue({
+      marksheetSrc: file,
+    });
+
+    this.dialog10Form.get('marksheetSrc')?.updateValueAndValidity();
   }
 }

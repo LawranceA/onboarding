@@ -117,7 +117,7 @@ export class EducationalQualificationComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: () => {
-        // alert('Error in getting the data');
+        alert('Error in getting the data');
       },
     });
   }
@@ -131,7 +131,7 @@ export class EducationalQualificationComponent implements OnInit {
       disableClose: true,
     };
 
-    if (row.type == 'Graduation/Diploma') {
+    if (row.type == 'Graduation') {
       this.dialog
         .open(DialogUGComponent, dialogStyle)
         .afterClosed()
@@ -176,12 +176,12 @@ export class EducationalQualificationComponent implements OnInit {
     }
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+  //   if (this.dataSource.paginator) {
+  //     this.dataSource.paginator.firstPage();
+  //   }
+  // }
 }

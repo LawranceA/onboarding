@@ -47,8 +47,9 @@ export class DialogOrgComponent implements OnInit {
   actionBtn: String = 'Save';
   created_at: any;
 
-  dateValidator = true
-
+  dateValidator = true;
+  //formData
+  form = new FormData();
   constructor(
     private fs: FormBuilder,
     private api: SharedService,
@@ -56,24 +57,27 @@ export class DialogOrgComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogOrgComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     public validation: CustomValidationService,
-    private pipe: DatePipe,
+    private pipe: DatePipe
   ) {}
 
   ngOnInit(): void {
     this.organization = this.fs.group({
-      organizationName: ['',  [this.validation.characterValidator]],
+      organizationName: ['', [this.validation.characterValidator]],
       joiningDate: [''],
       relievingDate: [''],
-      hr_name: ['',  [this.validation.characterValidator]],
-      relievingLetter: ['', [Validators.pattern("(.*?)\.(pdf)$")]],
-      offerLetter: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip1: ['', [Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip2: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
-      payslip3: ['',  [Validators.pattern("(.*?)\.(pdf)$")]],
+      hr_name: ['', [this.validation.characterValidator]],
+      relievingLetter: ['', [Validators.pattern('(.*?).(pdf)$')]],
+      rlSrc: [''],
+      offerLetter: ['', [Validators.pattern('(.*?).(pdf)$')]],
+      olSrc: [''],
+      payslip1: ['', [Validators.pattern('(.*?).(pdf)$')]],
+      ps1Src: [''],
+      payslip2: ['', [Validators.pattern('(.*?).(pdf)$')]],
+      ps2Src: [''],
+      payslip3: ['', [Validators.pattern('(.*?).(pdf)$')]],
+      ps3Src: [''],
       noticePeriodEndDate: [''],
     });
-
-    //  console.log(this.editData)
     if (this.editData) {
       this.actionBtn = 'Update';
       this.organization.controls['organizationName'].setValue(
@@ -86,30 +90,16 @@ export class DialogOrgComponent implements OnInit {
         this.editData.relieving_date
       );
       this.organization.controls['hr_name'].setValue(this.editData.hr_name);
-      // this.organization.controls['relievingLetter'].setValue(
-      //   this.editData.relieving_letter
-      // );
-      // this.organization.controls['offerLetter'].setValue(
-      //   this.editData.offer_letter
-      // );
-
-      // this.organization.controls['payslip1'].setValue(this.editData.pay_slip1);
-      // this.organization.controls['payslip2'].setValue(this.editData.pay_slip2);
-      // this.organization.controls['payslip3'].setValue(this.editData.pay_slip3);
       this.organization.controls['noticePeriodEndDate'].setValue(
         this.editData.notice_date
       );
     }
   }
   addOrganization() {
-    // console.log(this.organization.value)
-    this.organization.value.created_at = new Date();
-    this.organization.value.updated_at = new Date();
-    this.organization.value.updated_by = this.tokenStorage.getName();
-    this.organization.value.fk_employment_users_id = this.tokenStorage.getID();
     if (!this.editData) {
       if (this.organization.valid) {
-        this.api.postOrganization(this.organization.value).subscribe({
+        this.appendForms();
+        this.api.postOrganization(this.form).subscribe({
           next: (res) => {
             alert('Organization added successfully');
             this.organization.reset();
@@ -126,91 +116,150 @@ export class DialogOrgComponent implements OnInit {
   }
 
   updateOrganization() {
-    this.organization.value.created_at = this.editData.created_at;
-    if(typeof(this.organization.value.joiningDate)!='string'){
-      this.organization.value.joiningDate = `${this.organization.value.joiningDate._i.year}-${
+    this.setForms();
+    this.form.set('created_at', this.editData.created_at);
+    if (typeof this.organization.value.joiningDate != 'string') {
+      let joiningDate = `${this.organization.value.joiningDate._i.year}-${
         this.organization.value.joiningDate._i.month + 1
       }-${this.organization.value.joiningDate._i.date}`;
-      this.organization.value.joiningDate = this.pipe.transform(
-        this.organization.value.joiningDate,
-        'YYYY-MM-dd'
+      this.form.set(
+        'joiningDate',
+        `${this.pipe.transform(joiningDate, 'YYYY-MM-dd')}`
       );
-    }else{
-      this.organization.value.joiningDate = this.pipe.transform(
-        this.organization.value.joiningDate,
-        'YYYY-MM-dd'
+    } else {
+      this.form.set(
+        'joiningDate',
+        `${this.pipe.transform(
+          this.organization.value.joiningDate,
+          'YYYY-MM-dd'
+        )}`
       );
     }
-    if(typeof(this.organization.value.relievingDate)!='string'){
-      this.organization.value.relievingDate = `${this.organization.value.relievingDate._i.year}-${
+    if (typeof this.organization.value.relievingDate != 'string') {
+      let relievingDate = `${this.organization.value.relievingDate._i.year}-${
         this.organization.value.relievingDate._i.month + 1
       }-${this.organization.value.relievingDate._i.date}`;
-      this.organization.value.relievingDate = this.pipe.transform(
-        this.organization.value.relievingDate,
-        'YYYY-MM-dd'
+      this.form.set(
+        'relievingDate',
+        `${this.pipe.transform(relievingDate, 'YYYY-MM-dd')}`
       );
-    }else{
-      this.organization.value.relievingDate = this.pipe.transform(
-        this.organization.value.relievingDate,
-        'YYYY-MM-dd'
-      );
-    }
-    if(typeof(this.organization.value.noticePeriodEndDate)!='string'){
-      this.organization.value.noticePeriodEndDate = `${this.organization.value.noticePeriodEndDate._i.year}-${
-        this.organization.value.noticePeriodEndDate._i.month + 1
-      }-${this.organization.value.noticePeriodEndDate._i.date}`;
-      this.organization.value.noticePeriodEndDate = this.pipe.transform(
-        this.organization.value.noticePeriodEndDate,
-        'YYYY-MM-dd'
-      );
-    }else{
-      this.organization.value.noticePeriodEndDate = this.pipe.transform(
-        this.organization.value.noticePeriodEndDate,
-        'YYYY-MM-dd'
+    } else {
+      this.form.set(
+        'relievingDate',
+        `${this.pipe.transform(
+          this.organization.value.relievingDate,
+          'YYYY-MM-dd'
+        )}`
       );
     }
-    this.api
-      .putOrganization(this.organization.value, this.editData.id)
-      .subscribe({
-        next: (res) => {
-          alert('Organization Updated successfully');
-          this.organization.reset();
-          this.dialogRef.close('updated');
-        },
-        error: (err) => {
-          alert('Error while updating the record??' + err);
-        },
-      });
+    if (typeof this.organization.value.noticePeriodEndDate != 'string') {
+      let noticePeriodEndDate = `${
+        this.organization.value.noticePeriodEndDate._i.year
+      }-${this.organization.value.noticePeriodEndDate._i.month + 1}-${
+        this.organization.value.noticePeriodEndDate._i.date
+      }`;
+      this.form.set(
+        'noticePeriodEndDate',
+        `${this.pipe.transform(noticePeriodEndDate, 'YYYY-MM-dd')}`
+      );
+    } else {
+      this.form.set(
+        'noticePeriodEndDate',
+        `${this.pipe.transform(
+          this.organization.value.noticePeriodEndDate,
+          'YYYY-MM-dd'
+        )}`
+      );
+    }
+    this.api.putOrganization(this.form, this.editData.id).subscribe({
+      next: (res) => {
+        alert('Organization Updated successfully');
+        this.organization.reset();
+        this.dialogRef.close('updated');
+      },
+      error: (err) => {
+        alert('Error while updating the record??' + err);
+      },
+    });
   }
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.organization.get('organizationName')?.getError('required') ||
-      this.organization.get('joiningDate')?.getError('required') ||
-      this.organization.get('relievingDate')?.getError('required') ||
-      this.organization.get('hr_name')?.getError('required') ||
-      this.organization.get('noticePeriodEndDate')?.getError('required') 
-      ) {
-      return 'You must enter a value';
-    }
-    if (
-      this.organization.get('relievingLetter')?.getError('required') ||
-      this.organization.get('offerLetter')?.getError('required') ||
-      this.organization.get('payslip1')?.getError('required') ||
-    this.organization.get('payslip2')?.getError('required') ||
-    this.organization.get('payslip3')?.getError('required')) {
-      return 'You must upload a file';
-    }
-    return '';
-    
+  appendForms() {
+    this.form.append(
+      'organizationName',
+      this.organization.get('organizationName')?.value
+    );
+    this.form.append('hr_name', this.organization.get('hr_name')?.value);
+
+    let jDate = `${this.organization.value.joiningDate._i.year}-${
+      this.organization.value.joiningDate._i.month + 1
+    }-${this.organization.value.joiningDate._i.date}`;
+    this.form.append(
+      'joiningDate',
+      `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
+    );
+    let rDate = `${this.organization.value.relievingDate._i.year}-${
+      this.organization.value.relievingDate._i.month + 1
+    }-${this.organization.value.relievingDate._i.date}`;
+    this.form.append(
+      'relievingDate',
+      `${this.pipe.transform(rDate, 'YYYY-MM-dd')}`
+    );
+    let nDate = `${this.organization.value.noticePeriodEndDate._i.year}-${
+      this.organization.value.noticePeriodEndDate._i.month + 1
+    }-${this.organization.value.noticePeriodEndDate._i.date}`;
+    this.form.append(
+      'noticePeriodEndDate',
+      `${this.pipe.transform(nDate, 'YYYY-MM-dd')}`
+    );
+    this.form.append('relievingLetter', this.organization.get('rlSrc')?.value);
+    this.form.append('offerLetter', this.organization.get('olSrc')?.value);
+    this.form.append('payslip1', this.organization.get('ps1Src')?.value);
+    this.form.append('payslip2', this.organization.get('ps2Src')?.value);
+    this.form.append('payslip3', this.organization.get('ps3Src')?.value);
+    this.form.append('updated_at', `${new Date()}`);
+    this.form.append('updated_by', this.tokenStorage.getName());
+    this.form.append('created_at', `${new Date()}`);
+    this.form.append('fk_employment_users_id', this.tokenStorage.getID());
   }
+  setForms() {
+    this.form.set(
+      'organizationName',
+      this.organization.get('organizationName')?.value
+    );
+    this.form.set('hr_name', this.organization.get('hr_name')?.value);
+    this.form.set('relievingLetter', this.organization.get('rlSrc')?.value);
+    this.form.set('offerLetter', this.organization.get('olSrc')?.value);
+    this.form.set('payslip1', this.organization.get('ps1Src')?.value);
+    this.form.set('payslip2', this.organization.get('ps2Src')?.value);
+    this.form.set('payslip3', this.organization.get('ps3Src')?.value);
+    this.form.set('updated_at', `${new Date()}`);
+    this.form.set('updated_by', this.tokenStorage.getName());
+    this.form.set('fk_employment_users_id', this.tokenStorage.getID());
+  }
+  // getErrorMessage() {
+  //   if (
+  //     this.organization.get('organizationName')?.getError('required') ||
+  //     this.organization.get('joiningDate')?.getError('required') ||
+  //     this.organization.get('relievingDate')?.getError('required') ||
+  //     this.organization.get('hr_name')?.getError('required') ||
+  //     this.organization.get('noticePeriodEndDate')?.getError('required')
+  //   ) {
+  //     return 'You must enter a value';
+  //   }
+  //   if (
+  //     this.organization.get('relievingLetter')?.getError('required') ||
+  //     this.organization.get('offerLetter')?.getError('required') ||
+  //     this.organization.get('payslip1')?.getError('required') ||
+  //     this.organization.get('payslip2')?.getError('required') ||
+  //     this.organization.get('payslip3')?.getError('required')
+  //   ) {
+  //     return 'You must upload a file';
+  //   }
+  //   return '';
+  // }
   dateValidators() {
     console.log('s');
-
     let start = this.organization.value.joiningDate;
-
     let end = this.organization.value.relievingDate;
-
     if (
       Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
       Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
@@ -219,12 +268,46 @@ export class DialogOrgComponent implements OnInit {
         Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
           Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
       );
-
       this.dateValidator = false;
-
       console.log(this.dateValidator);
     } else {
       this.dateValidator = true;
+    }
+  }
+  //file change handler
+  fileChange(e: any, control: any) {
+    console.log(e.target.files);
+    let extensionAllowed = { png: true, jpeg: true };
+    const file = e.target.files[0];
+    if (e.target.files[0].size / 1024 / 1024 > 1) {
+      alert('File size should be less than 1MB');
+      return;
+    }
+    if (control == 'rl') {
+      this.organization.patchValue({
+        rlSrc: file,
+      });
+      this.organization.get('rlSrc')?.updateValueAndValidity();
+    } else if (control == 'ol') {
+      this.organization.patchValue({
+        olSrc: file,
+      });
+      this.organization.get('olSrc')?.updateValueAndValidity();
+    } else if (control == 'ps1') {
+      this.organization.patchValue({
+        ps1Src: file,
+      });
+      this.organization.get('ps1Src')?.updateValueAndValidity();
+    } else if (control == 'ps2') {
+      this.organization.patchValue({
+        ps2Src: file,
+      });
+      this.organization.get('ps2Src')?.updateValueAndValidity();
+    } else if (control == 'ps3') {
+      this.organization.patchValue({
+        ps3Src: file,
+      });
+      this.organization.get('ps3Src')?.updateValueAndValidity();
     }
   }
 }

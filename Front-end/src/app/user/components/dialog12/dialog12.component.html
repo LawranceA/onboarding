@@ -52,6 +52,7 @@
         >Digits and specialcharacters are not allowed</mat-error
       >
     </mat-form-field>
+    
     <mat-form-field appearance="outline">
       <mat-label for="percentage">Percentage/CGPA</mat-label>
       <input
@@ -86,6 +87,7 @@
         formControlName="startDate"
         onkeydown="return false"
         onclick="return false"
+        readonly
       />
   
       <mat-error
@@ -110,6 +112,7 @@
         onkeydown="return false"
         onclick="return false"
         (dateChange)="dateValidators()"
+        readonly
       />
    
       <mat-error
@@ -132,6 +135,7 @@
         id="marksheet"
         name="marksheet"
         formControlName="marksheet"
+        (change)="fileChange($event)"
       />
       <mat-error
       *ngIf="dialog12Form.get('marksheet')?.errors?.['required'] && dialog12Form.get('marksheet')?.touched"

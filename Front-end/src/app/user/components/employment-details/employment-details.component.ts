@@ -2,8 +2,6 @@ import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { DialogOrgComponent } from '../dialog-org/dialog-org.component';
 import {
   MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogConfig,
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
@@ -84,7 +82,7 @@ export class EmploymentDetailsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error: (err) => {
-        // alert('Error while fetching the records');
+        alert('Error while fetching the records');
       },
     });
   }
@@ -108,17 +106,6 @@ export class EmploymentDetailsComponent implements OnInit {
   }
 
   deleteOrganization(id: number) {
-    // this.api.deleteOrganization(id).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //     alert(' organization deleted Successfully');
-    //     this.getAllOrganization();
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     alert('Error in deleting the organization');
-    //   },
-    // });
     if (confirm('Confirm to delete')) {
       this.api.deleteOrganization(id).subscribe((data) => {
         if (data) {

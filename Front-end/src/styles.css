@@ -34,6 +34,7 @@ backgrd colr #f6f7f9
   display: flex;
   color: white;
   flex-direction: column;
+  
 }
 
 .profile h4 {
@@ -51,15 +52,15 @@ backgrd colr #f6f7f9
   border-radius: 50%;
   overflow: hidden;
   padding: 0;
-  max-width: 10rem;
-  max-height: 10rem;
+  max-width: 8rem;
+  max-height: 8rem;
   margin-bottom: 0.5rem;
 }
 .profile-img img {
   width: 100%;
   height: auto;
   margin-bottom: -0.5rem;
-  height: 10rem;
+  height: 8rem;
 }
 
 .btn {

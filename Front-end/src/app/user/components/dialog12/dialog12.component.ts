@@ -40,7 +40,9 @@ export class Dialog12Component implements OnInit {
   dialog12Form!: FormGroup;
   actionBtn: String = 'Save';
 
-  dateValidator = true
+  dateValidator = true;
+  //formData
+  form = new FormData();
 
   constructor(
     private fs: FormBuilder,
@@ -49,23 +51,29 @@ export class Dialog12Component implements OnInit {
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private api: Dialog10serviceService,
     public validation: CustomValidationService,
-    private pipe: DatePipe,
+    private pipe: DatePipe
   ) {}
 
   ngOnInit(): void {
     this.dialog12Form = this.fs.group({
       education: ['12th', Validators.required],
       board: ['', [Validators.required, this.validation.characterValidator]],
-      School: ['',[Validators.required, this.validation.characterValidator]],
-      percentage: ['',[
-        Validators.required,
-        Validators.maxLength(5),
-        this.validation.percentageValidator,
-      ]],
+      School: ['', [Validators.required, this.validation.characterValidator]],
+      percentage: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(5),
+          this.validation.percentageValidator,
+        ],
+      ],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      marksheet: ['',[Validators.required,Validators.pattern("(.*?)\.(pdf)$")]],
-      transferCertificate: [''],
+      marksheet: [
+        '',
+        [Validators.required, Validators.pattern('(.*?).(pdf)$')],
+      ],
+      marksheetSrc: [''],
     });
 
     if (this.editData) {
@@ -89,27 +97,10 @@ export class Dialog12Component implements OnInit {
 
   // Adding the 10 education data
   add12Form() {
-    this.dialog12Form.value.startDate = `${this.dialog12Form.value.startDate._i.year}-${
-      this.dialog12Form.value.startDate._i.month + 1
-    }-${this.dialog12Form.value.startDate._i.date}`;
-    this.dialog12Form.value.startDate = this.pipe.transform(
-      this.dialog12Form.value.startDate,
-      'YYYY-MM-dd'
-    );
-    this.dialog12Form.value.endDate = `${this.dialog12Form.value.endDate._i.year}-${
-      this.dialog12Form.value.endDate._i.month + 1
-    }-${this.dialog12Form.value.endDate._i.date}`;
-    this.dialog12Form.value.endDate = this.pipe.transform(
-      this.dialog12Form.value.endDate,
-      'YYYY-MM-dd'
-    );
-    this.dialog12Form.value.created_at = new Date();
-    this.dialog12Form.value.updated_at = new Date();
-    this.dialog12Form.value.updated_by = this.tokenStorage.getName();
-    this.dialog12Form.value.fk_education_users_id = this.tokenStorage.getID();
     if (!this.editData) {
       if (this.dialog12Form.valid) {
-        this.api.postEducation(this.dialog12Form.value).subscribe({
+        this.appendForms();
+        this.api.postEducation(this.form).subscribe({
           next: (res) => {
             alert('Form Data successfully added');
             this.dialog12Form.reset();
@@ -126,36 +117,37 @@ export class Dialog12Component implements OnInit {
   }
 
   updateData() {
-    this.dialog12Form.value.created_at = this.editData.created_at;
-    if(typeof(this.dialog12Form.value.startDate)!='string'){
-      this.dialog12Form.value.startDate = `${this.dialog12Form.value.startDate._i.year}-${
+    this.setForms();
+    this.form.set('created_at', this.editData.created_at);
+    if (typeof this.dialog12Form.value.startDate != 'string') {
+      let startDate = `${this.dialog12Form.value.startDate._i.year}-${
         this.dialog12Form.value.startDate._i.month + 1
       }-${this.dialog12Form.value.startDate._i.date}`;
-      this.dialog12Form.value.startDate = this.pipe.transform(
-        this.dialog12Form.value.startDate,
-        'YYYY-MM-dd'
+      this.form.set(
+        'startDate',
+        `${this.pipe.transform(startDate, 'YYYY-MM-dd')}`
       );
-    }else{
-      this.dialog12Form.value.startDate = this.pipe.transform(
-        this.dialog12Form.value.startDate,
-        'YYYY-MM-dd'
+    } else {
+      this.form.set(
+        'startDate',
+        `${this.pipe.transform(
+          this.dialog12Form.value.startDate,
+          'YYYY-MM-dd'
+        )}`
       );
     }
-    if(typeof(this.dialog12Form.value.endDate)!='string'){
-      this.dialog12Form.value.endDate = `${this.dialog12Form.value.endDate._i.year}-${
+    if (typeof this.dialog12Form.value.endDate != 'string') {
+      let endDate = `${this.dialog12Form.value.endDate._i.year}-${
         this.dialog12Form.value.endDate._i.month + 1
       }-${this.dialog12Form.value.endDate._i.date}`;
-      this.dialog12Form.value.endDate = this.pipe.transform(
-        this.dialog12Form.value.endDate,
-        'YYYY-MM-dd'
-      );
-    }else{
-      this.dialog12Form.value.endDate = this.pipe.transform(
-        this.dialog12Form.value.endDate,
-        'YYYY-MM-dd'
+      this.form.set('endDate', `${this.pipe.transform(endDate, 'YYYY-MM-dd')}`);
+    } else {
+      this.form.set(
+        'endDate',
+        `${this.pipe.transform(this.dialog12Form.value.endDate, 'YYYY-MM-dd')}`
       );
     }
-    this.api.putEduaction(this.dialog12Form.value, this.editData.id).subscribe({
+    this.api.putEduaction(this.form, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');
         this.dialog12Form.reset();
@@ -166,48 +158,89 @@ export class Dialog12Component implements OnInit {
       },
     });
   }
-  getErrorMessage() {
-    // console.log('entering');
+  appendForms() {
+    this.form.append('education', this.dialog12Form.get('education')?.value);
+    this.form.append('board', this.dialog12Form.get('board')?.value);
+    this.form.append('School', this.dialog12Form.get('School')?.value);
+    this.form.append('percentage', this.dialog12Form.get('percentage')?.value);
+    let sDate = `${this.dialog12Form.value.startDate._i.year}-${
+      this.dialog12Form.value.startDate._i.month + 1
+    }-${this.dialog12Form.value.startDate._i.date}`;
+    this.form.append(
+      'startDate',
+      `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
+    );
+    let eDate = `${this.dialog12Form.value.endDate._i.year}-${
+      this.dialog12Form.value.endDate._i.month + 1
+    }-${this.dialog12Form.value.endDate._i.date}`;
+    this.form.append('endDate', `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`);
+    this.form.append('marksheet', this.dialog12Form.get('marksheetSrc')?.value);
+    this.form.append('updated_at', `${new Date()}`);
+    this.form.append('updated_by', this.tokenStorage.getName());
+    this.form.append('created_at', `${new Date()}`);
+    this.form.append('fk_education_users_id', this.tokenStorage.getID());
+  }
+  setForms() {
+    this.form.set('education', this.dialog12Form.get('education')?.value);
+    this.form.set('board', this.dialog12Form.get('board')?.value);
+    this.form.set('School', this.dialog12Form.get('School')?.value);
+    this.form.set('course', this.dialog12Form.get('course')?.value);
+    this.form.set(
+      'specialization',
+      this.dialog12Form.get('specialization')?.value
+    );
+    this.form.set('percentage', this.dialog12Form.get('percentage')?.value);
+    this.form.set('marksheet', this.dialog12Form.get('marksheetSrc')?.value);
+    this.form.set('updated_at', `${new Date()}`);
+    this.form.set('updated_by', this.tokenStorage.getName());
+    this.form.set('fk_education_users_id', this.tokenStorage.getID());
+  }
+  // getErrorMessage() {
+  //   if (
+  //     this.dialog12Form.get('board')?.getError('required') ||
+  //     this.dialog12Form.get('School')?.getError('required') ||
+  //     this.dialog12Form.get('Percentage')?.getError('required') ||
+  //     this.dialog12Form.get('startDate')?.getError('required') ||
+  //     this.dialog12Form.get('endDate')?.getError('required')
+  //   ) {
+  //     return 'You must enter a value';
+  //   }
+  //   if (this.dialog12Form.get('marksheet')?.getError('required')) {
+  //     return 'Please select a file';
+  //   }
+  //   return '';
+  // }
+
+  dateValidators() {
+    console.log('s');
+    let start = this.dialog12Form.value.startDate;
+    let end = this.dialog12Form.value.endDate;
     if (
-      this.dialog12Form.get('board')?.getError('required') ||
-      this.dialog12Form.get('School')?.getError('required') ||
-      this.dialog12Form.get('Percentage')?.getError('required') ||
-      this.dialog12Form.get('startDate')?.getError('required') ||
-      this.dialog12Form.get('endDate')?.getError('required')
+      Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+      Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
     ) {
-      return 'You must enter a value';
+      console.log(
+        Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
+          Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
+      );
+      this.dateValidator = false;
+      console.log(this.dateValidator);
+    } else {
+      this.dateValidator = true;
     }
-    if (this.dialog12Form.get('marksheet')?.getError('required')) {
-      return 'Please select a file';
-    }
-    return '';
   }
 
-  dateValidators(){ 
-
-    console.log("s") 
-
-    let start=this.dialog12Form.value.startDate 
-
-    let end= this.dialog12Form.value.endDate 
-
-    if(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)){ 
-
-      console.log(Date.parse(`${start._i.year}-${start._i.month+1}-${start._i.date}`)>=Date.parse(`${end._i.year}-${end._i.month+1}-${end._i.date}`)) 
-
-        this.dateValidator=false 
-
-        console.log(this.dateValidator) 
-
-    }else{ 
-
-      this.dateValidator=true 
-
-    } 
-
-  } 
+  fileChange(e: any) {
+    console.log(e.target.files);
+    let extensionAllowed = { png: true, jpeg: true };
+    const file = e.target.files[0];
+    if (e.target.files[0].size / 1024 / 1024 > 1) {
+      alert('File size should be less than 1MB');
+      return;
+    }
+    this.dialog12Form.patchValue({
+      marksheetSrc: file,
+    });
+    this.dialog12Form.get('marksheetSrc')?.updateValueAndValidity();
+  }
 }
-
-// add12Form(){
-//   console.log(this.dialog12Form.value)
-// }

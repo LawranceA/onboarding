@@ -96,6 +96,7 @@
         onkeydown="return false"
         onclick="return false"
         (dateChange)="dateValidators()"
+        readonly
       />
 
       <mat-error
@@ -123,6 +124,7 @@
         onkeydown="return false"
         onclick="return false"
         (dateChange)="dateValidators()"
+        readonly
       />
       <mat-hint *ngIf="!this.dateValidator"
         >End date must be greater than start date</mat-hint
@@ -139,12 +141,12 @@
 
     <div class="uploadContainer">
       <label for="marksheet">Upload Marksheet</label>
-
       <input
         type="file"
         id="marksheet"
         name="marksheet"
         formControlName="marksheet"
+        (change)="fileChange($event)"
       />
 
       <mat-error

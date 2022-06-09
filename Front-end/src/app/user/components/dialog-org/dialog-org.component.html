@@ -11,11 +11,6 @@
         formControlName="organizationName"
         style="text-transform:capitalize;"
       />
-      <!-- <mat-error
-      *ngIf="organization.get('organizationName')?.errors?.['required'] && organization.get('organizationName')?.pristine || organization.get('organizationName')?.value.length==0"
-      >Organization name is required</mat-error
-    > -->
-
     <mat-error
       *ngIf="organization.get('organizationName')?.errors?.['characterValidator'] && organization.get('organizationName')?.dirty && organization.get('organizationName')?.value.length>0"
       >Organization name is invalid</mat-error
@@ -30,6 +25,7 @@
         id="joiningDate"
         name="joiningDate"
         formControlName="joiningDate"
+        readonly
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
       />
@@ -50,6 +46,7 @@
         id="relievingDate"
         name="relievingDate"
         formControlName="relievingDate"
+        readonly
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
       />
@@ -73,12 +70,7 @@
         formControlName="hr_name"
         style="text-transform:capitalize;"
       />
-      <!-- <mat-error
-      *ngIf="organization.get('hr_name')?.errors?.['required'] && organization.get('hr_name')?.pristine || organization.get('hr_name')?.value.length==0"
-      >HR name is required</mat-error
-    > -->
-
-    <mat-error
+      <mat-error
       *ngIf="organization.get('hr_name')?.errors?.['characterValidator'] && organization.get('hr_name')?.dirty && organization.get('hr_name')?.value.length>0"
       >HR name is invalid</mat-error
     >
@@ -91,6 +83,7 @@
         name="relievingLetter"
         id="relievingLetter"
         formControlName="relievingLetter"
+        (change)="fileChange($event,'rl')"
     />
     <mat-error
     *ngIf="organization.get('relievingLetter')?.errors?.['required'] && organization.get('relievingLetter')?.touched"
@@ -108,6 +101,7 @@
         name="offerLetter"
         id="offerLetter"
         formControlName="offerLetter"
+        (change)="fileChange($event,'ol')"
       />
       <mat-error
       *ngIf="organization.get('offerLetter')?.errors?.['required'] && organization.get('offerLetter')?.touched"
@@ -125,6 +119,7 @@
         name="payslip1"
         id="payslip1"
         formControlName="payslip1"
+        (change)="fileChange($event,'ps1')"
       />
       <mat-error
       *ngIf="organization.get('payslip1')?.errors?.['required'] && organization.get('payslip1')?.touched"
@@ -138,6 +133,7 @@
         name="payslip2"
         id="payslip2"
         formControlName="payslip2"
+        (change)="fileChange($event,'ps2')"
       />
       <mat-error
       *ngIf="organization.get('payslip2')?.errors?.['required'] && organization.get('payslip2')?.touched"
@@ -151,6 +147,7 @@
         name="payslip3"
         id="payslip3"
         formControlName="payslip3"
+        (change)="fileChange($event,'ps3')"
       />
       <mat-error
       *ngIf="organization.get('payslip3')?.errors?.['required'] && organization.get('payslip3')?.touched"
@@ -169,6 +166,7 @@
         id="noticePeriodEndDate"
         name="noticePeriodEndDate"
         formControlName="noticePeriodEndDate"
+        readonly
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
       />

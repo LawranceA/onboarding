@@ -4,9 +4,40 @@
     <div class="sidenav-section">
       <div class="userProfile">
         <div class="profile-img">
-          <img [src]="src==''?'../../../../assets/images/pro.webp':src" alt="" srcset="" />
+          <img
+            [src]="src == '' ? '../../../../assets/images/pro.webp' : src"
+            alt=""
+            srcset=""
+          />
         </div>
+        <form [formGroup]="photoForm">
+          <label for="photo" class="cam"
+            ><mat-icon>add_a_photo</mat-icon></label
+          >
 
+          <input
+            style="display: none"
+            type="file"
+            name="photo"
+            id="photo"
+            (change)="fileChange($event)"
+            formControlName="photo"
+          />
+
+          <mat-error
+            *ngIf="photoForm.get('photo')?.errors?.['required'] && photoForm.get('photo')?.touched"
+            >Please upload a photo</mat-error
+          >
+          <mat-error
+            *ngIf="
+              photoForm.get('photo')?.errors?.required &&
+              photoForm.get('photo')?.errors?.pattern &&
+              photoForm.get('photo')?.errors?.touched
+            "
+          >
+            Photo must be in jpg/jpeg/png/gif formate
+          </mat-error>
+        </form>
         <h3>{{ data.name }}</h3>
         <p>{{ data.designation }}</p>
       </div>
@@ -54,27 +85,10 @@
   <!-- Main-Content -->
   <mat-drawer-content>
     <mat-toolbar>
-      <div class="leftContent">
-        <!-- <button
-          mat-icon-button
-          class="example-icon"
-          aria-label="Example icon-button with menu icon"
-          (click)="sidenav.toggle()"
-        >
-          <fa-icon [icon]="faBars"></fa-icon>
-        </button> -->
-        <!-- <img
-          src="../../../assets//images/full_logo.png"
-          width="200px"
-          height="50px"
-          alt="diggtibyte_logo"
-        /> -->
-      </div>
+      <div class="leftContent"></div>
     </mat-toolbar>
     <!-- All the user components get rendered -->
 
     <router-outlet></router-outlet>
-
-    <!-- landing page component -->
   </mat-drawer-content>
 </mat-drawer-container>

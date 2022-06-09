@@ -124,6 +124,7 @@
         id="startDate"
         name="startDate"
         formControlName="startDate"
+        readonly
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
       />
@@ -146,6 +147,7 @@
         id="endDate"
         name="endDate"
         formControlName="endDate"
+        readonly
         onkeydown="return false" onclick="return false"
         (dateChange)="dateValidators()"
         />
@@ -168,7 +170,7 @@
         id="marksheet"
         name="marksheet"
         formControlName="marksheet"
-        multiple
+        (change)="fileChange($event,'ms')"        
       />
    <mat-error
           *ngIf="dialogPGForm.get('marksheet')?.errors?.['required'] && dialogPGForm.get('marksheet')?.touched"
@@ -178,16 +180,6 @@
           marksheet must be in pdf formate
           </mat-error>
     </div>
-
-    <!-- <div class="uploadContainer">
-      <label for="transferCertificate">Transfer Certificate</label>
-      <input
-        type="file"
-        id="transferCertificate"
-        name="transferCertificate"
-        formControlName="transferCertificate"
-      />
-    </div> -->
     <div class="uploadContainer">
       <label for="provisionalCertificate">Provisional Certificate</label>
       <input
@@ -195,6 +187,7 @@
         id="provisionalCertificate"
         name="provisionalCertificate"
         formControlName="provisionalCertificate"
+        (change)="fileChange($event,'pc')"
       />
       <mat-error *ngIf="
       dialogPGForm.get('provisionalCertificate')?.errors?.pattern">
@@ -208,6 +201,7 @@
         id="convocationCertificate"
         name="convocationCertificate"
         formControlName="convocationCertificate"
+        (change)="fileChange($event,'cc')"
       />
       <mat-error *ngIf="
           dialogPGForm.get('convocationCertificate')?.errors?.pattern">

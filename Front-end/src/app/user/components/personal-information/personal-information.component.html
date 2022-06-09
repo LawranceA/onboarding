@@ -73,6 +73,7 @@
           id="dob"
           onkeydown="return false"
           onclick="return false"
+          readonly
         />
 
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -157,34 +158,6 @@
           >Enter a valid mobile number</mat-error
         >
       </mat-form-field>
-
-      <!-- <div class="genderContainer">
-        <label id="example-radio-group-label" for="gender">Gender</label>
-
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          formControlName="gender"
-          id="gender"
-          name="gender"
-        >
-          <mat-radio-button
-            class="example-radio-button"
-            *ngFor="let gender of genders"
-            [value]="gender"
-          >
-            {{ gender }}
-          </mat-radio-button>
-
-          <mat-error
-            *ngIf="
-              this.personalInformation.get('gender')?.invalid &&
-              this.personalInformation.get('gender')?.touched
-            "
-            >Please select gender</mat-error
-          >
-        </mat-radio-group>
-      </div> -->
       <mat-form-field appearance="outline">
         <mat-select placeholder="Gender" formControlName="gender">
           <mat-option
@@ -200,64 +173,34 @@
       >
         Please select gender</mat-error
       >
-      </mat-form-field>
-
-      <div class="uploadContainer">
-        <label for="photo">Photo</label>
-
+      </mat-form-field>       
+      <!-- Father Name -->
+      <mat-form-field appearance="outline" style="width: 50%">
+        <mat-label for="father_name">Father Name</mat-label>
+  
         <input
-          type="file"
-          name="photo"
-          id="photo"
-          formControlName="photo"
-          (change)="fileChange($event,'photo')"
-          value="null"
+          matInput
+          placeholder="Father Name"
+          type="text"
+          name="father_name"
+          id="father_name"
+          formControlName="father_name"
+          minlength="3"
+          style="text-transform:capitalize;"
         />
-
+  
         <mat-error
-          *ngIf="personalInformation.get('photo')?.errors?.['required'] && personalInformation.get('photo')?.touched"
-          >Please upload a photo</mat-error
+          *ngIf="personalInformation.get('father_name')?.errors?.['required'] && personalInformation.get('father_name')?.pristine || personalInformation.get('father_name')?.value.length==0"
+          >Father name is required</mat-error
         >
+  
         <mat-error
-          *ngIf="
-            !personalInformation.get('photo')?.errors?.required &&
-            personalInformation.get('photo')?.errors?.pattern
-          "
+          *ngIf="personalInformation.get('father_name')?.errors?.['characterValidator'] && personalInformation.get('father_name')?.dirty && personalInformation.get('father_name')?.value.length>0"
+          >Last name must contain only characters</mat-error
         >
-          Photo must be in jpg/jpeg/png/gif formate
-        </mat-error>
-      </div>
+      </mat-form-field>
     </div>
-
-    <!-- Father Name -->
-
-    <mat-form-field appearance="outline" style="width: 50%">
-      <mat-label for="father_name">Father Name</mat-label>
-
-      <input
-        matInput
-        placeholder="Father Name"
-        type="text"
-        name="father_name"
-        id="father_name"
-        formControlName="father_name"
-        minlength="3"
-        style="text-transform:capitalize;"
-      />
-
-      <mat-error
-        *ngIf="personalInformation.get('father_name')?.errors?.['required'] && personalInformation.get('father_name')?.pristine || personalInformation.get('father_name')?.value.length==0"
-        >Father name is required</mat-error
-      >
-
-      <mat-error
-        *ngIf="personalInformation.get('father_name')?.errors?.['characterValidator'] && personalInformation.get('father_name')?.dirty && personalInformation.get('father_name')?.value.length>0"
-        >Last name must contain only characters</mat-error
-      >
-    </mat-form-field>
-
     <!-- Current Address -->
-
     <div formGroupName="current">
       <h3>Current Adress</h3>
 
@@ -399,20 +342,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="state">State</mat-label>
-          
-          <mat-select formControlName="state" (selectionChange)="changeClient($event.value,'current','state')">
-            <input  matInput
-            type="text"
-           
-            id="state"
-            name="state" (keyup)="onKey($event,'state')" class="dropdown" placeholder="Search"
-            style="text-transform:capitalize;"> 
-           
-           <mat-option *ngFor="let state of selectedStates" [value]="state">{{state}}</mat-option>
-         </mat-select>
-         
-
-          <mat-select
+           <mat-select
             formControlName="state"
             (selectionChange)="changeClient($event.value, 'current', 'state')"
           >
@@ -670,10 +600,10 @@
         type="submit"
         [ngStyle]="{ display: display1 }"
         (click)="onSubmit()"
+        [disabled]="!personalInformation.valid"
         >
         Save
       </button>
-      <!-- [disabled]="!personalInformation.valid" -->
 
       <button
         mat-button

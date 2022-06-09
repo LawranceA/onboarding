@@ -13,7 +13,7 @@
           name="joiningDate"
           id="joiningDate"
           formControlName="joiningDate"
-          
+          readonly
           onkeydown="return false" onclick="return false" 
         />
         <mat-datepicker-toggle
@@ -54,22 +54,6 @@
         >Digits are not allowed</mat-error
       >
       </mat-form-field>
-
-      <!-- <mat-form-field appearance="outline">
-        <mat-label for="date">Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker2"
-          id="date"
-          name="date"
-          formControlName="date"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker2"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field> -->
     </div>
   </form>
 

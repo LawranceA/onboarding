@@ -7,7 +7,7 @@ export class personalInfo {
   alternate_number: string = '';
   dob: any = new Date();
   gender: string = '';
-  photo: string = '';
+  photo: any;
   father_name: string = '';
   created_at = new Date();
   updated_at = new Date();

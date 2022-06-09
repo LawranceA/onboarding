@@ -15,7 +15,17 @@ mat-toolbar {
   justify-content: center;
   align-items: flex-start;
 }
+.type{
 
+  /* font-weight: 700; */
+}
+mat-icon{
+  color: #FF934f;
+  padding-right: 1rem;
+}
+.file-upload{
+  padding-right: 1rem;
+}
 .container {
   display: flex;
   flex-direction: row;

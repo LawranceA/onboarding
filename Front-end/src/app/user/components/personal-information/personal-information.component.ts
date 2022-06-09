@@ -1,16 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  FormsModule,
-  FormGroup,
-  Validators,
-  FormControl,
-  ValidatorFn,
-} from '@angular/forms';
-import { DatePipe, formatDate, JsonPipe } from '@angular/common';
-import { filter, map, Observable, startWith } from 'rxjs';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { personalInfo } from '../../structure/personal-info';
-import { Address } from '../../structure/address';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
 
@@ -54,11 +46,7 @@ export class PersonalInformationComponent implements OnInit {
   //field for personal,CurrentAddress,PermanentAddress
   created_at: any;
   photo_src: any = '';
-  // FORM DATA
-  formData = new FormData();
-
   genders = ['Male', 'Female', 'Others'];
-
   cities = [
     'Port Blair',
     'Amaravati',
@@ -385,7 +373,8 @@ export class PersonalInformationComponent implements OnInit {
   selectedStates = this.states;
   selectedCities = this.cities;
   selectCountries = this.countries;
-
+  //form data
+  form = new FormData();
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
@@ -434,11 +423,6 @@ export class PersonalInformationComponent implements OnInit {
 
     gender: new FormControl('', [Validators.required]),
 
-    photo: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
-    ]),
-    photoSorce: new FormControl('', Validators.required),
     father_name: new FormControl('', [
       Validators.required,
 
@@ -608,96 +592,74 @@ export class PersonalInformationComponent implements OnInit {
   //to add personal info to personal info instance
   addPersonalInfoData() {
     console.log(this.personalInformation.value.first_name);
-    this.formData.append(
+    this.form.append(
       'first_name',
-      this.personalInformation.value.first_name
+      this.personalInformation.get('first_name')?.value
     );
-    // this.personal_info.first_name = this.personalInformation.value.first_name;
-    this.formData.append('last_name', this.personalInformation.value.last_name);
-    // this.personal_info.last_name = this.personalInformation.value.last_name;
-    this.formData.append(
+    this.form.append(
+      'last_name',
+      this.personalInformation.get('last_name')?.value
+    );
+    this.form.append(
       'personal_email',
-      this.personalInformation.value.personal_email
+      this.personalInformation.get('personal_email')?.value
     );
-    // this.personal_info.personal_email =
-    // this.personalInformation.value.personal_email;
-    this.formData.append(
+    this.form.append(
       'mobile_number',
-      this.personalInformation.value.mobile_number
+      this.personalInformation.get('mobile_number')?.value
     );
-    // this.personal_info.mobile_number =
-    //   this.personalInformation.value.mobile_number;
-    this.formData.append(
+    this.form.append(
       'alternate_number',
-      this.personalInformation.value.alternate_number
+      this.personalInformation.get('alternate_number')?.value
     );
-    // this.personal_info.alternate_number =
-    //   this.personalInformation.value.alternate_number;
-    this.formData.append('gender', this.personalInformation.value.gender);
-    // this.personal_info.gender = this.personalInformation.value.gender;
+    this.form.append('gender', this.personalInformation.get('gender')?.value);
+
     if (typeof this.personalInformation.value.dob != 'string') {
       let formatDob = `${this.personalInformation.value.dob._i.year}-${
         this.personalInformation.value.dob._i.month + 1
       }-${this.personalInformation.value.dob._i.date}`;
-
-      this.formData.append('dob', formatDob);
+      console.log(this.personalInformation.value.dob);
+      this.form.append(
+        'dob',
+        `${this.pipe.transform(formatDob, 'YYYY-MM-dd')}`
+      );
     } else {
-      this.formData.append(
+      this.form.append(
         'dob',
         `${this.pipe.transform(
           this.personalInformation.value.dob,
           'YYYY-MM-dd'
         )}`
       );
-      // this.personal_info.dob = this.pipe.transform(
-      //   this.personalInformation.value.dob,
-      //   'YYYY-MM-dd'
-      // );
     }
-
-    this.formData.append('photo', this.personalInformation.value.photoSorce);
-    // this.personal_info.photo = this.personalInformation.value.photoSorce;
-    this.formData.append(
+    this.form.append('photo', this.personalInformation.get('photoSrc')?.value);
+    this.form.append(
       'father_name',
-      this.personalInformation.value.father_name
+      this.personalInformation.get('father_name')?.value
     );
-    // this.personal_info.father_name = this.personalInformation.value.father_name;
-
-    this.formData.append('created_at', `${new Date()}`);
-    // this.personal_info.created_at = new Date();
-    this.formData.append('updated_at', `${new Date()}`);
-    // this.personal_info.updated_at = new Date();
-    this.formData.append('updated_by', this.tokenStorage.getName());
-    // this.personal_info.updated_by = this.tokenStorage.getName();
-    this.personal_info.fk_person_users_id = this.tokenStorage.getID();
-    this.formData.append('updated_by', this.tokenStorage.getName());
-    // console.log(this.personal_info.created_at);
+    this.form.append('updated_at', `${new Date()}`);
+    this.form.append('updated_by', this.tokenStorage.getName());
+    this.form.append('fk_person_users_id', this.tokenStorage.getID());
   }
-
-  //to add current address info to current address info object
   addCurrentAddress() {
     this.personalInformation.value.current.type = 'current';
-    this.personalInformation.value.current.created_at = new Date();
+
     this.personalInformation.value.current.updated_at = new Date();
     this.personalInformation.value.current.updated_by =
       this.tokenStorage.getName();
     this.personalInformation.value.current.fk_address_users_id =
       this.tokenStorage.getID();
     this.currentAddress = this.personalInformation.value.current;
-    // console.log(this.currentAddress);
   }
-
-  //to add permanent address info to permanent address info object
   addPermanentAddress() {
     this.personalInformation.value.permanent.type = 'permanent';
-    this.personalInformation.value.permanent.created_at = new Date();
+
     this.personalInformation.value.permanent.updated_at = new Date();
     this.personalInformation.value.permanent.updated_by =
       this.tokenStorage.getName();
     this.personalInformation.value.permanent.fk_address_users_id =
       this.tokenStorage.getID();
     this.permanentAddres = this.personalInformation.value.permanent;
-    // console.log(this.permanentAddres);
   }
   //on submitting button
   onSubmit() {
@@ -705,9 +667,14 @@ export class PersonalInformationComponent implements OnInit {
     this.display1 = 'none';
     this.display2 = 'block';
     this.addPersonalInfoData();
+    this.form.append('created_at', `${new Date()}`);
+    console.log(this.form.get('dob'));
     this.addCurrentAddress();
+    this.personalInformation.value.current.created_at = new Date();
     this.addPermanentAddress();
-    this.userService.addPersonalInfo(this.formData).subscribe((data) => {
+    this.personalInformation.value.permanent.created_at = new Date();
+
+    this.userService.addPersonalInfo(this.form).subscribe((data) => {
       console.log(data);
     });
     this.userService.addAddress(this.currentAddress).subscribe((data) => {
@@ -722,9 +689,8 @@ export class PersonalInformationComponent implements OnInit {
     this.addPersonalInfoData();
     this.addCurrentAddress();
     this.addPermanentAddress();
-    this.formData = this.created_at;
 
-    this.userService.putPersonalInfo(this.formData).subscribe((data) => {});
+    this.userService.putPersonalInfo(this.form).subscribe((data) => {});
     this.userService.putAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
     });
@@ -803,22 +769,5 @@ export class PersonalInformationComponent implements OnInit {
         });
       }
     }
-  }
-
-  fileChange(e: any, control: any) {
-    console.log(e.target.files);
-    let extensionAllowed = { png: true, jpeg: true };
-    const file = e.target.files[0];
-
-    if (e.target.files[0].size / 1024 / 1024 > 20) {
-      alert('File size should be less than 20MB');
-      // return;
-    }
-
-    this.personalInformation.patchValue({
-      photoSorce: file,
-    });
-
-    this.personalInformation.get('photoSorce')?.updateValueAndValidity();
   }
 }

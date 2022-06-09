@@ -34,6 +34,7 @@
           id="aadharcard"
           name="aadharcard"
           formControlName="aadharCard"
+          (change)="fileChange($event,'adh')"
         />
         <mat-error
       *ngIf="otherDetail.get('aadharCard')?.errors?.['required'] && otherDetail.get('aadharCard')?.touched"
@@ -72,6 +73,7 @@
           id="panCard"
           name="panCard"
           formControlName="panCard"
+          (change)="fileChange($event,'pan')"
         />
         <mat-error
         *ngIf="otherDetail.get('panCard')?.errors?.['required'] && otherDetail.get('panCard')?.touched"
@@ -131,6 +133,7 @@
           name="passportDetails"
           id="passportDetails"
           formControlName="passportDetails"
+          (change)="fileChange($event,'pass')"
         />
        
         <mat-error *ngIf="
@@ -146,8 +149,8 @@
         type="file"
         name="covidCertificate"
         id="covidCertificate"
-        multiple
         formControlName="covidCertificate"
+        (change)="fileChange($event,'covid')"
       />
       <mat-error
       *ngIf="otherDetail.get('covidCertificate')?.errors?.['required'] && otherDetail.get('covidCertificate')?.touched"
@@ -157,8 +160,6 @@
       Covid Certificate must be in pdf formate
       </mat-error>
     </div>
-
-    <!-- Need to perform validation and formcontrol data -->
     <!-- Bank Details -->
     <h3>Bank Details</h3>
     <div class="bankCards">
@@ -255,13 +256,6 @@
 
       <mat-form-field appearance="outline">
         <mat-label for="type_of_acc">Type of Account</mat-label>
-        <!-- <input
-          matInput
-          id="type_of_acc"
-          name="type_of_acc"
-          placeholder="Type of Account"
-          formControlName="type_of_acc"
-        /> -->
         <mat-select formControlName="type_of_acc">
           <mat-option
             *ngFor="let type_of_acc of type_of_account; index as i"

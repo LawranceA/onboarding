@@ -21,6 +21,34 @@
       <li>Step 4 : Select browse, and locate the file on your local computer</li>
       <li>Step 5 : Select browse, and locate the file on your local computer</li>
     </ul>
+    <div class="uploadContainer">
+      <span class="type"style="padding-right: .5rem;">Upload Profie Photo</span>
+      <label for="photo"
+      ><mat-icon >file_upload</mat-icon></label
+      >
+      <label class="file-upload" for="photo">{{photoForm.value.photo}}</label>
+      <input
+      style="display: none"
+        type="file"
+        name="photo"
+        id="photo"
+        (change)="fileChange($event)"
+      />
+
+      <mat-error
+        *ngIf="photoForm.get('photo')?.errors?.['required'] && photoForm.get('photo')?.touched"
+        >Please upload a photo</mat-error
+      >
+      <mat-error
+        *ngIf="
+          photoForm.get('photo')?.errors?.required &&
+          photoForm.get('photo')?.errors?.pattern &&
+          photoForm.get('photo')?.errors?.touched
+          "
+          >
+        Photo must be in jpg/jpeg/png/gif formate
+      </mat-error>
+    </div>
     <button mat-raised-button class="btn-primary" routerLink="details">
       Proceed&nbsp;<fa-icon [icon]="faAngleRight"></fa-icon>
     </button>

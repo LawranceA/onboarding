@@ -132,7 +132,13 @@ mat-sidenav-content {
   letter-spacing: 1px;
   text-decoration: underline;
 }
-
+.profile{
+  padding-top: 1rem;
+}
+.profile-img img {
+  width: 100%;
+  height:auto;
+}
 /*------------------ media query------------------ */
 @media (max-width: 118.78em) {
   .nav {

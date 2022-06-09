@@ -8,7 +8,6 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Dialog10serviceService } from '../../services/dialog10service.service';
-import { DialogUGComponent } from '../dialog-ug/dialog-ug.component';
 
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -48,7 +47,8 @@ export class DialogPGComponent implements OnInit {
   actionBtn: String = 'Save';
 
   dateValidator = true;
-
+//formData 
+form=new FormData()
   constructor(
     private fs: FormBuilder,
     private tokenStorage: TokenStorageService,
@@ -89,13 +89,15 @@ export class DialogPGComponent implements OnInit {
         Validators.required,
         Validators.pattern('(.*?).(pdf)$'),
       ]),
-      transferCertificate: new FormControl(''),
+      marksheetSrc:new FormControl(''),
       provisionalCertificate: new FormControl('', [
         Validators.pattern('(.*?).(pdf)$'),
       ]),
+      pcSrc:new FormControl(''),
       convocationCertificate: new FormControl('', [
         Validators.pattern('(.*?).(pdf)$'),
       ]),
+      ccSrc:new FormControl('')
     });
 
     if (this.editData) {
@@ -129,14 +131,10 @@ export class DialogPGComponent implements OnInit {
 
   // Adding the UG education data
   addPGForm() {
-    console.log(this.dialogPGForm.value);
-    this.dialogPGForm.value.created_at = new Date();
-    this.dialogPGForm.value.updated_at = new Date();
-    this.dialogPGForm.value.updated_by = this.tokenStorage.getName();
-    this.dialogPGForm.value.fk_education_users_id = this.tokenStorage.getID();
     if (!this.editData) {
       if (this.dialogPGForm.valid) {
-        this.api.postEducation(this.dialogPGForm.value).subscribe({
+        this.appendForms()
+        this.api.postEducation(this.form).subscribe({
           next: (res) => {
             alert('Form Data successfully added');
             this.dialogPGForm.reset();
@@ -153,36 +151,37 @@ export class DialogPGComponent implements OnInit {
   }
 
   updateData() {
-    this.dialogPGForm.value.created_at = this.editData.created_at;
+this.setForms()
+    this.form.set('created_at', this.editData.created_at);
     if(typeof(this.dialogPGForm.value.startDate)!='string'){
-      this.dialogPGForm.value.startDate = `${this.dialogPGForm.value.startDate._i.year}-${
+     let startDate = `${this.dialogPGForm.value.startDate._i.year}-${
         this.dialogPGForm.value.startDate._i.month + 1
       }-${this.dialogPGForm.value.startDate._i.date}`;
-      this.dialogPGForm.value.startDate = this.pipe.transform(
-        this.dialogPGForm.value.startDate,
+      this.form.set("startDate",`${this.pipe.transform(
+        startDate,
         'YYYY-MM-dd'
-      );
+      )}`)
     }else{
-      this.dialogPGForm.value.startDate = this.pipe.transform(
+      this.form.set("startDate",`${this.pipe.transform(
         this.dialogPGForm.value.startDate,
         'YYYY-MM-dd'
-      );
+      )}`)
     }
     if(typeof(this.dialogPGForm.value.endDate)!='string'){
-      this.dialogPGForm.value.endDate = `${this.dialogPGForm.value.endDate._i.year}-${
+     let endDate = `${this.dialogPGForm.value.endDate._i.year}-${
         this.dialogPGForm.value.endDate._i.month + 1
       }-${this.dialogPGForm.value.endDate._i.date}`;
-      this.dialogPGForm.value.endDate = this.pipe.transform(
-        this.dialogPGForm.value.endDate,
+      this.form.set("endDate",`${this.pipe.transform(
+        endDate,
         'YYYY-MM-dd'
-      );
+      )}`)
     }else{
-      this.dialogPGForm.value.endDate = this.pipe.transform(
+      this.form.set("endDate",`${this.pipe.transform(
         this.dialogPGForm.value.endDate,
         'YYYY-MM-dd'
-      );
+      )}`)
     }
-    this.api.putEduaction(this.dialogPGForm.value, this.editData.id).subscribe({
+    this.api.putEduaction(this.form, this.editData.id).subscribe({
       next: (res) => {
         alert('Details updated successfully');
         this.dialogPGForm.reset();
@@ -193,33 +192,102 @@ export class DialogPGComponent implements OnInit {
       },
     });
   }
-  getErrorMessage() {
-    // console.log('entering');
-    if (
-      this.dialogPGForm.get('board')?.getError('required') ||
-      this.dialogPGForm.get('School')?.getError('required') ||
-      this.dialogPGForm.get('Percentage')?.getError('required') ||
-      this.dialogPGForm.get('startDate')?.getError('required') ||
-      this.dialogPGForm.get('endDate')?.getError('required')
-    ) {
-      return 'You must enter a value';
-    }
-    if (
-      this.dialogPGForm.get('marksheet')?.getError('required') ||
-      this.dialogPGForm.get('convocationCertificate')?.getError('required')
-    ) {
-      return 'Please select a file';
-    }
-
-    return '';
+  appendForms() {
+    this.form.append(
+      'education',
+      this.dialogPGForm.get('education')?.value
+    );
+    this.form.append('board', this.dialogPGForm.get('board')?.value);
+    this.form.append('School', this.dialogPGForm.get('School')?.value);
+    this.form.append('course', this.dialogPGForm.get('course')?.value);
+    this.form.append('specialization', this.dialogPGForm.get('specialization')?.value);
+    this.form.append(
+      'percentage',
+      this.dialogPGForm.get('percentage')?.value
+    );
+    let sDate = `${this.dialogPGForm.value.startDate._i.year}-${
+      this.dialogPGForm.value.startDate._i.month + 1
+    }-${this.dialogPGForm.value.startDate._i.date}`;
+    this.form.append(
+      'startDate',
+      `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
+    );
+    let eDate = `${this.dialogPGForm.value.endDate._i.year}-${
+      this.dialogPGForm.value.endDate._i.month + 1
+    }-${this.dialogPGForm.value.endDate._i.date}`;
+    this.form.append(
+      'endDate',
+      `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`
+    );
+    this.form.append(
+      'marksheet',
+      this.dialogPGForm.get('marksheetSrc')?.value
+    );
+    this.form.append(
+      'provisionalCertificate',
+      this.dialogPGForm.get('pcSrc')?.value
+    );
+    this.form.append(
+      'convocationCertificate',
+      this.dialogPGForm.get('ccSrc')?.value
+    );
+    this.form.append('updated_at', `${new Date()}`);
+    this.form.append('updated_by', this.tokenStorage.getName());
+    this.form.append('created_at', `${new Date()}`);
+    this.form.append('fk_education_users_id', this.tokenStorage.getID());
   }
+  setForms(){
+    this.form.set(
+      'education',
+      this.dialogPGForm.get('education')?.value
+    );
+    this.form.set('board', this.dialogPGForm.get('board')?.value);
+    this.form.set('School', this.dialogPGForm.get('School')?.value);
+    this.form.set('course', this.dialogPGForm.get('course')?.value);
+    this.form.set('specialization', this.dialogPGForm.get('specialization')?.value);
+    this.form.set(
+      'percentage',
+      this.dialogPGForm.get('percentage')?.value
+    );
+    this.form.set(
+      'marksheet',
+      this.dialogPGForm.get('marksheetSrc')?.value
+    );
+    this.form.set(
+      'provisionalCertificate',
+      this.dialogPGForm.get('pcSrc')?.value
+    );
+    this.form.set(
+      'convocationCertificate',
+      this.dialogPGForm.get('ccSrc')?.value
+    );
+    this.form.set('updated_at', `${new Date()}`);
+    this.form.set('updated_by', this.tokenStorage.getName());
+    this.form.set('fk_education_users_id', this.tokenStorage.getID());
+  }
+  // getErrorMessage() {
+  //   if (
+  //     this.dialogPGForm.get('board')?.getError('required') ||
+  //     this.dialogPGForm.get('School')?.getError('required') ||
+  //     this.dialogPGForm.get('Percentage')?.getError('required') ||
+  //     this.dialogPGForm.get('startDate')?.getError('required') ||
+  //     this.dialogPGForm.get('endDate')?.getError('required')
+  //   ) {
+  //     return 'You must enter a value';
+  //   }
+  //   if (
+  //     this.dialogPGForm.get('marksheet')?.getError('required') ||
+  //     this.dialogPGForm.get('convocationCertificate')?.getError('required')
+  //   ) {
+  //     return 'Please select a file';
+  //   }
+
+  //   return '';
+  // }
   dateValidators() {
     console.log('s');
-
     let start = this.dialogPGForm.value.startDate;
-
     let end = this.dialogPGForm.value.endDate;
-
     if (
       Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
       Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
@@ -228,12 +296,37 @@ export class DialogPGComponent implements OnInit {
         Date.parse(`${start._i.year}-${start._i.month + 1}-${start._i.date}`) >=
           Date.parse(`${end._i.year}-${end._i.month + 1}-${end._i.date}`)
       );
-
       this.dateValidator = false;
-
       console.log(this.dateValidator);
     } else {
       this.dateValidator = true;
     }
   }
+    //file change handler
+    fileChange(e: any,control:any) {
+      console.log(e.target.files);
+      let extensionAllowed = { png: true, jpeg: true };
+      const file = e.target.files[0];
+      if (e.target.files[0].size / 1024 / 1024 > 1) {
+        alert('File size should be less than 1MB');
+        return;
+      }
+      if(control=='ms'){
+        this.dialogPGForm.patchValue({
+          marksheetSrc: file,
+        });
+        this.dialogPGForm.get('marksheetSrc')?.updateValueAndValidity();
+  
+      }else if(control=='pc'){
+        this.dialogPGForm.patchValue({
+          pcSrc: file,
+        });
+        this.dialogPGForm.get('pcSrc')?.updateValueAndValidity();
+      }else if(control=='cc'){
+        this.dialogPGForm.patchValue({
+          ccSrc: file,
+        });
+        this.dialogPGForm.get('ccSrc')?.updateValueAndValidity();
+      }
+    }
 }

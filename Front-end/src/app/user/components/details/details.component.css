@@ -24,7 +24,7 @@ mat-toolbar {
 }
 
 .profile-img{
-  margin-left: 3rem;
+  margin-left: 4rem;
   margin-top: .5rem;
 }
 .leftContent {
@@ -133,4 +133,11 @@ mat-toolbar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.cam{
+  position: absolute;
+  margin-top: -2rem;
+  margin-left: 1.5rem;
+  color: rgba(255, 255, 255, 0.72);
+  height: 5rem;
 }
