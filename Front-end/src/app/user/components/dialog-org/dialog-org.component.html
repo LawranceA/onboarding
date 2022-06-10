@@ -15,6 +15,10 @@
       *ngIf="organization.get('organizationName')?.errors?.['characterValidator'] && organization.get('organizationName')?.dirty && organization.get('organizationName')?.value.length>0"
       >Organization name is invalid</mat-error
     >
+    <mat-error
+      *ngIf=" organization.get('organizationName')?.touched && organization.get('organizationName')?.invalid "
+      >Please Enter Organization name</mat-error
+    >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -57,9 +61,9 @@
       this.organization.get('relievingDate')?.touched"
       >Please select releiving date</mat-error
     >
+    <mat-hint *ngIf="!this.dateValidator"
+    >End date must be greater than start date</mat-hint>
     </mat-form-field>
-    <small *ngIf="!this.dateValidator"
-    >End date must be greater than start date</small>
     <mat-form-field appearance="outline">
       <mat-label for="hr_name">HR Name</mat-label>
       <input
@@ -77,14 +81,20 @@
     </mat-form-field>
 
     <div class="uploadContainer">
-      <label for="relievingLetter">Relieving Letter</label>
+      <span class="type" style="padding-right: 0.5rem">Upload RelievingLetter</span>
+      <label for="relievingLetter"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="relievingLetter">{{
+        organization.value.relievingLetter==null?'No file uploaded':organization.value.relievingLetter
+      }}</label>
       <input
-        type="file"
-        name="relievingLetter"
-        id="relievingLetter"
+      style="display: none"
+      type="file"
+      name="relievingLetter"
+      id="relievingLetter"
+      (change)="fileChange($event,'rl')"
+   
         formControlName="relievingLetter"
-        (change)="fileChange($event,'rl')"
-    />
+      />
     <mat-error
     *ngIf="organization.get('relievingLetter')?.errors?.['required'] && organization.get('relievingLetter')?.touched"
     >Please upload a relieving letter</mat-error>
@@ -95,13 +105,19 @@
     </div>
 
     <div class="uploadContainer">
-      <label for="offerLetter">Offer Letter</label>
+      <span class="type" style="padding-right: 0.5rem">Upload OfferLetter</span>
+      <label for="offerLetter"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="offerLetter">{{
+        organization.value.offerLetter==null?'No file uploaded':organization.value.offerLetter
+      }}</label>
       <input
-        type="file"
-        name="offerLetter"
-        id="offerLetter"
+      style="display: none"
+      type="file"
+      name="offerLetter"
+      id="offerLetter"
+      (change)="fileChange($event,'ol')"
+   
         formControlName="offerLetter"
-        (change)="fileChange($event,'ol')"
       />
       <mat-error
       *ngIf="organization.get('offerLetter')?.errors?.['required'] && organization.get('offerLetter')?.touched"
@@ -113,13 +129,18 @@
     </div>
 
     <div class="uploadContainer">
-      <label for="payslip">3 Months payslips</label>
+      <span class="type" style="padding-right: 0.5rem">Upload 3 Months pay slip</span>
+      <label for="payslip1"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="payslip1">{{
+        organization.value.payslip1==null?'No file uploaded':organization.value.payslip1
+      }}</label>
       <input
-        type="file"
-        name="payslip1"
-        id="payslip1"
-        formControlName="payslip1"
-        (change)="fileChange($event,'ps1')"
+      style="display: none"
+      type="file"
+      name="payslip1"
+      id="payslip1"
+      (change)="fileChange($event,'ps1')"
+      formControlName="payslip1"
       />
       <mat-error
       *ngIf="organization.get('payslip1')?.errors?.['required'] && organization.get('payslip1')?.touched"
@@ -128,12 +149,17 @@
       !organization.get('payslip1')?.errors?.required && organization.get('payslip1')?.errors?.pattern">
       Payslip must be in pdf formate
       </mat-error>
+      <label for="payslip2"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="payslip2">{{
+        organization.value.payslip2==null?'No file uploaded':organization.value.payslip2
+      }}</label>
       <input
-        type="file"
-        name="payslip2"
-        id="payslip2"
-        formControlName="payslip2"
-        (change)="fileChange($event,'ps2')"
+      style="display: none"
+      type="file"
+      name="payslip2"
+      id="payslip2"
+      (change)="fileChange($event,'ps2')"
+      formControlName="payslip2"
       />
       <mat-error
       *ngIf="organization.get('payslip2')?.errors?.['required'] && organization.get('payslip2')?.touched"
@@ -142,12 +168,18 @@
       !organization.get('payslip2')?.errors?.required && organization.get('payslip2')?.errors?.pattern">
       Payslip must be in pdf formate
       </mat-error>
+  
+      <label for="payslip3"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="payslip2">{{
+        organization.value.payslip2==null?'No file uploaded':organization.value.payslip2
+      }}</label>
       <input
-        type="file"
-        name="payslip3"
-        id="payslip3"
-        formControlName="payslip3"
-        (change)="fileChange($event,'ps3')"
+      style="display: none"
+      type="file"
+      name="payslip2"
+      id="payslip2"
+      (change)="fileChange($event,'ps3')"
+      formControlName="payslip2"
       />
       <mat-error
       *ngIf="organization.get('payslip3')?.errors?.['required'] && organization.get('payslip3')?.touched"

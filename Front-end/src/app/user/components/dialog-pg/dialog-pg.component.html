@@ -164,13 +164,18 @@
     
 
     <div class="uploadContainer">
-      <label for="marksheet">Upload Marksheet</label>
+      <span class="type" style="padding-right: 0.5rem">Upload Marksheet</span>
+      <label for="marksheet"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="marksheet">{{
+        dialogPGForm.value.marksheet
+      }}</label>
       <input
+        style="display: none"
         type="file"
-        id="marksheet"
         name="marksheet"
+        id="marksheet"
+        (change)="fileChange($event, 'ms')"
         formControlName="marksheet"
-        (change)="fileChange($event,'ms')"        
       />
    <mat-error
           *ngIf="dialogPGForm.get('marksheet')?.errors?.['required'] && dialogPGForm.get('marksheet')?.touched"
@@ -181,13 +186,18 @@
           </mat-error>
     </div>
     <div class="uploadContainer">
-      <label for="provisionalCertificate">Provisional Certificate</label>
+      <span class="type" style="padding-right: 0.5rem">Upload provisionalCertificate</span>
+      <label for="provisionalCertificate"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="provisionalCertificate">{{
+        dialogPGForm.value.provisionalCertificate==null?'No file uploaded':dialogPGForm.value.provisionalCertificate
+      }}</label>
       <input
-        type="file"
-        id="provisionalCertificate"
-        name="provisionalCertificate"
+      style="display: none"
+      type="file"
+      name="provisionalCertificate"
+      id="provisionalCertificate"
+      (change)="fileChange($event, 'pc')"
         formControlName="provisionalCertificate"
-        (change)="fileChange($event,'pc')"
       />
       <mat-error *ngIf="
       dialogPGForm.get('provisionalCertificate')?.errors?.pattern">
@@ -195,13 +205,18 @@
       </mat-error>
     </div>
     <div class="uploadContainer">
-      <label for="convocationCertificate">Convocation Certificate</label>
+      <span class="type" style="padding-right: 0.5rem">Upload convocationCertificate</span>
+      <label for="convocationCertificate"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="convocationCertificate">{{
+        dialogPGForm.value.convocationCertificate==null?'No file uploaded':dialogPGForm.value.convocationCertificate
+      }}</label>
       <input
-        type="file"
-        id="convocationCertificate"
-        name="convocationCertificate"
+      style="display: none"
+      type="file"
+      name="convocationCertificate"
+      id="convocationCertificate"
+      (change)="fileChange($event, 'cc')"
         formControlName="convocationCertificate"
-        (change)="fileChange($event,'cc')"
       />
       <mat-error *ngIf="
           dialogPGForm.get('convocationCertificate')?.errors?.pattern">

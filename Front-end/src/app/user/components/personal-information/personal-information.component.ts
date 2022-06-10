@@ -591,59 +591,43 @@ export class PersonalInformationComponent implements OnInit {
 
   //to add personal info to personal info instance
   addPersonalInfoData() {
-    console.log(this.personalInformation.value.first_name);
-    this.form.append(
-      'first_name',
-      this.personalInformation.get('first_name')?.value
-    );
-    this.form.append(
-      'last_name',
-      this.personalInformation.get('last_name')?.value
-    );
-    this.form.append(
-      'personal_email',
-      this.personalInformation.get('personal_email')?.value
-    );
-    this.form.append(
-      'mobile_number',
-      this.personalInformation.get('mobile_number')?.value
-    );
-    this.form.append(
-      'alternate_number',
-      this.personalInformation.get('alternate_number')?.value
-    );
-    this.form.append('gender', this.personalInformation.get('gender')?.value);
+    // console.log(this.personalInformation.value.first_name);
+    this.personal_info.first_name = this.personalInformation.value.first_name;
+    this.personal_info.last_name = this.personalInformation.value.last_name;
+    this.personal_info.personal_email =
+      this.personalInformation.value.personal_email;
+    this.personal_info.mobile_number =
+      this.personalInformation.value.mobile_number;
+
+    this.personal_info.alternate_number =
+      this.personalInformation.value.alternate_number;
+
+    this.personal_info.gender = this.personalInformation.value.gender;
 
     if (typeof this.personalInformation.value.dob != 'string') {
-      let formatDob = `${this.personalInformation.value.dob._i.year}-${
+      this.personal_info.dob = `${this.personalInformation.value.dob._i.year}-${
         this.personalInformation.value.dob._i.month + 1
       }-${this.personalInformation.value.dob._i.date}`;
-      console.log(this.personalInformation.value.dob);
-      this.form.append(
-        'dob',
-        `${this.pipe.transform(formatDob, 'YYYY-MM-dd')}`
+
+      this.personal_info.dob = this.pipe.transform(
+        this.personalInformation.value.dob,
+
+        'YYYY-MM-dd'
       );
     } else {
-      this.form.append(
-        'dob',
-        `${this.pipe.transform(
-          this.personalInformation.value.dob,
-          'YYYY-MM-dd'
-        )}`
+      this.personal_info.dob = this.pipe.transform(
+        this.personalInformation.value.dob,
+
+        'YYYY-MM-dd'
       );
     }
-    this.form.append('photo', this.personalInformation.get('photoSrc')?.value);
-    this.form.append(
-      'father_name',
-      this.personalInformation.get('father_name')?.value
-    );
-    this.form.append('updated_at', `${new Date()}`);
-    this.form.append('updated_by', this.tokenStorage.getName());
-    this.form.append('fk_person_users_id', this.tokenStorage.getID());
+    this.personal_info.father_name = this.personalInformation.value.father_name;
+    this.personal_info.updated_at = new Date();
+    this.personal_info.updated_by = this.tokenStorage.getName();
+    this.personal_info.fk_person_users_id = this.tokenStorage.getID();
   }
   addCurrentAddress() {
     this.personalInformation.value.current.type = 'current';
-
     this.personalInformation.value.current.updated_at = new Date();
     this.personalInformation.value.current.updated_by =
       this.tokenStorage.getName();
@@ -653,7 +637,6 @@ export class PersonalInformationComponent implements OnInit {
   }
   addPermanentAddress() {
     this.personalInformation.value.permanent.type = 'permanent';
-
     this.personalInformation.value.permanent.updated_at = new Date();
     this.personalInformation.value.permanent.updated_by =
       this.tokenStorage.getName();
@@ -667,14 +650,12 @@ export class PersonalInformationComponent implements OnInit {
     this.display1 = 'none';
     this.display2 = 'block';
     this.addPersonalInfoData();
-    this.form.append('created_at', `${new Date()}`);
-    console.log(this.form.get('dob'));
+    this.personal_info.created_at = new Date();
     this.addCurrentAddress();
     this.personalInformation.value.current.created_at = new Date();
     this.addPermanentAddress();
     this.personalInformation.value.permanent.created_at = new Date();
-
-    this.userService.addPersonalInfo(this.form).subscribe((data) => {
+    this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
       console.log(data);
     });
     this.userService.addAddress(this.currentAddress).subscribe((data) => {
@@ -689,8 +670,9 @@ export class PersonalInformationComponent implements OnInit {
     this.addPersonalInfoData();
     this.addCurrentAddress();
     this.addPermanentAddress();
-
-    this.userService.putPersonalInfo(this.form).subscribe((data) => {});
+    this.userService
+      .putPersonalInfo(this.personal_info)
+      .subscribe((data) => {});
     this.userService.putAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
     });

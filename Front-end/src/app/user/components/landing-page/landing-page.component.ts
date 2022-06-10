@@ -34,34 +34,37 @@ export class LandingPageComponent implements OnInit {
   form=new FormData();
   
   ngOnInit(): void {
+    console.log(this.photoForm)
     this.service.getPhoto(this.tokenStorage.getID()).subscribe(data=>{
+      console.log(data)
       if(data!=null|| data!=undefined){
         this.photoForm.controls['photo'].setValue(data.photo);
       }
     })
   }
   photoForm = new FormGroup({
-    photo: new FormControl('no file choosen', [
+    photo: new FormControl('',[
       Validators.required,
       Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
     ]),
-    photoSrc: new FormControl('', Validators.required),
+    photoSrc: new FormControl(''),
   });
 
   fileChange(e: any) {
+    console.log(this.photoForm);
     console.log(e.target.files);
     let extensionAllowed = { png: true, jpeg: true };
     const file = e.target.files[0];
-
-    if (e.target.files[0].size / 1024 / 1024 > 20) {
-      alert('File size should be less than 20MB');
+console.log(file.name)
+    if (e.target.files[0].size / 1024 / 1024 > 1) {
+      alert('File size should be less than 1MB');
     }
+    this.photoForm.patchValue({
+      photo: file.name,
+    });
 
     this.photoForm.patchValue({
       photoSrc: file,
-    });
-    this.photoForm.patchValue({
-      photo: file.name,
     });
 
     this.photoForm.get('photoSrc')?.updateValueAndValidity();

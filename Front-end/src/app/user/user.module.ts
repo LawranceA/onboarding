@@ -23,6 +23,7 @@ import { DetailsComponent } from './components/details/details.component';
 
 import { SharedService } from './services/shared.service';
 import { Dialog10serviceService } from './services/dialog10service.service';
+import { DialogPrevOrgComponent } from './components/dialog-prev-org/dialog-prev-org.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { Dialog10serviceService } from './services/dialog10service.service';
     DialogOrgComponent,
     HeaderComponent,
     DetailsComponent,
+    DialogPrevOrgComponent,
 
   ],
   imports: [

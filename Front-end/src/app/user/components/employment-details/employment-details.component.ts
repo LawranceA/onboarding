@@ -1,21 +1,23 @@
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { DialogOrgComponent } from '../dialog-org/dialog-org.component';
-import {
-  MatDialog,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { DialogPrevOrgComponent } from '../dialog-prev-org/dialog-prev-org.component';
 
+export interface DialogData {
+}
 @Component({
   selector: 'app-employment-details',
   templateUrl: './employment-details.component.html',
   styleUrls: ['./employment-details.component.css'],
 })
 export class EmploymentDetailsComponent implements OnInit {
+  histories = ['Recent', 'Previous', 'Fresher'];
   displayedColumns: string[] = [
     'organizationName',
     'joiningDate',
@@ -47,21 +49,37 @@ export class EmploymentDetailsComponent implements OnInit {
     this.getAllOrganization();
   }
 
-  openDialog() {
+  openDialog(i: any) {
     const dialogStyle = {
       height: '90%',
       width: '100%',
       disableClose: true,
     };
-
-    this.dialog
-      .open(DialogOrgComponent, dialogStyle)
-      .afterClosed()
-      .subscribe((val) => {
-        if (val === 'save') {
-          this.getAllOrganization();
-        }
-      });
+    switch (i) {
+      case 0:
+        this.dialog
+          .open(DialogOrgComponent, dialogStyle)
+          .afterClosed()
+          .subscribe((val) => {
+            if (val === 'save') {
+              this.getAllOrganization();
+            }
+          });
+        break;
+      case 1:
+        this.dialog
+          .open(DialogPrevOrgComponent, dialogStyle)
+          .afterClosed()
+          .subscribe((val) => {
+            if (val === 'save') {
+              this.getAllOrganization();
+            }
+          });
+        break;
+      case 2:
+        this.next();
+        break;
+    }
   }
 
   applyFilter(event: Event) {
@@ -78,11 +96,11 @@ export class EmploymentDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: (err) => {
-        alert('Error while fetching the records');
+        // alert('Error while fetching the records');
       },
     });
   }
@@ -94,15 +112,25 @@ export class EmploymentDetailsComponent implements OnInit {
       data: row,
       disableClose: true,
     };
-
-    this.dialog
-      .open(DialogOrgComponent, dialogStyle)
-      .afterClosed()
-      .subscribe((val) => {
-        if (val === 'updated') {
-          this.getAllOrganization();
-        }
-      });
+    if (row.type == 'Recent') {
+      this.dialog
+        .open(DialogOrgComponent, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.getAllOrganization();
+          }
+        });
+    }else if(row.type=='Previous'){
+      this.dialog
+        .open(DialogPrevOrgComponent, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.getAllOrganization();
+          }
+        });
+    }
   }
 
   deleteOrganization(id: number) {

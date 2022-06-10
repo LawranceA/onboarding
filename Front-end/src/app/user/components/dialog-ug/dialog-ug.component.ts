@@ -113,6 +113,9 @@ form = new FormData();
         this.editData.start_date
       );
       this.dialogUGForm.controls['endDate'].setValue(this.editData.end_date);
+      this.dialogUGForm.controls['marksheet'].setValue(this.editData.marks_card);
+      this.dialogUGForm.controls['provisionalCertificate'].setValue(this.editData. provisional_marks_card );
+      this.dialogUGForm.controls['convocationCertificate'].setValue(this.editData.convocation_certificate);
     }
   }
 

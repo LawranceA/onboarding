@@ -4,9 +4,20 @@
 </div>
 <div class="container">
   <h3>Work Experience Details </h3>
-  <button mat-button class="btn-secondary" (click)="openDialog()">
+  <mat-form-field appearance="outline">
+    <mat-select placeholder="Select work experience" value="10th">
+      <mat-option
+        *ngFor="let history of histories; index as i"
+        [value]="history"
+        (click)="openDialog(i)"
+      >
+        {{ history }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <button mat-button class="btn-secondary" (click)="openDialog()">
     Add organization
-  </button>
+  </button> -->
   <!-- Receive the formdata from parent -->
 
   <!-- Display the organization record -->

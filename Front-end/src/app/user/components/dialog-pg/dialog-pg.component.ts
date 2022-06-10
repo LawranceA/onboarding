@@ -117,9 +117,6 @@ form=new FormData()
       this.dialogPGForm.controls['marksheet'].setValue(
         this.editData.marks_card
       );
-      this.dialogPGForm.controls['transferCertificate'].setValue(
-        this.editData.transfer_certificate
-      );
       this.dialogPGForm.controls['provisionalCertificate'].setValue(
         this.editData.provisional_certificate
       );

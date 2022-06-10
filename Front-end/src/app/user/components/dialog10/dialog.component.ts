@@ -97,8 +97,9 @@ export class DialogComponent implements OnInit {
       this.dialog10Form.controls['startDate'].setValue(
         this.editData.start_date
       );
+      
       this.dialog10Form.controls['endDate'].setValue(this.editData.end_date);
-     
+      this.dialog10Form.controls['marksheet'].setValue(this.editData.marks_card);
     }
   }
 
@@ -154,7 +155,6 @@ export class DialogComponent implements OnInit {
       this.dialog10Form.get('marksheetSrc')?.value
     );
     this.formPost.append('updated_at', `${new Date()}`);
-    console.log(`date---------${(new Date().toISOString())}`)
     this.formPost.append('updated_by', this.tokenStorage.getName());
     this.formPost.append('created_at', `${new Date()}`);
     this.formPost.append('fk_education_users_id', this.tokenStorage.getID());

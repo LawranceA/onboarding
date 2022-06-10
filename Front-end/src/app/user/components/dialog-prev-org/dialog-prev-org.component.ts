@@ -26,12 +26,11 @@ import 'moment/locale/ja';
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
 import { DatePipe } from '@angular/common';
-import { DialogData } from '../employment-details/employment-details.component';
 
 @Component({
-  selector: 'app-dialog-org',
-  templateUrl: './dialog-org.component.html',
-  styleUrls: ['./dialog-org.component.css'],
+  selector: 'app-dialog-prev-org',
+  templateUrl: './dialog-prev-org.component.html',
+  styleUrls: ['./dialog-prev-org.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     {
@@ -43,7 +42,8 @@ import { DialogData } from '../employment-details/employment-details.component';
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
-export class DialogOrgComponent implements OnInit {
+export class DialogPrevOrgComponent implements OnInit {
+
   organization!: FormGroup;
   actionBtn: String = 'Save';
   created_at: any;
@@ -56,14 +56,14 @@ export class DialogOrgComponent implements OnInit {
     private fs: FormBuilder,
     private api: SharedService,
     private tokenStorage: TokenStorageService,
-    private dialogRef: MatDialogRef<DialogOrgComponent>,
+    private dialogRef: MatDialogRef<DialogPrevOrgComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public validation: CustomValidationService,
     private pipe: DatePipe
   ) {}
 
   ngOnInit(): void {
+ console.log(this.editData)
     this.organization = this.fs.group({
       organizationName: ['', [Validators.required,this.validation.characterValidator]],
       joiningDate: ['',Validators.required],
@@ -71,15 +71,6 @@ export class DialogOrgComponent implements OnInit {
       hr_name: ['', [this.validation.characterValidator]],
       relievingLetter: ['', [Validators.required,Validators.pattern('(.*?).(pdf)$')]],
       rlSrc: [''],
-      offerLetter: ['', [Validators.required,Validators.pattern('(.*?).(pdf)$')]],
-      olSrc: [''],
-      payslip1: ['', [Validators.required,Validators.pattern('(.*?).(pdf)$')]],
-      ps1Src: [''],
-      payslip2: ['', [Validators.required,Validators.pattern('(.*?).(pdf)$')]],
-      ps2Src: [''],
-      payslip3: ['', [Validators.required,Validators.pattern('(.*?).(pdf)$')]],
-      ps3Src: [''],
-      noticePeriodEndDate: ['',Validators.required],
     });
     if (this.editData) {
       this.actionBtn = 'Update';
@@ -93,13 +84,8 @@ export class DialogOrgComponent implements OnInit {
         this.editData.relieving_date
       );
       this.organization.controls['hr_name'].setValue(this.editData.hr_name);
-      this.organization.controls['relievingLetter'].setValue(this.editData.relieving_letter);
-      this.organization.controls['offerLetter'].setValue(this.editData.offer_letter);
-      this.organization.controls['payslip1'].setValue(this.editData.pay_slip1);
-      this.organization.controls['payslip2'].setValue(this.editData.pay_slip2);
-      this.organization.controls['payslip3'].setValue(this.editData.pay_slip3);
-      this.organization.controls['noticePeriodEndDate'].setValue(
-        this.editData.notice_date
+      this.organization.controls['relievingLetter'].setValue(
+        this.editData.relieving_letter
       );
     }
   }
@@ -126,6 +112,7 @@ export class DialogOrgComponent implements OnInit {
   updateOrganization() {
     this.setForms();
     this.form.set('created_at', this.editData.created_at);
+  console.log(typeof(this.organization.value.joiningDate))
     if (typeof this.organization.value.joiningDate != 'string') {
       let joiningDate = `${this.organization.value.joiningDate._i.year}-${
         this.organization.value.joiningDate._i.month + 1
@@ -143,6 +130,7 @@ export class DialogOrgComponent implements OnInit {
         )}`
       );
     }
+    console.log(typeof(this.organization.value.joiningDate))
     if (typeof this.organization.value.relievingDate != 'string') {
       let relievingDate = `${this.organization.value.relievingDate._i.year}-${
         this.organization.value.relievingDate._i.month + 1
@@ -160,25 +148,7 @@ export class DialogOrgComponent implements OnInit {
         )}`
       );
     }
-    if (typeof this.organization.value.noticePeriodEndDate != 'string') {
-      let noticePeriodEndDate = `${
-        this.organization.value.noticePeriodEndDate._i.year
-      }-${this.organization.value.noticePeriodEndDate._i.month + 1}-${
-        this.organization.value.noticePeriodEndDate._i.date
-      }`;
-      this.form.set(
-        'noticePeriodEndDate',
-        `${this.pipe.transform(noticePeriodEndDate, 'YYYY-MM-dd')}`
-      );
-    } else {
-      this.form.set(
-        'noticePeriodEndDate',
-        `${this.pipe.transform(
-          this.organization.value.noticePeriodEndDate,
-          'YYYY-MM-dd'
-        )}`
-      );
-    }
+
     this.api.putOrganization(this.form, this.editData.id).subscribe({
       next: (res) => {
         alert('Organization Updated successfully');
@@ -191,7 +161,7 @@ export class DialogOrgComponent implements OnInit {
     });
   }
   appendForms() {
-    this.form.append("type","Recent")
+    this.form.append("type","Previous")
     this.form.append(
       'organizationName',
       this.organization.get('organizationName')?.value
@@ -212,35 +182,19 @@ export class DialogOrgComponent implements OnInit {
       'relievingDate',
       `${this.pipe.transform(rDate, 'YYYY-MM-dd')}`
     );
-    let nDate = `${this.organization.value.noticePeriodEndDate._i.year}-${
-      this.organization.value.noticePeriodEndDate._i.month + 1
-    }-${this.organization.value.noticePeriodEndDate._i.date}`;
-    this.form.append(
-      'noticePeriodEndDate',
-      `${this.pipe.transform(nDate, 'YYYY-MM-dd')}`
-    );
     this.form.append('relievingLetter', this.organization.get('rlSrc')?.value);
-    this.form.append('offerLetter', this.organization.get('olSrc')?.value);
-    this.form.append('payslip1', this.organization.get('ps1Src')?.value);
-    this.form.append('payslip2', this.organization.get('ps2Src')?.value);
-    this.form.append('payslip3', this.organization.get('ps3Src')?.value);
-    this.form.append('updated_at', `${new Date()}`);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
     this.form.append('fk_employment_users_id', this.tokenStorage.getID());
   }
   setForms() {
-    this.form.set("type","Recent")
+    this.form.set("type","Previous")
     this.form.set(
       'organizationName',
       this.organization.get('organizationName')?.value
     );
     this.form.set('hr_name', this.organization.get('hr_name')?.value);
     this.form.set('relievingLetter', this.organization.get('rlSrc')?.value);
-    this.form.set('offerLetter', this.organization.get('olSrc')?.value);
-    this.form.set('payslip1', this.organization.get('ps1Src')?.value);
-    this.form.set('payslip2', this.organization.get('ps2Src')?.value);
-    this.form.set('payslip3', this.organization.get('ps3Src')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_employment_users_id', this.tokenStorage.getID());
@@ -278,26 +232,7 @@ export class DialogOrgComponent implements OnInit {
         rlSrc: file,
       });
       this.organization.get('rlSrc')?.updateValueAndValidity();
-    } else if (control == 'ol') {
-      this.organization.patchValue({
-        olSrc: file,
-      });
-      this.organization.get('olSrc')?.updateValueAndValidity();
-    } else if (control == 'ps1') {
-      this.organization.patchValue({
-        ps1Src: file,
-      });
-      this.organization.get('ps1Src')?.updateValueAndValidity();
-    } else if (control == 'ps2') {
-      this.organization.patchValue({
-        ps2Src: file,
-      });
-      this.organization.get('ps2Src')?.updateValueAndValidity();
-    } else if (control == 'ps3') {
-      this.organization.patchValue({
-        ps3Src: file,
-      });
-      this.organization.get('ps3Src')?.updateValueAndValidity();
-    }
+    } 
   }
+
 }

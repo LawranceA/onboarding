@@ -1,0 +1,134 @@
+<h1 mat-dialog-title>Organization Details</h1>
+<div>
+  <form [formGroup]="organization">
+    <mat-form-field appearance="outline">
+      <mat-label for="organizationName">Organization</mat-label>
+      <input
+        matInput
+        type="text"
+        id="organizationName"
+        name="organizationName"
+        formControlName="organizationName"
+        style="text-transform: capitalize"
+      />
+      <mat-error
+        *ngIf="organization.get('organizationName')?.errors?.['characterValidator'] && organization.get('organizationName')?.dirty && organization.get('organizationName')?.value.length>0"
+        >Organization name is invalid</mat-error
+      >
+      <mat-error
+        *ngIf="
+          organization.get('organizationName')?.touched &&
+          organization.get('organizationName')?.invalid
+        "
+        >Please Enter Organization name</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="joiningDate">Joining Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        id="joiningDate"
+        name="joiningDate"
+        formControlName="joiningDate"
+        readonly
+        onkeydown="return false"
+        onclick="return false"
+        (dateChange)="dateValidators()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error
+        *ngIf="
+          this.organization.get('joiningDate')?.invalid &&
+          this.organization.get('joiningDate')?.touched
+        "
+        >Please select Joining date</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label for="relievingDate">Relieving Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        id="relievingDate"
+        name="relievingDate"
+        formControlName="relievingDate"
+        readonly
+        onkeydown="return false"
+        onclick="return false"
+        (dateChange)="dateValidators()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error
+        *ngIf="
+          this.organization.get('relievingDate')?.invalid &&
+          this.organization.get('relievingDate')?.touched
+        "
+        >Please select releiving date</mat-error
+      >
+      <mat-hint *ngIf="!this.dateValidator"
+        >End date must be greater than start date</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label for="hr_name">HR Name</mat-label>
+      <input
+        matInput
+        type="text"
+        id="hr_name"
+        name="hr_name"
+        formControlName="hr_name"
+        style="text-transform: capitalize"
+      />
+      <mat-error
+        *ngIf="organization.get('hr_name')?.errors?.['characterValidator'] && organization.get('hr_name')?.dirty && organization.get('hr_name')?.value.length>0"
+        >HR name is invalid</mat-error
+      >
+    </mat-form-field>
+
+    <div class="uploadContainer">
+      <span class="type" style="padding-right: 0.5rem">Upload RelievingLetter</span>
+      <label for="relievingLetter"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="relievingLetter">{{
+        organization.value.relievingLetter==null?'No file uploaded':organization.value.relievingLetter
+      }}</label>
+      <input
+      style="display: none"
+      type="file"
+      name="relievingLetter"
+      id="relievingLetter"
+      (change)="fileChange($event,'rl')"
+   
+        formControlName="relievingLetter"
+      />
+      <mat-error
+        *ngIf="organization.get('relievingLetter')?.errors?.['required'] && organization.get('relievingLetter')?.touched"
+        >Please upload a relieving letter</mat-error
+      >
+      <mat-error
+        *ngIf="
+          !organization.get('relievingLetter')?.errors?.required &&
+          organization.get('relievingLetter')?.errors?.pattern
+        "
+      >
+        Relieving letter must be in pdf formate
+      </mat-error>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-action [align]="'end'" class="btn-grp">
+  <button
+    mat-button
+    class="btn-primary"
+    (click)="addOrganization()"
+    [disabled]="!organization.valid"
+  >
+    {{ actionBtn }}
+  </button>
+  <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
+</div>

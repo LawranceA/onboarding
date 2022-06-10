@@ -47,7 +47,10 @@ export class OtherDetailsComponent implements OnInit {
   created_at: any;
   //formData
   form = new FormData();
-
+  pancard = '';
+  aadhar = '';
+  passport = '';
+  covid = '';
   otherDetail = new FormGroup({
     aadhar_card_number: new FormControl('', [
       Validators.required,
@@ -114,6 +117,8 @@ export class OtherDetailsComponent implements OnInit {
     this.service
       .getOtherDetails(this.tokenStorage.getID())
       .subscribe((data) => {
+        this.created_at = data[0].created_at;
+        console.log(data);
         if (data.length != 0) {
           this.display1 = 'none';
           this.display2 = 'block';
@@ -144,18 +149,26 @@ export class OtherDetailsComponent implements OnInit {
           this.otherDetail.controls['aadhar_card_number'].setValue(
             data[0].aadhar_card_number
           );
-          this.otherDetail.controls['aadharCard'].setValue(data[0].aadharCard);
+          console.log(data[0].aadhar);
           this.otherDetail.controls['pan_card_number'].setValue(
             data[0].pan_card_number
           );
-          this.otherDetail.controls['panCard'].setValue(data[0].pan_card);
-
-          this.otherDetail.controls['passportDetails'].setValue(
-            data[0].passport
-          );
-          this.otherDetail.controls['covidCertificate'].setValue(
-            data[0].covid_certificate
-          );
+          // this.pancard=data[0].pan_card;
+          // this.aadhar=data[0].aadhar;
+          // this.passport=data[0].passport
+          // this.covid=data[0].covid_certificate
+          this.otherDetail.patchValue({
+            aadharCard: data[0].aadhar,
+          });
+          this.otherDetail.patchValue({
+            panCard: data[0].pan_card,
+          });
+          this.otherDetail.patchValue({
+            passportDetails: data[0].passport,
+          });
+          this.otherDetail.patchValue({
+            covidCertificate: data[0].covid_certificate,
+          });
         }
       });
   }
@@ -173,25 +186,28 @@ export class OtherDetailsComponent implements OnInit {
     this.display1 = 'none';
     this.display2 = 'block';
   }
- 
+
   get m() {
     return this.otherDetail.controls;
   }
   onUpdate() {
-    this.setForms()
-    this.form.set("created_at",this.created_at);
+    this.setForms();
+    this.form.set('created_at', this.created_at);
     if (typeof this.otherDetail.value.passport_expire != 'string') {
       let passport_expire = `${
         this.otherDetail.value.passport_expire._i.year
       }-${this.otherDetail.value.passport_expire._i.month + 1}-${
         this.otherDetail.value.passport_expire._i.date
       }`;
-      this.form.set('passport_expire',`${this.pipe.transform(
-        passport_expire,
-        'YYYY-MM-dd'
-      )}`);
-    }else{
-      this.form.set("passport_expire",this.otherDetail.get('passport_expire')?.value)
+      this.form.set(
+        'passport_expire',
+        `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
+      );
+    } else {
+      this.form.set(
+        'passport_expire',
+        this.otherDetail.get('passport_expire')?.value
+      );
     }
     this.service
       .putOtherDetails(this.form, this.tokenStorage.getID())
@@ -205,23 +221,24 @@ export class OtherDetailsComponent implements OnInit {
       this.otherDetail.get('aadhar_card_number')?.value
     );
     this.form.append('aadharCard', this.otherDetail.get('adhSrc')?.value);
-    this.form.append('pan_card_number', this.otherDetail.get('pan_card_number')?.value);
-    this.form.append('panCard', this.otherDetail.get('panSrc')?.value);
-    this.form.append('passport_number', this.otherDetail.get('passport_number')?.value);
-   
-   let passport_expire = `${
-      this.otherDetail.value.passport_expire._i.year
-    }-${this.otherDetail.value.passport_expire._i.month + 1}-${
-      this.otherDetail.value.passport_expire._i.date
-    }`;
-    this.form.append('passport_expire',`${this.pipe.transform(
-      passport_expire,
-      'YYYY-MM-dd'
-    )}`);
     this.form.append(
-      'passportDetails',
-      this.otherDetail.get('pasSrc')?.value
+      'pan_card_number',
+      this.otherDetail.get('pan_card_number')?.value
     );
+    this.form.append('panCard', this.otherDetail.get('panSrc')?.value);
+    this.form.append(
+      'passport_number',
+      this.otherDetail.get('passport_number')?.value
+    );
+
+    let passport_expire = `${this.otherDetail.value.passport_expire._i.year}-${
+      this.otherDetail.value.passport_expire._i.month + 1
+    }-${this.otherDetail.value.passport_expire._i.date}`;
+    this.form.append(
+      'passport_expire',
+      `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
+    );
+    this.form.append('passportDetails', this.otherDetail.get('pasSrc')?.value);
     this.form.append(
       'covidCertificate',
       this.otherDetail.get('covidSrc')?.value
@@ -230,80 +247,44 @@ export class OtherDetailsComponent implements OnInit {
       'acc_holder_name',
       this.otherDetail.get('acc_holder_name')?.value
     );
-    this.form.append(
-      'bank_name',
-      this.otherDetail.get('bank_name')?.value
-    );
-    this.form.append(
-      'acc_number',
-      this.otherDetail.get('acc_number')?.value
-    );
-    this.form.append(
-      'ifsc_code',
-      this.otherDetail.get('ifsc_code')?.value
-    );
-    this.form.append(
-      'type_of_acc',
-      this.otherDetail.get('type_of_acc')?.value
-    );
-    this.form.append(
-      'pf_acc',
-      this.otherDetail.get('pf_acc')?.value
-    );
-    this.form.append(
-      'uan_acc',
-      this.otherDetail.get('uan_acc')?.value
-    );
+    this.form.append('bank_name', this.otherDetail.get('bank_name')?.value);
+    this.form.append('acc_number', this.otherDetail.get('acc_number')?.value);
+    this.form.append('ifsc_code', this.otherDetail.get('ifsc_code')?.value);
+    this.form.append('type_of_acc', this.otherDetail.get('type_of_acc')?.value);
+    this.form.append('pf_acc', this.otherDetail.get('pf_acc')?.value);
+    this.form.append('uan_acc', this.otherDetail.get('uan_acc')?.value);
     this.form.append('updated_at', `${new Date()}`);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
     this.form.append('fk_proof_users_id', this.tokenStorage.getID());
   }
-  setForms(){
+  setForms() {
     this.form.set(
       'aadhar_card_number',
       this.otherDetail.get('aadhar_card_number')?.value
     );
     this.form.set('aadharCard', this.otherDetail.get('adhSrc')?.value);
-    this.form.set('pan_card_number', this.otherDetail.get('pan_card_number')?.value);
+    this.form.set(
+      'pan_card_number',
+      this.otherDetail.get('pan_card_number')?.value
+    );
     this.form.set('panCard', this.otherDetail.get('panSrc')?.value);
-    this.form.set('passport_number', this.otherDetail.get('passport_number')?.value);
     this.form.set(
-      'passportDetails',
-      this.otherDetail.get('pasSrc')?.value
+      'passport_number',
+      this.otherDetail.get('passport_number')?.value
     );
-    this.form.set(
-      'covidCertificate',
-      this.otherDetail.get('covidSrc')?.value
-    );
+    this.form.set('passportDetails', this.otherDetail.get('pasSrc')?.value);
+    this.form.set('covidCertificate', this.otherDetail.get('covidSrc')?.value);
     this.form.set(
       'acc_holder_name',
       this.otherDetail.get('acc_holder_name')?.value
     );
-    this.form.set(
-      'bank_name',
-      this.otherDetail.get('bank_name')?.value
-    );
-    this.form.set(
-      'acc_number',
-      this.otherDetail.get('acc_number')?.value
-    );
-    this.form.set(
-      'ifsc_code',
-      this.otherDetail.get('ifsc_code')?.value
-    );
-    this.form.set(
-      'type_of_acc',
-      this.otherDetail.get('type_of_acc')?.value
-    );
-    this.form.set(
-      'pf_acc',
-      this.otherDetail.get('pf_acc')?.value
-    );
-    this.form.set(
-      'uan_acc',
-      this.otherDetail.get('uan_acc')?.value
-    );
+    this.form.set('bank_name', this.otherDetail.get('bank_name')?.value);
+    this.form.set('acc_number', this.otherDetail.get('acc_number')?.value);
+    this.form.set('ifsc_code', this.otherDetail.get('ifsc_code')?.value);
+    this.form.set('type_of_acc', this.otherDetail.get('type_of_acc')?.value);
+    this.form.set('pf_acc', this.otherDetail.get('pf_acc')?.value);
+    this.form.set('uan_acc', this.otherDetail.get('uan_acc')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_proof_users_id', this.tokenStorage.getID());
@@ -320,22 +301,34 @@ export class OtherDetailsComponent implements OnInit {
       this.otherDetail.patchValue({
         adhSrc: file,
       });
+      this.otherDetail.patchValue({
+        aadharCard: file.name,
+      });
       this.otherDetail.get('adhSrc')?.updateValueAndValidity();
     } else if (control == 'pan') {
       this.otherDetail.patchValue({
         panSrc: file,
+      });
+      this.otherDetail.patchValue({
+        panCard: file.name,
       });
       this.otherDetail.get('panSrc')?.updateValueAndValidity();
     } else if (control == 'pass') {
       this.otherDetail.patchValue({
         pasSrc: file,
       });
+      this.otherDetail.patchValue({
+        passportDetails: file.name,
+      });
       this.otherDetail.get('pasSrc')?.updateValueAndValidity();
     } else if (control == 'covid') {
       this.otherDetail.patchValue({
         covidSrc: file,
       });
+      this.otherDetail.patchValue({
+        covidCertificate: file.name,
+      });
       this.otherDetail.get('covidSrc')?.updateValueAndValidity();
-    } 
+    }
   }
 }

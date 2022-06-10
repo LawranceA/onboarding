@@ -140,15 +140,20 @@
     </mat-form-field>
 
     <div class="uploadContainer">
-      <label for="marksheet">Upload Marksheet</label>
-      <input
-        type="file"
-        id="marksheet"
-        name="marksheet"
-        formControlName="marksheet"
-        (change)="fileChange($event)"
-      />
 
+      <span class="type"style="padding-right: .5rem;">Upload Marksheet</span>
+      <label for="marksheet"
+      ><mat-icon >file_upload</mat-icon></label
+      >
+      <label class="file-upload" for="marksheet">{{dialog10Form.value.marksheet}}</label>
+      <input
+      style="display: none"
+        type="file"
+        name="marksheet"
+        id="marksheet"
+        (change)="fileChange($event)"
+        formControlName="marksheet"
+        />
       <mat-error
         *ngIf="dialog10Form.get('marksheet')?.errors?.['required'] && dialog10Form.get('marksheet')?.touched"
         >Please upload a marksheet</mat-error
