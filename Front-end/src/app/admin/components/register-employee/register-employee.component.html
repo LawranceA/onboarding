@@ -123,7 +123,7 @@
             >
           </mat-form-field>
         </p>
-        <!-- <div class="uploadContainer">
+       <div class="uploadContainer">
           <span class="upload-lable">Upload Offer Letter</span>
           <label for="photo"
           ><mat-icon >file_upload</mat-icon></label
@@ -144,7 +144,7 @@
             *ngIf="regForm.get('offerLetter')?.errors?.pattern && regForm.get('offerLetter')?.status=='INVALID'"
             >offerLetter must be pdf formate
           </mat-error>
-        </div> -->
+        </div> 
         <p>
           <button mat-button class="btn" (click)="register($event)">
             Register Employee
