@@ -1,103 +1,156 @@
-<div class="container">
-  <span class="register-heading">Register Employee </span>
-  <div class="form-background">
-    <form [formGroup]="regForm">
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Employee ID</mat-label>
-          <input
-            matInput
-            placeholder="Enter Employee ID"
-            formControlName="id"
-          />
-          <mat-error *ngIf="regForm.get('id')?.invalid && (regForm.get('id')?.dirty || regForm.get('id')?.touched) && regForm.get('id')?.errors?.required">
-            Employee ID is required
-         </mat-error>
-           <mat-error *ngIf="
-           !regForm.get('id')?.errors?.required && regForm.get('id')?.errors?.pattern">
-           Please enter valid Employee ID as DB0001
-           </mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Full Name</mat-label>
-          <input
-            matInput
-            placeholder="Enter Full Name"
-            formControlName="name"
-            style="text-transform:capitalize;"
-          />
-          <mat-error
-          *ngIf="regForm.get('name')?.errors?.['required'] && regForm.get('name')?.pristine || regForm.get('name')?.value.length==0"
-          >Name is required</mat-error
-        >
-  
-        <mat-error
-          *ngIf="regForm.get('name')?.errors?.['characterValidator'] && regForm.get('name')?.dirty && regForm.get('name')?.value.length>0"
-          >Digits are not allowed</mat-error
-        >
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Email ID</mat-label>
-          <input matInput placeholder="Enter Email" formControlName="email" />
-          <mat-error
-          *ngIf="regForm.get('email')?.errors?.['required'] && regForm.get('email')?.pristine || regForm.get('email')?.value.length==0"
-          >Email is required</mat-error
-        >
-
-        <mat-error
-          *ngIf="regForm.get('email')?.errors?.['emailValidator'] || regForm.get('email')?.errors?.['email']  && regForm.get('email')?.dirty && regForm.get('email')?.value.length>0"
-          >Enter a valid email id</mat-error
-        >
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Mobile Number</mat-label>
-          <input
-            matInput
-            placeholder="Enter Mobile Number"
-            formControlName="phone_number"
-          />
-          <mat-error
-          *ngIf="regForm.get('phone_number')?.errors?.['required'] && regForm.get('phone_number')?.pristine || regForm.get('phone_number')?.value.length==0"
-          >Mobile number is required</mat-error
-        >
-
-        <mat-error
-          *ngIf="regForm.get('phone_number')?.errors?.['pattern'] && regForm.get('phone_number')?.dirty && regForm.get('phone_number')?.value.length>0"
-          >Enter a valid mobile number</mat-error
-        >
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Designation</mat-label>
-          <mat-select formControlName="designation">
-            <mat-option
-              *ngFor="let designation of designations; index as i"
-              [value]="designation"
-            >
-              {{ designation }}
-            </mat-option>
-          </mat-select>
-          <mat-error
-          *ngIf="
-            this.regForm.get('designation')?.invalid &&
-            this.regForm.get('designation')?.touched
-          "
-          >Please select a designation</mat-error
-        >
-        </mat-form-field>
-      </p>
-      <p>
-        <button mat-button class="button-gradient" (click)="register($event)">
-          Register Employee
-        </button>
-      </p>
-    </form>
+<mat-toolbar>
+  <div class="leftContent">
+    <fa-icon routerLink="../" [icon]="faCircleArrowLeft" class="back"></fa-icon
+    ><span>Back</span>
+    <img
+      src="../../../../assets/images/logo.png"
+      alt=""
+      srcset=""
+      class="logo"
+    />
   </div>
+</mat-toolbar>
+<div class="header-style">
+  <fa-icon class="add-icon" [icon]="faUserPlus"></fa-icon>
+  <h2 class="header-headings">CREATE NEW EMPLOYEE</h2>
+</div>
+<div class="container">
+  <mat-card class="form-card">
+    <div class="form-card-content">
+      <p class="form-header">EMPLOYEE DETAILS</p>
+      <p class="form-sub">* Required All Fields.</p>
+      <form [formGroup]="regForm" class="form">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Employee ID</mat-label>
+            <input matInput placeholder="Employee ID" formControlName="id" />
+            <mat-error
+              *ngIf="
+                regForm.get('id')?.invalid &&
+                (regForm.get('id')?.dirty || regForm.get('id')?.touched) &&
+                regForm.get('id')?.errors?.required
+              "
+            >
+              Employee ID is required
+            </mat-error>
+            <mat-error
+              *ngIf="
+                !regForm.get('id')?.errors?.required &&
+                regForm.get('id')?.errors?.pattern
+              "
+            >
+              Please enter valid Employee ID as DB0001
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter Full Name"
+              formControlName="name"
+              style="text-transform: capitalize"
+            />
+            <mat-error
+              *ngIf="regForm.get('name')?.errors?.['required'] && regForm.get('name')?.pristine || regForm.get('name')?.value.length==0"
+              >Name is required</mat-error
+            >
+
+            <mat-error
+              *ngIf="regForm.get('name')?.errors?.['characterValidator'] && regForm.get('name')?.dirty && regForm.get('name')?.value.length>0"
+              >Digits are not allowed</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Email ID</mat-label>
+            <input
+              matInput
+              placeholder="Enter Email"
+              formControlName="email"
+              required
+            />
+            <mat-error
+              *ngIf="regForm.get('email')?.errors?.['required'] && regForm.get('email')?.pristine || regForm.get('email')?.value.length==0"
+              >Email is required</mat-error
+            >
+
+            <mat-error
+              *ngIf="regForm.get('email')?.errors?.['emailValidator'] || regForm.get('email')?.errors?.['email']  && regForm.get('email')?.dirty && regForm.get('email')?.value.length>0"
+              >Enter a valid email id</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              matInput
+              placeholder="Enter Mobile Number"
+              formControlName="phone_number"
+            />
+            <mat-error
+              *ngIf="regForm.get('phone_number')?.errors?.['required'] && regForm.get('phone_number')?.pristine || regForm.get('phone_number')?.value.length==0"
+              >Mobile number is required</mat-error
+            >
+
+            <mat-error
+              *ngIf="regForm.get('phone_number')?.errors?.['pattern'] && regForm.get('phone_number')?.dirty && regForm.get('phone_number')?.value.length>0"
+              >Enter a valid mobile number</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Designation</mat-label>
+            <!-- <input matInput placeholder="Enter Designation" formControlName="designation"/> -->
+            <mat-select formControlName="designation">
+              <mat-option
+                *ngFor="let designation of designations; index as i"
+                [value]="designation"
+              >
+                {{ designation }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                this.regForm.get('designation')?.invalid &&
+                this.regForm.get('designation')?.touched
+              "
+              >Please select a designation</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <!-- <div class="uploadContainer">
+          <span class="upload-lable">Upload Offer Letter</span>
+          <label for="photo"
+          ><mat-icon >file_upload</mat-icon></label
+          >
+          <label class="file-upload" for="">{{ regForm.get('offerLetter')?.value==''?'no file uploaded':regForm.get('offerLetter')?.value}}</label>
+          <input
+            style="display: none"
+            type="file"
+            name="offerLetter"
+            id="offerLetter"
+            (change)="fileChange($event)"       
+            />
+          <mat-error
+            *ngIf="regForm.get('offerLetter')?.errors?.['required'] && regForm.get('offerLetter')?.touched"
+            >Please upload a offerLetter</mat-error
+          >
+          <mat-error
+            *ngIf="regForm.get('offerLetter')?.errors?.pattern && regForm.get('offerLetter')?.status=='INVALID'"
+            >offerLetter must be pdf formate
+          </mat-error>
+        </div> -->
+        <p>
+          <button mat-button class="btn" (click)="register($event)">
+            Register Employee
+          </button>
+        </p>
+      </form>
+    </div>
+  </mat-card>
 </div>

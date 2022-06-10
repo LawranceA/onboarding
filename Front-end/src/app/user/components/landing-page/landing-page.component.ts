@@ -36,9 +36,11 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.photoForm)
     this.service.getPhoto(this.tokenStorage.getID()).subscribe(data=>{
-      console.log(data)
       if(data!=null|| data!=undefined){
-        this.photoForm.controls['photo'].setValue(data.photo);
+        console.log(data.photo)
+        this.photoForm.patchValue({
+          photo: data.photo,
+        });
       }
     })
   }
@@ -58,6 +60,7 @@ export class LandingPageComponent implements OnInit {
 console.log(file.name)
     if (e.target.files[0].size / 1024 / 1024 > 1) {
       alert('File size should be less than 1MB');
+      return;
     }
     this.photoForm.patchValue({
       photo: file.name,

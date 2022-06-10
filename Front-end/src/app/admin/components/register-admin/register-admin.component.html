@@ -1,7 +1,20 @@
+<mat-toolbar>
+  <div class="leftContent">
+    <fa-icon routerLink="../" [icon]="faCircleArrowLeft" class="back"></fa-icon><span>Back</span>
+   <img src="../../../../assets/images/logo.png" alt="" srcset="" class="logo">
+  </div>
+</mat-toolbar>
+<div class="header-style">
+  <fa-icon class="add-icon"[icon]="faUserPlus" ></fa-icon>
+  <h2 class="header-headings">CREATE NEW ADMIN</h2>
+</div>
 <div class="container">
-  <span class="register-heading">Register Admin </span>
-  <form [formGroup]="regForm">
-    <div class="form-background">
+<mat-card class="form-card">
+  <div class="form-card-content">  
+    <p class="form-header">ADMIN DETAILS</p>
+    <p class="form-sub">* Required All Fields.</p>
+    <form [formGroup]="regForm" class="form">
+    
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Employee ID</mat-label>
@@ -98,10 +111,12 @@
         </mat-form-field>
       </p>
       <p>
-        <button mat-button class="button-gradient" (click)="register($event)">
+        <button mat-button class="btn" (click)="register($event)">
           Register Admin
         </button>
       </p>
-    </div>
-  </form>
+      </form>
+  </div>
+</mat-card>
+  
 </div>

@@ -1,19 +1,20 @@
-import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { CustomValidationService } from 'src/app/user/services/custom-validation.service';
 import { Admin } from '../../admin';
-import { AdminServiceService } from '../../admin-service.service';
 import { AdminService } from '../../services/admin.service';
-
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-register-admin',
   templateUrl: './register-admin.component.html',
   styleUrls: ['./register-admin.component.css'],
 })
 export class RegisterAdminComponent implements OnInit {
+  faCircleArrowLeft=faCircleArrowLeft
+  faUserPlus=faUserPlus
   admin: Admin = new Admin();
 
   designations = [

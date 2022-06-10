@@ -1,57 +1,88 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened="true" class="side-nav">
-    <div class="sidebar-wraper">
-      <div class="profile">
+<mat-drawer-container>
+  <!-- SideBar Content -->
+  <mat-drawer mode="side" opened="true">
+    <div class="sidenav-section">
+      <div class="userProfile">
         <div class="profile-img">
-          <img src="../../../../assets/images/pro.webp" alt="" srcset="" />
+          <img
+            [src]="src == '' ? '../../../../assets/images/pro.webp' : src"
+            alt=""
+            srcset=""
+          />
         </div>
+        <form [formGroup]="photoForm">
+          <label for="photo" class="cam"
+            ><mat-icon>add_a_photo</mat-icon></label
+          >
+
+          <input
+            style="display: none"
+            type="file"
+            name="photo"
+            id="photo"
+            (change)="fileChange($event)"
+            formControlName="photo"
+          />
+
+          <mat-error
+            *ngIf="photoForm.get('photo')?.errors?.['required'] && photoForm.get('photo')?.touched"
+            >Please upload a photo</mat-error
+          >
+          <mat-error
+            *ngIf="
+              photoForm.get('photo')?.errors?.required &&
+              photoForm.get('photo')?.errors?.pattern &&
+              photoForm.get('photo')?.errors?.touched
+            "
+          >
+            Photo must be in jpg/jpeg/png/gif formate
+          </mat-error>
+        </form>
         <h4>{{ data.name }}</h4>
         <p>{{ data.designation }}</p>
       </div>
-      <div class="options">
-        <ul class="nav">
-          <li class="nav-item" routerLink="addAdmin" routerLinkActive="active">
-            <a class="nav-link">
-              <mat-icon class="lists">library_add</mat-icon>
-              Register Admin
-            </a>
+
+      <div class="sidenav-menu">
+        <ul>
+          <li>
+            <a
+              routerLink="personal-information"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              
+              ><fa-icon [icon]="faHouse"></fa-icon>Dashboard</a
+            >
           </li>
-          <li
-            class="nav-item"
-            routerLink="addEmployee"
-            [routerLinkActive]="['active']"
-          >
-            <a class="nav-link">
-              <mat-icon class="lists">library_add</mat-icon>
-              Register Employee
-            </a>
+          <li>
+            <a routerLink="addAdmin" routerLinkActive="active"
+              ><fa-icon [icon]="faUserPlus"></fa-icon>Register New Admin</a
+              >
           </li>
-          <li
-            class="nav-item"
-            routerLink="employeeLists"
-            [routerLinkActive]="['active']"
-          >
-            <a class="nav-link">
-              <mat-icon class="lists">content_paste</mat-icon>
-              New Employee List
-            </a>
+          <li>
+            <a routerLink="addEmployee" routerLinkActive="active" routerLinkActive="active"
+            ><fa-icon [icon]="faHospitalUser"></fa-icon>Register New Employee</a
+            >
           </li>
+          <li>
+            <a routerLink="employeeLists" routerLinkActive="active" routerLinkActive="active"
+            ><fa-icon [icon]="faClipboardList"></fa-icon>All Employees</a
+            >
+          </li>
+          
         </ul>
       </div>
-      <button class="btns btns-blue" (click)="logout()">Log out</button>
+
+      <button class="btn" (click)="logout()">Log Out</button>
+
+      <p class="footer">&copy;Diggibyte2022</p>
     </div>
-    <p class="footer">&copy;Diggibyte2022</p>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="header">
-      <img
-        src="../../../../assets/images/logo.png"
-        alt=""
-        srcset=""
-        class="logo"
-      />
-    </div>
+  </mat-drawer>
+
+  <!-- Main-Content -->
+  <mat-drawer-content>
+
+    <!-- All the user components get rendered -->
 
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-drawer-content>
+</mat-drawer-container>

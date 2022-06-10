@@ -16,6 +16,7 @@ const routes: Routes = [
  {path:'', component:AdminDashboardComponent,
  children:[
   {path:'',component:DefaultPageComponent},
+  {path:'dashboard',component:DefaultPageComponent},
   {path:'addAdmin',component:RegisterAdminComponent},
   {path:'addEmployee',component:RegisterEmployeeComponent},
   {path:'registerStatus',component:RegistrationStatusComponent},

@@ -34,7 +34,6 @@ backgrd colr #f6f7f9
   display: flex;
   color: white;
   flex-direction: column;
-  
 }
 
 .profile h4 {
@@ -50,6 +49,7 @@ backgrd colr #f6f7f9
 /*profie image style */
 .profile-img {
   border-radius: 50%;
+  border: 2px solid #de6d26b0;
   overflow: hidden;
   padding: 0;
   max-width: 8rem;
@@ -124,21 +124,48 @@ backgrd colr #f6f7f9
   border: 1px solid transparent;
 }
 
-.header-style{
+.header-style {
   background-color: #014868;
-  height:3rem;
+  height: 3rem;
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
   width: 100%;
 }
-.header-icon{
+.header-icon {
   color: white;
   align-self: center;
   padding-left: 1rem;
 }
-.header-headings{
+.header-headings {
   color: white;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   padding-left: 1rem;
+}
+.form-card {
+  width: 80%;
+  height: 90vh;
+  margin-bottom: 2rem;
+  margin-top: 5%;
+  margin-left: 10%;
+}
+.form-card-content {
+  display: flex;
+  flex-direction: column;
+}
+.form-sub {
+  font-size: 12px;
+  color: #1c4765;
+  align-self: center;
+  padding-top: 0;
+}
+.form-header {
+  align-self: center;
+  font-weight: 450;
+  font-size: 20px;
+  line-height: 24.2px;
+  margin: 0 !important;
+}
+.form{
+  align-self: center;
 }

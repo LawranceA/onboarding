@@ -1,10 +1,38 @@
-
 * {
   box-sizing: border-box;
 }
 .container {
   position: relative;
 }
+mat-toolbar {
+  padding: 0;
+  align-items: unset;
+}
+.leftContent {
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0px -4px 21px rgba(0, 0, 0, 0.25);
+}
+.logo {
+  margin-top: -1rem;
+  float: right;
+  width: 4rem;
+  height: 4rem;
+}
+.back {
+  color: #ff9350;
+  font-size: 22px;
+}
+span{
+  position: absolute;
+  padding-left: 0.5rem;
+  padding-top: 3px;
+  font-size: 18px;
+  line-height: 21.78px;
+  font-weight: 400;
+}
+
 .form-background {
   width: 70%;
   margin-top: 2%;
@@ -29,6 +57,23 @@ mat-form-field {
 }
 .form-background p {
   padding: 0;
+}
+.header-style {
+  background: radial-gradient(112.89% 507.67% at -12.01% -12.89%, rgba(255, 138, 0, 0.56) 0%, rgba(255, 151, 85, 0.56) 45.3%, rgba(255, 142, 33, 0.56) 100%)
+}
+.header-headings {
+  color: #014868;
+  padding-left: 0.5rem;
+}
+.add-icon {
+  margin-left: 23px;
+  margin-top: 15px;
+  color: #014868;
+  font-size: 18px;
+}
+.btn{
+  border:2px solid #ff9350;
+margin-left: 30%;
 }
 /* --------------------------------- */
 @media (max-width: 116.6em) {
@@ -69,37 +114,33 @@ mat-form-field {
   }
 }
 
-@media (max-width:26.25em){
-  .form-background{
+@media (max-width: 26.25em) {
+  .form-background {
     width: 80%;
     margin-left: 10%;
     text-align: start;
   }
- 
+
   mat-form-field {
-    font-size: .5rem;
+    font-size: 0.5rem;
     width: 12rem;
-    
   }
   .button-gradient {
     width: 12rem;
-  
   }
   .register-heading {
     margin-left: 30%;
     font-size: 1rem;
   }
-
 }
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
-  color: #014868 !important;
+  color: #ff9350 !important;
 }
 
 /*  mat-label focused style */
 
 ::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
-  color: #014868 !important;
+  color: #ff9350 !important;
 }
-
