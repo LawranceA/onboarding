@@ -11,6 +11,12 @@
 ::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
   color: #014868 !important;
 }
+.form-card{
+  height: 100vh;
+}
 .upload-lable{
   font-size: 16px;
+}
+.file-upload{
+  padding-right: 1rem;
 }

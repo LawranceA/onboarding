@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="leftContent">
     <fa-icon routerLink="../" [icon]="faCircleArrowLeft" class="back"></fa-icon
-    ><span>Back</span>
+    ><span class="back-word">Back</span>
     <img
       src="../../../../assets/images/logo.png"
       alt=""
@@ -123,9 +123,10 @@
             >
           </mat-form-field>
         </p>
-       <div class="uploadContainer">
-          <span class="upload-lable">Upload Offer Letter</span>
-          <label for="photo"
+
+     <div class="uploadContainer">
+          <span class="type"style="padding-right: .5rem;">Upload Profie Photo</span>
+          <label for="offerLetter"
           ><mat-icon >file_upload</mat-icon></label
           >
           <label class="file-upload" for="">{{ regForm.get('offerLetter')?.value==''?'no file uploaded':regForm.get('offerLetter')?.value}}</label>
@@ -142,7 +143,7 @@
           >
           <mat-error
             *ngIf="regForm.get('offerLetter')?.errors?.pattern && regForm.get('offerLetter')?.status=='INVALID'"
-            >offerLetter must be pdf formate
+            >offerLetter must be in pdf formate
           </mat-error>
         </div> 
         <p>

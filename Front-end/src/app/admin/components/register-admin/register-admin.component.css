@@ -24,23 +24,13 @@ mat-toolbar {
   color: #ff9350;
   font-size: 22px;
 }
-span{
+.back-word {
   position: absolute;
   padding-left: 0.5rem;
   padding-top: 3px;
   font-size: 18px;
   line-height: 21.78px;
   font-weight: 400;
-}
-
-.form-background {
-  width: 70%;
-  margin-top: 2%;
-  margin-left: 20%;
-  background-color: rgba(196, 196, 196, 0.13);
-  padding: 1.563rem 2.13rem;
-  border-radius: 1%;
-  margin-bottom: 4rem;
 }
 mat-form-field {
   width: 22.875rem;
@@ -59,7 +49,12 @@ mat-form-field {
   padding: 0;
 }
 .header-style {
-  background: radial-gradient(112.89% 507.67% at -12.01% -12.89%, rgba(255, 138, 0, 0.56) 0%, rgba(255, 151, 85, 0.56) 45.3%, rgba(255, 142, 33, 0.56) 100%)
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    rgba(255, 138, 0, 0.56) 0%,
+    rgba(255, 151, 85, 0.56) 45.3%,
+    rgba(255, 142, 33, 0.56) 100%
+  );
 }
 .header-headings {
   color: #014868;
@@ -71,9 +66,9 @@ mat-form-field {
   color: #014868;
   font-size: 18px;
 }
-.btn{
-  border:2px solid #ff9350;
-margin-left: 30%;
+.btn {
+  border: 2px solid #ff9350;
+  margin-left: 30%;
 }
 /* --------------------------------- */
 @media (max-width: 116.6em) {
