@@ -80,7 +80,7 @@ export class RegisterEmployeeComponent implements OnInit {
   addEmployee() {
     this.service.addEmployee(this.form).subscribe((data) => {
       console.log(data);
-      this.service.setStatus({ status: data.message, user: 'Admin' });
+      this.service.setStatus({ status: data.message, user: 'EMPLOYEEE' });
     });
     this.router.navigate(['../registerStatus'], { relativeTo: this.route });
   }

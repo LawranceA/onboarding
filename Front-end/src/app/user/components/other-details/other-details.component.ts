@@ -216,6 +216,7 @@ export class OtherDetailsComponent implements OnInit {
       });
   }
   appendForms() {
+    console.log()
     this.form.append(
       'aadhar_card_number',
       this.otherDetail.get('aadhar_card_number')?.value
@@ -230,14 +231,15 @@ export class OtherDetailsComponent implements OnInit {
       'passport_number',
       this.otherDetail.get('passport_number')?.value
     );
-
-    let passport_expire = `${this.otherDetail.value.passport_expire._i.year}-${
-      this.otherDetail.value.passport_expire._i.month + 1
-    }-${this.otherDetail.value.passport_expire._i.date}`;
-    this.form.append(
-      'passport_expire',
-      `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
-    );
+if(this.otherDetail.value.passport_expire!=''){
+  let passport_expire = `${this.otherDetail.value.passport_expire._i.year}-${
+    this.otherDetail.value.passport_expire._i.month + 1
+  }-${this.otherDetail.value.passport_expire._i.date}`;
+  this.form.append(
+    'passport_expire',
+    `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
+  );
+}
     this.form.append('passportDetails', this.otherDetail.get('pasSrc')?.value);
     this.form.append(
       'covidCertificate',
