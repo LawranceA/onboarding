@@ -1,10 +1,115 @@
 <mat-toolbar>
-    <div class="leftContent">
-      
-     <img src="../../../../assets/images/logo.png" alt="" srcset="" class="logo">
+  <div class="leftContent">
+    <h5>Welcome back Admin!</h5>
+    <img
+      src="../../../../assets/images/logo.png"
+      alt=""
+      srcset=""
+      class="logo"
+    />
+  </div>
+</mat-toolbar>
+<div class="dashboard-container">
+  <div class="section-1">
+    <div class="section-card-1">
+      <div class="cards-sections">
+        <div class="card-section">
+          <div class="custom-cards">
+            <div><h4 class="card-heading">Total Employees</h4></div>
+            <div class="card-content">
+              <div class="icon-shade">
+                <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
+              </div>
+              <h4 class="totals">124</h4>
+            </div>
+          </div>
+          <div class="custom-cards">
+            <div><h4 class="card-heading">Pending Onboarding Profiles</h4></div>
+            <div class="card-content">
+              <div class="icon-shade">
+                <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
+              </div>
+              <h4 class="totals">124</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="custom-cards">
+            <div>
+              <h4 class="card-heading">Completed Onboarding Profiles</h4>
+            </div>
+            <div class="card-content">
+              <div class="icon-shade">
+                <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
+              </div>
+              <h4 class="totals">124</h4>
+            </div>
+          </div>
+          <div class="custom-cards">
+            <div>
+              <h4 class="card-heading">Rejected Offer Letters</h4>
+            </div>
+            <div class="card-content">
+              <div class="icon-shade">
+                <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
+              </div>
+              <h4 class="totals">124</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" activity">
+        <h4 class="activity-main-heading">PENDING ONBOARDING PROFILES</h4>
+        <div class="pending-container">
+          <div class="pending-lists">
+            <img src="" alt="">
+            <p>989099809</p>
+            <p>shyamala.g@diggibyte.com</p>
+            
+          </div>
+          
+        </div>
+      </div>
     </div>
-  </mat-toolbar>
-<div class="landing-container">
-
-    <img class="landing-img" src='../../../../assets/images/landing-image.svg' alt="" srcset="">
+    <div class="activity-section">
+      <div class="activity">
+        <h4 class="activity-main-heading">ACTIVITIES</h4>
+        <div class="activity-content">
+          <div class="top-border"></div>
+          <div>
+            <p class="new-activity">New Activities</p>
+            <ul>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-blue"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-blue"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-blue"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-blue"></fa-icon
+                >Activity name
+              </li>
+            </ul>
+          </div>
+          <div>
+          <p class="new-activity">Recent Activities</p>
+         <ul>
+          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
+          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
+          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
+          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
+          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
+         </ul>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div></div>
 </div>

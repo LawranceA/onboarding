@@ -49,7 +49,6 @@
               routerLink="dashboard"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              
               ><fa-icon [icon]="faHouse"></fa-icon>Dashboard</a
             >
           </li>
@@ -79,10 +78,10 @@
   </mat-drawer>
 
   <!-- Main-Content -->
-  <mat-drawer-content>
+  
 
     <!-- All the user components get rendered -->
 
     <router-outlet></router-outlet>
-  </mat-drawer-content>
+  
 </mat-drawer-container>

@@ -20,6 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const materialComponents = [
   MatButtonModule,
   MatToolbarModule,
@@ -41,7 +42,8 @@ const materialComponents = [
   MatSortModule,
   MatButtonToggleModule,
   MatAutocompleteModule,
-  MatSelectFilterModule
+  MatSelectFilterModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

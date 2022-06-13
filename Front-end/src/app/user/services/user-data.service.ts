@@ -16,11 +16,7 @@ export class UserDataService {
     'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
   });
-  private header1 = new HttpHeaders({
-    // 'x-access-token': `${this.tokenStorage.getToken()}`,
-    'Access-Control-Allow-Origin': '*',
-  });
-  private api1="http://localhost:3000/api"
+
   private api =
     'http://onboarding-backend.southindia.cloudapp.azure.com:1337/api';
   //api for add personal Info
