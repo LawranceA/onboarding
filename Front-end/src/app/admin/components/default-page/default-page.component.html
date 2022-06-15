@@ -58,16 +58,133 @@
           </div>
         </div>
       </div>
-      <div class=" activity">
+      <div class="activity">
         <h4 class="activity-main-heading">PENDING ONBOARDING PROFILES</h4>
         <div class="pending-container">
           <div class="pending-lists">
-            <img src="" alt="">
-            <p>989099809</p>
-            <p>shyamala.g@diggibyte.com</p>
-            
+            <img src="../../../../assets/images/profile.jpg" alt="" />
+            <div class="pending-data">
+              <p>989099809</p>
+            </div>
+            <div class="pending-data">
+              <p>shyamala.g@diggibyte.com</p>
+            </div>
+            <div class="progress-bar">
+              <span class="spin-value">{{ value + "%" }}</span>
+              <div class="spinners">
+                <mat-progress-spinner
+                  class="track"
+                  ProgressSpinnerMode="determinate"
+                  value="100"
+                  strokeWidth="7"
+                  diameter="40"
+                >
+                </mat-progress-spinner>
+
+                <mat-progress-spinner
+                  class="overlay"
+                  strokeWidth="7"
+                  diameter="40"
+                  ProgressSpinnerMode="determinate"
+                  [value]="value"
+                >
+                </mat-progress-spinner>
+              </div>
+            </div>
           </div>
-          
+          <div class="pending-lists">
+            <img src="../../../../assets/images/profile.jpg" alt="" />
+            <div class="pending-data">
+              <p>989099809</p>
+            </div>
+            <div class="pending-data">
+              <p>shyamala.g@diggibyte.com</p>
+            </div>
+            <div class="progress-bar">
+              <span class="spin-value">{{ value + "%" }}</span>
+              <div class="spinners">
+                <mat-progress-spinner
+                  class="track"
+                  ProgressSpinnerMode="determinate"
+                  value="100"
+                  strokeWidth="7"
+                  diameter="40"
+                >
+                </mat-progress-spinner>
+
+                <mat-progress-spinner
+                  class="overlay"
+                  strokeWidth="7"
+                  diameter="40"
+                  ProgressSpinnerMode="determinate"
+                  [value]="value"
+                >
+                </mat-progress-spinner>
+              </div>
+            </div>
+          </div>
+          <div class="pending-lists">
+            <img src="../../../../assets/images/profile.jpg" alt="" />
+            <div class="pending-data">
+              <p>989099809</p>
+            </div>
+            <div class="pending-data">
+              <p>shyamala.g@diggibyte.com</p>
+            </div>
+            <div class="progress-bar">
+              <span class="spin-value">{{ value + "%" }}</span>
+              <div class="spinners">
+                <mat-progress-spinner
+                  class="track"
+                  ProgressSpinnerMode="determinate"
+                  value="100"
+                  strokeWidth="7"
+                  diameter="40"
+                >
+                </mat-progress-spinner>
+
+                <mat-progress-spinner
+                  class="overlay"
+                  strokeWidth="7"
+                  diameter="40"
+                  ProgressSpinnerMode="determinate"
+                  [value]="value"
+                >
+                </mat-progress-spinner>
+              </div>
+            </div>
+          </div>
+          <div class="pending-lists">
+            <img src="../../../../assets/images/profile.jpg" alt="" />
+            <div class="pending-data">
+              <p>989099809</p>
+            </div>
+            <div class="pending-data">
+              <p>shyamala.g@diggibyte.com</p>
+            </div>
+            <div class="progress-bar">
+              <span class="spin-value">{{ value + "%" }}</span>
+              <div class="spinners">
+                <mat-progress-spinner
+                  class="track"
+                  ProgressSpinnerMode="determinate"
+                  value="100"
+                  strokeWidth="7"
+                  diameter="40"
+                >
+                </mat-progress-spinner>
+
+                <mat-progress-spinner
+                  class="overlay"
+                  strokeWidth="7"
+                  diameter="40"
+                  ProgressSpinnerMode="determinate"
+                  [value]="value"
+                >
+                </mat-progress-spinner>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -98,18 +215,85 @@
             </ul>
           </div>
           <div>
-          <p class="new-activity">Recent Activities</p>
-         <ul>
-          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
-          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
-          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
-          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
-          <li><fa-icon [icon]="faMessage" class="message-orange"></fa-icon>Activity name</li>
-         </ul>
-      </div>
+            <p class="new-activity">Recent Activities</p>
+            <ul>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                >Activity name
+              </li>
+              <li>
+                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                >Activity name
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div></div>
+  <div class="recent-lists">
+    <h4 class="activity-main-heading" onclick="routeTo()">
+      RECENTLY ADDED EMPLOYEES
+    </h4>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef >Name</th>
+
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="emp_id">
+        <th mat-header-cell *matHeaderCellDef >Employee ID</th>
+
+        <td mat-cell *matCellDef="let element">{{ element.emp_id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef >Email</th>
+
+        <td mat-cell *matCellDef="let element" class="name">
+          {{ element.email }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="updated">
+        <th mat-header-cell *matHeaderCellDef >Updated At</th>
+
+        <td mat-cell *matCellDef="let element">{{ element.updated }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef >Status</th>
+
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+        <td mat-cell *matCellDef="let element">
+
+          <fa-icon [icon]="faPen" class="message-orange actions"></fa-icon>
+          <fa-icon [icon]="faTrash" class="message-orange actions"></fa-icon>
+          <fa-icon [icon]="faEye" class="message-orange actions"></fa-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+    </table>
+  </div>
 </div>

@@ -1,29 +1,39 @@
+<mat-toolbar>
+  <div class="leftContent">
+    <fa-icon routerLink="../" [icon]="faCircleArrowLeft" class="back"></fa-icon><span class="back-word">Back</span>
+   <img src="../../../../assets/images/logo.png" alt="" srcset="" class="logo">
+  </div>
+</mat-toolbar>
+<div class="header-style">
+  <fa-icon class="add-icon"[icon]="faUsersLine" ></fa-icon>
+  <h2 class="header-headings">ALL EMPLOYEES</h2>
+</div>
+
 <div class="list-container">
-  <div class="viewEmployeeHeading">View Employees</div>
-
-  <mat-form-field appearance="standard" class="filter">
-    <mat-label>Search</mat-label>
-
+   <mat-form-field appearance="standard" class="filter">
+    <mat-label class="search">Search</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
-      placeholder="Ex. Mia"
       #input
     />
+    <mat-icon matSuffix class="search">search</mat-icon>
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+ 
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
     <ng-container matColumnDef="emp_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</th>
 
       <td mat-cell *matCellDef="let element">{{ element.emp_id }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
 
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
 
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
@@ -38,13 +48,6 @@
 
       <td mat-cell *matCellDef="let element">{{ element.phoneno }}</td>
     </ng-container>
-
-    <ng-container matColumnDef="doj">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>DOJ</th>
-
-      <td mat-cell *matCellDef="let element">{{ element.doj }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="updated">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
 
@@ -58,21 +61,14 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <th mat-header-cell *matHeaderCellDef>Action</th>
 
       <td mat-cell *matCellDef="let element">
-        <mat-icon class="actions" (click)="openDiag()">delete</mat-icon>
-
-        <mat-icon class="actions" (click)="editPage(element.name)"
-          >edit</mat-icon
-        >
-
-        <mat-icon class="actions" (click)="openDetails(element.name)"
-          >preview</mat-icon
-        >
-      </td>
-    </ng-container>
-
+        <fa-icon [icon]="faPen" class="message-orange actions" (click)="editPage(element.name)"></fa-icon>
+          <fa-icon [icon]="faTrash" class="message-orange actions" (click)="openDiag(element.name)"></fa-icon>
+          <fa-icon [icon]="faEye" class="message-orange actions"(click)="openDetails(element.name)"></fa-icon>
+        </ng-container>
+     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -89,29 +85,35 @@
   <br />
 
   <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="5"
     aria-label="Select page of periodic elements"
   >
   </mat-paginator>
 
   <div id="diag-modal" class="modal" [ngStyle]="{ display: display }">
     <mat-card class="dialogue">
+     <div class="top-border"></div>
       <div class="diag-content">
-        <p>Delete Employee DB0045</p>
+        <div class="delete-head">
+
+          <fa-icon [icon]="faUserShield" class="shiled-icon"></fa-icon>
+          <p class="delete-heading">ARE YOU SURE TO DELETE {{deleteId}} ?</p>
+        </div>
+        <p class="caution">This will delete the information permanently!</p>
       </div>
 
       <div class="diag-actions">
+        <button mat-button class="btn-orange" (click)="close()">
+          Cancel
+        </button>
         <button
           mat-button
-          class="button-gradient diag-btn"
+          class="btn-white"
           (click)="deleteEmp()"
         >
-          yes
+          Yes
         </button>
 
-        <button mat-button class="button-gradient diag-btn" (click)="close()">
-          no
-        </button>
       </div>
     </mat-card>
   </div>

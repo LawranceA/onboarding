@@ -24,14 +24,14 @@ h5 {
   font-family: inter;
 }
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
 }
 .section-1 {
   display: flex;
   flex-direction: row;
- height: 100%;
+  height: 88vh;
 }
 .section-card-1 {
   display: flex;
@@ -55,14 +55,13 @@ h5 {
   padding-top: 10%;
   margin-left: 3rem;
   width: 100%;
- 
 }
 .custom-cards {
   width: 15rem;
   height: 4rem;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 1px 2px 14px #667d8d;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 21px 18px;
   transition: all 0.5s ease-in;
 }
@@ -138,11 +137,10 @@ h5 {
   border-radius: 10px;
   border-top: transparent;
   width: 100%;
- 
 }
 .top-border {
   width: 100.8%;
-  margin-left: -.08rem;
+  margin-left: -0.08rem;
   height: 15.26px;
   background: radial-gradient(
     112.89% 507.67% at -12.01% -12.89%,
@@ -154,42 +152,114 @@ h5 {
 }
 .new-activity {
   font-weight: 600;
-  padding:10px;
+  padding: 10px;
   font-size: 14px;
   color: #1c4765;
   text-align: center;
   border-bottom: 1.5px solid #758189;
 }
-.activity-content ul{
+.activity-content ul {
   list-style: none;
 }
-.activity-content ul li{
+.activity-content ul li {
   display: flex;
   flex-direction: row;
-  gap: .5rem;
+  gap: 0.5rem;
   overflow: hidden;
 }
-.message-blue{
-  color: #61B2FD;
+.message-blue {
+  color: #61b2fd;
 }
-.message-orange{
-  color: #FF8A00;
+.message-orange {
+  color: #ff8a00;
 }
 .pending-container ul {
   list-style: none;
 }
-.pending-container ul li{
+.pending-container ul li {
   display: block;
 }
-.pending-lists{
-  border:1px solid gray;
+.pending-lists {
+  border: 1px solid gray;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
   justify-content: space-evenly;
-}.pending-profile img{
-  width: 2rem;
-  height: 2rem;
+  padding: 1rem;
+}
+.pending-data {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #323232;
+  margin-top: 1rem;
+}
+.pending-lists img {
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
+  margin-left: -10%;
+}
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #fb7d2e;
+}
+.progress-bar {
+  position: relative;
+  padding-top: 0.3rem;
+}
+.spin-value {
+  position: absolute;
+  display: inline;
+  top: 25%;
+  margin-left: 0.8rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 9px;
+  line-height: 22px;
+  color: #000000;
+}
+::ng-deep .track circle {
+  stroke-opacity: 0.3 !important;
+}
+.track {
+  display: inline;
+}
+.spinners {
+  position: absolute;
+}
+h1 {
+  box-shadow: 1px 10px 19px rgba(0, 0, 0, 0.709) !important;
+}
+.overlay {
+  top: 0%;
+  left: 0;
+  display: inline;
+}
+.recent-lists {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 1px 2px 14px #667d8d;
+  border-radius: 5px;
+  padding: 21px 18px;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+table {
+  width: 100%;
+  border: 1px solid #667d8d94;
+  border-radius: 2px
+}
+.actions {
+  padding: 0 0.2rem;
+}
+th {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+color: #000000;
 }
 /* ---------------------- */

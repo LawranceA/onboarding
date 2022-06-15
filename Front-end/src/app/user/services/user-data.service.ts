@@ -106,4 +106,9 @@ export class UserDataService {
       headers: this.header,
     });
   }
+  getOfferLetter(data: any) {
+    return this.http.get<any>(`${this.api}/getOfferLetter/${data}`,{
+      headers: this.header,
+    });
+  }
 }

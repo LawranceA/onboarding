@@ -4,7 +4,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule,Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { UserRoutingModule } from './user-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { MaterialModule } from '../material/material.module';
@@ -20,7 +19,6 @@ import { DialogPGComponent } from './components/dialog-pg/dialog-pg.component';
 import { DialogOrgComponent } from './components/dialog-org/dialog-org.component';
 import { HeaderComponent } from '../layout-components/header/header.component';
 import { DetailsComponent } from './components/details/details.component';
-
 import { SharedService } from './services/shared.service';
 import { Dialog10serviceService } from './services/dialog10service.service';
 import { DialogPrevOrgComponent } from './components/dialog-prev-org/dialog-prev-org.component';
@@ -52,7 +50,8 @@ import { DialogPrevOrgComponent } from './components/dialog-prev-org/dialog-prev
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+  
   ],
   providers: [SharedService, Dialog10serviceService]
 })

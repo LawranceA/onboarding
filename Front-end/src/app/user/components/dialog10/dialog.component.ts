@@ -1,4 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
+
+
+
 import {
   FormBuilder,
   FormGroup,
@@ -47,7 +50,8 @@ export class DialogComponent implements OnInit {
   dateValidator = true;
   //formData
   formPost = new FormData();
-  
+  myFileName:any
+  fileUrl:any
 
   constructor(
     private fs: FormBuilder,
@@ -89,6 +93,9 @@ export class DialogComponent implements OnInit {
     });
 
     if (this.editData) {
+    
+      this.myFileName=this.editData.marks_card
+      this.fileUrl=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${this.tokenStorage.getID()}/${this.editData.marks_card}`
       this.actionBtn = 'Update';
       this.dialog10Form.controls['education'].setValue(this.editData.type);
       this.dialog10Form.controls['board'].setValue(this.editData.board);
@@ -283,5 +290,12 @@ export class DialogComponent implements OnInit {
     });
 
     this.dialog10Form.get('marksheetSrc')?.updateValueAndValidity();
+  }
+
+
+  download(){
+    const blob = new Blob(this.fileUrl, { type: 'application/pdf' });
+  const url= window.URL.createObjectURL(blob);
+  window.open(url);
   }
 }

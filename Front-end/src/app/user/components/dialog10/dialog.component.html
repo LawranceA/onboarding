@@ -180,6 +180,7 @@
     {{ actionBtn }}
   </button>
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-
+  <a  mat-button class="btn-primary" [download]="myFileName" type="hidden" [href]="fileUrl" target="_blank" onclick="download()">Download</a>
 </div>
+
 

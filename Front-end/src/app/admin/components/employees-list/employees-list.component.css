@@ -1,52 +1,73 @@
 * {
   box-sizing: border-box;
 }
+mat-toolbar {
+  padding: 0;
+  align-items: unset;
+}
+.search {
+  color: #ff9350;
+}
 .list-container {
+  padding: 1rem;
+  padding-bottom: 1rem;
+  margin: 1rem;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background: rgba(250, 250, 250, 0.5);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+  height: 78vh;
 }
 .filter {
-  margin-left: 5%;
   color: #014868;
 }
-
+table {
+  position: absolute;
+  border: 1px solid #667d8d94;
+  border-radius: 2px;
+}
 table,
 mat-paginator {
-  margin-left: 5%;
-  width: 90%;
+  box-shadow: none;
+  width: 93%;
   font-size: 0.9rem;
 }
-
+th {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #000000;
+}
+td {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+}
+.mat-row:hover {
+  /* background-color: red; */
+  border-right: 2px solid #ff8a00;
+}
 mat-paginator {
-  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.438);
+  position: relative;
+  margin-top: 35%;
+  width: 100%;
+  border-radius: 5px 5px 0px 0px;
+  border: 1px solid #667d8d94;
+  margin-bottom: -2rem;
 }
-.viewEmployeeHeading {
-  margin-left: 40%;
-  font-size: 1.563rem;
-  color: #014868;
-  line-height: 2.5;
+.actions {
+  padding: 0 0.2rem;
+  font-weight: 100;
 }
-.mat-column-emp_id,
-.mat-column-name,
-.mat-column-email,
-.mat-column-phoneno,
-.mat-column-doj,
-.mat-column-updated,
-.mat-column-status {
-  color: #014868;
-  padding: 1rem 0;
+.message-orange {
+  color: #ff8a00;
 }
-
-.mat-header-cell {
-  color: #014868;
-}
-.mat-column-action {
-  color: #014868;
-  padding: 0rem 1rem;
-}
-
 /* Dialogue styles */
 
 .modal {
@@ -64,24 +85,113 @@ mat-paginator {
 }
 
 .dialogue {
-  width: 40%;
-  height: 10rem;
+  width: 612px;
+  height: 250px;
   margin-top: 8%;
   margin-left: 35%;
-  border-radius: 1rem;
+  border-radius: 10px;
+  background: #ffffff;
 }
-
+.mat-card {
+  padding: 0;
+}
+.top-border {
+  background: #ff8a00;
+  height: 15.26px;
+  width: 100%;
+  border-radius: 10px 10px 0px 0px;
+}
 .diag-content {
-  padding: 1rem;
   font-weight: bold;
   font-size: 0.9rem;
   text-align: center;
   margin-bottom: 1.5rem;
+  padding: 1rem;
 }
-
-.diag-btn {
-  width: 10rem;
-  margin: 0 2rem;
+.shiled-icon {
+  color: #ff8a00;
+  font-size: 44px;
+}
+.delete-heading {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ff8a00;
+  margin-top: 3%;
+}
+.delete-head {
+  display: flex;
+  flex-direction: row;
+  padding: 0 2rem;
+  gap: 10px;
+  margin-left: 10%;
+}
+.caution {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  text-align: center;
+}
+.btn-orange{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 67px;
+  gap: 10px;
+  position: absolute;
+  width: 172px;
+  height: 45px;
+  left: 132px;
+  top: 134px;
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    #ff8a00 0%,
+    #ff9755 45.3%,
+    #ff8e21 100%
+  );
+  border: 1px solid #ff8a00;
+  box-shadow: 0px 5px 24px rgba(255, 138, 0, 0.26);
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+.btn-white {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 67px;
+  gap: 10px;
+  position: absolute;
+  width: 172px;
+  height: 45px;
+  left: 342px;
+  top: 134px;
+  background: #ffffff;
+  border: 1px solid #ff8a00;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+.btn-white:hover{
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    #ff8a00 0%,
+    #ff9755 45.3%,
+    #ff8e21 100%
+  );
+  border: 1px solid #ff8a00;
+  box-shadow: 0px 5px 24px rgba(255, 138, 0, 0.26);
+  color: white;
 }
 /* ---------------------------------------- */
 @media (max-width: 63em) {
@@ -121,4 +231,47 @@ mat-paginator {
     margin-right: 2rem;
     overflow: scroll;
   }
+}
+/* COMMON STYLE */
+.leftContent {
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0px -4px 21px rgba(0, 0, 0, 0.25);
+}
+.logo {
+  margin-top: -1rem;
+  float: right;
+  width: 4rem;
+  height: 4rem;
+}
+.back {
+  color: #ff9350;
+  font-size: 22px;
+}
+.back-word {
+  position: absolute;
+  padding-left: 0.5rem;
+  padding-top: 3px;
+  font-size: 18px;
+  line-height: 21.78px;
+  font-weight: 400;
+}
+.header-style {
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    rgba(255, 138, 0, 0.56) 0%,
+    rgba(255, 151, 85, 0.56) 45.3%,
+    rgba(255, 142, 33, 0.56) 100%
+  );
+}
+.header-headings {
+  color: #014868;
+  padding-left: 0.5rem;
+}
+.add-icon {
+  margin-left: 23px;
+  margin-top: 15px;
+  color: #014868;
+  font-size: 18px;
 }

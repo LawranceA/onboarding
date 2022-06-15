@@ -7,14 +7,18 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faUsersLine } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faUserShield } from '@fortawesome/free-solid-svg-icons';
 const ELEMENT_DATA = [
   {
     emp_id:'DB0001',
     name: 'xyz',
     email: 'askhorchaour@gmail.com',
-    phoneno: '9845639021',
-    doj: '2/02/2021',
+    phoneno: '984563902',
     updated: '3/02/2021',
     status: '',
   },
@@ -24,7 +28,46 @@ const ELEMENT_DATA = [
     name: 'abc',
     email: 'askhorChaour@gmail.com',
     phoneno: '9845639021',
-    doj: '16/02/2022',
+    updated: '17/02/2022',
+    status: '',
+  },
+  {
+    emp_id:'DB0002',
+    name: 'abc',
+    email: 'askhorChaour@gmail.com',
+    phoneno: '9845639021',
+    updated: '17/02/2022',
+    status: '',
+  },
+  {
+    emp_id:'DB0002',
+    name: 'abc',
+    email: 'askhorChaour@gmail.com',
+    phoneno: '9845639021',
+    updated: '17/02/2022',
+    status: '',
+  },
+  {
+    emp_id:'DB0002',
+    name: 'abc',
+    email: 'askhorChaour@gmail.com',
+    phoneno: '9845639021',
+    updated: '17/02/2022',
+    status: '',
+  },
+  {
+    emp_id:'DB0002',
+    name: 'abc',
+    email: 'askhorChaour@gmail.com',
+    phoneno: '9845639021',
+    updated: '17/02/2022',
+    status: '',
+  },
+  {
+    emp_id:'DB0002',
+    name: 'abc',
+    email: 'askhorChaour@gmail.com',
+    phoneno: '9845639021',
     updated: '17/02/2022',
     status: '',
   },
@@ -38,6 +81,14 @@ const ELEMENT_DATA = [
   styleUrls: ['./employees-list.component.css'],
 })
 export class EmployeesListComponent implements OnInit {
+  faCircleArrowLeft=faCircleArrowLeft
+  faUsersLine=faUsersLine
+  faPen=faPen
+  faTrash=faTrash
+  faEye=faEye
+  faUserShield=faUserShield
+  //delete employee name/id
+  deleteId='';
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
@@ -45,11 +96,10 @@ export class EmployeesListComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   displayedColumns: string[] = [
-    'emp_id',
     'name',
+    'emp_id',
     'email',
     'phoneno',
-    'doj',
     'updated',
     'status',
     'action',
@@ -81,7 +131,9 @@ export class EmployeesListComponent implements OnInit {
 
   // to open dialogue box
 
-  openDiag() {
+  openDiag(name:any) {
+
+    this.deleteId=name.toUpperCase()
     this.display = 'block';
   }
 
@@ -101,7 +153,6 @@ export class EmployeesListComponent implements OnInit {
 
   openDetails(id: any) {
     console.log(id);
-
     this.router.navigate(['../viewEmployee'], { relativeTo: this.route });
   }
 

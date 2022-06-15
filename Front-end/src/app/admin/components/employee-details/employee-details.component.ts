@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { AdminServiceService } from '../../admin-service.service';
 import { FilesUploadedComponent } from '../files-uploaded/files-uploaded.component';
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 //dialouge box  data format
 export interface DialogData {
+ 
+
   file:any,
 }
 @Component({
@@ -12,6 +16,8 @@ export interface DialogData {
   styleUrls: ['./employee-details.component.css'],
 })
 export class EmployeeDetailsComponent implements OnInit {
+  faCircleArrowLeft=faCircleArrowLeft
+  faUser=faUser 
  //img src for opening image in this page
   img = '../../../../assets/images/account_registered.svg';
   // for modal
@@ -49,7 +55,7 @@ this.backData=data
   }
 
   // for expansion pannel
-  step = 0;
+  step = -1;
   setStep(index: number) {
     this.step = index;
   }

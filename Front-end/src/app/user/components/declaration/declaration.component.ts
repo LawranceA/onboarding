@@ -101,6 +101,9 @@ export class DeclarationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getOfferLetter(this.tokenStorage.getID()).subscribe(data=>
+      console.log(data)
+    )
     this.service.getDeclaration(this.tokenStorage.getID()).subscribe((data) => {
       if (data != undefined) {
         this.display1 = 'none';
