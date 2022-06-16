@@ -24,6 +24,7 @@
     "@fortawesome/angular-fontawesome": "^0.10.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
+    "file-saver": "^2.0.5",
     "mat-select-filter": "^2.4.1",
     "moment": "^2.29.3",
     "ngx-extended-pdf-viewer": "^13.5.1",

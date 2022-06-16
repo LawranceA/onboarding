@@ -1,12 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 
-
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dialog10serviceService } from '../../services/dialog10service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -50,8 +45,8 @@ export class DialogComponent implements OnInit {
   dateValidator = true;
   //formData
   formPost = new FormData();
-  myFileName:any
-  fileUrl:any
+  myFileName: any;
+  fileUrl: any;
 
   constructor(
     private fs: FormBuilder,
@@ -93,9 +88,7 @@ export class DialogComponent implements OnInit {
     });
 
     if (this.editData) {
-    
-      this.myFileName=this.editData.marks_card
-      this.fileUrl=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${this.tokenStorage.getID()}/${this.editData.marks_card}`
+     
       this.actionBtn = 'Update';
       this.dialog10Form.controls['education'].setValue(this.editData.type);
       this.dialog10Form.controls['board'].setValue(this.editData.board);
@@ -104,9 +97,11 @@ export class DialogComponent implements OnInit {
       this.dialog10Form.controls['startDate'].setValue(
         this.editData.start_date
       );
-      
+
       this.dialog10Form.controls['endDate'].setValue(this.editData.end_date);
-      this.dialog10Form.controls['marksheet'].setValue(this.editData.marks_card);
+      this.dialog10Form.controls['marksheet'].setValue(
+        this.editData.marks_card
+      );
     }
   }
 
@@ -115,7 +110,7 @@ export class DialogComponent implements OnInit {
     if (!this.editData) {
       if (this.dialog10Form.valid) {
         this.appendForms();
-      
+
         this.api.postEducation(this.formPost).subscribe({
           next: (res) => {
             alert('Form Data successfully added');
@@ -166,19 +161,16 @@ export class DialogComponent implements OnInit {
     this.formPost.append('created_at', `${new Date()}`);
     this.formPost.append('fk_education_users_id', this.tokenStorage.getID());
   }
-  setForms(){
-    this.formPost.set(
-      'education',
-      this.dialog10Form.get('education')?.value
-    );
+  setForms() {
+    this.formPost.set('education', this.dialog10Form.get('education')?.value);
     this.formPost.set('board', this.dialog10Form.get('board')?.value);
     this.formPost.set('School', this.dialog10Form.get('School')?.value);
     this.formPost.set('course', this.dialog10Form.get('course')?.value);
-    this.formPost.set('specialization', this.dialog10Form.get('specialization')?.value);
     this.formPost.set(
-      'percentage',
-      this.dialog10Form.get('percentage')?.value
+      'specialization',
+      this.dialog10Form.get('specialization')?.value
     );
+    this.formPost.set('percentage', this.dialog10Form.get('percentage')?.value);
     this.formPost.set(
       'marksheet',
       this.dialog10Form.get('marksheetSrc')?.value
@@ -188,39 +180,38 @@ export class DialogComponent implements OnInit {
     this.formPost.set('fk_education_users_id', this.tokenStorage.getID());
   }
   updateData() {
-    this.setForms()
+    this.setForms();
     this.formPost.set('created_at', this.editData.created_at);
     if (typeof this.dialog10Form.value.startDate != 'string') {
-      let startDate = `${
-        this.dialog10Form.value.startDate._i.year
-      }-${this.dialog10Form.value.startDate._i.month + 1}-${
-        this.dialog10Form.value.startDate._i.date
-      }`;
-      this.formPost.set("startDate",`${this.pipe.transform(
-        startDate,
-        'YYYY-MM-dd'
-      )}`)
+      let startDate = `${this.dialog10Form.value.startDate._i.year}-${
+        this.dialog10Form.value.startDate._i.month + 1
+      }-${this.dialog10Form.value.startDate._i.date}`;
+      this.formPost.set(
+        'startDate',
+        `${this.pipe.transform(startDate, 'YYYY-MM-dd')}`
+      );
     } else {
-      this.formPost.set("startDate",`${this.pipe.transform(
-        this.dialog10Form.value.startDate,
-        'YYYY-MM-dd'
-      )}`)
+      this.formPost.set(
+        'startDate',
+        `${this.pipe.transform(
+          this.dialog10Form.value.startDate,
+          'YYYY-MM-dd'
+        )}`
+      );
     }
     if (typeof this.dialog10Form.value.endDate != 'string') {
-      let endDate = `${
-        this.dialog10Form.value.endDate._i.year
-      }-${this.dialog10Form.value.endDate._i.month + 1}-${
-        this.dialog10Form.value.endDate._i.date
-      }`;
-      this.formPost.set("endDate",`${this.pipe.transform(
-        endDate,
-        'YYYY-MM-dd'
-      )}`)
+      let endDate = `${this.dialog10Form.value.endDate._i.year}-${
+        this.dialog10Form.value.endDate._i.month + 1
+      }-${this.dialog10Form.value.endDate._i.date}`;
+      this.formPost.set(
+        'endDate',
+        `${this.pipe.transform(endDate, 'YYYY-MM-dd')}`
+      );
     } else {
-      this.formPost.set("endDate",`${this.pipe.transform(
-        this.dialog10Form.value.endDate,
-        'YYYY-MM-dd'
-      )}`)
+      this.formPost.set(
+        'endDate',
+        `${this.pipe.transform(this.dialog10Form.value.endDate, 'YYYY-MM-dd')}`
+      );
     }
     this.api.putEduaction(this.formPost, this.editData.id).subscribe({
       next: (res) => {
@@ -293,9 +284,4 @@ export class DialogComponent implements OnInit {
   }
 
 
-  download(){
-    const blob = new Blob(this.fileUrl, { type: 'application/pdf' });
-  const url= window.URL.createObjectURL(blob);
-  window.open(url);
-  }
 }

@@ -140,20 +140,19 @@
     </mat-form-field>
 
     <div class="uploadContainer">
-
-      <span class="type"style="padding-right: .5rem;">Upload Marksheet</span>
-      <label for="marksheet"
-      ><mat-icon >file_upload</mat-icon></label
-      >
-      <label class="file-upload" for="marksheet">{{dialog10Form.value.marksheet}}</label>
+      <span class="type" style="padding-right: 0.5rem">Upload Marksheet</span>
+      <label for="marksheet"><mat-icon>file_upload</mat-icon></label>
+      <label class="file-upload" for="marksheet">{{
+        dialog10Form.value.marksheet
+      }}</label>
       <input
-      style="display: none"
+        style="display: none"
         type="file"
         name="marksheet"
         id="marksheet"
         (change)="fileChange($event)"
         formControlName="marksheet"
-        />
+      />
       <mat-error
         *ngIf="dialog10Form.get('marksheet')?.errors?.['required'] && dialog10Form.get('marksheet')?.touched"
         >Please upload a marksheet</mat-error
@@ -180,7 +179,5 @@
     {{ actionBtn }}
   </button>
   <button mat-button class="btn-primary" mat-dialog-close="true">Close</button>
-  <a  mat-button class="btn-primary" [download]="myFileName" type="hidden" [href]="fileUrl" target="_blank" onclick="download()">Download</a>
+  <!-- <a mat-button class="btn-primary" (click)="download()">Download</a> -->
 </div>
-
-

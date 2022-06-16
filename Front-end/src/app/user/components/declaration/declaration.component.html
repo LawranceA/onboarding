@@ -7,14 +7,14 @@
     <div class="content">
       <mat-form-field appearance="outline">
         <mat-label for="joiningDate">Joining Date</mat-label>
-        <input 
+        <input
           matInput
           [matDatepicker]="picker1"
           name="joiningDate"
           id="joiningDate"
           formControlName="joiningDate"
           readonly
-          onkeydown="return false" onclick="return false" 
+          onkeydown="return false" onclick="return false"
         />
         <mat-datepicker-toggle
           matSuffix
@@ -43,7 +43,7 @@
           style="text-transform:capitalize;"
         />
         <mat-datepicker #picker1></mat-datepicker>
-        
+
         <mat-error
         *ngIf="declaration.get('place')?.errors?.['required'] && declaration.get('place')?.pristine || declaration.get('place')?.value.length==0"
         > Place is required</mat-error
@@ -61,7 +61,7 @@
     <mat-checkbox class="example-margin" [(ngModel)]="checked"></mat-checkbox>
     <p>some content</p>
   </div>
-  
+
   <div class="btn">
     <div class="btn-back">
       <button mat-button class="btn-primary" (click)="back()">Back</button>
@@ -87,7 +87,7 @@
       >
         Update
       </button>
-      <button mat-button class="btn-primary" [disabled]="!checked">
+      <button mat-button class="btn-primary"  (click)="download()" [disabled]="!checked" >
         Submit
       </button>
     </div>
