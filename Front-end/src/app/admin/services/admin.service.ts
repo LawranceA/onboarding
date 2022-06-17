@@ -24,8 +24,6 @@ export class AdminService {
     return this.userStatus;
   }
 
- 
-
   private header = new HttpHeaders({
     'x-access-token': `${this.tokenStorage.getToken()}`,
     'Access-Control-Allow-Origin': '*',
@@ -45,8 +43,24 @@ export class AdminService {
     });
   }
 
-
-
-  //add the remaining codes
-  
+  getAllEmployees(): Observable<any> {
+    return this.http.get(`${this.api}/getUsers`, {
+      headers: this.header,
+    });
+  }
+  getOneEmployees(id: any) {
+    return this.http.get<any>(`${this.api}/getUserById/${id}`, {
+      headers: this.header,
+    });
+  }
+  addAdminPhoto(data: any) {
+    return this.http.put<any>(`${this.api}/addAdminImg`, data, {
+      headers: this.header,
+    });
+  }
+  getAdminPhoto(data: any) {
+    return this.http.get<any>(`${this.api}/getAdminImg/${data}`,{
+      headers: this.header,
+    });
+  }
 }

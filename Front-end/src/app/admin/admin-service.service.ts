@@ -20,7 +20,7 @@ export class AdminServiceService {
     gender:'female',
     mobile_number:'9876658700',
     alternate_number:'9876545678',
-    personal_email:'mahi25@gmail.com',
+    personal_email:'mahimaha.maheshkumar@gmail.com',
     father_name:'kumar B S',
     photo:"mahi-photo.png",
   },address:[
@@ -69,6 +69,7 @@ export class AdminServiceService {
     type:"UG",
     name:"YJHG",
     board:'VTU',
+    specilization:'BTECH',
     course:'CS',
     start_date:"09-09-2020",
     end_date:"12-09-2020",
@@ -77,7 +78,18 @@ export class AdminServiceService {
     transfer_certificate:null,
     provisonal_marks_card:"mahi-provisonal.pdf"
   }
-],employment:[],other_details:{
+],employment:[{
+  type:'Recent',
+  organization:'Wipro',
+  joining_date:'09-11-2020',
+  reliving_date:'10-12-2021',
+  notice_end:'10-12-2021'
+},{
+  type:'Past',
+  organization:'Wipro',
+  joining_date:'09-11-2020',
+  reliving_date:'10-12-2021',
+}],other_details:{
   aadhar_number:"4444 3333 2222",
   aadhar:"mahi aadhar.pdf",
   pan_number:"ABCDE1234F",
@@ -103,8 +115,7 @@ private header = new HttpHeaders({
   'Access-Control-Allow-Origin': '*',
 });
 
-private api =
-'http://localhost:3000/api';
+private api ='';
   constructor(private httpClient:HttpClient) { }
   getData(){
     return this.data
@@ -113,10 +124,5 @@ private api =
     this.data=val
     console.log(this.data)
   }
-  getDetails(id:any){
-    return this.httpClient.get<any>(
-      `${this.api}/getUser/${id}`,
-      { headers: this.header }
-    );
-  }
+
 }

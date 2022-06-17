@@ -17,6 +17,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from 'src/app/user/services/user-data.service';
+import { AdminService } from '../../services/admin.service';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -44,7 +45,7 @@ export class AdminDashboardComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
     private authService: AuthServiceService,
-    private service:UserDataService
+    private service:AdminService
   ) {}
 //form to send files
 form =new FormData()
@@ -59,14 +60,18 @@ ngOnInit(): void {
   this.data.designation = this.tokenStorage.getDesignation();
   this.data.name = this.tokenStorage.getName();
   //get photo
+  this.service.getAdminPhoto(this.tokenStorage.getID()).subscribe(data=>{
+    console.log(data.photo)
+    this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/Admin/${data.photo}`
+  })
 }
 fileChange(e: any) {
   console.log(e.target.files);
   let extensionAllowed = { png: true, jpeg: true };
   const file = e.target.files[0];
 
-  if (e.target.files[0].size / 1024 / 1024 > 20) {
-    alert('File size should be less than 20MB');
+  if (e.target.files[0].size / 1024 / 1024 > 1) {
+    alert('File size should be less than 1MB');
   }
 
   this.photoForm.patchValue({
@@ -80,6 +85,10 @@ fileChange(e: any) {
   this.form.append("photo",this.photoForm.get("photoSrc")?.value)
   this.form.append("id",this.tokenStorage.getID())
   //add photo
+  this.service.addAdminPhoto(this.form).subscribe(data=>{
+    console.log(data)
+  })
+  
 }
 
   logout() {

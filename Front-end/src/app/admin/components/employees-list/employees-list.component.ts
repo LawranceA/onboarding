@@ -13,66 +13,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faUserShield } from '@fortawesome/free-solid-svg-icons';
-const ELEMENT_DATA = [
-  {
-    emp_id:'DB0001',
-    name: 'xyz',
-    email: 'askhorchaour@gmail.com',
-    phoneno: '984563902',
-    updated: '3/02/2021',
-    status: '',
-  },
-
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-  {
-    emp_id:'DB0002',
-    name: 'abc',
-    email: 'askhorChaour@gmail.com',
-    phoneno: '9845639021',
-    updated: '17/02/2022',
-    status: '',
-  },
-];
-
+import { AdminService } from '../../services/admin.service';
 @Component({
   selector: 'app-employees-list',
 
@@ -89,29 +30,38 @@ export class EmployeesListComponent implements OnInit {
   faUserShield=faUserShield
   //delete employee name/id
   deleteId='';
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private service:AdminService) {}
+dataSource!: MatTableDataSource<any>;
+@ViewChild(MatPaginator)
+paginator!: MatPaginator;
 
-  ngOnInit(): void {}
+@ViewChild(MatSort)
+sort!: MatSort;
+displayedColumns: string[] = [
+  'name',
+  'id',
+  'email',
+  'phone_number',
+  'updated_at',
+  'status',
+  'action',
+];
+  ngOnInit(): void {
+    this.service.getAllEmployees().subscribe(data=>{
+      console.log(data)
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    })
+  }
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  
 
-  displayedColumns: string[] = [
-    'name',
-    'emp_id',
-    'email',
-    'phoneno',
-    'updated',
-    'status',
-    'action',
-  ];
+  
 
   display = '';
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  @ViewChild(MatSort)
-  sort!: MatSort;
+ 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -132,7 +82,6 @@ export class EmployeesListComponent implements OnInit {
   // to open dialogue box
 
   openDiag(name:any) {
-
     this.deleteId=name.toUpperCase()
     this.display = 'block';
   }
@@ -153,7 +102,7 @@ export class EmployeesListComponent implements OnInit {
 
   openDetails(id: any) {
     console.log(id);
-    this.router.navigate(['../viewEmployee'], { relativeTo: this.route });
+    this.router.navigate(['../viewEmployee',id], { relativeTo: this.route });
   }
 
   editPage(id: any) {

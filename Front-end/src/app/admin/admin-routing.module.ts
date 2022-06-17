@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:'addEmployee',component:RegisterEmployeeComponent},
   {path:'registerStatus',component:RegistrationStatusComponent},
   {path:'employeeLists',component:EmployeesListComponent},
-  {path:'viewEmployee',component:EmployeeDetailsComponent},
+  {path:'viewEmployee/:id',component:EmployeeDetailsComponent},
   {path:'viewPdf/:src',component:PdfViewComponent},
   {path:'viewImg/:src',component:ImgViewComponent},
   {path:'editEmployee/:id',component:EditEmployeeComponent}

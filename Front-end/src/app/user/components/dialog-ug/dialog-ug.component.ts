@@ -311,16 +311,25 @@ form = new FormData();
       this.dialogUGForm.patchValue({
         marksheetSrc: file,
       });
+      this.dialogUGForm.patchValue({
+        marksheet: file.name,
+      });
       this.dialogUGForm.get('marksheetSrc')?.updateValueAndValidity();
 
     }else if(control=='pc'){
       this.dialogUGForm.patchValue({
         pcSrc: file,
       });
+      this.dialogUGForm.patchValue({
+        provisionalCertificate: file.name,
+      });
       this.dialogUGForm.get('pcSrc')?.updateValueAndValidity();
     }else if(control=='cc'){
       this.dialogUGForm.patchValue({
         ccSrc: file,
+      });
+      this.dialogUGForm.patchValue({
+        convocationCertificate: file.name,
       });
       this.dialogUGForm.get('ccSrc')?.updateValueAndValidity();
     }

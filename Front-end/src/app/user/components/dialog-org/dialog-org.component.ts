@@ -277,25 +277,41 @@ export class DialogOrgComponent implements OnInit {
       this.organization.patchValue({
         rlSrc: file,
       });
+      this.organization.patchValue({
+        relievingLetter: file.name,
+      });
       this.organization.get('rlSrc')?.updateValueAndValidity();
     } else if (control == 'ol') {
       this.organization.patchValue({
         olSrc: file,
+      });
+      this.organization.patchValue({
+        offerLetter: file.name,
       });
       this.organization.get('olSrc')?.updateValueAndValidity();
     } else if (control == 'ps1') {
       this.organization.patchValue({
         ps1Src: file,
       });
+      this.organization.patchValue({
+        payslip1: file.name,
+      });
       this.organization.get('ps1Src')?.updateValueAndValidity();
     } else if (control == 'ps2') {
       this.organization.patchValue({
         ps2Src: file,
       });
+      this.organization.patchValue({
+        payslip2: file.name,
+      });
+      
       this.organization.get('ps2Src')?.updateValueAndValidity();
     } else if (control == 'ps3') {
       this.organization.patchValue({
         ps3Src: file,
+      });
+      this.organization.patchValue({
+        payslip3: file.name,
       });
       this.organization.get('ps3Src')?.updateValueAndValidity();
     }

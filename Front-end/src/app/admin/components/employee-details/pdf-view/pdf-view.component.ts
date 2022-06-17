@@ -23,7 +23,7 @@ export class PdfViewComponent implements OnInit {
   }
   closeImg() {
     this.display = 'none';
-    this.router.navigate(["../../viewEmployee"],{relativeTo:this.route})
+    this.router.navigate(["../"],{relativeTo:this.route})
   }
 
 }

@@ -84,7 +84,8 @@
       <span class="type" style="padding-right: 0.5rem">Upload RelievingLetter</span>
       <label for="relievingLetter"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="relievingLetter">{{
-        organization.value.relievingLetter==null?'No file uploaded':organization.value.relievingLetter
+        organization.get('relievingLetter')?.value==
+        ''?'No file uploaded':organization.get('relievingLetter')?.value
       }}</label>
       <input
       style="display: none"
@@ -108,7 +109,7 @@
       <span class="type" style="padding-right: 0.5rem">Upload OfferLetter</span>
       <label for="offerLetter"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="offerLetter">{{
-        organization.value.offerLetter==null?'No file uploaded':organization.value.offerLetter
+        organization.get('offerLetter')?.value==''?'No file uploaded':organization.get('offerLetter')?.value
       }}</label>
       <input
       style="display: none"
@@ -132,7 +133,7 @@
       <span class="type" style="padding-right: 0.5rem">Upload 3 Months pay slip</span>
       <label for="payslip1"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="payslip1">{{
-        organization.value.payslip1==null?'No file uploaded':organization.value.payslip1
+        organization.get('payslip1')?.value==''?'No file uploaded':organization.get('payslip1')?.value
       }}</label>
       <input
       style="display: none"
@@ -151,7 +152,7 @@
       </mat-error>
       <label for="payslip2"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="payslip2">{{
-        organization.value.payslip2==null?'No file uploaded':organization.value.payslip2
+        organization.get('payslip2')?.value==''?'No file uploaded':organization.get('payslip2')?.value
       }}</label>
       <input
       style="display: none"
@@ -170,16 +171,16 @@
       </mat-error>
   
       <label for="payslip3"><mat-icon>file_upload</mat-icon></label>
-      <label class="file-upload" for="payslip2">{{
-        organization.value.payslip2==null?'No file uploaded':organization.value.payslip2
+      <label class="file-upload" for="payslip3">{{
+        organization.get('payslip3')?.value==''?'No file uploaded':organization.get('payslip3')?.value
       }}</label>
       <input
       style="display: none"
       type="file"
-      name="payslip2"
-      id="payslip2"
+      name="payslip3"
+      id="payslip3"
       (change)="fileChange($event,'ps3')"
-      formControlName="payslip2"
+      formControlName="payslip3"
       />
       <mat-error
       *ngIf="organization.get('payslip3')?.errors?.['required'] && organization.get('payslip3')?.touched"

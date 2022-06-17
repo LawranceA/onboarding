@@ -49,9 +49,17 @@ td {
   font-size: 14px;
   line-height: 19px;
 }
-.mat-row:hover {
-  /* background-color: red; */
-  border-right: 2px solid #ff8a00;
+table {
+  border-collapse: collapse;
+
+}
+tr.mat-row:hover{
+  /* row border */
+  border-left: 3px solid #ffa600;
+}
+tr.mat-row:hover .mat-cell{
+  font-weight: bolder !important;
+
 }
 mat-paginator {
   position: relative;

@@ -276,12 +276,13 @@ export class DialogComponent implements OnInit {
       return;
     }
 
+    
     this.dialog10Form.patchValue({
       marksheetSrc: file,
     });
-
+    this.dialog10Form.patchValue({
+      marksheet: file.name,
+    });
     this.dialog10Form.get('marksheetSrc')?.updateValueAndValidity();
   }
-
-
 }
