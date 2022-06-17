@@ -117,6 +117,7 @@ export class OtherDetailsComponent implements OnInit {
     this.service
       .getOtherDetails(this.tokenStorage.getID())
       .subscribe((data) => {
+
         this.created_at = data[0].created_at;
         console.log(data);
         if (data.length != 0) {
@@ -179,9 +180,14 @@ export class OtherDetailsComponent implements OnInit {
     this.router.navigateByUrl('/user/details/employment-details');
   }
   onSubmit() {
+
     this.appendForms();
+
     this.service.addOtherDetails(this.form).subscribe((data) => {
       console.log(data);
+       // checklist condition
+       localStorage.setItem('oStatus','true');
+       this.service.reloadComponent(window.location.pathname);
     });
     this.display1 = 'none';
     this.display2 = 'block';

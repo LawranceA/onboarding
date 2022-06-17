@@ -8,9 +8,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { DialogPrevOrgComponent } from '../dialog-prev-org/dialog-prev-org.component';
+import { UserDataService } from '../../services/user-data.service';
 
-export interface DialogData {
-}
+export interface DialogData {}
 @Component({
   selector: 'app-employment-details',
   templateUrl: './employment-details.component.html',
@@ -22,11 +22,11 @@ export class EmploymentDetailsComponent implements OnInit {
     'organizationName',
     'joiningDate',
     'relievingDate',
-    'noticePeriodEndDate',
     'hr_name',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
+  data: any = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,9 +35,11 @@ export class EmploymentDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private api: SharedService,
+    private service: UserDataService,
     private tokenStorage: TokenStorageService
   ) {}
 
+  form = new FormData();
   next() {
     this.router.navigateByUrl('/user/details/other-details');
   }
@@ -77,6 +79,14 @@ export class EmploymentDetailsComponent implements OnInit {
           });
         break;
       case 2:
+        this.form.append('type', 'Fresher');
+        this.form.append('updated_at', `${new Date()}`);
+        this.form.append('updated_by', this.tokenStorage.getName());
+        this.form.append('created_at', `${new Date()}`);
+        this.form.append('fk_employment_users_id', this.tokenStorage.getID());
+        this.api.postOrganization(this.form).subscribe((data) => {
+          console.log(data);
+        });
         this.next();
         break;
     }
@@ -94,8 +104,18 @@ export class EmploymentDetailsComponent implements OnInit {
   getAllOrganization() {
     this.api.getOrganization(this.tokenStorage.getID()).subscribe({
       next: (res) => {
+        res.forEach((element:any) => {
+          if (element.type != 'Fresher') {
+            this.data.push(element);
+          }
+          console.log(this.data)
+        });
+        if (res.length >= 1) {
+          localStorage.setItem('emStatus', 'true');
+          this.service.reloadComponent(window.location.pathname);
+        }
         console.log(res);
-        this.dataSource = new MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(this.data);
         // this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -121,7 +141,7 @@ export class EmploymentDetailsComponent implements OnInit {
             this.getAllOrganization();
           }
         });
-    }else if(row.type=='Previous'){
+    } else if (row.type == 'Previous') {
       this.dialog
         .open(DialogPrevOrgComponent, dialogStyle)
         .afterClosed()

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -9,7 +10,8 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class UserDataService {
   constructor(
     private tokenStorage: TokenStorageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router : Router
   ) {}
 
   private header = new HttpHeaders({
@@ -111,4 +113,12 @@ export class UserDataService {
       headers: this.header,
     });
   }
+
+  // Reload the sidenav for check display
+  reloadComponent(url:any) {
+    let currentUrl = url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+    }
 }

@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-educational-qualification',
@@ -41,7 +42,8 @@ export class EducationalQualificationComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private api: Dialog10serviceService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private service : UserDataService
   ) {}
 
   next() {
@@ -111,6 +113,10 @@ export class EducationalQualificationComponent implements OnInit {
   get10Form() {
     this.api.getEducation(this.tokenStorage.getID()).subscribe({
       next: (res) => {
+        if(res.length >= 3){
+          localStorage.setItem('edStatus','true')
+          this.service.reloadComponent(window.location.pathname)
+        }
         // console.log(res)
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;

@@ -657,6 +657,8 @@ export class PersonalInformationComponent implements OnInit {
     this.personalInformation.value.permanent.created_at = new Date();
     this.userService.addPersonalInfo(this.personal_info).subscribe((data) => {
       console.log(data);
+      localStorage.setItem('pStatus','true')
+      this.userService.reloadComponent(window.location.pathname)
     });
     this.userService.addAddress(this.currentAddress).subscribe((data) => {
       console.log(data);
@@ -664,6 +666,7 @@ export class PersonalInformationComponent implements OnInit {
     this.userService.addAddress(this.permanentAddres).subscribe((data) => {
       console.log(data);
     });
+
   }
   //  update personal DATA
   onUpdate() {

@@ -3,7 +3,7 @@
   <h2 class="header-headings">Employment Details</h2>
 </div>
 <div class="container">
-  <h3>Work Experience Details </h3>
+  <h3>Work Experience Details</h3>
   <mat-form-field appearance="outline">
     <mat-select placeholder="Select work experience" value="10th">
       <mat-option
@@ -22,14 +22,15 @@
 
   <!-- Display the organization record -->
   <div class="container">
-    <div style="margin: 20px 0;">
-        <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+    <div style="margin: 20px 0">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
           <!-- ID Column -->
           <ng-container matColumnDef="organizationName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               OrganizationName
             </th>
+
             <td mat-cell *matCellDef="let row">{{ row.org_name }}</td>
           </ng-container>
 
@@ -53,7 +54,6 @@
             </td>
           </ng-container>
 
-         
           <ng-container matColumnDef="hr_name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>HR Name</th>
             <td mat-cell *matCellDef="let row">
@@ -61,14 +61,14 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="noticePeriodEndDate">
+          <!-- <ng-container matColumnDef="noticePeriodEndDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               NoticePeriodEndDate
             </th>
             <td mat-cell *matCellDef="let row">
               {{ row.notice_date | date: "dd/MM/yyyy" }}
             </td>
-          </ng-container>
+          </ng-container> -->
 
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>

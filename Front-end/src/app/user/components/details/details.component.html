@@ -49,29 +49,50 @@
               routerLink="personal-information"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              ><fa-icon [icon]="faAddressBook"></fa-icon>personal-information</a
-            >
+              ><fa-icon [icon]="faAddressBook"></fa-icon
+              >personal-information<fa-icon
+                [icon]="faCheck"
+                class="check"
+                *ngIf="pStatus != null"
+              ></fa-icon
+            ></a>
           </li>
           <li>
             <a routerLink="educational-qualification" routerLinkActive="active"
               ><fa-icon [icon]="faGraduationCap"></fa-icon
-              >educational-qualification</a
-            >
+              >educational-qualification<fa-icon
+                [icon]="faCheck"
+                class="check"
+                *ngIf="edStatus != null"
+              ></fa-icon
+            ></a>
           </li>
           <li>
             <a routerLink="employment-details" routerLinkActive="active"
-              ><fa-icon [icon]="faLandmark"></fa-icon>employment-details</a
-            >
+              ><fa-icon [icon]="faLandmark"></fa-icon>employment-details<fa-icon
+                [icon]="faCheck"
+                class="check"
+                *ngIf="emStatus != null"
+              ></fa-icon
+            ></a>
           </li>
           <li>
             <a routerLink="other-details" routerLinkActive="active"
-              ><fa-icon [icon]="faFileAlt"></fa-icon>other-details</a
-            >
+              ><fa-icon [icon]="faFileAlt"></fa-icon>other-details<fa-icon
+                [icon]="faCheck"
+                class="check"
+                *ngIf="oStatus != null"
+              ></fa-icon
+            ></a>
           </li>
           <li>
             <a routerLink="declaration" routerLinkActive="active"
-              ><fa-icon [icon]="faPenNib"></fa-icon>declaration</a
-            >
+              ><fa-icon [icon]="faPenNib"></fa-icon>declaration<fa-icon
+                [icon]="faCheck"
+                class="check"
+                *ngIf="dStatus != null"
+              ></fa-icon
+            ></a>
           </li>
         </ul>
       </div>

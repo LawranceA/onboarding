@@ -80,6 +80,9 @@ export class DeclarationComponent implements OnInit {
     this.declaration.value.fk_declaration_users_id = this.tokenStorage.getID();
     this.service.addDeclaration(this.declaration.value).subscribe((data) => {
       console.log(data);
+      // checklist condition
+      localStorage.setItem('dStatus', 'true');
+      this.service.reloadComponent(window.location.pathname);
     });
     this.display1 = 'none';
     this.display2 = 'block';
@@ -109,7 +112,7 @@ export class DeclarationComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getOfferLetter(this.tokenStorage.getID()).subscribe((data) => {
-      console.log(data)
+      console.log(data);
       this.myFileName = data.offer_letter;
       this.fileUrl = `http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${this.tokenStorage.getID()}/${
         data.offer_letter
@@ -133,7 +136,7 @@ export class DeclarationComponent implements OnInit {
     // const blob = new Blob(this.fileUrl, { type: 'application/pdf' });
     // const url = window.URL.createObjectURL(blob);
     // window.open(url);
-    console.log('Hello')
+    console.log('Hello');
     importedSaveAs(this.fileUrl, this.myFileName);
   }
 }

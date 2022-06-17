@@ -141,3 +141,8 @@ mat-toolbar {
   color: rgba(255, 255, 255, 0.72);
   height: 5rem;
 }
+
+.check{
+  color: #fdfcfc;
+  font-size: 1.4rem;
+}

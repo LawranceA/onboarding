@@ -17,7 +17,6 @@ import { Dialog12Component } from './components/dialog12/dialog12.component';
 import { DialogUGComponent } from './components/dialog-ug/dialog-ug.component';
 import { DialogPGComponent } from './components/dialog-pg/dialog-pg.component';
 import { DialogOrgComponent } from './components/dialog-org/dialog-org.component';
-import { HeaderComponent } from '../layout-components/header/header.component';
 import { DetailsComponent } from './components/details/details.component';
 import { SharedService } from './services/shared.service';
 import { Dialog10serviceService } from './services/dialog10service.service';
@@ -37,7 +36,6 @@ import { DialogPrevOrgComponent } from './components/dialog-prev-org/dialog-prev
     DialogUGComponent,
     DialogPGComponent,
     DialogOrgComponent,
-    HeaderComponent,
     DetailsComponent,
     DialogPrevOrgComponent,
 
@@ -51,7 +49,7 @@ import { DialogPrevOrgComponent } from './components/dialog-prev-org/dialog-prev
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-  
+
   ],
   providers: [SharedService, Dialog10serviceService]
 })
