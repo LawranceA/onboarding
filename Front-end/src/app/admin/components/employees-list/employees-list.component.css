@@ -132,9 +132,9 @@ mat-paginator {
 .delete-head {
   display: flex;
   flex-direction: row;
+  text-align: center;
   padding: 0 2rem;
   gap: 10px;
-  margin-left: 10%;
 }
 .caution {
   font-family: "Inter";
@@ -145,32 +145,7 @@ mat-paginator {
   color: #000000;
   text-align: center;
 }
-.btn-orange{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 14px 67px;
-  gap: 10px;
-  position: absolute;
-  width: 172px;
-  height: 45px;
-  left: 132px;
-  top: 134px;
-  background: radial-gradient(
-    112.89% 507.67% at -12.01% -12.89%,
-    #ff8a00 0%,
-    #ff9755 45.3%,
-    #ff8e21 100%
-  );
-  border: 1px solid #ff8a00;
-  box-shadow: 0px 5px 24px rgba(255, 138, 0, 0.26);
-  border-radius: 5px;
-  color: white;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-}
+
 .btn-white {
   display: flex;
   flex-direction: row;

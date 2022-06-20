@@ -6,7 +6,7 @@ import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { AdminService } from '../../services/admin.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 //dialouge box  data format
@@ -24,11 +24,6 @@ export class EmployeeDetailsComponent implements OnInit {
   faCircleCheck = faCircleCheck;
   src = '';
   //to set set list color
-  personalInfoStatus = 'completed';
-  educationStatus = 'completed';
-  employmentStatus = 'completed';
-  otherdetailsStatus = 'not-completed';
-  declaration = 'completed';
   //
   id: any;
   // for modal
@@ -42,6 +37,7 @@ export class EmployeeDetailsComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: AdminService,
+    private router:Router,
     private route: ActivatedRoute,
     private tokenStorage: TokenStorageService
   ) {}
@@ -125,5 +121,9 @@ export class EmployeeDetailsComponent implements OnInit {
     const dialogRef = this.dialog.open(FilesUploadedComponent, {
       data: { file: this.files },
     });
+    
+  }
+  viewImg(){
+    this.router.navigate(["/admin/viewImg",this.src])
   }
 }

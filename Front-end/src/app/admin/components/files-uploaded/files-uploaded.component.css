@@ -1,0 +1,33 @@
+.file-container{
+    align-self: center;
+    width: 20rem;
+    margin-left: 5%;
+}
+.file-diag{
+   margin: 0;
+   list-style:lower-roman;
+}.file-diag li{
+    margin-left: 15%;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+.button-gradient {
+  width: 150px;
+  height: 35px;
+  margin-top: 20%;
+  left: 23%;
+ text-align: center;
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    #ff8a00 0%,
+    #ff9755 45.3%,
+    #ff8e21 100%
+  );
+  border: 1px solid #ff8a00;
+  box-shadow: 0px 5px 24px rgba(255, 138, 0, 0.26);
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}

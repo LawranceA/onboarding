@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
-
+import { saveAs as importedSaveAs } from 'file-saver';
 @Component({
   selector: 'app-img-view',
   templateUrl: './img-view.component.html',
@@ -24,5 +24,8 @@ display=''
   closeImg() {
     this.display = 'none';
     this.router.navigate(["../../viewEmployee"],{relativeTo:this.route})
+  }
+  download() {
+    importedSaveAs(this.img);
   }
 }

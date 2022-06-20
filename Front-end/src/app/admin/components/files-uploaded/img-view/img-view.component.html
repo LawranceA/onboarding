@@ -1,4 +1,5 @@
 <div class="modal" [ngStyle]="{ display: display }">
     <mat-icon class="close" (click)="closeImg()">close</mat-icon>
-    <img class="modal-img" [src]="img" />
+
+  <img class="modal-img" [src]="img" (click)="download()"/>
   </div>

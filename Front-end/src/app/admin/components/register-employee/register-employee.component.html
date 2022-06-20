@@ -125,7 +125,7 @@
         </p>
 
      <div class="uploadContainer">
-          <span class="type"style="padding-right: .5rem;">Upload Profie Photo</span>
+          <span class="type"style="padding-right: .5rem;">Upload offerLetter</span>
           <label for="offerLetter"
           ><mat-icon >file_upload</mat-icon></label
           >
@@ -147,7 +147,7 @@
           </mat-error>
         </div> 
         <p>
-          <button mat-button class="btn" (click)="register($event)">
+          <button mat-button class="btn" (click)="register($event)" [disabled]="regForm.invalid">
             Register Employee
           </button>
         </p>

@@ -169,4 +169,29 @@ backgrd colr #f6f7f9
 .form{
   align-self: center;
 }
-
+.btn-orange{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 67px;
+  gap: 10px;
+  position: absolute;
+  width: 172px;
+  height: 45px;
+  left: 132px;
+  top: -23px;
+  background: radial-gradient(
+    112.89% 507.67% at -12.01% -12.89%,
+    #ff8a00 0%,
+    #ff9755 45.3%,
+    #ff8e21 100%
+  );
+  border: 1px solid #ff8a00;
+  box-shadow: 0px 5px 24px rgba(255, 138, 0, 0.26);
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}

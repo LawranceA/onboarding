@@ -63,4 +63,14 @@ export class AdminService {
       headers: this.header,
     });
   }
+  getRecentEmployees(){
+    return this.http.get<any>(`${this.api}/getRecentUsers`,{
+      headers: this.header,
+    })
+  }
+  deleteEmployee(id:any){
+    return this.http.delete<any>(`${this.api}/deleteEmployee/${id}`,{
+      headers: this.header,
+    })
+  }
 }

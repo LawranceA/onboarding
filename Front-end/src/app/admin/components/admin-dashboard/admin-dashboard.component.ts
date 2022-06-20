@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,6 @@ import { faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { UserDataService } from 'src/app/user/services/user-data.service';
 import { AdminService } from '../../services/admin.service';
 @Component({
   selector: 'app-admin-dashboard',
@@ -40,6 +39,7 @@ export class AdminDashboardComponent implements OnInit {
   data = { name: '', designation: '' };
   src=''
   
+
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
@@ -61,9 +61,12 @@ ngOnInit(): void {
   this.data.name = this.tokenStorage.getName();
   //get photo
   this.service.getAdminPhoto(this.tokenStorage.getID()).subscribe(data=>{
-    console.log(data.photo)
-    this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/Admin/${data.photo}`
+    console.log(data.pic)
+    if(data.pic!=undefined){
+      this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/Admin/${data.pic}`
+    }
   })
+  
 }
 fileChange(e: any) {
   console.log(e.target.files);
@@ -87,6 +90,7 @@ fileChange(e: any) {
   //add photo
   this.service.addAdminPhoto(this.form).subscribe(data=>{
     console.log(data)
+    location.reload();
   })
   
 }

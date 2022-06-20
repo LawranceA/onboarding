@@ -1,6 +1,7 @@
 /* modal */
 .modal {
     display: none;
+    display: flex;
     position: fixed; 
     z-index: 1; 
     padding-top: 100px; 
@@ -13,10 +14,12 @@
     background-color: rgba(0,0,0,0.9); 
   }
   .modal-img {
-    margin: auto;
     display: block;
-    width: 80%;
-    max-width: 50%;
+   margin-top: auto;
+   margin-left: 40%;
+   overflow: scroll;
+    /* width: 80%;
+    max-width: 50%; */
   }
   .close {
     position: absolute;

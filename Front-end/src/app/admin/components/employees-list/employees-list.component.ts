@@ -30,6 +30,7 @@ export class EmployeesListComponent implements OnInit {
   faUserShield=faUserShield
   //delete employee name/id
   deleteId='';
+  deleteUser=''
   constructor(private router: Router, private route: ActivatedRoute, private service:AdminService) {}
 dataSource!: MatTableDataSource<any>;
 @ViewChild(MatPaginator)
@@ -81,8 +82,9 @@ displayedColumns: string[] = [
 
   // to open dialogue box
 
-  openDiag(name:any) {
-    this.deleteId=name.toUpperCase()
+  openDiag(name:any,id:any) {
+    this.deleteUser=name.toUpperCase()
+    this.deleteId=id
     this.display = 'block';
   }
 
@@ -95,7 +97,17 @@ displayedColumns: string[] = [
   //on yes route to desired page
 
   deleteEmp() {
-    this.router.navigate(['../registerStatus'], { relativeTo: this.route });
+    this.service.deleteEmployee(this.deleteId).subscribe({
+      next: (res) => {
+        alert('Details deleted successfully');
+        this.router.navigate(['../employeeLists'], { relativeTo: this.route });
+      
+      },
+      error: () => {
+        alert('Error in deleting the data');
+      },
+    });
+    
   }
 
   //on view

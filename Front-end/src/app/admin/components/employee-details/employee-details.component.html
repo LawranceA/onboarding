@@ -20,7 +20,7 @@
       <p class="profile-heading">EMPLOYEE PROFILE</p>
       <div>
         <p class="sub-heading2">Employee Id: {{backData[0].id}}</p>
-        <p class="sub-heading2">Date of join: {{backData[0].other_declaration==null?"S":'N'}}</p>
+        <p class="sub-heading2">Date of join: {{backData[0].other_declaration==null?" ":backData[0].other_declaration.joining_date}}</p>
       </div>
     </div>
     <div>
@@ -29,6 +29,7 @@
           [src]="src == '' ? '../../../../assets/images/pro.webp' : src"
           alt=""
           srcset=""
+          (click)="viewImg()"
         />
       </div>
       <h4 class="sub-headin1">{{backData[0].name}}</h4>
@@ -47,8 +48,7 @@
           <fa-icon
             [icon]="faCircleCheck"
             [style.color]="
-              personalInfoStatus == 'completed'
-                ? '#ff934f'
+              backData[0].personal_info.first_name!=null && backData[0].personal_info.status == 'completed'? '#ff934f'
                 : 'rgba(128, 128, 128, 0.811)'
             "
             class="status-icon"
@@ -58,65 +58,68 @@
         PERSONAL INFORMATION
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="info personal-info" *ngIf="backData[0].personal_info!=null">
-      <div class="disp-row">
-        <p class="heading">First name</p>
-        <p class="datas">{{ backData[0].personal_info.first_name }}</p>
+    <div *ngIf="backData[0].personal_info.first_name!=null;else notFilled ">
+      <div class="info personal-info" >
+        <div class="disp-row">
+          <p class="heading">First name</p>
+          <p class="datas">{{ backData[0].personal_info.first_name }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Last name</p>
+          <p class="datas">{{ backData[0].personal_info.last_name }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">DOB</p>
+          <p class="datas">{{ backData[0].personal_info.dob }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Gender</p>
+          <p class="datas">{{ backData[0].personal_info.gender }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Mobile Number</p>
+          <p class="datas">{{ backData[0].personal_info.mobile_number }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Alternate Number</p>
+          <p class="datas">{{ backData[0].personal_info.alternate_number }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Email</p>
+          <p class="datas">{{ backData[0].personal_info.personal_email }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Father name</p>
+          <p class="datas">{{ backData[0].personal_info.father_name }}</p>
+        </div>
       </div>
-      <div class="disp-row">
-        <p class="heading">Last name</p>
-        <p class="datas">{{ backData[0].personal_info.last_name }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">DOB</p>
-        <p class="datas">{{ backData[0].personal_info.dob }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Gender</p>
-        <p class="datas">{{ backData[0].personal_info.gender }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Mobile Number</p>
-        <p class="datas">{{ backData[0].personal_info.mobile_number }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Alternate Number</p>
-        <p class="datas">{{ backData[0].personal_info.alternate_number }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Email</p>
-        <p class="datas">{{ backData[0].personal_info.personal_email }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Father name</p>
-        <p class="datas">{{ backData[0].personal_info.father_name }}</p>
-      </div>
-    </div>
-    <div >
-      <p class="heading address-heading">Addresses</p>
-      <div class="info personal-info">
-        <div *ngFor="let d of backData[0].address">
-          <p class="heading">{{ d.type }} Address</p>
-          <p class="datas">
-            {{
-                d.house_no +
-                "," +
-                d.street +
-                " " +
-                d.locality +
-                "," +
-                d.city +
-                ", " +
-                d.state +
-                "-" +
-                d.pincode +
-                "," +
-                d.country
-            }}
-          </p>
+      <div >
+        <p class="heading address-heading">Addresses</p>
+        <div class="info personal-info" *ngIf="backData[0].address.length>0">
+          <div *ngFor="let d of backData[0].address">
+            <p class="heading">{{ d.type }} Address</p>
+            <p class="datas">
+              {{
+                  d.house_no +
+                  "," +
+                  d.street +
+                  " " +
+                  d.locality +
+                  "," +
+                  d.city +
+                  ", " +
+                  d.state +
+                  "-" +
+                  d.pincode +
+                  "," +
+                  d.country
+              }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
+   
   </mat-expansion-panel>
   <!-- education -->
   <mat-expansion-panel>
@@ -126,7 +129,7 @@
           <fa-icon
             [icon]="faCircleCheck"
             [style.color]="
-              educationStatus == 'completed'
+              backData[0].educational_info.legth>0 && backData[0].educational_info[0].status== 'completed'
                 ? '#ff934f'
                 : 'rgba(128, 128, 128, 0.811)'
             "
@@ -137,7 +140,7 @@
         EDUCATIONAL DETAILS
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngIf="backData[0].educational_info!=null">
+    <div *ngIf="backData[0].educational_info.length>0;else notFilled ">
       <div *ngFor="let d of backData[0].educational_info;let i = index" class="data-content">
         <p class="heading">{{ d.type }}</p>
         <div class="info personal-info">
@@ -176,6 +179,11 @@
         </div>
       </div>
     </div>
+    <ng-template #notFilled>
+      <p class="type" style="color: #ff934f; text-align: center">
+        "Looks like the employee did not fill the deatils"
+      </p>
+    </ng-template>
   </mat-expansion-panel>
   <!-- Employment -->
   <mat-expansion-panel>
@@ -185,7 +193,7 @@
           <fa-icon
             [icon]="faCircleCheck"
             [style.color]="
-              employmentStatus == 'completed'
+              backData[0].employment_details.length>0 && backData[0].employment_details[0].status== 'completed'
                 ? '#ff934f'
                 : 'rgba(128, 128, 128, 0.811)'
             "
@@ -196,46 +204,49 @@
         EMPLOYMENT DETAILS
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div
-      class="emp-info"
-      *ngIf="backData[0].employment_details.length > 0; else fresher"
-    >
+    <div  *ngIf="backData[0].employment_details.length > 0; else notFilled">
       <div
-        class="info personal-info data-content"
-        *ngFor="let d of backData[0].employment_details;let i=index"
+        class="emp-info"
+        *ngIf="backData[0].employment_details.length >0  && backData[0].employment_details[0]=='Fresher' ; else fresher"
       >
-        <div class="disp-row">
-          <p class="heading">Organization Name</p>
-          <p class="datas">{{ d.org_name }}</p>
-        </div>
-        <div class="disp-row">
-          <p class="heading">Joining Date</p>
-          <p class="datas">{{ d.joining_date }}</p>
-        </div>
-        <div class="disp-row">
-          <p class="heading">Relieving Date</p>
-          <p class="datas">{{ d.relieving_date }}</p>
-        </div>
-        <div class="disp-row" *ngIf="d.type == 'Recent'">
-          <p class="heading">Notice Date</p>
-          <p class="datas">{{ d.notice_date }}</p>
-        </div>
-        <div *ngIf="d.type != 'Recent'" class="dummy">
-          <p class="heading">&emsp;&emsp;&emsp;</p>
-          <p class="datas">&emsp;&emsp;&emsp;&emsp;</p>
-        </div>
-        <div>
-          <button mat-button (click)="openDialog('employment_details',i,d.type)">
-            <mat-icon>folder</mat-icon>
-          </button>
+        <div
+          class="info personal-info data-content"
+          *ngFor="let d of backData[0].employment_details;let i=index"
+        >
+          <div class="disp-row">
+            <p class="heading">Organization Name</p>
+            <p class="datas">{{ d.org_name }}</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">Joining Date</p>
+            <p class="datas">{{ d.joining_date }}</p>
+          </div>
+          <div class="disp-row">
+            <p class="heading">Relieving Date</p>
+            <p class="datas">{{ d.relieving_date }}</p>
+          </div>
+          <div class="disp-row" *ngIf="d.type == 'Recent'">
+            <p class="heading">Notice Date</p>
+            <p class="datas">{{ d.notice_date }}</p>
+          </div>
+          <div *ngIf="d.type != 'Recent'" class="dummy">
+            <p class="heading">&emsp;&emsp;&emsp;</p>
+            <p class="datas">&emsp;&emsp;&emsp;&emsp;</p>
+          </div>
+          <div>
+            <button mat-button (click)="openDialog('employment_details',i,d.type)">
+              <mat-icon>folder</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
+      <ng-template #fresher>
+        <p class="type" style="color: #ff934f; text-align: center">
+          "Looks like the employee is fresher"
+        </p>
+      </ng-template>
+
     </div>
-    <ng-template #fresher>
-      <p class="type" style="color: #ff934f; text-align: center">
-        "Looks like the employee is fresher"
-      </p>
-    </ng-template>
   </mat-expansion-panel>
   <!-- others -->
   <mat-expansion-panel>
@@ -245,7 +256,7 @@
           <fa-icon
             [icon]="faCircleCheck"
             [style.color]="
-              otherdetailsStatus == 'completed'
+            backData[0].other_details!=null && backData[0].other_details.status== 'completed'
                 ? '#ff934f'
                 : 'rgba(128, 128, 128, 0.811)'
             "
@@ -256,62 +267,65 @@
         OTHER DETAILS
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <p class="heading">Proof certificates:</p>
-<div class="info personal-info"  *ngIf="backData[0].other_details!=null">
-  <div class="disp-row">
-    <p class="heading">Aadhar Number</p>
-    <p class="datas">{{ backData[0].other_details.aadhar_card_number }}</p>
+    <div  *ngIf="backData[0].other_details!=null;else notFilled">
+
+      <p class="heading">Proof certificates:</p>
+  <div class="info personal-info">
+    <div class="disp-row">
+      <p class="heading">Aadhar Number</p>
+      <p class="datas">{{ backData[0].other_details.aadhar_card_number }}</p>
+    </div>
+     <div class="disp-row">
+      <p class="heading">Pan Number</p>
+      <p class="datas">{{ backData[0].other_details.pan_card_number }}</p>
+    </div>
+    <div class="disp-row">
+      <p class="heading">Passport Number</p>
+      <p class="datas">{{ backData[0].other_details.passport_number==''?'NA':backData[0].other_details.passport_number }}</p>
+    </div>
+    <div class="disp-row">
+      <p class="heading">Passport Expire</p>
+      <p class="datas">{{ backData[0].other_details.passport_expire_date==null?'NA':backData[0].other_details.passport_expire_date }}</p>
+    </div> 
+    <div>
+              <button mat-button (click)="openDialog('other_details')">
+                <mat-icon>folder</mat-icon>
+              </button>
+            </div>
   </div>
-   <div class="disp-row">
-    <p class="heading">Pan Number</p>
-    <p class="datas">{{ backData[0].other_details.pan_card_number }}</p>
-  </div>
-  <div class="disp-row">
-    <p class="heading">Passport Number</p>
-    <p class="datas">{{ backData[0].other_details.passport_number==''?'NA':backData[0].other_details.passport_number }}</p>
-  </div>
-  <div class="disp-row">
-    <p class="heading">Passport Expire</p>
-    <p class="datas">{{ backData[0].other_details.passport_expire_date==null?'NA':backData[0].other_details.passport_expire_date }}</p>
-  </div> 
-  <div>
-            <button mat-button (click)="openDialog('other_details')">
-              <mat-icon>folder</mat-icon>
-            </button>
-          </div>
-</div>
-<p class="heading">Bank Details:</p>
-    <div class="personal-info info" *ngIf="backData[0].bank_detail!=null">
-      <div class="disp-row">
-        <p class="heading">Account Holder Name</p>
-        <p class="datas">{{ backData[0].bank_detail.account_holder_name }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Bank Name</p>
-        <p class="datas">{{ backData[0].bank_detail.bank_name }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Account Number</p>
-        <p class="datas">{{ backData[0].bank_detail.account_number }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">IFSC Code</p>
-        <p class="datas">{{ backData[0].bank_detail.ifsc_code }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Account Type</p>
-        <p class="datas">{{ backData[0].bank_detail.account_type }}</p>
-      </div>
-      </div>
-      <p class="heading">PF Details</p>
-      <div class="info">
-      <div class="disp-row">
-        <p class="heading">PF Account Number</p>
-        <p class="datas">{{ backData[0].bank_detail.pf_account_number==''?'NA':backData[0].bank_detail.pf_account_number }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">UAN Account Number</p>
-        <p class="datas">{{ backData[0].bank_detail.uan_account_number==''?'NA':backData[0].bank_detail.uan_account_number }}</p>
+  <p class="heading">Bank Details:</p>
+      <div class="personal-info info" *ngIf="backData[0].bank_detail!=null">
+        <div class="disp-row">
+          <p class="heading">Account Holder Name</p>
+          <p class="datas">{{ backData[0].bank_detail.account_holder_name }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Bank Name</p>
+          <p class="datas">{{ backData[0].bank_detail.bank_name }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Account Number</p>
+          <p class="datas">{{ backData[0].bank_detail.account_number }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">IFSC Code</p>
+          <p class="datas">{{ backData[0].bank_detail.ifsc_code }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Account Type</p>
+          <p class="datas">{{ backData[0].bank_detail.account_type }}</p>
+        </div>
+        </div>
+        <p class="heading">PF Details</p>
+        <div class="info">
+        <div class="disp-row">
+          <p class="heading">PF Account Number</p>
+          <p class="datas">{{ backData[0].bank_detail.pf_account_number==''?'NA':backData[0].bank_detail.pf_account_number }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">UAN Account Number</p>
+          <p class="datas">{{ backData[0].bank_detail.uan_account_number==''?'NA':backData[0].bank_detail.uan_account_number }}</p>
+        </div>
       </div>
     </div>
      
@@ -325,7 +339,7 @@
           <fa-icon
             [icon]="faCircleCheck"
             [style.color]="
-              declaration == 'completed'
+              backData[0].other_declaration!=null&&backData[0].other_declaration.status == 'completed'
                 ? '#ff934f'
                 : 'rgba(128, 128, 128, 0.811)'
             "
@@ -336,18 +350,21 @@
         DECLARATION
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="personal-info info" *ngIf="backData[0].other_declaration!=null">
-      <div class="disp-row">
-        <p class="heading">Joining Date</p>
-        <p class="datas">{{ backData[0].other_declaration.joining_date }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Place</p>
-        <p class="datas">{{ backData[0].other_declaration.place }}</p>
-      </div>
-      <div class="disp-row">
-        <p class="heading">Date</p>
-        <p class="datas">{{ backData[0].other_declaration.date }}</p>
+    <div>
+
+      <div class="personal-info info" *ngIf="backData[0].other_declaration!=null;else notFilled">
+        <div class="disp-row">
+          <p class="heading">Joining Date</p>
+          <p class="datas">{{ backData[0].other_declaration.joining_date }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Place</p>
+          <p class="datas">{{ backData[0].other_declaration.place }}</p>
+        </div>
+        <div class="disp-row">
+          <p class="heading">Date</p>
+          <p class="datas">{{ backData[0].other_declaration.date }}</p>
+        </div>
       </div>
     </div>
   </mat-expansion-panel>
