@@ -86,6 +86,7 @@ export class EmploymentDetailsComponent implements OnInit {
         this.form.append('fk_employment_users_id', this.tokenStorage.getID());
         this.api.postOrganization(this.form).subscribe((data) => {
           console.log(data);
+          this.service.reloadComponent(window.location.pathname)
         });
         this.next();
         break;
@@ -110,10 +111,6 @@ export class EmploymentDetailsComponent implements OnInit {
           }
           console.log(this.data)
         });
-        if (res.length >= 1) {
-          localStorage.setItem('emStatus', 'true');
-          this.service.reloadComponent(window.location.pathname);
-        }
         console.log(res);
         this.dataSource = new MatTableDataSource(this.data);
         // this.dataSource.paginator = this.paginator;

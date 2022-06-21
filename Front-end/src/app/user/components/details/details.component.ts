@@ -11,6 +11,7 @@ import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { AdminService } from 'src/app/admin/services/admin.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { UserDataService } from '../../services/user-data.service';
@@ -39,13 +40,14 @@ export class DetailsComponent implements OnInit {
   emStatus: any;
   oStatus: any;
   dStatus: any;
-
+employeeData:any
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
     private authService: AuthServiceService,
-    private service: UserDataService
+    private service: UserDataService,
+    private adminService: AdminService
   ) {}
   //form to send files
   form = new FormData();
@@ -67,6 +69,12 @@ export class DetailsComponent implements OnInit {
       }`;
       console.log(this.src);
     });
+    this.service
+      .getStatus(this.tokenStorage.getID())
+      .subscribe((data) => {
+        console.log(data)
+        this.employeeData=data
+      });
     this.pStatus = localStorage.getItem('pStatus');
     this.edStatus = localStorage.getItem('edStatus');
     this.emStatus = localStorage.getItem('emStatus');

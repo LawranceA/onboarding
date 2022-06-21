@@ -113,7 +113,11 @@ export class UserDataService {
       headers: this.header,
     });
   }
-
+getStatus(id:any){
+  return this.http.get<any>(`${this.api}/getStatus/${id}`,{
+    headers: this.header,
+  });
+}
   // Reload the sidenav for check display
   reloadComponent(url:any) {
     let currentUrl = url;

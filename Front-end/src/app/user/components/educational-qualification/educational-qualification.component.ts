@@ -115,7 +115,7 @@ export class EducationalQualificationComponent implements OnInit {
       next: (res) => {
         if(res.length >= 3){
           localStorage.setItem('edStatus','true')
-          this.service.reloadComponent(window.location.pathname)
+          // this.service.reloadComponent(window.location.pathname)
         }
         // console.log(res)
         this.dataSource = new MatTableDataSource(res);

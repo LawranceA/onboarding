@@ -26,6 +26,7 @@ import 'moment/locale/ja';
 import 'moment/locale/fr';
 import { CustomValidationService } from '../../services/custom-validation.service';
 import { DatePipe, formatDate, JsonPipe } from '@angular/common';
+import { UserDataService } from '../../services/user-data.service';
 @Component({
   selector: 'app-dialog-ug',
   templateUrl: './dialog-ug.component.html',
@@ -55,7 +56,8 @@ form = new FormData();
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private api: Dialog10serviceService,
     public validation: CustomValidationService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    private service:UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -127,6 +129,7 @@ form = new FormData();
         this.api.postEducation(this.form).subscribe({
           next: (res) => {
             alert('Form Data successfully added');
+            this.service.reloadComponent(window.location.pathname);
             this.dialogUGForm.reset();
             this.dialogRef.close('save');
           },

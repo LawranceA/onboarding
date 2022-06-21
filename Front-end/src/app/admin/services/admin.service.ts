@@ -73,4 +73,9 @@ export class AdminService {
       headers: this.header,
     })
   }
+  getCardTotals(){
+    return this.http.get<any>(`${this.api}/getCounts`,{
+      headers: this.header,
+    })
+  }
 }

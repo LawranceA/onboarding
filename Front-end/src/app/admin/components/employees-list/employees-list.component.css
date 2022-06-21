@@ -38,7 +38,7 @@ th {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 22px;
   color: #000000;
 }
@@ -46,12 +46,14 @@ td {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 19px;
 }
 table {
   border-collapse: collapse;
-
+}
+td{
+  padding: .5rem;
 }
 tr.mat-row:hover{
   /* row border */

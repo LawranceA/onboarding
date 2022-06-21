@@ -61,6 +61,9 @@ export class DefaultPageComponent implements OnInit {
     this.service.getRecentEmployees().subscribe((val) => {
       this.dataSource = new MatTableDataSource(val);
     });
+    this.service.getCardTotals().subscribe(data=>{
+      console.log(data)
+    })
   }
   routeTo() {
     this.router.navigate(['../employeeLists'], { relativeTo: this.route });
