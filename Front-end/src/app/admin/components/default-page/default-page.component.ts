@@ -40,6 +40,12 @@ export class DefaultPageComponent implements OnInit {
   faEye = faEye;
   //progess value
   value = 75;
+  //total of employees
+  totals:any
+  //pending record
+  pendingRecord:any
+  //newly added records
+  newRecord:any
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -59,10 +65,16 @@ export class DefaultPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getRecentEmployees().subscribe((val) => {
+      this.newRecord=val
       this.dataSource = new MatTableDataSource(val);
     });
     this.service.getCardTotals().subscribe(data=>{
       console.log(data)
+      this.totals=data
+    })
+    this.service.getPendingRecords().subscribe(data=>{
+      console.log(data)
+      this.pendingRecord=data
     })
   }
   routeTo() {

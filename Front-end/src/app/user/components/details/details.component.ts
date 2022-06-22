@@ -11,6 +11,7 @@ import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -32,7 +33,7 @@ export class DetailsComponent implements OnInit {
   faUserCircle = faUserCircle;
   faAngleRight = faAngleRight;
   faCheck = faCheck;
-
+  faCircleCheck=faCircleCheck
   data = { name: '', designation: '' };
   src = '';
   pStatus: any;

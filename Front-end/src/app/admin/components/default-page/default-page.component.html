@@ -20,7 +20,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">124</p>
+              <p class="totals">{{totals.total}}</p>
             </div>
           </div>
           <div class="custom-cards">
@@ -29,7 +29,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">124</p>
+              <p class="totals">{{totals.pcount}}</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">124</p>
+              <p class="totals">{{totals.total-totals.pcount}}</p>
             </div>
           </div>
           <div class="custom-cards">
@@ -61,21 +61,21 @@
       <div class="activity">
         <h4 class="activity-main-heading">PENDING ONBOARDING PROFILES</h4>
         <div class="pending-container">
-          <div class="pending-lists">
+          <div class="pending-lists" *ngFor="let data of pendingRecord">
             <img src="../../../../assets/images/profile.jpg" alt="" />
             <div class="pending-data">
-              <p>989099809</p>
+              <p>{{data.name}}</p>
             </div>
             <div class="pending-data">
-              <p>shyamala.g@diggibyte.com</p>
+              <p>{{data.email}}</p>
             </div>
             <div class="progress-bar">
-              <span class="spin-value">{{ value + "%" }}</span>
+              <span class="spin-value">{{ data.status + "%" }}</span>
               <div class="spinners">
                 <mat-progress-spinner
                   class="track"
                   ProgressSpinnerMode="determinate"
-                  value="100"
+                 value="100"
                   strokeWidth="7"
                   diameter="40"
                 >
@@ -86,100 +86,7 @@
                   strokeWidth="7"
                   diameter="40"
                   ProgressSpinnerMode="determinate"
-                  [value]="value"
-                >
-                </mat-progress-spinner>
-              </div>
-            </div>
-          </div>
-          <div class="pending-lists">
-            <img src="../../../../assets/images/profile.jpg" alt="" />
-            <div class="pending-data">
-              <p>989099809</p>
-            </div>
-            <div class="pending-data">
-              <p>shyamala.g@diggibyte.com</p>
-            </div>
-            <div class="progress-bar">
-              <span class="spin-value">{{ value + "%" }}</span>
-              <div class="spinners">
-                <mat-progress-spinner
-                  class="track"
-                  ProgressSpinnerMode="determinate"
-                  value="100"
-                  strokeWidth="7"
-                  diameter="40"
-                >
-                </mat-progress-spinner>
-
-                <mat-progress-spinner
-                  class="overlay"
-                  strokeWidth="7"
-                  diameter="40"
-                  ProgressSpinnerMode="determinate"
-                  [value]="value"
-                >
-                </mat-progress-spinner>
-              </div>
-            </div>
-          </div>
-          <div class="pending-lists">
-            <img src="../../../../assets/images/profile.jpg" alt="" />
-            <div class="pending-data">
-              <p>989099809</p>
-            </div>
-            <div class="pending-data">
-              <p>shyamala.g@diggibyte.com</p>
-            </div>
-            <div class="progress-bar">
-              <span class="spin-value">{{ value + "%" }}</span>
-              <div class="spinners">
-                <mat-progress-spinner
-                  class="track"
-                  ProgressSpinnerMode="determinate"
-                  value="100"
-                  strokeWidth="7"
-                  diameter="40"
-                >
-                </mat-progress-spinner>
-
-                <mat-progress-spinner
-                  class="overlay"
-                  strokeWidth="7"
-                  diameter="40"
-                  ProgressSpinnerMode="determinate"
-                  [value]="value"
-                >
-                </mat-progress-spinner>
-              </div>
-            </div>
-          </div>
-          <div class="pending-lists">
-            <img src="../../../../assets/images/profile.jpg" alt="" />
-            <div class="pending-data">
-              <p>989099809</p>
-            </div>
-            <div class="pending-data">
-              <p>shyamala.g@diggibyte.com</p>
-            </div>
-            <div class="progress-bar">
-              <span class="spin-value">{{ value + "%" }}</span>
-              <div class="spinners">
-                <mat-progress-spinner
-                  class="track"
-                  ProgressSpinnerMode="determinate"
-                  value="100"
-                  strokeWidth="7"
-                  diameter="40"
-                >
-                </mat-progress-spinner>
-
-                <mat-progress-spinner
-                  class="overlay"
-                  strokeWidth="7"
-                  diameter="40"
-                  ProgressSpinnerMode="determinate"
-                  [value]="value"
+                  [value]="data.status"
                 >
                 </mat-progress-spinner>
               </div>
@@ -216,26 +123,10 @@
           </div>
           <div>
             <p class="new-activity">Recent Activities</p>
-            <ul>
+            <ul *ngFor="let d of newRecord">
               <li>
                 <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>Activity name</p> 
-              </li>
-              <li>
-                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>Activity name</p> 
-              </li>
-              <li>
-                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>Activity name</p> 
-              </li>
-              <li>
-                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>Activity name</p> 
-              </li>
-              <li>
-                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>Activity name</p> 
+                ><p>{{d.name}} have been added on {{d.created_at | date : "dd-mm-yyyy"}}</p> 
               </li>
             </ul>
           </div>

@@ -49,50 +49,51 @@
               routerLink="personal-information"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
-              ><fa-icon [icon]="faAddressBook"></fa-icon
-              >personal-information<fa-icon
-                [icon]="faCheck"
-                class="check"
-                *ngIf="employeeData.personStatus!=null &&employeeData.personStatus.status=='completed'"
-              ></fa-icon
-            ></a>
+              ><fa-icon
+              [icon]="faCircleCheck"
+              class="check"
+              *ngIf="employeeData.personStatus!=null &&employeeData.personStatus.status=='completed'"
+            ></fa-icon
+          ><fa-icon [icon]="faAddressBook"></fa-icon
+              >personal-information</a>
           </li>
           <li>
             <a routerLink="educational-qualification" routerLinkActive="active"
-              ><fa-icon [icon]="faGraduationCap"></fa-icon
-              >educational-qualification<fa-icon
-                [icon]="faCheck"
-                class="check"
-                *ngIf="employeeData.edStatus!=null && employeeData.edStatus.status=='completed'"
-              ></fa-icon
-            ></a>
+              ><fa-icon
+              [icon]="faCircleCheck"
+              class="check"
+              *ngIf="employeeData.edStatus!=null && employeeData.edStatus.status=='completed'"
+            ></fa-icon
+          ><fa-icon [icon]="faGraduationCap"></fa-icon
+              >educational-qualification</a>
           </li>
           <li>
             <a routerLink="employment-details" routerLinkActive="active"
-              ><fa-icon [icon]="faLandmark"></fa-icon>employment-details<fa-icon
-                [icon]="faCheck"
-                class="check"
-                *ngIf="employeeData.empStatus!=null &&employeeData.empStatus.status=='completed'"
-              ></fa-icon
-            ></a>
+              ><fa-icon
+              [icon]="faCircleCheck"
+              class="check"
+              *ngIf="employeeData.empStatus!=null &&employeeData.empStatus.status=='completed'"
+            ></fa-icon
+          ><fa-icon [icon]="faLandmark"></fa-icon>employment-details</a>
           </li>
           <li>
             <a routerLink="other-details" routerLinkActive="active"
-              ><fa-icon [icon]="faFileAlt"></fa-icon>other-details<fa-icon
-                [icon]="faCheck"
-                class="check"
-                *ngIf="employeeData.othStatus!=null &&employeeData.othStatus.status=='completed'"
-              ></fa-icon
-            ></a>
+              ><fa-icon
+              [icon]="faCircleCheck"
+              class="check"
+              *ngIf="employeeData.othStatus!=null &&employeeData.othStatus.status=='completed'"
+            ></fa-icon
+          ><fa-icon [icon]="faFileAlt"></fa-icon>other-details</a>
           </li>
           <li>
             <a routerLink="declaration" routerLinkActive="active"
-              ><fa-icon [icon]="faPenNib"></fa-icon>declaration<fa-icon
-                [icon]="faCheck"
-                class="check"
-                *ngIf="employeeData.decStatus!=null &&employeeData.decStatus.status=='completed'"
-              ></fa-icon
-            ></a>
+              ><fa-icon
+              [icon]="faCircleCheck"
+              class="check"
+              *ngIf="employeeData.decStatus!=null &&employeeData.decStatus.status=='completed'"
+            ></fa-icon>
+              <fa-icon [icon]="faPenNib"></fa-icon>declaration
+            </a>
           </li>
         </ul>
       </div>

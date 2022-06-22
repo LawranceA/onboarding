@@ -78,4 +78,9 @@ export class AdminService {
       headers: this.header,
     })
   }
+  getPendingRecords(){
+    return this.http.get<any>(`${this.api}/getPendingRecord`,{
+      headers: this.header,
+    })
+  }
 }
