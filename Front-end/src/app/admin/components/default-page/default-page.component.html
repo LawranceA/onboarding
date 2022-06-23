@@ -20,7 +20,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">{{totals.total}}</p>
+              <p class="totals">{{totals.total==undefined?'':totals.total}}</p>
             </div>
           </div>
           <div class="custom-cards">
@@ -29,7 +29,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">{{totals.pcount}}</p>
+              <p class="totals">{{totals.pcount==undefined?'':totals.pcount}}</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
               <div class="icon-shade">
                 <p class="icon"><fa-icon [icon]="faUsers"></fa-icon></p>
               </div>
-              <p class="totals">{{totals.total-totals.pcount}}</p>
+              <p class="totals">{{totals.total==undefined?'':totals.total-totals.pcount}}</p>
             </div>
           </div>
           <div class="custom-cards">
@@ -123,12 +123,18 @@
           </div>
           <div>
             <p class="new-activity">Recent Activities</p>
-            <ul *ngFor="let d of newRecord">
-              <li>
-                <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
-                ><p>{{d.name}} have been added on {{d.created_at | date : "dd-mm-yyyy"}}</p> 
-              </li>
-            </ul>
+            <div *ngIf="newRecord.length>0;else noNewRecords">
+              <ul *ngFor="let d of newRecord">
+                <li>
+                  <fa-icon [icon]="faMessage" class="message-orange"></fa-icon
+                  ><p>{{d.name}} have been added on {{d.created_at | date : "dd-mm-yyyy"}}</p> 
+                </li>
+
+              </ul>
+            </div>
+            <ng-template #noNewRecords>
+              <p class="no-record">No Employess Added Recently</p>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -138,6 +144,9 @@
     <p class="activity-main-heading" onclick="routeTo()">
       RECENTLY ADDED EMPLOYEES
     </p>
+    <div *ngIf="newRecord.length>0;else noNewRecords">
+
+    
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef >Name</th>
@@ -186,5 +195,6 @@
 
       <!-- Row shown when there is no matching data. -->
     </table>
+  </div>
   </div>
 </div>

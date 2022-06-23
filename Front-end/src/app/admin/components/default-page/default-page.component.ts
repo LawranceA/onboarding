@@ -66,6 +66,7 @@ export class DefaultPageComponent implements OnInit {
   ngOnInit(): void {
     this.service.getRecentEmployees().subscribe((val) => {
       this.newRecord=val
+      console.log(val)
       this.dataSource = new MatTableDataSource(val);
     });
     this.service.getCardTotals().subscribe(data=>{

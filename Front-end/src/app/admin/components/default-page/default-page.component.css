@@ -169,13 +169,17 @@ color: #000000;
   gap: 0.5rem;
   overflow: hidden;
 }
-.activity-content ul li p{
+.activity-content ul li p, .no-record{
 font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
 line-height: 22px;
 color: #000000;
+}
+.no-record{
+  color: #ff8a00;
+  text-align: center;
 }
 .message-blue {
   color: #61b2fd;
