@@ -107,6 +107,8 @@ employeeData:any
     this.photoForm.get('photoSrc')?.updateValueAndValidity();
     this.form.append('photo', this.photoForm.get('photoSrc')?.value);
     this.form.append('id', this.tokenStorage.getID());
+    this.form.append('updated_at', `${new Date()}`);
+    this.form.append('updated_by', this.tokenStorage.getName());
 
     this.service.addPhoto(this.form).subscribe((data) => {
       console.log(data);

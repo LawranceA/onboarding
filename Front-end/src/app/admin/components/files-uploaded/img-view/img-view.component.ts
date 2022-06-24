@@ -26,6 +26,8 @@ display=''
     this.router.navigate(["../../viewEmployee"],{relativeTo:this.route})
   }
   download() {
+    console.log(this.img)
+    console.log(this.img.indexOf('/'))
     importedSaveAs(this.img);
   }
 }

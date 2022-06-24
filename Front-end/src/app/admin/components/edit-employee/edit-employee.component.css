@@ -1,4 +1,25 @@
-mat-toolbar {
+@import url('../employee-details/employee-details.component.css');
+.cam{
+  position: absolute;
+  margin-top: -2rem;
+  margin-left: 5rem;
+  color: rgba(255, 255, 255, 0.72);
+  height: 5rem;
+}
+mat-form-field{
+  padding: 0 1rem;
+}
+.type{
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.btn{
+  background-image: linear-gradient(to right, #ff934f, #fb7d2e);
+  color: #fdfcfc;
+  font-size: 1rem;
+  font-weight: bold;
+}
+/* mat-toolbar {
   padding: 0;
   align-items: unset;
 }.leftContent {
@@ -42,4 +63,4 @@ mat-toolbar {
   margin-top: 15px;
   color: #014868;
   font-size: 18px;
-}
+} */

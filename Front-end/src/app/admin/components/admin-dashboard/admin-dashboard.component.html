@@ -23,20 +23,6 @@
             (change)="fileChange($event)"
             formControlName="photo"
           />
-
-          <mat-error
-            *ngIf="photoForm.get('photo')?.errors?.['required'] && photoForm.get('photo')?.touched"
-            >Please upload a photo</mat-error
-          >
-          <mat-error
-            *ngIf="
-              photoForm.get('photo')?.errors?.required &&
-              photoForm.get('photo')?.errors?.pattern &&
-              photoForm.get('photo')?.errors?.touched
-            "
-          >
-            Photo must be in jpg/jpeg/png/gif formate
-          </mat-error>
         </form>
         <h4>{{ data.name }}</h4>
         <p>{{ data.designation }}</p>

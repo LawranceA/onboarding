@@ -69,13 +69,18 @@ ngOnInit(): void {
   
 }
 fileChange(e: any) {
-  console.log(e.target.files);
-  let extensionAllowed = { png: true, jpeg: true };
+  let extensionAllowed = { png: true, jpeg: true,jpg:true,pdf:false,doc:false };
   const file = e.target.files[0];
-
+  console.log(e.target.files)
+if(e.target.files[0].type=="image/jpg"|| e.target.files[0].type=="image/jpeg"||e.target.files[0].type=="image/png"){
   if (e.target.files[0].size / 1024 / 1024 > 1) {
     alert('File size should be less than 1MB');
+    return
   }
+}else{
+  alert('File should be jpg/jpeg/png format');
+  return
+}
 
   this.photoForm.patchValue({
     photoSrc: file,
@@ -87,7 +92,7 @@ fileChange(e: any) {
   this.photoForm.get('photoSrc')?.updateValueAndValidity();
   this.form.append("photo",this.photoForm.get("photoSrc")?.value)
   this.form.append("id",this.tokenStorage.getID())
-  //add photo
+  // add photo
   this.service.addAdminPhoto(this.form).subscribe(data=>{
     console.log(data)
     location.reload();

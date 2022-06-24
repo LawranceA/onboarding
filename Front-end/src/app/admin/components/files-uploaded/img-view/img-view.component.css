@@ -14,12 +14,11 @@
     background-color: rgba(0,0,0,0.9); 
   }
   .modal-img {
-    display: block;
-   margin-top: auto;
-   margin-left: 40%;
-   overflow: scroll;
-    /* width: 80%;
-    max-width: 50%; */
+    margin: auto;
+    max-width: 35rem;
+    max-height: 35rem;
+    margin-left: 40%;
+
   }
   .close {
     position: absolute;

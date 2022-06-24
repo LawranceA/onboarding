@@ -133,10 +133,6 @@ export class DeclarationComponent implements OnInit {
 
   // Download the offer_letter
   download() {
-    // const blob = new Blob(this.fileUrl, { type: 'application/pdf' });
-    // const url = window.URL.createObjectURL(blob);
-    // window.open(url);
-    console.log('Hello');
     importedSaveAs(this.fileUrl, this.myFileName);
   }
 }

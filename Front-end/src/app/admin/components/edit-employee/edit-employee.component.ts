@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AdminServiceService } from '../../admin-service.service';
 import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUserPen } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -21,6 +21,8 @@ import 'moment/locale/ja';
 
 import 'moment/locale/fr';
 import { AdminService } from '../../services/admin.service';
+import { UserDataService } from 'src/app/user/services/user-data.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 export interface EditEmployee {
   id: string;
@@ -58,9 +60,9 @@ const data: EditEmployee[] = [
 export class EditEmployeeComponent implements OnInit {
   //icons
   faCircleArrowLeft = faCircleArrowLeft;
-  faUser = faUser;
-  faCircleCheck=faCircleCheck
-  
+  faUser = faUserPen;
+  faCircleCheck = faCircleCheck;
+
   //src
   src = '';
   backData: any;
@@ -75,16 +77,20 @@ export class EditEmployeeComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: AdminService
+    private service: AdminService,
+    private userService:UserDataService,
+    private tokenStorage:TokenStorageService
   ) {}
 
   id: any;
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id');
-      this.service.getOneEmployees(this.id).subscribe(data=>{
-        this.backData=data
-      })
+      this.service.getOneEmployees(this.id).subscribe((data) => {
+        this.backData = data;
+        this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`
+        console.log(this.backData);
+      });
     });
   }
 
@@ -206,4 +212,26 @@ export class EditEmployeeComponent implements OnInit {
   //     this.percentErrSt = false;
   //   }
   // }
+  fileChange(e: any, field?: any, index?: any) {
+    console.log(e.target.files);
+    let extensionAllowed = { png: true, jpeg: true };
+    const file = e.target.files[0];
+
+    if (e.target.files[0].size / 1024 / 1024 > 1) {
+      alert('File size should be less than 1MB');
+    }
+    if(field=='pic'){
+      let form = new FormData();
+      form.append('photo', file);
+      form.append('id', this.backData[0].id);
+      form.append('updated_at',`${new Date()}`)
+      form.append('updated_by',this.tokenStorage.getName())
+      console.log(this.backData.id)
+      // add photo
+      this.userService.addPhoto(form).subscribe((data) => {
+        console.log(data)
+        location.reload();
+      });
+    }
+  }
 }

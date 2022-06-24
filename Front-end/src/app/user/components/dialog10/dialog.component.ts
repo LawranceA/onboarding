@@ -44,7 +44,7 @@ export class DialogComponent implements OnInit {
 
   dateValidator = true;
   //formData
-  formPost = new FormData();
+  formPost :any;
   myFileName: any;
   fileUrl: any;
 
@@ -109,6 +109,7 @@ export class DialogComponent implements OnInit {
   add10Form() {
     if (!this.editData) {
       if (this.dialog10Form.valid) {
+        this.formPost=new FormData()
         this.appendForms();
 
         this.api.postEducation(this.formPost).subscribe({

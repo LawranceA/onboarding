@@ -47,10 +47,14 @@ export class OtherDetailsComponent implements OnInit {
   created_at: any;
   //formData
   form = new FormData();
-  pancard = '';
-  aadhar = '';
-  passport = '';
-  covid = '';
+
+  // 
+  someSubscription: any;
+
+  // pancard = '';
+  // aadhar = '';
+  // passport = '';
+  // covid = '';
   otherDetail = new FormGroup({
     aadhar_card_number: new FormControl('', [
       Validators.required,
