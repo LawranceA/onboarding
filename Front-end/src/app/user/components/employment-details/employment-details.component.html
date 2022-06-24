@@ -23,7 +23,11 @@
   <!-- Display the organization record -->
   <div class="container">
     <div style="margin: 20px 0">
-      <div class="mat-elevation-z8">
+      <ng-template #noNewRecords>
+        <p class="no-record">Employment Details Fresher</p>
+      </ng-template>
+      <div class="mat-elevation-z8" *ngIf="!fresher ;else noNewRecords">
+        
         <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
           <!-- ID Column -->
           <ng-container matColumnDef="organizationName">

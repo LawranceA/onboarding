@@ -169,7 +169,7 @@
       <span class="type" style="padding-right: 0.5rem">Upload Marksheet</span>
       <label for="marksheet"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="marksheet">{{
-        dialogUGForm.value.marksheet
+               this.editData?dialogUGForm.value.marksheet:(dialogUGForm.value.marksheetSrc.name==null?'No file uploaded':dialogUGForm.value.marksheetSrc.name)
       }}</label>
       <input
         style="display: none"
@@ -196,8 +196,8 @@
       <span class="type" style="padding-right: 0.5rem">Upload provisionalCertificate</span>
       <label for="provisionalCertificate"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="provisionalCertificate">{{
-        dialogUGForm.value.provisionalCertificate==null?'No file uploaded':dialogUGForm.value.provisionalCertificate
-      }}</label>
+       this.editData && this.editData.provisional_marks_card!=''?dialogUGForm.value.provisionalCertificate:(dialogUGForm.value.pcSrc.name==null?'No file uploaded':dialogUGForm.value.pcSrc.name)
+        }}</label>
       <input
       style="display: none"
       type="file"
@@ -217,7 +217,7 @@
       <span class="type" style="padding-right: 0.5rem">Upload convocationCertificate</span>
       <label for="convocationCertificate"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="convocationCertificate">{{
-        dialogUGForm.value.convocationCertificate==null?'No file uploaded':dialogUGForm.value.convocationCertificate
+        this.editData && this.editData.convocation_certificate!=''?dialogUGForm.value.convocationCertificate:(dialogUGForm.value.ccSrc.name==null?'No file uploaded':dialogUGForm.value.ccSrc.name)
       }}</label>
       <input
       style="display: none"

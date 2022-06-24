@@ -269,12 +269,12 @@ export class DialogComponent implements OnInit {
   //file change Handler
   fileChange(e: any) {
     console.log(e.target.files);
-    let extensionAllowed = { png: true, jpeg: true };
+    
     const file = e.target.files[0];
 
-    if (e.target.files[0].size / 1024 / 1024 > 1) {
+    if (e.target.files[0].size  > 1000000) {
       alert('File size should be less than 1MB');
-      return;
+      return
     }
 
     

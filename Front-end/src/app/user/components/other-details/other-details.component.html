@@ -162,6 +162,7 @@
       <span class="type" style="padding-right: 0.5rem">Upload covidCertificate</span>
       <label for="covidCertificate"><mat-icon>file_upload</mat-icon></label>
       <label class="file-upload" for="covidCertificate">{{
+       
         otherDetail.get('covidCertificate')?.value
       }}</label>
       <input
@@ -170,7 +171,7 @@
       name="covidCertificate"
       id="covidCertificate"
       (change)="fileChange($event,'covid')"
-      formControlName="covidCertificate"
+     
       required
         />
       <mat-error

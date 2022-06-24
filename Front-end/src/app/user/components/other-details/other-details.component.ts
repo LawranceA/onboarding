@@ -122,8 +122,10 @@ export class OtherDetailsComponent implements OnInit {
       .getOtherDetails(this.tokenStorage.getID())
       .subscribe((data) => {
 
-        this.created_at = data[0].created_at;
         console.log(data);
+        if(data.length > 0){
+          this.created_at = data[0].created_at;
+        }
         if (data.length != 0) {
           this.display1 = 'none';
           this.display2 = 'block';
@@ -305,10 +307,14 @@ if(this.otherDetail.value.passport_expire!=''){
     console.log(e.target.files);
     let extensionAllowed = { png: true, jpeg: true };
     const file = e.target.files[0];
-    if (e.target.files[0].size / 1024 / 1024 > 1) {
+    if (e.target.files[0].size  > 1) {
       alert('File size should be less than 1MB');
-      return;
+      return
     }
+    
+else{
+
+    
     if (control == 'adh') {
       this.otherDetail.patchValue({
         adhSrc: file,
@@ -341,6 +347,7 @@ if(this.otherDetail.value.passport_expire!=''){
         covidCertificate: file.name,
       });
       this.otherDetail.get('covidSrc')?.updateValueAndValidity();
+    }
     }
   }
 }

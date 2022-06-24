@@ -133,7 +133,9 @@
       <label for="marksheet"
       ><mat-icon >file_upload</mat-icon></label
       >
-      <label class="file-upload" for="marksheet">{{dialog12Form.value.marksheet}}</label>
+      <label class="file-upload" for="marksheet">{{
+        this.editData?dialog12Form.value.marksheet:(dialog12Form.value.marksheetSrc.name==null?'No file uploaded':dialog12Form.value.marksheetSrc.name)
+       }}</label>
       <input
       style="display: none"
         type="file"

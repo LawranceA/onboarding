@@ -16,4 +16,8 @@ h3 {
 ::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
   color: #014868 !important;
 }
-
+.no-record{
+  color: #ff8a00;
+  text-align: center;
+  box-shadow: 1px 2px 14px #667d8d;
+}

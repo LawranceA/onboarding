@@ -30,7 +30,7 @@ export class EmploymentDetailsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  fresher = false;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -108,6 +108,9 @@ export class EmploymentDetailsComponent implements OnInit {
         res.forEach((element:any) => {
           if (element.type != 'Fresher') {
             this.data.push(element);
+          }
+          else{
+            this.fresher=true;
           }
           console.log(this.data)
         });
