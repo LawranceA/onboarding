@@ -43,7 +43,7 @@ export class AdminServiceService {
       pincode: "560009",
       country:"india"
     }
-  ],educational:[{
+  ],educational_info:[{
     type:"10th",
     name:"GPST",
     board:'KSSLC',
@@ -55,7 +55,7 @@ export class AdminServiceService {
     transfer_certificate:null,
     provisonal_marks_card:null
   },{
-    type:"12th",
+    type:"12th/Diploma",
     name:"KSPU",
     board:'KPUC',
     course:null,
@@ -66,7 +66,7 @@ export class AdminServiceService {
     transfer_certificate:null,
     provisonal_marks_card:null
   },{
-    type:"UG",
+    type:"Graduation",
     name:"YJHG",
     board:'VTU',
     specilization:'BTECH',
@@ -78,15 +78,18 @@ export class AdminServiceService {
     transfer_certificate:null,
     provisonal_marks_card:"mahi-provisonal.pdf"
   }
-],employment:[{
+],employment_details:[{
   type:'Recent',
-  organization:'Wipro',
+  org_name:'Wipro',
+  hr_name:null,
   joining_date:'09-11-2020',
   reliving_date:'10-12-2021',
-  notice_end:'10-12-2021'
+  notice_end:'10-12-2021',
+  
 },{
   type:'Past',
-  organization:'Wipro',
+  org_name:'Wipro',
+  hr_name:'Milan',
   joining_date:'09-11-2020',
   reliving_date:'10-12-2021',
 }],other_details:{

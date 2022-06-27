@@ -15,168 +15,172 @@
   <h2 class="header-headings">ALL EMPLOYEES</h2>
 </div>
 <div class="Employee-container">
-    <div class="profile-container">
-      <div class="container-1">
-        <p class="profile-heading">EMPLOYEE PROFILE</p>
-        <div>
-          <p class="sub-heading2">Employee Id: {{backData[0].id}}</p>
-          <p class="sub-heading2">Date of join: {{backData[0].other_declaration==null?" ":backData[0].other_declaration.joining_date}}</p>
-        </div>
-      </div>
+  <div class="profile-container">
+    <div class="container-1">
+      <p class="profile-heading">EMPLOYEE PROFILE</p>
       <div>
-        <div class="userProfile">
-            <div class="profile-img">
-              <img
-                [src]="src == '' ? '../../../../assets/images/pro.webp' : src"
-                alt=""
-                srcset=""
-              />
-            </div>
-            <form>
-              <label for="pic" class="cam"
-                ><mat-icon>add_a_photo</mat-icon></label
-              >
-    
-              <input
-                style="display: none"
-                type="file"
-                name="pic"
-                id="pic"
-                (change)="fileChange($event,'pic')"
-              />
-            </form>
-          </div>
-        <h4 class="sub-headin1">{{backData[0].name}}</h4>
-        <h4 class="sub-headin1">{{backData[0].designation}}</h4>
-      </div>
-      <div class="profile-creation-details">
-        <p>Created By : {{backData[0].created_by}}</p>
-        <p>Created On : {{backData[0].created_at | date:'dd-mm-yyyy'}}</p>
+        <p class="sub-heading2">Employee Id: {{ backData[0].id }}</p>
+        <p class="sub-heading2">
+          Date of join:
+          {{
+            backData[0].other_declaration == null
+              ? " "
+              : backData[0].other_declaration.joining_date
+          }}
+        </p>
       </div>
     </div>
-    <!-- personal info -->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <span>
-            <fa-icon
-              [icon]="faCircleCheck"
-              [style.color]="
-                backData[0].personal_info.first_name!=null && backData[0].personal_info.status == 'completed'? '#ff934f'
-                  : 'rgba(128, 128, 128, 0.811)'
-              "
-              class="status-icon"
-            ></fa-icon>
-          </span>
-  
-          PERSONAL INFORMATION
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div *ngIf="backData[0].personal_info.first_name!=null;">
-        <mat-form-field appearance="outline">
-          <mat-label>First Name</mat-label>
-          <input
-            matInput
-            placeholder="First Name"
-            [(ngModel)]="backData[0].personal_info.first_name" 
-            required  minlength="3" #fname="ngModel" 
-           pattern='^[a-zA-Z\s]*$'
-           style="text-transform:capitalize;"
+    <div>
+      <div class="userProfile">
+        <div class="profile-img">
+          <img
+            [src]="src == '' ? '../../../../assets/images/pro.webp' : src"
+            alt=""
+            srcset=""
           />
-          <mat-error 
+        </div>
+        <form>
+          <label for="pic" class="cam"><mat-icon>add_a_photo</mat-icon></label>
+
+          <input
+            style="display: none"
+            type="file"
+            name="pic"
+            id="pic"
+            (change)="fileChange($event, 'pic')"
+          />
+        </form>
+      </div>
+      <h4 class="sub-headin1">{{ backData[0].name }}</h4>
+      <h4 class="sub-headin1">{{ backData[0].designation }}</h4>
+    </div>
+    <div class="profile-creation-details">
+      <p>Created By : {{ backData[0].created_by }}</p>
+      <p>Created On : {{ backData[0].created_at | date: "dd-mm-yyyy" }}</p>
+    </div>
+  </div>
+  <!-- personal info -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>
+          <fa-icon
+            [icon]="faCircleCheck"
+            [style.color]="
+              backData[0].personal_info.first_name != null &&
+              backData[0].personal_info.status == 'completed'
+                ? '#ff934f'
+                : 'rgba(128, 128, 128, 0.811)'
+            "
+            class="status-icon"
+          ></fa-icon>
+        </span>
+
+        PERSONAL INFORMATION
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf="backData[0].personal_info.first_name != null; else noRecords">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          placeholder="First Name"
+          [(ngModel)]="backData[0].personal_info.first_name"
+          required
+          minlength="3"
+          #fname="ngModel"
+          pattern="^[a-zA-Z\s]*$"
+          style="text-transform: capitalize"
+        />
+        <mat-error
           *ngIf="fname.errors?.['required'] && fname.pristine || fname.value.length==0"
           >First name is required</mat-error
         >
 
-        <mat-error
-          *ngIf="fname.errors?.['minlength'] && fname.value.length>0"
+        <mat-error *ngIf="fname.errors?.['minlength'] && fname.value.length>0"
           >First name must conatin atleast 3 char</mat-error
         >
 
-        <mat-error
-          *ngIf="fname.errors?.['pattern'] && fname.value.length>0"
+        <mat-error *ngIf="fname.errors?.['pattern'] && fname.value.length>0"
           >First name must contain only characters</mat-error
         >
+      </mat-form-field>
 
-        </mat-form-field>
-        
-
-        <mat-form-field appearance="outline">
-          <mat-label>Last Name</mat-label>
-          <input
-            matInput
-            placeholder="Last Name"
-            [(ngModel)]="backData[0].personal_info.last_name"
-            required  #lname="ngModel" 
-            pattern='^[a-zA-Z\s]*$'
-            style="text-transform:capitalize;"
-          />
-          <mat-error 
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          placeholder="Last Name"
+          [(ngModel)]="backData[0].personal_info.last_name"
+          required
+          #lname="ngModel"
+          pattern="^[a-zA-Z\s]*$"
+          style="text-transform: capitalize"
+        />
+        <mat-error
           *ngIf="lname.errors?.['required'] && lname.pristine || lname.value.length==0"
-          >Last name is required</mat-error>
-          <mat-error
-          *ngIf="lname.errors?.['pattern'] && lname.value.length>0"
+          >Last name is required</mat-error
+        >
+        <mat-error *ngIf="lname.errors?.['pattern'] && lname.value.length>0"
           >Last name must contain only characters</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label for="dob">D.O.B</mat-label>
-          <input
-            matInput
-            [matDatepicker]="dob_picker"
-            name="dob"
-            id="dob"
-            [(ngModel)]="backData[0].personal_info.dob"
-            onkeydown="return false"
-            onclick="return false"
-            required  #dob="ngModel" 
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="dob_picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #dob_picker></mat-datepicker>
-          <mat-error
-          *ngIf="
-            dob.invalid &&
-            dob.touched"
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="dob">D.O.B</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dob_picker"
+          name="dob"
+          id="dob"
+          [(ngModel)]="backData[0].personal_info.dob"
+          onkeydown="return false"
+          onclick="return false"
+          required
+          #dob="ngModel"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dob_picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dob_picker></mat-datepicker>
+        <mat-error *ngIf="dob.invalid && dob.touched"
           >Please select date of birth</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Gender</mat-label>
-          <input
-            matInput
-            placeholder="Gender"
-            [(ngModel)]="backData[0].personal_info.gender"
-            required
-            #gender="ngModel"
-            minlength="4" maxlength="7"
-            onkeypress="return /[a-zA-Z]/i.test(event.key)"
-            pattern="^(?:Male|Female|Others)$"
-            style="text-transform:capitalize;"
-          />
-          <mat-error 
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <input
+          matInput
+          placeholder="Gender"
+          [(ngModel)]="backData[0].personal_info.gender"
+          required
+          #gender="ngModel"
+          minlength="4"
+          maxlength="7"
+          onkeypress="return /[a-zA-Z]/i.test(event.key)"
+          pattern="^(?:Male|Female|Others)$"
+          style="text-transform: capitalize"
+        />
+        <mat-error
           *ngIf="gender.errors?.['required'] && gender.pristine || gender.value.length==0"
           >Gender is required</mat-error
         >
-        <mat-error
-          *ngIf="gender.errors?.['pattern'] && gender.value.length>0"
+        <mat-error *ngIf="gender.errors?.['pattern'] && gender.value.length>0"
           >Gender is invalid</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Mobile Number</mat-label>
-          <input
-            matInput
-            placeholder="Mobile Number"
-            [(ngModel)]="backData[0].personal_info.mobile_number"
-            #mobileno="ngModel" 
-            required
-            maxlength="10"
-            pattern="^[6-9]{1}[0-9]{9}$"
-          />
-          <mat-error
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input
+          matInput
+          placeholder="Mobile Number"
+          [(ngModel)]="backData[0].personal_info.mobile_number"
+          #mobileno="ngModel"
+          required
+          maxlength="10"
+          pattern="^[6-9]{1}[0-9]{9}$"
+        />
+        <mat-error
           *ngIf="mobileno.errors?.['required'] && mobileno.pristine || mobileno.value.length==0"
           >Mobile number is required</mat-error
         >
@@ -185,20 +189,19 @@
           *ngIf="mobileno.errors?.['pattern'] && mobileno.dirty && mobileno.value.length>0"
           >Enter a valid mobile number</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Alternate Mobile Number</mat-label>
-          <input
-            matInput
-            placeholder="Alternate Mobile Number"
-            [(ngModel)]="
-              backData[0].personal_info.alternate_number"
-              #alternateno="ngModel" 
-              required
-              maxlength="10"
-              pattern="^[6-9]{1}[0-9]{9}$"
-          />
-          <mat-error
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Alternate Mobile Number</mat-label>
+        <input
+          matInput
+          placeholder="Alternate Mobile Number"
+          [(ngModel)]="backData[0].personal_info.alternate_number"
+          #alternateno="ngModel"
+          required
+          maxlength="10"
+          pattern="^[6-9]{1}[0-9]{9}$"
+        />
+        <mat-error
           *ngIf="alternateno.errors?.['required'] && alternateno.pristine || alternateno.value.length==0"
           >Alternate Mobile number is required</mat-error
         >
@@ -207,19 +210,19 @@
           *ngIf="alternateno.errors?.['pattern'] && alternateno.dirty && alternateno.value.length>0"
           >Enter a valid mobile number</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Personal Email</mat-label>
-          <input
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Personal Email</mat-label>
+        <input
           type="email"
-            matInput
-            placeholder="Personal Email"
-            [(ngModel)]="backData[0].personal_info.personal_email"
-            #email="ngModel" 
-            required
-            pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]{2,3}$"
-          />
-          <mat-error
+          matInput
+          placeholder="Personal Email"
+          [(ngModel)]="backData[0].personal_info.personal_email"
+          #email="ngModel"
+          required
+          pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]{2,3}$"
+        />
+        <mat-error
           *ngIf="email.errors?.['required'] && email.pristine || email.value.length==0"
           >Email is required</mat-error
         >
@@ -228,51 +231,52 @@
           *ngIf="email.errors?.['pattern'] || email.errors?.['email']  && email.dirty && email.value.length>0"
           >Enter a valid email id</mat-error
         >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label >Father Name</mat-label>
-    
-          <input
-            matInput
-            placeholder="Father Name"
-            name="father_name"
-            minlength="3"
-           [(ngModel)]="backData[0].personal_info.father_name"
-           required
-           #father_name="ngModel"
-           pattern='^[a-zA-Z\s]*$'
-           style="text-transform:capitalize;"
-          />
-          <mat-error
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Father Name</mat-label>
+
+        <input
+          matInput
+          placeholder="Father Name"
+          name="father_name"
+          minlength="3"
+          [(ngModel)]="backData[0].personal_info.father_name"
+          required
+          #father_name="ngModel"
+          pattern="^[a-zA-Z\s]*$"
+          style="text-transform: capitalize"
+        />
+        <mat-error
           *ngIf="father_name.errors?.['required'] && father_name.pristine || father_name.value.length==0"
           >Father name is required</mat-error
         >
-  
+
         <mat-error
           *ngIf="father_name.errors?.['pattern'] && father_name.dirty && father_name.value.length>0"
           >Father name must contain only characters</mat-error
         >
-        </mat-form-field>
-        <div *ngFor="let d of backData[0].address">
-          <p class="type">{{ d.type}} Address</p>
+      </mat-form-field>
+      <div *ngFor="let d of backData[0].address">
+        <p class="type">{{ d.type }} Address</p>
         <mat-form-field appearance="outline">
           <mat-label>House NO</mat-label>
-          <input 
-          matInput 
-          placeholder="House No" 
-          [(ngModel)]="d.house_no"
-          #house_no="ngModel"
-          minlength="1" 
-          required/>
+          <input
+            matInput
+            placeholder="House No"
+            [(ngModel)]="d.house_no"
+            #house_no="ngModel"
+            minlength="1"
+            required
+          />
           <mat-error
-          *ngIf="
-            house_no.invalid &&
-            (house_no.dirty ||
-              house_no.touched) &&
-            house_no.errors?.required"
-        >
-          House Number is required
-        </mat-error>
+            *ngIf="
+              house_no.invalid &&
+              (house_no.dirty || house_no.touched) &&
+              house_no.errors?.required
+            "
+          >
+            House Number is required
+          </mat-error>
           <mat-error
             *ngIf="
             house_no.errors?.['minlength']"
@@ -282,19 +286,18 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Street/Area Name</mat-label>
-          <input 
-          matInput 
-          placeholder="Street"
-           [(ngModel)]="d.street"
-           minlength="2"
-           #street="ngModel"
-           required
-            />
-            <mat-error
+          <input
+            matInput
+            placeholder="Street"
+            [(ngModel)]="d.street"
+            minlength="2"
+            #street="ngModel"
+            required
+          />
+          <mat-error
             *ngIf="
               street.invalid &&
-              (street.dirty ||
-                street.touched) &&
+              (street.dirty || street.touched) &&
               street.errors?.required
             "
           >
@@ -320,8 +323,7 @@
           <mat-error
             *ngIf="
               locality.invalid &&
-              (locality.dirty ||
-                locality.touched) &&
+              (locality.dirty || locality.touched) &&
               locality.errors?.required
             "
           >
@@ -336,18 +338,21 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>City</mat-label>
-          <input 
-          matInput
-           placeholder="city"
-            [(ngModel)]="d.city" 
-            required  minlength="3" #city="ngModel" 
-            pattern='^[a-zA-Z\s]*$'
-            style="text-transform:capitalize;"/>
-            <mat-error
+          <input
+            matInput
+            placeholder="city"
+            [(ngModel)]="d.city"
+            required
+            minlength="3"
+            #city="ngModel"
+            pattern="^[a-zA-Z\s]*$"
+            style="text-transform: capitalize"
+          />
+          <mat-error
             *ngIf="city.errors?.['required'] && city.pristine || city.value.length==0"
             >City is required</mat-error
           >
-    
+
           <mat-error
             *ngIf="city.errors?.['pattern'] && city.dirty && city.value.length>0"
             >City name is invalid</mat-error
@@ -355,136 +360,305 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>State</mat-label>
-          <input 
-          matInput
-          placeholder="State" 
-          [(ngModel)]="d.state"
-          required  minlength="3" #state="ngModel" 
-          pattern='^[a-zA-Z\s]*$'
-          style="text-transform:capitalize;" />
+          <input
+            matInput
+            placeholder="State"
+            [(ngModel)]="d.state"
+            required
+            minlength="3"
+            #state="ngModel"
+            pattern="^[a-zA-Z\s]*$"
+            style="text-transform: capitalize"
+          />
           <mat-error
-          *ngIf="state.errors?.['required'] && state.pristine || state.value.length==0"
-          >State is required</mat-error
-        >
-  
-        <mat-error
-          *ngIf="state.errors?.['pattern'] && state.dirty && state.value.length>0 || state.errors?.['minlength']"
-          >State name is invalid</mat-error
-        >
+            *ngIf="state.errors?.['required'] && state.pristine || state.value.length==0"
+            >State is required</mat-error
+          >
+
+          <mat-error
+            *ngIf="state.errors?.['pattern'] && state.dirty && state.value.length>0 || state.errors?.['minlength']"
+            >State name is invalid</mat-error
+          >
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>PinCode</mat-label>
-          <input 
-          matInput
-           placeholder="PinCode"
-          [(ngModel)]="d.pincode"
-          minlength="6"
-          required
-          #pincode="ngModel"
-          pattern="^[0-9]{6}$"/>
+          <input
+            matInput
+            placeholder="PinCode"
+            [(ngModel)]="d.pincode"
+            minlength="6"
+            required
+            #pincode="ngModel"
+            pattern="^[0-9]{6}$"
+          />
           <mat-error
-          *ngIf="pincode.errors?.['required'] && pincode.pristine || pincode.value.length==0"
-          >Pincode is required</mat-error
-        >
+            *ngIf="pincode.errors?.['required'] && pincode.pristine || pincode.value.length==0"
+            >Pincode is required</mat-error
+          >
 
-        <mat-error
-          *ngIf="pincode.errors?.['minlength'] || pincode.errors?.['pattern'] && pincode.dirty && pincode.value.length>0"
-          >Pin code is invalid</mat-error
-        >
+          <mat-error
+            *ngIf="pincode.errors?.['minlength'] || pincode.errors?.['pattern'] && pincode.dirty && pincode.value.length>0"
+            >Pin code is invalid</mat-error
+          >
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Country</mat-label>
-          <input 
-          matInput 
-          placeholder="Country" 
-          [(ngModel)]="d.country" 
-          required  minlength="3" #country="ngModel" 
-          pattern='^[a-zA-Z\s]*$'
-          style="text-transform:capitalize;"/>
+          <input
+            matInput
+            placeholder="Country"
+            [(ngModel)]="d.country"
+            required
+            minlength="3"
+            #country="ngModel"
+            pattern="^[a-zA-Z\s]*$"
+            style="text-transform: capitalize"
+          />
           <mat-error
-          *ngIf="country.errors?.['required'] && country.pristine || country.value.length==0"
-          >Country is required</mat-error
+            *ngIf="country.errors?.['required'] && country.pristine || country.value.length==0"
+            >Country is required</mat-error
+          >
+
+          <mat-error
+            *ngIf="country.errors?.['pattern'] && country.dirty && country.value.length>0 || country.errors?.['minlength']"
+            >Country name is invalid</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <button mat-button class="btn" (click)="personalDataSubmit()">
+        Submit
+      </button>
+    </div>
+  </mat-expansion-panel>
+  <!-- education -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>
+          <fa-icon
+            [icon]="faCircleCheck"
+            [style.color]="
+              backData[0].educational_info.length > 0
+                ? '#ff934f'
+                : 'rgba(128, 128, 128, 0.811)'
+            "
+            class="status-icon"
+          ></fa-icon>
+        </span>
+
+        EDUCATIONAL DETAILS
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf="backData[0].educational_info.length > 0; else notFilled">
+      <div *ngFor="let d of backData[0].educational_info; let i = index">
+        <div class="ed-container" (click)="openDiag(d.type)">
+          <p >{{ d.type }}</p>
+          <fa-icon [icon]="faArrowRight" class="ed-icon"></fa-icon>
+        </div>
+      <div *ngIf="clicked == d.type" class="ed">
+
+     
+      <mat-form-field appearance="outline">
+        <mat-label>University/School Name</mat-label>
+        <input
+          matInput
+          placeholder="University/School Name"
+          [(ngModel)]="d.name"
+          required  #School="ngModel" 
+          pattern='^[a-zA-Z\s]*$'
+          style="text-transform:capitalize;"
+        />
+        <mat-error
+        *ngIf="School.errors?.['required'] && School.pristine || School.value.length==0"
+        >School/College name is required</mat-error
+      >
+
+      <mat-error
+        *ngIf="School.errors?.['pattern'] && School.dirty && School.value.length>0"
+        >Digits and specialcharacters are not allowed</mat-error
+      >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Board</mat-label>
+        <input 
+        matInput 
+        placeholder="Board"
+         [(ngModel)]="d.board"
+         required  #board="ngModel" 
+         pattern='^[a-zA-Z\s]*$'
+         style="text-transform:capitalize;"
+          />
+          <mat-error
+          *ngIf="board.errors?.['required'] && board.pristine || board.value.length==0"
+          >Board is required</mat-error
         >
   
         <mat-error
-          *ngIf="country.errors?.['pattern'] && country.dirty && country.value.length>0 || country.errors?.['minlength']"
-          >Country name is invalid</mat-error
+          *ngIf="board.errors?.['pattern'] && board.dirty && board.value.length>0"
+          >Digits and specialcharacters are not allowed</mat-error
         >
-        </mat-form-field>
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="d.course != null">
+        <mat-label>Course</mat-label>
+        <input 
+        matInput 
+        placeholder="Course" 
+         [(ngModel)]="d.course" 
+         required  #course="ngModel" 
+         pattern='^[a-zA-Z\s]*$'
+         style="text-transform:capitalize;"
+         />
+         <mat-error
+         *ngIf="course.errors?.['required'] && course.pristine || course.value.length==0"
+         >Course is required</mat-error
+       >
+ 
+       <mat-error
+         *ngIf="course.errors?.['pattern'] && course.dirty && course.value.length>0"
+         >Digits and special characters are not allowed</mat-error
+       >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="start_date">Start Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="start_date"
+          name="start_date"
+          id="start_date"
+          [(ngModel)]="d.start_date"
+          required
+          #startdate="ngModel"
+          onkeydown="return false"
+          onclick="return false"
+          (dateChange)="dateValidators(i)"
+        />
+        <mat-error
+        *ngIf="
+          startdate.invalid &&
+          startdate.touched
+        "
+        >Please select start date</mat-error
+      >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="start_date"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #start_date></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="end_date">End Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="end_date"
+          name="end_date"
+          id="end_date"
+          [(ngModel)]="d.end_date"
+          required
+          #enddate="ngModel"
+          onkeydown="return false"
+          onclick="return false"
+          (dateChange)="dateValidators(i)"
+        />
+        <mat-error
+        *ngIf="
+          enddate.invalid &&
+          enddate.touched
+        "
+        >Please select end date</mat-error
+      >
+      <mat-hint *ngIf="!this.dateValidator && this.index == i"
+      >End date must be greater than start date</mat-hint
+    >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="end_date"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #end_date></mat-datepicker>
+      </mat-form-field>
+      <!-- <small *ngIf="!this.dateValidator && this.index == i"
+      >End date must be greater than start date</small
+    > -->
+      <mat-form-field appearance="outline">
+        <mat-label>Percentage/CGPA</mat-label>
+        <input
+         matInput 
+         placeholder="Percentage/CGPA"
+          [(ngModel)]="d.marks" 
+          maxlength="5"
+          #marks="ngModel"
+          required
+          (input)="percentageValidator($event,i)"/>
+          <mat-error
+      *ngIf="marks.errors?.['required'] && marks.pristine || marks.value.length==0"
+      >Percentage/CGPA is required</mat-error
+    >
+
+    <mat-hint
+      *ngIf="this.percentErrSt && this.index == i"
+      >Enter a valid percentage/CGPA</mat-hint
+    >
+      </mat-form-field>
+        <div class="uploadContainer">
+          <span class="type"style="padding-right: .5rem;">Marks sheet:</span>
+          <label for="marksheet"
+            ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+          >
+          <label for="marksheet">{{ d.marksheet==null?"no file uploaded":d.marksheet }}</label>
+          <input
+            style="display: none"
+            type="file"
+            name="marksheet"
+            id="marksheet"
+            (change)="fileChange('marksheet', $event,i, d.type)"
+          />
+        </div>
+        <div class="uploadContainer" *ngIf="d.type=='Graduation' || d.type=='Masters/Post'">
+          <span class="type"style="padding-right: .5rem;">Transfer Certificate </span>
+          <label for="transfer_certificate"
+            ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+          >
+          <label for="transfer_certificate">{{ d.transfer_certificate==null?'no file uplaoded':d.transfer_certificate }}</label>
+          <input
+            style="display: none"
+            type="file"
+            name="transfer_certificate"
+            id="transfer_certificate"
+            (change)="fileChange('transfer_certificate', $event,i, d.type)"
+          />
+         
+        </div>
+        <div class="uploadContainer" *ngIf="d.type=='Graduation' || d.type=='Masters/Post'">
+          <span class="type"style="padding-right: .5rem;">Provisional marksCard</span>
+          <label for="provisonal_marks_card"
+            ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+          >
+          <label for="provisonal_marks_card">{{ d.provisonal_marks_card==null?'no file uplaoded':d.provisonal_marks_card }}</label>
+          <input
+          style="display: none"
+          type="file"
+          name="provisonal_marks_card"
+          id="provisonal_marks_card"
+          (change)="fileChange('provisonal_marks_card', $event,i, d.type)"
+          />
+          
       </div>
-      <button mat-button class="btn" (click)="submit()">
+      
+      <button mat-button class="btn" (click)="edDetailsSubmit(d.id)">
         Submit
       </button>
-       
-      </div>
-     
-    </mat-expansion-panel> 
-    <!-- education -->
-    <!-- <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <span>
-            <fa-icon
-              [icon]="faCircleCheck"
-              [style.color]="
-              backData[0].educational_info.length>0
-                  ? '#ff934f'
-                  : 'rgba(128, 128, 128, 0.811)'
-              "
-              class="status-icon"
-            ></fa-icon>
-          </span>
-  
-          EDUCATIONAL DETAILS
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div *ngIf="backData[0].educational_info.length>0;else notFilled ">
-        <div *ngFor="let d of backData[0].educational_info;let i = index" class="backData-content">
-          <p class="heading">{{ d.type }}</p>
-          <div class="info personal-info">
-            <div class="disp-row">
-              <p class="heading">University/School name</p>
-              <p class="datas">{{ d.name }}</p>
-            </div>
-            <div class="disp-row">
-              <p class="heading">Board</p>
-              <p class="datas">{{ d.board }}</p>
-            </div>
-            <div class="disp-row" *ngIf="d.type =='Graduation'  || d.type == 'Masters/Post-Graduation'">
-              <p class="heading">Specilization</p>
-              <p class="datas">{{ d.specialization }}</p>
-            </div>
-            <div class="disp-row" *ngIf="d.type == 'Graduation' || d.type == 'Masters'">
-              <p class="heading">Course</p>
-              <p class="datas">{{ d.course }}</p>
-            </div>
-  
-            <div class="disp-row">
-              <p class="heading">End Date</p>
-              <p class="datas">{{ d.end_date }}</p>
-            </div>
-            <div class="disp-row">
-              <p class="heading">Marks</p>
-              <p class="datas">
-                {{ d.marks }}{{ d.marks < 10 ? " CGPA" : " %" }}
-              </p>
-            </div>
-            <div>
-              <button mat-button (click)="openDialog('educational_info',i,d.type)">
-                <mat-icon>folder</mat-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ng-template #notFilled>
-        <p class="type" style="color: #ff934f; text-align: center">
-          "Looks like the employee did not fill the deatils"
-        </p>
-      </ng-template>
-    </mat-expansion-panel> -->
-    <!-- Employment -->
-    <!-- <mat-expansion-panel>
+    </div>
+
+    </div>
+  </div>
+    
+
+    <ng-template #notFilled>
+      <p class="type" style="color: #ff934f; text-align: center">
+        "Looks like the employee did not fill the deatils"
+      </p>
+    </ng-template>
+  </mat-expansion-panel>
+  <!-- Employment -->
+ <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           <span>
@@ -511,30 +685,162 @@
             class="info personal-info backData-content"
             *ngFor="let d of backData[0].employment_details;let i=index"
           >
-            <div class="disp-row">
-              <p class="heading">Organization Name</p>
-              <p class="datas">{{ d.org_name }}</p>
+          <div >
+            <mat-form-field appearance="outline">
+              <mat-label>Organization Name</mat-label>
+              <input
+                matInput
+                placeholder="Organization Name"
+                [(ngModel)]="d.org_name"
+                required  #org_name="ngModel" 
+                pattern='^[a-zA-Z\s]*$'
+                style="text-transform:capitalize;"
+              />
+              <mat-error
+              *ngIf="org_name.errors?.['required'] && org_name.pristine || org_name.value.length==0"
+              >org_nameanizationme is required</mat-error
+            >
+      
+            <mat-error
+              *ngIf="org_name.errors?.['pattern'] && org_name.dirty && org_name.value.length>0"
+              >Digits and specialcharacters are not allowed</mat-error
+            >
+            </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label for="end_date">End Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="joining_date"
+                  name="end_date"
+                  id="end_date"
+                  [(ngModel)]="d.joining_date"
+                  required
+                  #enddate="ngModel"
+                  onkeydown="return false"
+                  onclick="return false"
+                  (dateChange)="dateValidators(i)"
+                />
+                <mat-error
+                *ngIf="
+                  enddate.invalid &&
+                  enddate.touched
+                "
+                >Please select end date</mat-error
+              >
+              <mat-hint *ngIf="!this.dateValidator && this.index == i"
+              >End date must be greater than start date</mat-hint
+            >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="joining_date"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #joining_date></mat-datepicker>
+              </mat-form-field>
+              <div class="disp-row">
+                <p class="heading">Relieving Date</p>
+                <p class="datas">{{ d.relieving_date }}</p>
+              </div>
+              <div class="disp-row" *ngIf="d.type == 'Recent'">
+                <p class="heading">Notice Date</p>
+                <p class="datas">{{ d.notice_date }}</p>
+              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Hr Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Hr Name"
+                  [(ngModel)]="d.hr_name==null?'NA':d.hr_name"
+                  required  #hr_name="ngModel" 
+                  pattern='^[a-zA-Z\s]*$'
+                  style="text-transform:capitalize;"
+                />
+              <mat-error
+                *ngIf="hr_name.errors?.['pattern'] && hr_name.dirty && hr_name.value.length>0"
+                >Digits and specialcharacters are not allowed</mat-error
+              >
+              </mat-form-field>
+              <div *ngIf="d.type != 'Recent'" class="dummy">
+                <p class="heading">&emsp;&emsp;&emsp;</p>
+                <p class="datas">&emsp;&emsp;&emsp;&emsp;</p>
+              </div>
+              <div class="uploadContainer" *ngIf="d.type=='Recent'">
+                <span class="type"style="padding-right: .5rem;">RelievingLetter</span>
+                <label for="RelievingLetter"
+                  ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+                >
+                <label for="RelievingLetter">{{ d.relieving_letter==null?'no file uplaoded':d.relieving_letter }}</label>
+                <input
+                style="display: none"
+                type="file"
+                name="RelievingLetter"
+                id="RelievingLetter"
+                (change)="fileChange('relieving_letter', $event,i, d.type)"
+                />
+                
             </div>
-            <div class="disp-row">
-              <p class="heading">Joining Date</p>
-              <p class="datas">{{ d.joining_date }}</p>
+              <div class="uploadContainer" *ngIf="d.type=='Recent'">
+                <span class="type"style="padding-right: .5rem;">OfferLetter</span>
+                <label for="OfferLetter"
+                  ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+                >
+                <label for="OfferLetter">{{ d.offer_letter==null?'no file uplaoded':d.offer_letter }}</label>
+                <input
+                style="display: none"
+                type="file"
+                name="OfferLetter"
+                id="OfferLetter"
+                (change)="fileChange('offer_letter', $event,i, d.type)"
+                />
+                
             </div>
-            <div class="disp-row">
-              <p class="heading">Relieving Date</p>
-              <p class="datas">{{ d.relieving_date }}</p>
+              <div class="uploadContainer" *ngIf="d.type=='Recent'">
+                <span class="type"style="padding-right: .5rem;">PaySlip 1</span>
+                <label for="paySlip1"
+                  ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+                >
+                <label for="paySlip1">{{ d.pay_slip1==null?'no file uplaoded':d.pay_slip1 }}</label>
+                <input
+                style="display: none"
+                type="file"
+                name="paySlip1"
+                id="paySlip1"
+                (change)="fileChange('pay_slip1', $event,i, d.type)"
+                />
+                
             </div>
-            <div class="disp-row" *ngIf="d.type == 'Recent'">
-              <p class="heading">Notice Date</p>
-              <p class="datas">{{ d.notice_date }}</p>
+              <div class="uploadContainer" *ngIf="d.type=='Recent'">
+                <span class="type"style="padding-right: .5rem;">Pay-Slip 2</span>
+                <label for="paySlip2"
+                  ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+                >
+                <label for="paySlip2">{{ d.pay_slip2==null?'no file uplaoded':d.pay_slip2 }}</label>
+                <input
+                style="display: none"
+                type="file"
+                name="paySlip2"
+                id="paySlip2"
+                (change)="fileChange('pay_slip2', $event,i, d.type)"
+                />
+                
             </div>
-            <div *ngIf="d.type != 'Recent'" class="dummy">
-              <p class="heading">&emsp;&emsp;&emsp;</p>
-              <p class="datas">&emsp;&emsp;&emsp;&emsp;</p>
+              <div class="uploadContainer" *ngIf="d.type=='Recent'">
+                <span class="type"style="padding-right: .5rem;">Pay-slip 3</span>
+                <label for="payslip3"
+                  ><mat-icon class="file-upload" style="padding:0 .5rem;">file_upload</mat-icon></label
+                >
+                <label for="payslip3">{{ d.pay_slip3==null?'no file uplaoded':d.pay_slip3 }}</label>
+                <input
+                style="display: none"
+                type="file"
+                name="payslip3"
+                id="payslip3"
+                (change)="fileChange('pay_slip3', $event,i, d.type)"
+                />
+                
             </div>
+          </div>
             <div>
-              <button mat-button (click)="openDialog('employment_details',i,d.type)">
-                <mat-icon>folder</mat-icon>
-              </button>
+    
             </div>
           </div>
         </div>
@@ -545,9 +851,9 @@
         </ng-template>
   
       </div>
-    </mat-expansion-panel> -->
-    <!-- others -->
-    <!-- <mat-expansion-panel>
+    </mat-expansion-panel> 
+  <!-- others -->
+  <!-- <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           <span>
@@ -629,8 +935,8 @@
        
      
     </mat-expansion-panel> -->
-    <!-- declaration -->
-    <!-- <mat-expansion-panel>
+  <!-- declaration -->
+  <!-- <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           <span>
@@ -666,4 +972,9 @@
         </div>
       </div>
     </mat-expansion-panel> -->
-  </div>
+  <ng-template #noRecords>
+    <p class="type" style="color: #ff934f; text-align: center">
+      "No Data Found"
+    </p>
+  </ng-template>
+</div>

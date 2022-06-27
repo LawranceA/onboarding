@@ -1,24 +1,64 @@
-@import url('../employee-details/employee-details.component.css');
-.cam{
+@import url("../employee-details/employee-details.component.css");
+.cam {
   position: absolute;
   margin-top: -2rem;
   margin-left: 5rem;
   color: rgba(255, 255, 255, 0.72);
   height: 5rem;
 }
-mat-form-field{
+mat-form-field {
   padding: 0 1rem;
 }
-.type{
+.type {
   text-transform: capitalize;
   font-weight: 500;
 }
-.btn{
+.btn {
   background-image: linear-gradient(to right, #ff934f, #fb7d2e);
   color: #fdfcfc;
   font-size: 1rem;
   font-weight: bold;
 }
+.uploadContainer {
+  margin-left: 1rem;
+  max-width: 25rem;
+  display: flex;
+  justify-content: space-around;
+}
+.date{
+  width: 12.5rem !important;
+}
+.mat-expansion-panel{
+  width: 99.5%;
+  margin-right: 2rem;
+}
+/* ink bar */
+::ng-deep .mat-ink-bar {
+  background-color: var(--primary-color,#fb7d2e) !important;
+}
+.ed{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.ed-container{
+  margin-bottom: .5rem;
+  display: flex;
+  width: 10rem;
+ background-color: #014868;
+  box-shadow: 1px 0px 5px 1px #667d8d;
+  padding: .7rem;
+  justify-content: space-between;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: .5rem;
+
+}
+.ed-type{
+}
+/* .ed-icon{
+  color:#fb7d2e;
+} */
+
 /* mat-toolbar {
   padding: 0;
   align-items: unset;
