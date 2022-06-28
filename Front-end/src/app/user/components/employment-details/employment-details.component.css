@@ -10,13 +10,13 @@ h3 {
   .mat-form-field-outline-thick {
   color: #014868 !important;
 }
-
 /*  mat-label focused style */
 
 ::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
   color: #014868 !important;
 }
 .no-record{
+  padding: 2rem;
   color: #ff8a00;
   text-align: center;
   box-shadow: 1px 2px 14px #667d8d;

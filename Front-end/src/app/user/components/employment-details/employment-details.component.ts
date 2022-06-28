@@ -106,17 +106,17 @@ export class EmploymentDetailsComponent implements OnInit {
     this.api.getOrganization(this.tokenStorage.getID()).subscribe({
       next: (res) => {
         res.forEach((element:any) => {
+          console.log(this.data)
           if (element.type != 'Fresher') {
             this.data.push(element);
+
           }
-          else{
-            this.fresher=true;
-          }
-          console.log(this.data)
+          // else{
+          //   this.fresher=!this.fresher;
+          // }
         });
         console.log(res);
-        this.dataSource = new MatTableDataSource(this.data);
-        // this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
       },
       error: (err) => {

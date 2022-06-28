@@ -44,7 +44,7 @@ export class DialogComponent implements OnInit {
 
   dateValidator = true;
   //formData
-  formPost :any;
+  formPost =new FormData();
   myFileName: any;
   fileUrl: any;
 
@@ -65,7 +65,8 @@ export class DialogComponent implements OnInit {
       board: ['', [Validators.required, this.validation.characterValidator]],
 
       School: ['', [Validators.required, this.validation.characterValidator]],
-
+     
+      
       percentage: [
         '',
         [
@@ -109,7 +110,7 @@ export class DialogComponent implements OnInit {
   add10Form() {
     if (!this.editData) {
       if (this.dialog10Form.valid) {
-        this.formPost=new FormData()
+        // this.formPost=new FormData()
         this.appendForms();
 
         this.api.postEducation(this.formPost).subscribe({
@@ -130,50 +131,46 @@ export class DialogComponent implements OnInit {
   }
   appendForms() {
     this.formPost.append(
-      'education',
+      'type',
       this.dialog10Form.get('education')?.value
     );
     this.formPost.append('board', this.dialog10Form.get('board')?.value);
-    this.formPost.append('School', this.dialog10Form.get('School')?.value);
+    this.formPost.append('name', this.dialog10Form.get('School')?.value);
     this.formPost.append(
-      'percentage',
+      'marks',
       this.dialog10Form.get('percentage')?.value
     );
     let sDate = `${this.dialog10Form.value.startDate._i.year}-${
       this.dialog10Form.value.startDate._i.month + 1
     }-${this.dialog10Form.value.startDate._i.date}`;
     this.formPost.append(
-      'startDate',
+      'start_date',
       `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
     );
     let eDate = `${this.dialog10Form.value.endDate._i.year}-${
       this.dialog10Form.value.endDate._i.month + 1
     }-${this.dialog10Form.value.endDate._i.date}`;
     this.formPost.append(
-      'endDate',
+      'end_date',
       `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`
     );
     this.formPost.append(
-      'marksheet',
+      'marks_card',
       this.dialog10Form.get('marksheetSrc')?.value
     );
+   
     this.formPost.append('updated_at', `${new Date()}`);
     this.formPost.append('updated_by', this.tokenStorage.getName());
     this.formPost.append('created_at', `${new Date()}`);
     this.formPost.append('fk_education_users_id', this.tokenStorage.getID());
   }
   setForms() {
-    this.formPost.set('education', this.dialog10Form.get('education')?.value);
+    this.formPost.set('type', this.dialog10Form.get('education')?.value);
     this.formPost.set('board', this.dialog10Form.get('board')?.value);
-    this.formPost.set('School', this.dialog10Form.get('School')?.value);
-    this.formPost.set('course', this.dialog10Form.get('course')?.value);
+    this.formPost.set('name', this.dialog10Form.get('School')?.value);
+    this.formPost.set('marks', this.dialog10Form.get('percentage')?.value);
     this.formPost.set(
-      'specialization',
-      this.dialog10Form.get('specialization')?.value
-    );
-    this.formPost.set('percentage', this.dialog10Form.get('percentage')?.value);
-    this.formPost.set(
-      'marksheet',
+      'marks_card',
       this.dialog10Form.get('marksheetSrc')?.value
     );
     this.formPost.set('updated_at', `${new Date()}`);
@@ -188,12 +185,12 @@ export class DialogComponent implements OnInit {
         this.dialog10Form.value.startDate._i.month + 1
       }-${this.dialog10Form.value.startDate._i.date}`;
       this.formPost.set(
-        'startDate',
+        'start_date',
         `${this.pipe.transform(startDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.formPost.set(
-        'startDate',
+        'start_date',
         `${this.pipe.transform(
           this.dialog10Form.value.startDate,
           'YYYY-MM-dd'
@@ -205,12 +202,12 @@ export class DialogComponent implements OnInit {
         this.dialog10Form.value.endDate._i.month + 1
       }-${this.dialog10Form.value.endDate._i.date}`;
       this.formPost.set(
-        'endDate',
+        'end_date',
         `${this.pipe.transform(endDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.formPost.set(
-        'endDate',
+        'end_date',
         `${this.pipe.transform(this.dialog10Form.value.endDate, 'YYYY-MM-dd')}`
       );
     }

@@ -131,12 +131,12 @@ export class DialogOrgComponent implements OnInit {
         this.organization.value.joiningDate._i.month + 1
       }-${this.organization.value.joiningDate._i.date}`;
       this.form.set(
-        'joiningDate',
+        'joining_date',
         `${this.pipe.transform(joiningDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'joiningDate',
+        'joining_date',
         `${this.pipe.transform(
           this.organization.value.joiningDate,
           'YYYY-MM-dd'
@@ -148,12 +148,12 @@ export class DialogOrgComponent implements OnInit {
         this.organization.value.relievingDate._i.month + 1
       }-${this.organization.value.relievingDate._i.date}`;
       this.form.set(
-        'relievingDate',
+        'relieving_date',
         `${this.pipe.transform(relievingDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'relievingDate',
+        'relieving_date',
         `${this.pipe.transform(
           this.organization.value.relievingDate,
           'YYYY-MM-dd'
@@ -167,12 +167,12 @@ export class DialogOrgComponent implements OnInit {
         this.organization.value.noticePeriodEndDate._i.date
       }`;
       this.form.set(
-        'noticePeriodEndDate',
+        'notice_date',
         `${this.pipe.transform(noticePeriodEndDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'noticePeriodEndDate',
+        'notice_date',
         `${this.pipe.transform(
           this.organization.value.noticePeriodEndDate,
           'YYYY-MM-dd'
@@ -193,7 +193,7 @@ export class DialogOrgComponent implements OnInit {
   appendForms() {
     this.form.append("type","Recent")
     this.form.append(
-      'organizationName',
+      'org_name',
       this.organization.get('organizationName')?.value
     );
     this.form.append('hr_name', this.organization.get('hr_name')?.value);
@@ -202,28 +202,28 @@ export class DialogOrgComponent implements OnInit {
       this.organization.value.joiningDate._i.month + 1
     }-${this.organization.value.joiningDate._i.date}`;
     this.form.append(
-      'joiningDate',
+      'joining_date',
       `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
     );
     let rDate = `${this.organization.value.relievingDate._i.year}-${
       this.organization.value.relievingDate._i.month + 1
     }-${this.organization.value.relievingDate._i.date}`;
     this.form.append(
-      'relievingDate',
+      'relieving_date',
       `${this.pipe.transform(rDate, 'YYYY-MM-dd')}`
     );
     let nDate = `${this.organization.value.noticePeriodEndDate._i.year}-${
       this.organization.value.noticePeriodEndDate._i.month + 1
     }-${this.organization.value.noticePeriodEndDate._i.date}`;
     this.form.append(
-      'noticePeriodEndDate',
+      'notice_date',
       `${this.pipe.transform(nDate, 'YYYY-MM-dd')}`
     );
-    this.form.append('relievingLetter', this.organization.get('rlSrc')?.value);
-    this.form.append('offerLetter', this.organization.get('olSrc')?.value);
-    this.form.append('payslip1', this.organization.get('ps1Src')?.value);
-    this.form.append('payslip2', this.organization.get('ps2Src')?.value);
-    this.form.append('payslip3', this.organization.get('ps3Src')?.value);
+    this.form.append('relieving_letter', this.organization.get('rlSrc')?.value);
+    this.form.append('offer_letter', this.organization.get('olSrc')?.value);
+    this.form.append('pay_slip1', this.organization.get('ps1Src')?.value);
+    this.form.append('pay_slip2', this.organization.get('ps2Src')?.value);
+    this.form.append('pay_slip3', this.organization.get('ps3Src')?.value);
     this.form.append('updated_at', `${new Date()}`);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
@@ -232,15 +232,15 @@ export class DialogOrgComponent implements OnInit {
   setForms() {
     this.form.set("type","Recent")
     this.form.set(
-      'organizationName',
+      'org_name',
       this.organization.get('organizationName')?.value
     );
     this.form.set('hr_name', this.organization.get('hr_name')?.value);
-    this.form.set('relievingLetter', this.organization.get('rlSrc')?.value);
-    this.form.set('offerLetter', this.organization.get('olSrc')?.value);
-    this.form.set('payslip1', this.organization.get('ps1Src')?.value);
-    this.form.set('payslip2', this.organization.get('ps2Src')?.value);
-    this.form.set('payslip3', this.organization.get('ps3Src')?.value);
+    this.form.set('relieving_letter', this.organization.get('rlSrc')?.value);
+    this.form.set('offer_letter', this.organization.get('olSrc')?.value);
+    this.form.set('pay_slip1', this.organization.get('ps1Src')?.value);
+    this.form.set('pay_slip2', this.organization.get('ps2Src')?.value);
+    this.form.set('pay_slip3', this.organization.get('ps3Src')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_employment_users_id', this.tokenStorage.getID());

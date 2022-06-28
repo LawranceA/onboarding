@@ -28,7 +28,7 @@ export class UserDataService {
     });
   }
   //update personal_info
-  putPersonalInfo(data: Object): Observable<Object> {
+  putPersonalInfo(data: Object): Observable<any> {
     return this.http.put(`${this.api}/updatePersonalInfo`, data, {
       headers: this.header,
     });

@@ -205,21 +205,23 @@ export class OtherDetailsComponent implements OnInit {
   onUpdate() {
     this.setForms();
     this.form.set('created_at', this.created_at);
-    if (typeof this.otherDetail.value.passport_expire != 'string') {
+    console.log(typeof(this.otherDetail.value.passport_expire))
+    if (this.otherDetail.value.passport_expire!=null && typeof(this.otherDetail.value.passport_expire != 'string')) {
       let passport_expire = `${
         this.otherDetail.value.passport_expire._i.year
       }-${this.otherDetail.value.passport_expire._i.month + 1}-${
         this.otherDetail.value.passport_expire._i.date
       }`;
       this.form.set(
-        'passport_expire',
+        'passport_expire_date',
         `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'passport_expire',
+        'passport_expire_date',
         this.otherDetail.get('passport_expire')?.value
       );
+      console.log(this.otherDetail.get('passport_expire')?.value)
     }
     this.service
       .putOtherDetails(this.form, this.tokenStorage.getID())
@@ -233,12 +235,12 @@ export class OtherDetailsComponent implements OnInit {
       'aadhar_card_number',
       this.otherDetail.get('aadhar_card_number')?.value
     );
-    this.form.append('aadharCard', this.otherDetail.get('adhSrc')?.value);
+    this.form.append('aadhar', this.otherDetail.get('adhSrc')?.value);
     this.form.append(
       'pan_card_number',
       this.otherDetail.get('pan_card_number')?.value
     );
-    this.form.append('panCard', this.otherDetail.get('panSrc')?.value);
+    this.form.append('pan_card', this.otherDetail.get('panSrc')?.value);
     this.form.append(
       'passport_number',
       this.otherDetail.get('passport_number')?.value
@@ -248,66 +250,68 @@ if(this.otherDetail.value.passport_expire!=''){
     this.otherDetail.value.passport_expire._i.month + 1
   }-${this.otherDetail.value.passport_expire._i.date}`;
   this.form.append(
-    'passport_expire',
+    'passport_expire_date',
     `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
   );
 }
-    this.form.append('passportDetails', this.otherDetail.get('pasSrc')?.value);
+    this.form.append('passport', this.otherDetail.get('pasSrc')?.value);
     this.form.append(
-      'covidCertificate',
+      'covid_certificate',
       this.otherDetail.get('covidSrc')?.value
     );
     this.form.append(
-      'acc_holder_name',
+      'account_holder_name',
       this.otherDetail.get('acc_holder_name')?.value
     );
     this.form.append('bank_name', this.otherDetail.get('bank_name')?.value);
-    this.form.append('acc_number', this.otherDetail.get('acc_number')?.value);
+    this.form.append('account_number', this.otherDetail.get('acc_number')?.value);
     this.form.append('ifsc_code', this.otherDetail.get('ifsc_code')?.value);
-    this.form.append('type_of_acc', this.otherDetail.get('type_of_acc')?.value);
-    this.form.append('pf_acc', this.otherDetail.get('pf_acc')?.value);
-    this.form.append('uan_acc', this.otherDetail.get('uan_acc')?.value);
+    this.form.append('account_type', this.otherDetail.get('type_of_acc')?.value);
+    this.form.append('pf_account_number', this.otherDetail.get('pf_acc')?.value);
+    this.form.append('uan_account_number', this.otherDetail.get('uan_acc')?.value);
     this.form.append('updated_at', `${new Date()}`);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
     this.form.append('fk_proof_users_id', this.tokenStorage.getID());
+    this.form.append('fk_bank_users_id', this.tokenStorage.getID());
   }
   setForms() {
     this.form.set(
       'aadhar_card_number',
       this.otherDetail.get('aadhar_card_number')?.value
     );
-    this.form.set('aadharCard', this.otherDetail.get('adhSrc')?.value);
+    this.form.set('aadhar', this.otherDetail.get('adhSrc')?.value);
     this.form.set(
       'pan_card_number',
       this.otherDetail.get('pan_card_number')?.value
     );
-    this.form.set('panCard', this.otherDetail.get('panSrc')?.value);
+    this.form.set('pan_card', this.otherDetail.get('panSrc')?.value);
     this.form.set(
       'passport_number',
       this.otherDetail.get('passport_number')?.value
     );
-    this.form.set('passportDetails', this.otherDetail.get('pasSrc')?.value);
-    this.form.set('covidCertificate', this.otherDetail.get('covidSrc')?.value);
+    this.form.set('passport', this.otherDetail.get('pasSrc')?.value);
+    this.form.set('covid_certificate', this.otherDetail.get('covidSrc')?.value);
     this.form.set(
       'acc_holder_name',
-      this.otherDetail.get('acc_holder_name')?.value
+      this.otherDetail.get('account_holder_name')?.value
     );
     this.form.set('bank_name', this.otherDetail.get('bank_name')?.value);
-    this.form.set('acc_number', this.otherDetail.get('acc_number')?.value);
+    this.form.set('account_number', this.otherDetail.get('acc_number')?.value);
     this.form.set('ifsc_code', this.otherDetail.get('ifsc_code')?.value);
-    this.form.set('type_of_acc', this.otherDetail.get('type_of_acc')?.value);
-    this.form.set('pf_acc', this.otherDetail.get('pf_acc')?.value);
-    this.form.set('uan_acc', this.otherDetail.get('uan_acc')?.value);
+    this.form.set('account_type', this.otherDetail.get('type_of_acc')?.value);
+    this.form.set('pf_account_number', this.otherDetail.get('pf_acc')?.value);
+    this.form.set('uan_account_number', this.otherDetail.get('uan_acc')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_proof_users_id', this.tokenStorage.getID());
+    this.form.set('fk_bank_users_id', this.tokenStorage.getID());
   }
   fileChange(e: any, control: any) {
     console.log(e.target.files);
     let extensionAllowed = { png: true, jpeg: true };
     const file = e.target.files[0];
-    if (e.target.files[0].size  > 1) {
+    if (e.target.files[0].size  > 1000000) {
       alert('File size should be less than 1MB');
       return
     }

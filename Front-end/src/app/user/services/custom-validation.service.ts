@@ -35,8 +35,9 @@ export class CustomValidationService {
     }return null;
   }
   characterValidator(control:FormControl){
-    let regex = new RegExp('^[a-zA-Z]\\s+$');
-    if(!/^[A-Za-z, ]+$/.test(control.value)){
+    let regex = new RegExp('^[a-zA-Z\\s]+$');
+    console.log(typeof(control.value))
+    if(!regex.test(control.value)){
       return {characterValidator:true}
     }return null;
   }

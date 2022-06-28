@@ -78,15 +78,15 @@ export class EditEmployeeComponent implements OnInit {
   dateValidator = true;
   index: number = -1;
   // genders = ['Male', 'Female', 'Others'];
-  // today = new Date();
+  today = new Date();
   percentErrSt = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dummy:AdminServiceService,
     private service: AdminService,
     private userService:UserDataService,
     private edService:Dialog10serviceService,
+    private emService:SharedService,
     private tokenStorage:TokenStorageService
   ) {}
 
@@ -99,8 +99,9 @@ export class EditEmployeeComponent implements OnInit {
         this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`
         console.log(this.backData);
         this.backData[0].educational_info.sort((a:any,b:any) => (a.type > b.type) ? -1 : ((b.type > a.type) ? 1 : 0))
+        this.backData[0].educational_info.sort((a:any,b:any) => (a.type > b.type) ? -1 : ((b.type > a.type) ? 1 : 0))
       });
-      // this.backData=this.dummy.getData()
+      
     });
   }
 
@@ -171,7 +172,11 @@ export class EditEmployeeComponent implements OnInit {
       this.backData[0].personal_info.updated_at=new Date()
       this.backData[0].personal_info.updated_by=this.tokenStorage.getName()
       this.userService.putPersonalInfo(this.backData[0].personal_info).subscribe(data=>{
-        console.log(data)
+        if(data.message=='updated'){
+          alert('Data updated Sucsuccessfully')
+        }else{
+          alert('Error in adding the form data');
+        }
       })
       for(let i=0;i<this.backData[0].address.length;i++){
         this.backData[0].address[i].updated_at=new Date()
@@ -183,9 +188,79 @@ export class EditEmployeeComponent implements OnInit {
       }
     
   }
-  edDetailsSubmit(id:any){
-    this.edService.putEduaction(this.backData[0].educational_info[id],id).subscribe(data=>{
+  edDetailsSubmit(i:any){
+    let form=new FormData();
+    form.append('type',this.backData[0].educational_info[i].type)
+    form.append('board',this.backData[0].educational_info[i].board)
+    form.append('name',this.backData[0].educational_info[i].name)
+    form.append('marks',this.backData[0].educational_info[i].marks)
+    console.log(this.backData[0].educational_info[i].marks_card)
+    form.append('marks_card',this.backData[0].educational_info[i].marks_card)
+    form.append('course', this.backData[0].educational_info[i].course);
+   form.append('specialization', this.backData[0].educational_info[i].specialization);
+   form.append(
+    'provisional_marks_card',
+    this.backData[0].educational_info[i].provisional_marks_card
+  );
+  form.append(
+    'convocation_certificate',
+    this.backData[0].educational_info[i].convocation_certificate
+  ); 
+   form.append('start_date',this.backData[0].educational_info[i].start_date)
+    form.append('end_date',this.backData[0].educational_info[i].end_date)
+   form.append('updated_at', `${new Date()}`);
+   form.append('updated_by', this.tokenStorage.getName());
+   form.append('fk_education_users_id',this.backData[0].educational_info[i].fk_education_users_id );
+   
+    this.edService.putEduaction(form,this.backData[0].educational_info[i].id).subscribe(data=>{
+      if(data.message=='updated'){
+        alert('Data updated Sucsuccessfully')
+      }else{
+        alert('Error in adding the form data');
+      }
+    })
+  }
+  emDetailsSubmit(id:any){
+    this.backData[0].employment_details[id].updated_at=new Date()
+    this.backData[0].employment_details[id].updated_by=this.tokenStorage.getName()
+    this.emService.putOrganization(this.backData[0].employment_details[id],id).subscribe(data=>{
+      if(data.message=='updated'){
+        alert('Data updated Sucsuccessfully')
+      }else{
+        alert('Error in adding the form data');
+      }
+    })
+  }
+  prDetailsSubmit(){
+    this.backData[0].other_details.updated_at=new Date()
+    this.backData[0].other_details.updated_by=this.tokenStorage.getName()
+    this.service.putProofdetails(this.backData[0].other_details,this.backData[0].other_details.fk_proof_users_id).subscribe(data=>{
+      if(data.message=='updated'){
+        alert('Data updated Sucsuccessfully')
+      }else{
+        alert('Error in adding the form data');
+      }
+    })
+  }
+  bkDetailsSubmit(){
+    this.backData[0].bank_detail.updated_at=new Date()
+    this.backData[0].bank_detail.updated_by=this.tokenStorage.getName()
+    this.service.putBankDetails(this.backData[0].bank_detail,this.backData[0].bank_detail.fk_bank_users_id).subscribe(data=>{
+      if(data.message=='updated'){
+        alert('Data updated Sucsuccessfully')
+      }else{
+        alert('Error in adding the form data');
+      }
+    })
+  }
+  decDetailsSubmit(){
+    this.userService.putDeclaration(this.backData[0].other_declaration,this.backData[0].other_declaration.fk_declaration_users_id).subscribe(data=>{
       console.log(data)
+      if(data.message=='updated'){
+        alert('Data updated Sucsuccessfully')
+      }else{
+        alert('Error in adding the form data');
+      }
     })
   }
   dateValidators(i: any) {
@@ -273,6 +348,32 @@ export class EditEmployeeComponent implements OnInit {
         break;
       case 'provisonal_marks_card':
         this.backData[0].educational_info[index].provisonal_marks_card=file
+        break;
+        case 'relieving_letter':
+          this.backData[0].employment_details[index].relieving_letter=file
+        break;
+      case 'offer_letter':
+        this.backData[0].employment_details[index].offer_letter=file
+        break;
+      case 'pay_slip1':
+        this.backData[0].employment_details[index].pay_slip1=file
+        break;
+      case 'pay_slip2':
+        this.backData[0].employment_details[index].pay_slip2=file
+        break;
+      case 'pay_slip3':
+        this.backData[0].employment_details[index].pay_slip3=file
+        break;
+      case 'aadhar':
+        this.backData[0].other_details.aadhar=file
+        break;
+      case 'pan':
+        this.backData[0].other_details.pan_card=file
+        break;
+      case 'passport':
+        this.backData[0].other_details.passport=file
+        break;
+
     }
     
   }

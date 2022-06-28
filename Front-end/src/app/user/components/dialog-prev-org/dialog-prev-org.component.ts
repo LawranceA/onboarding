@@ -118,12 +118,12 @@ export class DialogPrevOrgComponent implements OnInit {
         this.organization.value.joiningDate._i.month + 1
       }-${this.organization.value.joiningDate._i.date}`;
       this.form.set(
-        'joiningDate',
+        'joining_date',
         `${this.pipe.transform(joiningDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'joiningDate',
+        'joining_date',
         `${this.pipe.transform(
           this.organization.value.joiningDate,
           'YYYY-MM-dd'
@@ -136,12 +136,12 @@ export class DialogPrevOrgComponent implements OnInit {
         this.organization.value.relievingDate._i.month + 1
       }-${this.organization.value.relievingDate._i.date}`;
       this.form.set(
-        'relievingDate',
+        'relieving_date',
         `${this.pipe.transform(relievingDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'relievingDate',
+        'relieving_date',
         `${this.pipe.transform(
           this.organization.value.relievingDate,
           'YYYY-MM-dd'
@@ -163,7 +163,7 @@ export class DialogPrevOrgComponent implements OnInit {
   appendForms() {
     this.form.append("type","Previous")
     this.form.append(
-      'organizationName',
+      'org_name',
       this.organization.get('organizationName')?.value
     );
     this.form.append('hr_name', this.organization.get('hr_name')?.value);
@@ -172,17 +172,17 @@ export class DialogPrevOrgComponent implements OnInit {
       this.organization.value.joiningDate._i.month + 1
     }-${this.organization.value.joiningDate._i.date}`;
     this.form.append(
-      'joiningDate',
+      'joining_date',
       `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
     );
     let rDate = `${this.organization.value.relievingDate._i.year}-${
       this.organization.value.relievingDate._i.month + 1
     }-${this.organization.value.relievingDate._i.date}`;
     this.form.append(
-      'relievingDate',
+      'relieving_date',
       `${this.pipe.transform(rDate, 'YYYY-MM-dd')}`
     );
-    this.form.append('relievingLetter', this.organization.get('rlSrc')?.value);
+    this.form.append('relieving_letter', this.organization.get('rlSrc')?.value);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
     this.form.append('fk_employment_users_id', this.tokenStorage.getID());
@@ -190,11 +190,11 @@ export class DialogPrevOrgComponent implements OnInit {
   setForms() {
     this.form.set("type","Previous")
     this.form.set(
-      'organizationName',
+      'org_name',
       this.organization.get('organizationName')?.value
     );
     this.form.set('hr_name', this.organization.get('hr_name')?.value);
-    this.form.set('relievingLetter', this.organization.get('rlSrc')?.value);
+    this.form.set('relieving_letter', this.organization.get('rlSrc')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_employment_users_id', this.tokenStorage.getID());

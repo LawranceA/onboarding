@@ -152,12 +152,12 @@ form = new FormData();
       }-${this.dialogUGForm.value.startDate._i.month + 1}-${
         this.dialogUGForm.value.startDate._i.date
       }`;
-      this.form.set("startDate",`${this.pipe.transform(
+      this.form.set("start_date",`${this.pipe.transform(
        startDate,
         'YYYY-MM-dd'
       )}`)
     } else {
-      this.form.set("startDate",`${this.pipe.transform(
+      this.form.set("start_date",`${this.pipe.transform(
         this.dialogUGForm.value.startDate,
         'YYYY-MM-dd'
       )}`)
@@ -168,12 +168,12 @@ form = new FormData();
       }-${this.dialogUGForm.value.endDate._i.month + 1}-${
         this.dialogUGForm.value.endDate._i.date
       }`;
-      this.form.set("endDate",`${this.pipe.transform(
+      this.form.set("end_date",`${this.pipe.transform(
         endDate,
         'YYYY-MM-dd'
       )}`)
     } else {
-      this.form.set("endDate",`${this.pipe.transform(
+      this.form.set("end_date",`${this.pipe.transform(
         this.dialogUGForm.value.endDate,
         'YYYY-MM-dd'
       )}`)
@@ -191,41 +191,41 @@ form = new FormData();
   }
   appendForms() {
     this.form.append(
-      'education',
+      'type',
       this.dialogUGForm.get('education')?.value
     );
     this.form.append('board', this.dialogUGForm.get('board')?.value);
-    this.form.append('School', this.dialogUGForm.get('School')?.value);
+    this.form.append('name', this.dialogUGForm.get('School')?.value);
     this.form.append('course', this.dialogUGForm.get('course')?.value);
     this.form.append('specialization', this.dialogUGForm.get('specialization')?.value);
     this.form.append(
-      'percentage',
+      'marks',
       this.dialogUGForm.get('percentage')?.value
     );
     let sDate = `${this.dialogUGForm.value.startDate._i.year}-${
       this.dialogUGForm.value.startDate._i.month + 1
     }-${this.dialogUGForm.value.startDate._i.date}`;
     this.form.append(
-      'startDate',
+      'start_date',
       `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
     );
     let eDate = `${this.dialogUGForm.value.endDate._i.year}-${
       this.dialogUGForm.value.endDate._i.month + 1
     }-${this.dialogUGForm.value.endDate._i.date}`;
     this.form.append(
-      'endDate',
+      'end_date',
       `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`
     );
     this.form.append(
-      'marksheet',
+      'marks_card',
       this.dialogUGForm.get('marksheetSrc')?.value
     );
     this.form.append(
-      'provisionalCertificate',
+      'provisional_marks_card',
       this.dialogUGForm.get('pcSrc')?.value
     );
     this.form.append(
-      'convocationCertificate',
+      'convocation_certificate',
       this.dialogUGForm.get('ccSrc')?.value
     );
     this.form.append('updated_at', `${new Date()}`);
@@ -235,27 +235,27 @@ form = new FormData();
   }
   setForms(){
     this.form.set(
-      'education',
+      'type',
       this.dialogUGForm.get('education')?.value
     );
     this.form.set('board', this.dialogUGForm.get('board')?.value);
-    this.form.set('School', this.dialogUGForm.get('School')?.value);
+    this.form.set('name', this.dialogUGForm.get('School')?.value);
     this.form.set('course', this.dialogUGForm.get('course')?.value);
     this.form.set('specialization', this.dialogUGForm.get('specialization')?.value);
     this.form.set(
-      'percentage',
+      'marks',
       this.dialogUGForm.get('percentage')?.value
     );
     this.form.set(
-      'marksheet',
+      'marks_card',
       this.dialogUGForm.get('marksheetSrc')?.value
     );
     this.form.set(
-      'provisionalCertificate',
+      'provisional_marks_card',
       this.dialogUGForm.get('pcSrc')?.value
     );
     this.form.set(
-      'convocationCertificate',
+      'convocation_certificate',
       this.dialogUGForm.get('ccSrc')?.value
     );
     this.form.set('updated_at', `${new Date()}`);

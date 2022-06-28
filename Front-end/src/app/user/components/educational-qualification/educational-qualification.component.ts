@@ -155,7 +155,17 @@ export class EducationalQualificationComponent implements OnInit {
             this.get10Form();
           }
         });
-    } else {
+    } else if (row.type == '12th/Diploma'){
+      this.dialog
+        .open(Dialog12Component, dialogStyle)
+        .afterClosed()
+        .subscribe((val) => {
+          if (val === 'updated') {
+            this.get10Form();
+          }
+        });
+    }
+    else {
       this.dialog
         .open(DialogComponent, dialogStyle)
         .afterClosed()
@@ -174,6 +184,7 @@ export class EducationalQualificationComponent implements OnInit {
         next: (res) => {
           alert('Details deleted successfully');
           this.get10Form();
+
         },
         error: () => {
           alert('Error in deleting the data');

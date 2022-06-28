@@ -83,4 +83,14 @@ export class AdminService {
       headers: this.header,
     })
   }
+  putProofdetails(data:any,id:any){
+    return this.http.put<any>(`${this.api}/updateProof/${id}`, data, {
+      headers: this.header,
+    });
+  }
+  putBankDetails(data:any,id:any){
+    return this.http.put<any>(`${this.api}/updateBank/${id}`, data, {
+      headers: this.header,
+    });
+  }
 }

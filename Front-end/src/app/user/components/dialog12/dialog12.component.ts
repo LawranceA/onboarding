@@ -56,9 +56,10 @@ export class Dialog12Component implements OnInit {
 
   ngOnInit(): void {
     this.dialog12Form = this.fs.group({
-      education: ['12th', Validators.required],
+      education: ['12th/Diploma', Validators.required],
       board: ['', [Validators.required, this.validation.characterValidator]],
       School: ['', [Validators.required, this.validation.characterValidator]],
+      specialization:['',[this.validation.characterValidator]],
       percentage: [
         '',
         [
@@ -81,6 +82,7 @@ export class Dialog12Component implements OnInit {
       this.dialog12Form.controls['education'].setValue(this.editData.type);
       this.dialog12Form.controls['board'].setValue(this.editData.board);
       this.dialog12Form.controls['School'].setValue(this.editData.name);
+      this.dialog12Form.controls['specialization'].setValue(this.editData.specialization);
       this.dialog12Form.controls['percentage'].setValue(this.editData.marks);
       this.dialog12Form.controls['startDate'].setValue(
         this.editData.start_date
@@ -124,12 +126,12 @@ export class Dialog12Component implements OnInit {
         this.dialog12Form.value.startDate._i.month + 1
       }-${this.dialog12Form.value.startDate._i.date}`;
       this.form.set(
-        'startDate',
+        'start_date',
         `${this.pipe.transform(startDate, 'YYYY-MM-dd')}`
       );
     } else {
       this.form.set(
-        'startDate',
+        'start_date',
         `${this.pipe.transform(
           this.dialog12Form.value.startDate,
           'YYYY-MM-dd'
@@ -140,10 +142,10 @@ export class Dialog12Component implements OnInit {
       let endDate = `${this.dialog12Form.value.endDate._i.year}-${
         this.dialog12Form.value.endDate._i.month + 1
       }-${this.dialog12Form.value.endDate._i.date}`;
-      this.form.set('endDate', `${this.pipe.transform(endDate, 'YYYY-MM-dd')}`);
+      this.form.set('end_date', `${this.pipe.transform(endDate, 'YYYY-MM-dd')}`);
     } else {
       this.form.set(
-        'endDate',
+        'end_date',
         `${this.pipe.transform(this.dialog12Form.value.endDate, 'YYYY-MM-dd')}`
       );
     }
@@ -159,38 +161,41 @@ export class Dialog12Component implements OnInit {
     });
   }
   appendForms() {
-    this.form.append('education', this.dialog12Form.get('education')?.value);
+    this.form.append('type', this.dialog12Form.get('education')?.value);
     this.form.append('board', this.dialog12Form.get('board')?.value);
-    this.form.append('School', this.dialog12Form.get('School')?.value);
-    this.form.append('percentage', this.dialog12Form.get('percentage')?.value);
+    this.form.append('name', this.dialog12Form.get('School')?.value);
+    this.form.append(
+      'specialization',
+      this.dialog12Form.get('specialization')?.value
+    );
+    this.form.append('marks', this.dialog12Form.get('percentage')?.value);
     let sDate = `${this.dialog12Form.value.startDate._i.year}-${
       this.dialog12Form.value.startDate._i.month + 1
     }-${this.dialog12Form.value.startDate._i.date}`;
     this.form.append(
-      'startDate',
+      'start_date',
       `${this.pipe.transform(sDate, 'YYYY-MM-dd')}`
     );
     let eDate = `${this.dialog12Form.value.endDate._i.year}-${
       this.dialog12Form.value.endDate._i.month + 1
     }-${this.dialog12Form.value.endDate._i.date}`;
-    this.form.append('endDate', `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`);
-    this.form.append('marksheet', this.dialog12Form.get('marksheetSrc')?.value);
+    this.form.append('end_date', `${this.pipe.transform(eDate, 'YYYY-MM-dd')}`);
+    this.form.append('marks_card', this.dialog12Form.get('marksheetSrc')?.value);
     this.form.append('updated_at', `${new Date()}`);
     this.form.append('updated_by', this.tokenStorage.getName());
     this.form.append('created_at', `${new Date()}`);
     this.form.append('fk_education_users_id', this.tokenStorage.getID());
   }
   setForms() {
-    this.form.set('education', this.dialog12Form.get('education')?.value);
+    this.form.set('type', this.dialog12Form.get('education')?.value);
     this.form.set('board', this.dialog12Form.get('board')?.value);
-    this.form.set('School', this.dialog12Form.get('School')?.value);
-    this.form.set('course', this.dialog12Form.get('course')?.value);
+    this.form.set('name', this.dialog12Form.get('School')?.value);
     this.form.set(
       'specialization',
       this.dialog12Form.get('specialization')?.value
     );
-    this.form.set('percentage', this.dialog12Form.get('percentage')?.value);
-    this.form.set('marksheet', this.dialog12Form.get('marksheetSrc')?.value);
+    this.form.set('marks', this.dialog12Form.get('percentage')?.value);
+    this.form.set('marks_card', this.dialog12Form.get('marksheetSrc')?.value);
     this.form.set('updated_at', `${new Date()}`);
     this.form.set('updated_by', this.tokenStorage.getName());
     this.form.set('fk_education_users_id', this.tokenStorage.getID());
