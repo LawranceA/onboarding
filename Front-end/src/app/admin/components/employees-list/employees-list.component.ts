@@ -99,7 +99,7 @@ displayedColumns: string[] = [
   deleteEmp() {
     this.service.deleteEmployee(this.deleteId).subscribe({
       next: (res) => {
-        alert('Details deleted successfully');
+        
         this.router.navigate(['../employeeLists'], { relativeTo: this.route });
       
       },

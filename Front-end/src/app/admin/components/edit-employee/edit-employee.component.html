@@ -610,7 +610,32 @@
           </div>
           <div
             class="uploadContainer"
-            *ngIf="d.type == 'Graduation' || d.type == 'Masters/Post'"
+            *ngIf="d.type == 'Graduation' || d.type == 'Masters/Post-Graduation'"
+          >
+            <span class="type" style="padding-right: 0.5rem"
+              >Provisional Marks Card
+            </span>
+            <label for="provisional_marks_card"
+              ><mat-icon class="file-upload" style="padding: 0 0.5rem"
+                >file_upload</mat-icon
+              ></label
+            >
+            <label for="provisional_marks_card">{{
+              d.provisional_marks_card == null
+                ? "no file uplaoded"
+                : d.provisional_marks_card
+            }}</label>
+            <input
+              style="display: none"
+              type="file"
+              name="provisional_marks_card"
+              id="provisional_marks_card"
+              (change)="fileChange('pmc', $event, i, d.type)"
+            />
+          </div>
+          <div
+            class="uploadContainer"
+            *ngIf="d.type == 'Graduation' || d.type == 'Masters/Post-Graduation'"
           >
             <span class="type" style="padding-right: 0.5rem"
               >Convocation Certificate
@@ -633,31 +658,7 @@
               (change)="fileChange('convocation_certificate', $event, i, d.type)"
             />
           </div>
-          <div
-            class="uploadContainer"
-            *ngIf="d.type == 'Graduation' || d.type == 'Masters/Post'"
-          >
-            <span class="type" style="padding-right: 0.5rem"
-              >Provisional marksCard</span
-            >
-            <label for="provisional_marks_card"
-              ><mat-icon class="file-upload" style="padding: 0 0.5rem"
-                >file_upload</mat-icon
-              ></label
-            >
-            <label for="provisional_marks_card">{{
-              d.provisional_marks_card == null
-                ? "no file uplaoded"
-                : d.provisional_marks_card
-            }}</label>
-            <input
-              style="display: none"
-              type="file"
-              name="provisional_marks_card"
-              id="provisional_marks_card"
-              (change)="fileChange('provisional_marks_card', $event, i, d.type)"
-            />
-          </div>
+          
 
           <button mat-button class="btn" (click)="edDetailsSubmit(i)">
             Submit
@@ -693,8 +694,8 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngIf="backData[0].employment_details.length > 0; else notFilled">
-      <div class="emp-info">
-        <!-- *ngIf="backData[0].employment_details[0].type!='Fresher';else fresher" -->
+     
+      <div class="emp-info"  *ngIf="backData[0].employment_details[0].type!='Fresher';else fresher">
         <div
           class="info personal-info backData-content"
           *ngFor="let d of backData[0].employment_details; let i = index"
@@ -733,8 +734,8 @@
                 #enddate="ngModel"
                 onkeydown="return false"
                 onclick="return false"
-                (dateChange)="dateValidators(i)"
-              />
+                />
+                <!-- (dateChange)="dateValidators(i)" -->
               <mat-error *ngIf="enddate.invalid && enddate.touched"
                 >Please select end date</mat-error
               >
@@ -920,7 +921,7 @@
             <button
               mat-button
               class="btn"
-              (click)="edDetailsSubmit(d.id)"
+              (click)="emDetailsSubmit(i)"
               style="margin-left: 1rem; margin-bottom: 1rem"
             >
               Submit

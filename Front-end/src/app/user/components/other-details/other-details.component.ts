@@ -206,7 +206,7 @@ export class OtherDetailsComponent implements OnInit {
     this.setForms();
     this.form.set('created_at', this.created_at);
     console.log(typeof(this.otherDetail.value.passport_expire))
-    if (this.otherDetail.value.passport_expire!=null && typeof(this.otherDetail.value.passport_expire != 'string')) {
+    if (this.otherDetail.value.passport_expire!=null && typeof(this.otherDetail.value.passport_expire )!= 'string') {
       let passport_expire = `${
         this.otherDetail.value.passport_expire._i.year
       }-${this.otherDetail.value.passport_expire._i.month + 1}-${
@@ -226,7 +226,7 @@ export class OtherDetailsComponent implements OnInit {
     this.service
       .putOtherDetails(this.form, this.tokenStorage.getID())
       .subscribe((data) => {
-        console.log(data);
+        alert('Data added Successfully')
       });
   }
   appendForms() {

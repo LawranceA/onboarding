@@ -26,6 +26,7 @@ import { UserDataService } from 'src/app/user/services/user-data.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { SharedService } from 'src/app/user/services/shared.service';
 import { Dialog10serviceService } from 'src/app/user/services/dialog10service.service';
+import { DatePipe } from '@angular/common';
 
 export interface EditEmployee {
   id: string;
@@ -65,15 +66,15 @@ export class EditEmployeeComponent implements OnInit {
   faCircleArrowLeft = faCircleArrowLeft;
   faUser = faUserPen;
   faCircleCheck = faCircleCheck;
-  faArrowRight=faArrowRight
+  faArrowRight = faArrowRight;
 
   //src
   src = '';
   backData: any;
   //to display files section for education
   clicked = '';
-  // 
-  education:any
+  //
+  education: any;
 
   dateValidator = true;
   index: number = -1;
@@ -84,10 +85,11 @@ export class EditEmployeeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: AdminService,
-    private userService:UserDataService,
-    private edService:Dialog10serviceService,
-    private emService:SharedService,
-    private tokenStorage:TokenStorageService
+    private userService: UserDataService,
+    private edService: Dialog10serviceService,
+    private emService: SharedService,
+    private tokenStorage: TokenStorageService,
+    private pipe: DatePipe
   ) {}
 
   id: any;
@@ -96,12 +98,15 @@ export class EditEmployeeComponent implements OnInit {
       this.id = params.get('id');
       this.service.getOneEmployees(this.id).subscribe((data) => {
         this.backData = data;
-        this.src=`http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`
+        this.src = `http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`;
         console.log(this.backData);
-        this.backData[0].educational_info.sort((a:any,b:any) => (a.type > b.type) ? -1 : ((b.type > a.type) ? 1 : 0))
-        this.backData[0].educational_info.sort((a:any,b:any) => (a.type > b.type) ? -1 : ((b.type > a.type) ? 1 : 0))
+        this.backData[0].educational_info.sort((a: any, b: any) =>
+          a.type > b.type ? -1 : b.type > a.type ? 1 : 0
+        );
+        this.backData[0].educational_info.sort((a: any, b: any) =>
+          a.type > b.type ? -1 : b.type > a.type ? 1 : 0
+        );
       });
-      
     });
   }
 
@@ -125,141 +130,224 @@ export class EditEmployeeComponent implements OnInit {
   close() {
     this.display = 'none';
   }
-  // submit() {
-  //   // this.service.setData(this.data);
-  //   // console.log(data);
-  // }
-  // fileChange(filed: any, e: any, index?: any, type?: any) {
-  //   // console.log(JSON.parse(ob))
-  //   console.log(this.data[0].educational[index].type);
-  //   if (filed == 'marksheet') {
-  //     this.data[0].educational[index].marksheet = e.target.files[0].name;
-  //   } else if (filed == 'transfer_certificate') {
-  //     this.data[0].educational[index].transfer_certificate =
-  //       e.target.files[0].name;
-  //   } else if (filed == 'provisonal_marks_card') {
-  //     this.data[0].educational[index].provisonal_marks_card =
-  //       e.target.files[0].name;
-  //   } else if (filed == 'aadhar') {
-  //     this.data[0].other_details.aadhar = e.target.files[0].name;
-  //   } else if (filed == 'pan') {
-  //     this.data[0].other_details.pan = e.target.files[0].name;
-  //   } else if (filed == 'passport') {
-  //     this.data[0].other_details.passport = e.target.files[0].name;
-  //   } else if (filed == 'covid_certificate') {
-  //     this.data[0].other_details.covid_certificate = e.target.files[0].name;
-  //   }
-  // }
-  // deleteFile(field: any, i?: any, type?: any) {
-  //   if (field == 'marksheet') {
-  //     this.data[0].educational[i].marksheet = null;
-  //   } else if (field == 'transfer_certificate') {
-  //     this.data[0].educational[i].transfer_certificate = null;
-  //   } else if (field == 'provisonal_marks_card') {
-  //     this.data[0].educational[i].provisonal_marks_card = null;
-  //   } else if (field == 'aadhar') {
-  //     this.data[0].other_details.aadhar = null;
-  //   } else if (field == 'pan') {
-  //     this.data[0].other_details.pan = null;
-  //   } else if (field == 'passport') {
-  //     this.data[0].other_details.passport = null;
-  //   } else if (field == 'covid_certificate') {
-  //     this.data[0].other_details.covid_certificate = null;
-  //   }
-  // }
+
   personalDataSubmit() {
-    
-      this.backData[0].personal_info.updated_at=new Date()
-      this.backData[0].personal_info.updated_by=this.tokenStorage.getName()
-      this.userService.putPersonalInfo(this.backData[0].personal_info).subscribe(data=>{
-        if(data.message=='updated'){
-          alert('Data updated Sucsuccessfully')
-        }else{
+    this.backData[0].personal_info.updated_at = new Date();
+    this.backData[0].personal_info.updated_by = this.tokenStorage.getName();
+    this.userService
+      .putPersonalInfo(this.backData[0].personal_info)
+      .subscribe((data) => {
+        if (data.message == 'updated') {
+          alert('Data updated Sucsuccessfully');
+        } else {
           alert('Error in adding the form data');
         }
-      })
-      for(let i=0;i<this.backData[0].address.length;i++){
-        this.backData[0].address[i].updated_at=new Date()
-        this.backData[0].address[i].updated_by=this.tokenStorage.getName()
-        this.userService.putAddress(this.backData[0].address[i]).subscribe(data=>{
-          console.log(data)
-        })
-
-      }
-    
+      });
+    for (let i = 0; i < this.backData[0].address.length; i++) {
+      this.backData[0].address[i].updated_at = new Date();
+      this.backData[0].address[i].updated_by = this.tokenStorage.getName();
+      this.userService
+        .putAddress(this.backData[0].address[i])
+        .subscribe((data) => {
+          console.log(data);
+        });
+    }
   }
-  edDetailsSubmit(i:any){
-    let form=new FormData();
-    form.append('type',this.backData[0].educational_info[i].type)
-    form.append('board',this.backData[0].educational_info[i].board)
-    form.append('name',this.backData[0].educational_info[i].name)
-    form.append('marks',this.backData[0].educational_info[i].marks)
-    console.log(this.backData[0].educational_info[i].marks_card)
-    form.append('marks_card',this.backData[0].educational_info[i].marks_card)
+  edDetailsSubmit(i: any) {
+    let form = new FormData();
+    form.append('type', this.backData[0].educational_info[i].type);
+    form.append('board', this.backData[0].educational_info[i].board);
+    form.append('name', this.backData[0].educational_info[i].name);
+    form.append('marks', this.backData[0].educational_info[i].marks);
+    console.log(this.backData[0].educational_info[i].marks_card);
+    form.append('marks_card', this.backData[0].educational_info[i].marks_card);
     form.append('course', this.backData[0].educational_info[i].course);
-   form.append('specialization', this.backData[0].educational_info[i].specialization);
-   form.append(
-    'provisional_marks_card',
-    this.backData[0].educational_info[i].provisional_marks_card
-  );
+    form.append(
+      'specialization',
+      this.backData[0].educational_info[i].specialization
+    );
+    form.append(
+      'provisional_marks_card',
+      this.backData[0].educational_info[i].provisional_marks_card
+    );
+    form.append(
+      'convocation_certificate',
+      this.backData[0].educational_info[i].convocation_certificate
+    );
+    form.append('start_date', this.backData[0].educational_info[i].start_date);
+    form.append('end_date', this.backData[0].educational_info[i].end_date);
+    form.append('updated_at', `${new Date()}`);
+    form.append('updated_by', this.tokenStorage.getName());
+    form.append(
+      'fk_education_users_id',
+      this.backData[0].educational_info[i].fk_education_users_id
+    );
+
+    this.edService
+      .putEduaction(form, this.backData[0].educational_info[i].id)
+      .subscribe((data) => {
+        if (data.message == 'updated') {
+          alert('Data updated Sucsuccessfully');
+        } else {
+          alert('Error in adding the form data');
+        }
+      });
+    }
+    emDetailsSubmit(i: any) {
+      let form = new FormData();
+      console.log(this.backData[0].employment_details[i])
+      console.log(this.backData[0].employment_details[i].joining_date)
+    form.append('org_name',this.backData[0].employment_details[i].org_name);
+    form.append('type',this.backData[0].employment_details[i].type);
+    form.append('hr_name',this.backData[0].employment_details[i].hr_name);
+    if(typeof(this.backData[0].employment_details[i].joining_date)!='string'){
+      let jDate = `${this.backData[0].employment_details[i].joining_date._i.year}-${
+        this.backData[0].employment_details[i].joining_date._i.month + 1
+      }-${this.backData[0].employment_details[i].joining_date._i.date}`;
+      form.append(
+        'joining_date',
+        `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
+      );
+    }else{
+      form.append(
+        'joining_date',
+        this.backData[0].employment_details[i].joining_date
+      );
+    }
+    if(typeof(this.backData[0].employment_details[i].relieving_date)!='string'){
+      let jDate = `${this.backData[0].employment_details[i].relieving_date._i.year}-${
+        this.backData[0].employment_details[i].relieving_date._i.month + 1
+      }-${this.backData[0].employment_details[i].relieving_date._i.date}`;
+      form.append(
+        'relieving_date',
+        `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
+      );
+    }else{
+      form.append(
+        'relieving_date',
+        this.backData[0].employment_details[i].relieving_date
+      );
+
+    }
+    if(typeof(this.backData[0].employment_details[i].notice_date)!='string'){
+      let jDate = `${this.backData[0].employment_details[i].notice_date._i.year}-${
+        this.backData[0].employment_details[i].notice_date._i.month + 1
+      }-${this.backData[0].employment_details[i].notice_date._i.date}`;
+      form.append(
+        'notice_date',
+        `${this.pipe.transform(jDate, 'YYYY-MM-dd')}`
+      );
+    }else{
+
+      form.append(
+        'notice_date',
+        this.backData[0].employment_details[i].notice_date
+      );
+    }
+    form.append(
+      'relieving_letter',
+      this.backData[0].employment_details[i].relieving_letter
+    );
+    form.append(
+      'offer_letter',
+      this.backData[0].employment_details[i].offer_letter
+    );
+    form.append('pay_slip1', this.backData[0].employment_details[i].pay_slip1);
+    form.append('pay_slip2', this.backData[0].employment_details[i].pay_slip2);
+    form.append('pay_slip3', this.backData[0].employment_details[i].pay_slip3);
+    form.append('updated_at', `${new Date()}`);
+    form.append('updated_by', this.tokenStorage.getName());
+    form.append(
+      'fk_employment_users_id',
+      this.backData[0].employment_details[i].fk_employment_users_id
+    );
+    this.emService
+      .putOrganization(form,this.backData[0].employment_details[i].id)
+      .subscribe((data) => {
+        if (data.message == 'updated') {
+          alert('Data updated Sucsuccessfully');
+        } else {
+          alert('Error in adding the form data');
+        }
+      });
+  }
+  prDetailsSubmit() {
+    let form=new FormData()
+    
+    form.append(
+      'aadhar_card_number',
+      this.backData[0].other_details.aadhar_card_number
+    );
+    form.append('aadhar', this.backData[0].other_details.aadhar);
+    form.append(
+      'pan_card_number',
+      this.backData[0].other_details.pan_card_number
+    );
+    form.append('pan_card', this.backData[0].other_details.pan_card);
+    form.append(
+      'passport_number',
+      this.backData[0].other_details.passport_number
+    );
+if(typeof(this.backData[0].other_details.passport_expire_date)!='string'){
+  let passport_expire = `${this.backData[0].other_details.passport_expire_date._i.year}-${
+    this.backData[0].other_details.passport_expire_date._i.month + 1
+  }-${this.backData[0].other_details.passport_expire_date._i.date}`;
   form.append(
-    'convocation_certificate',
-    this.backData[0].educational_info[i].convocation_certificate
-  ); 
-   form.append('start_date',this.backData[0].educational_info[i].start_date)
-    form.append('end_date',this.backData[0].educational_info[i].end_date)
-   form.append('updated_at', `${new Date()}`);
-   form.append('updated_by', this.tokenStorage.getName());
-   form.append('fk_education_users_id',this.backData[0].educational_info[i].fk_education_users_id );
-   
-    this.edService.putEduaction(form,this.backData[0].educational_info[i].id).subscribe(data=>{
-      if(data.message=='updated'){
-        alert('Data updated Sucsuccessfully')
-      }else{
-        alert('Error in adding the form data');
-      }
-    })
+    'passport_expire_date',
+    `${this.pipe.transform(passport_expire, 'YYYY-MM-dd')}`
+  );
+}
+    form.append('passport', this.backData[0].other_details.passport);
+    form.append(
+      'covid_certificate',
+      this.backData[0].other_details.covid_certificate
+    );
+    this.service
+      .putProofdetails(
+        form,
+        this.backData[0].other_details.fk_proof_users_id
+      )
+      .subscribe((data) => {
+        if (data.message == 'updated') {
+          alert('Data updated Sucsuccessfully');
+        } else {
+          alert('Error in adding the form data');
+        }
+      });
   }
-  emDetailsSubmit(id:any){
-    this.backData[0].employment_details[id].updated_at=new Date()
-    this.backData[0].employment_details[id].updated_by=this.tokenStorage.getName()
-    this.emService.putOrganization(this.backData[0].employment_details[id],id).subscribe(data=>{
-      if(data.message=='updated'){
-        alert('Data updated Sucsuccessfully')
-      }else{
-        alert('Error in adding the form data');
-      }
-    })
+  bkDetailsSubmit() {
+    this.backData[0].bank_detail.updated_at = new Date();
+    this.backData[0].bank_detail.updated_by = this.tokenStorage.getName();
+    this.service
+      .putBankDetails(
+        this.backData[0].bank_detail,
+        this.backData[0].bank_detail.fk_bank_users_id
+      )
+      .subscribe((data) => {
+        if (data.message == 'updated') {
+          alert('Data updated Sucsuccessfully');
+        } else {
+          alert('Error in adding the form data');
+        }
+      });
   }
-  prDetailsSubmit(){
-    this.backData[0].other_details.updated_at=new Date()
-    this.backData[0].other_details.updated_by=this.tokenStorage.getName()
-    this.service.putProofdetails(this.backData[0].other_details,this.backData[0].other_details.fk_proof_users_id).subscribe(data=>{
+  decDetailsSubmit() {
+    if(typeof(this.backData[0].other_declaration.joining_date)!='string'){
+      let joining_date = `${
+        this.backData[0].other_declaration.joining_date._i.year
+      }-${this.backData[0].other_declaration.joining_date._i.month + 1}-${
+        this.backData[0].other_declaration.joining_date._i.date 
+      }`;
+      this.backData[0].other_declaration.joining_date=`${this.pipe.transform(joining_date, 'YYYY-MM-dd')}`
+    }
+    this.backData[0].other_declaration.updated_by=this.tokenStorage.getName()
+    this.backData[0].other_declaration.updated_at=`${new Date()}`
+
+    this.userService.putDeclaration( this.backData[0].other_declaration, this.backData[0].other_declaration.fk_declaration_users_id).subscribe(data=>{
       if(data.message=='updated'){
-        alert('Data updated Sucsuccessfully')
+        alert('Data updated successfully')
       }else{
-        alert('Error in adding the form data');
-      }
-    })
-  }
-  bkDetailsSubmit(){
-    this.backData[0].bank_detail.updated_at=new Date()
-    this.backData[0].bank_detail.updated_by=this.tokenStorage.getName()
-    this.service.putBankDetails(this.backData[0].bank_detail,this.backData[0].bank_detail.fk_bank_users_id).subscribe(data=>{
-      if(data.message=='updated'){
-        alert('Data updated Sucsuccessfully')
-      }else{
-        alert('Error in adding the form data');
-      }
-    })
-  }
-  decDetailsSubmit(){
-    this.userService.putDeclaration(this.backData[0].other_declaration,this.backData[0].other_declaration.fk_declaration_users_id).subscribe(data=>{
-      console.log(data)
-      if(data.message=='updated'){
-        alert('Data updated Sucsuccessfully')
-      }else{
-        alert('Error in adding the form data');
+        alert('Error in updating the form data');
       }
     })
   }
@@ -318,7 +406,7 @@ export class EditEmployeeComponent implements OnInit {
       this.percentErrSt = false;
     }
   }
-  fileChange(field: any,e: any, index?: any,type?:any) {
+  fileChange(field: any, e: any, index?: any, type?: any) {
     console.log(e.target.files);
     const file = e.target.files[0];
 
@@ -326,55 +414,59 @@ export class EditEmployeeComponent implements OnInit {
       alert('File size should be less than 1MB');
       return;
     }
-    switch(field){
+    switch (field) {
       case 'pic':
         let form = new FormData();
         form.append('photo', file);
         form.append('id', this.backData[0].id);
-        form.append('updated_at',`${new Date()}`)
-        form.append('updated_by',this.tokenStorage.getName())
-        console.log(this.backData.id)
+        form.append('updated_at', `${new Date()}`);
+        form.append('updated_by', this.tokenStorage.getName());
+        console.log(this.backData.id);
         // add photo
         this.userService.addPhoto(form).subscribe((data) => {
-          console.log(data)
+          console.log(data);
           location.reload();
         });
         break;
       case 'marksheet':
-        this.backData[0].educational_info[index].marks_card=file
+        this.backData[0].educational_info[index].marks_card = file;
+        break;
+      case 'pmc':
+        console.log(
+          this.backData[0].educational_info[index].provisional_marks_card
+        );
+        this.backData[0].educational_info[index].provisional_marks_card = file;
         break;
       case 'convocation_certificate':
-        this.backData[0].educational_info[index].convocation_certificate=file
+        this.backData[0].educational_info[index].convocation_certificate = file;
+        console.log(
+          this.backData[0].educational_info[index].convocation_certificate
+        );
         break;
-      case 'provisonal_marks_card':
-        this.backData[0].educational_info[index].provisonal_marks_card=file
-        break;
-        case 'relieving_letter':
-          this.backData[0].employment_details[index].relieving_letter=file
+      case 'relieving_letter':
+        this.backData[0].employment_details[index].relieving_letter = file;
         break;
       case 'offer_letter':
-        this.backData[0].employment_details[index].offer_letter=file
+        this.backData[0].employment_details[index].offer_letter = file;
         break;
       case 'pay_slip1':
-        this.backData[0].employment_details[index].pay_slip1=file
+        this.backData[0].employment_details[index].pay_slip1 = file;
         break;
       case 'pay_slip2':
-        this.backData[0].employment_details[index].pay_slip2=file
+        this.backData[0].employment_details[index].pay_slip2 = file;
         break;
       case 'pay_slip3':
-        this.backData[0].employment_details[index].pay_slip3=file
+        this.backData[0].employment_details[index].pay_slip3 = file;
         break;
       case 'aadhar':
-        this.backData[0].other_details.aadhar=file
+        this.backData[0].other_details.aadhar = file;
         break;
       case 'pan':
-        this.backData[0].other_details.pan_card=file
+        this.backData[0].other_details.pan_card = file;
         break;
       case 'passport':
-        this.backData[0].other_details.passport=file
+        this.backData[0].other_details.passport = file;
         break;
-
     }
-    
   }
 }
