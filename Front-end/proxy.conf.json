@@ -1,0 +1,7 @@
+{
+    "/api/user":{
+      "target": "http://onboarding-backend.southindia.cloudapp.azure.com:1337/api/login",
+      "secure": false,
+      "changeOrgin": true
+    }
+  }
