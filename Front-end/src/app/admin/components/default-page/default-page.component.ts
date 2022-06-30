@@ -41,11 +41,11 @@ export class DefaultPageComponent implements OnInit {
   //progess value
   value = 75;
   //total of employees
-  totals:any
+  totals={total:0,pcount:0}
   //pending record
   pendingRecord:any
   //newly added records
-  newRecord:any
+  newRecord=[{name:'',created_at:''}]
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -71,7 +71,8 @@ export class DefaultPageComponent implements OnInit {
     });
     this.service.getCardTotals().subscribe(data=>{
       console.log(data)
-      this.totals=data
+      this.totals.total=data.total
+      this.totals.pcount=data.pcount
     })
     this.service.getPendingRecords().subscribe(data=>{
       console.log(data)

@@ -49,13 +49,6 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 //form to send files
 form =new FormData()
-photoForm = new FormGroup({
-  photo: new FormControl('no file choosen', [
-    Validators.required,
-    Validators.pattern('(.*?).(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$'),
-  ]),
-  photoSrc: new FormControl('', Validators.required),
-});
 ngOnInit(): void {
   this.data.designation = this.tokenStorage.getDesignation();
   this.data.name = this.tokenStorage.getName();
@@ -82,15 +75,10 @@ if(e.target.files[0].type=="image/jpg"|| e.target.files[0].type=="image/jpeg"||e
   return
 }
 
-  this.photoForm.patchValue({
-    photoSrc: file,
-  });
-  this.photoForm.patchValue({
-    photo: file.name,
-  });
 
-  this.photoForm.get('photoSrc')?.updateValueAndValidity();
-  this.form.append("photo",this.photoForm.get("photoSrc")?.value)
+
+ 
+  this.form.append("photo",file)
   this.form.append("id",this.tokenStorage.getID())
   // add photo
   this.service.addAdminPhoto(this.form).subscribe(data=>{

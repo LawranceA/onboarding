@@ -28,24 +28,24 @@ import { SharedService } from 'src/app/user/services/shared.service';
 import { Dialog10serviceService } from 'src/app/user/services/dialog10service.service';
 import { DatePipe } from '@angular/common';
 
-export interface EditEmployee {
-  id: string;
-  name: string;
-  email: string;
-  phoneno: string;
-  doj: string;
-  designation: string;
-}
-const data: EditEmployee[] = [
-  {
-    id: 'DB001',
-    name: 'xyz',
-    email: 'xyz@gmail.com',
-    phoneno: '9845639021',
-    doj: '2020-02-02',
-    designation: 'Front End',
-  },
-];
+// export interface EditEmployee {
+//   id: string;
+//   name: string;
+//   email: string;
+//   phoneno: string;
+//   doj: string;
+//   designation: string;
+// }
+// const data: EditEmployee[] = [
+//   {
+//     id: 'DB001',
+//     name: 'xyz',
+//     email: 'xyz@gmail.com',
+//     phoneno: '9845639021',
+//     doj: '2020-02-02',
+//     designation: 'Front End',
+//   },
+// ];
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
@@ -98,7 +98,9 @@ export class EditEmployeeComponent implements OnInit {
       this.id = params.get('id');
       this.service.getOneEmployees(this.id).subscribe((data) => {
         this.backData = data;
-        this.src = `http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`;
+        if(data.photo!=null){
+          this.src = `http://onboarding-backend.southindia.cloudapp.azure.com:1337/uploads/${data[0].id}/${data[0].photo}`;
+        }
         console.log(this.backData);
         this.backData[0].educational_info.sort((a: any, b: any) =>
           a.type > b.type ? -1 : b.type > a.type ? 1 : 0

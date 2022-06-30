@@ -24,7 +24,7 @@
           Date of join:
           {{
             backData[0].other_declaration == null
-              ? " "
+              ? ""
               : backData[0].other_declaration.joining_date
           }}
         </p>
@@ -448,7 +448,7 @@
         EDUCATIONAL DETAILS
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngIf="backData[0].educational_info.length > 0; else notFilled">
+    <div *ngIf="backData[0].educational_info.length > 0; else noRecords">
       <div *ngFor="let d of backData[0].educational_info; let i = index">
         <div class="ed-container" (click)="openDiag(d.type)">
           <p>{{ d.type }}</p>
@@ -693,7 +693,7 @@
         EMPLOYMENT DETAILS
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngIf="backData[0].employment_details.length > 0; else notFilled">
+    <div *ngIf="backData[0].employment_details.length > 0; else noRecords">
      
       <div class="emp-info"  *ngIf="backData[0].employment_details[0].type!='Fresher';else fresher">
         <div
@@ -1291,7 +1291,7 @@
           DECLARATION
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div>
+      <div *ngIf="backData[0].other_declaration!=null;else noRecords">
   
         <mat-form-field appearance="outline">
           <mat-label for="joining_date">Joining Date</mat-label>

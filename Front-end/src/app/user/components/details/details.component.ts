@@ -41,7 +41,7 @@ export class DetailsComponent implements OnInit {
   emStatus: any;
   oStatus: any;
   dStatus: any;
-employeeData:any
+employeeData={personStatus:{status:''},empStatus:{status:''},edStatus:{status:''},othStatus:{status:''},decStatus:{status:''}}
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,

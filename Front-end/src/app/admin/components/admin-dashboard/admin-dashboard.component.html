@@ -10,7 +10,7 @@
             srcset=""
           />
         </div>
-        <form [formGroup]="photoForm">
+        <form>
           <label for="photo" class="cam"
             ><mat-icon>add_a_photo</mat-icon></label
           >
@@ -21,7 +21,7 @@
             name="photo"
             id="photo"
             (change)="fileChange($event)"
-            formControlName="photo"
+           
           />
         </form>
         <h4>{{ data.name }}</h4>
